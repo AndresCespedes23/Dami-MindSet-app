@@ -1,33 +1,33 @@
-.buttonAdd {
+.add {
     border: 1px solid #28a745;
     border-radius: 8px;
     color: #28a745;
     cursor: pointer;
     font-weight: bold;
 }
-.buttonAdd:hover {
+.add:hover {
     background-color: #28a745;
     color: white;
 }
-.buttonDelete {
+.delete {
     border: 1px solid #dc3545;
     border-radius: 8px;
     color: #dc3545;
     cursor: pointer;
     font-weight: bold;
 }
-.buttonDelete:hover {
+.delete:hover {
     background-color: #dc3545;
     color: white;
 }
-.buttonUpdate {
+.update {
     border: 1px solid #17a2b8;
     border-radius: 8px;
     color: #17a2b8;
     cursor: pointer;
     font-weight: bold;
 }
-.buttonUpdate:hover {
+.update:hover {
     background-color: #17a2b8;
     color: white;
 }
