@@ -17,7 +17,7 @@
 .appName {
   font-size: 2rem;
   font-weight: bold;
-  color: #FFF;
+  color: #fff;
 }
 
 .rutes {
@@ -33,7 +33,7 @@
   font-weight: 600;
   text-decoration: none;
   text-transform: capitalize;
-  color: #FFF;
+  color: #fff;
 }
 
 .license {
@@ -43,7 +43,7 @@
   height: 50px;
   width: 90%;
   padding: 0 20px;
-  background-color: #FDC800;
+  background-color: #fdc800;
 }
 
 .copyright {

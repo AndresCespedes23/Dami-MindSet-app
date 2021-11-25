@@ -1,5 +1,5 @@
-import Header from '../Header/index';
-import Footer from '../Footer/index';
+import Header from '../Shared/Header/index';
+import Footer from '../Shared/Footer/index';
 import Admins from '../Admins/index';
 import Applications from '../Applications/index';
 import Clients from '../Clients/index';
