@@ -1,0 +1,18 @@
+.error{
+    background-color: rgb(250, 57, 57);
+    color: rgb(216, 216, 216);
+}
+
+.success{
+    background-color: rgb(10, 255, 84);
+    color: rgb(3, 3, 3);
+}
+
+.warning{
+    background-color: rgb(245, 208, 47);
+    color: rgb(3, 3, 3);
+}
+
+.hide{
+    display: none;
+}
