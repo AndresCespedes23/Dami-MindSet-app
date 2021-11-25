@@ -28,9 +28,6 @@ function Button({ type }) {
   );
 }
 
-Button.defaultProps = {
-  type: 'add'
-};
 Button.prototype = {
   type: PropTypes.string
 };
