@@ -1,5 +1,4 @@
 import styles from './button.module.css';
-import PropTypes from 'prop-types';
 import { FaPlus, FaTrashAlt, FaEdit } from 'react-icons/fa';
 // eslint-disable-next-line react/prop-types
 function Button({ type }) {
@@ -28,7 +27,4 @@ function Button({ type }) {
   );
 }
 
-Button.prototype = {
-  type: PropTypes.string
-};
 export default Button;
