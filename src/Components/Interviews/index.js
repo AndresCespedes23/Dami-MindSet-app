@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import styles from './interviews.module.css';
 import Button from '../Shared/Button/index';
+import Modal from '../Shared/Modal/index';
+
 function Interviews() {
   const [interviews, setInterviews] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = (e) => {
+    console.log(e);
+    setShowModal(!showModal);
+  };
 
   useEffect(() => {
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews`)
@@ -29,7 +37,6 @@ function Interviews() {
           </thead>
           <tbody>
             {interviews.map((interview) => {
-              console.log(interview);
               return [
                 <tr key={interview._id}>
                   <td>{interview.idCandidate}</td>
@@ -38,8 +45,8 @@ function Interviews() {
                   <td>{interview.dateTime}</td>
                   <td>{interview.status}</td>
                   <td>
-                    <Button type="delete" />
-                    <Button type="update" />
+                    <Button type="delete" onClick={handleShowModal} />
+                    <Button type="update" onClick={handleShowModal} />
                   </td>
                 </tr>
               ];
@@ -47,7 +54,8 @@ function Interviews() {
           </tbody>
         </table>
       </div>
-      <Button type="add" />
+      <Button type="add" onClick={handleShowModal} />
+      {showModal && <Modal handleShowModal={handleShowModal} />}
     </section>
   );
 }
