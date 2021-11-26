@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
+import Form from './Form';
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
@@ -18,7 +19,10 @@ function Postulants() {
 
   const handleDelete = (id) => {
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
     })
       .then((response) => response.json())
       .then(() => {
@@ -67,7 +71,7 @@ function Postulants() {
         </tbody>
       </table>
       <Button type="add" onClick={() => handleAdd()} />
-      {showModal && <Modal handleShowModal={handleShowModal} />}
+      {showModal && <Modal handleShowModal={handleShowModal} component={<Form />} />}
     </section>
   );
 }
