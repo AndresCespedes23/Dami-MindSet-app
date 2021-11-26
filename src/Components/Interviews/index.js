@@ -28,7 +28,7 @@ function Interviews() {
     console.log(id);
   };
   const handleAdd = () => {
-    console.log('add');
+    setShowModal(!showModal);
   };
 
   useEffect(() => {
