@@ -3,10 +3,14 @@ import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Form from './Form';
+/* import Message from '../Shared/Message'; */
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [isForm, setIsForm] = useState();
+  const [idDelete, setIdDelete] = useState('');
+  /* const [isMessage, setIsMessage] = useState(); */
 
   useEffect(() => {
     // Cambiar por variable de entorno
@@ -18,6 +22,9 @@ function Postulants() {
   }, []);
 
   const handleDelete = (id) => {
+    setIsForm(false);
+    setShowModal(true);
+    /* setIsMessage(true); */
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates/${id}`, {
       method: 'DELETE',
       headers: {
@@ -30,8 +37,18 @@ function Postulants() {
       });
   };
 
-  const handleAdd = () => {
+  const handleUpdate = () => {
+    /* setIsMessage(false); */
     setShowModal(true);
+    setIsForm(true);
+    // logica para el edit
+  };
+
+  const handleAdd = () => {
+    /* setIsMessage(false); */
+    setShowModal(true);
+    setIsForm(true);
+    // logica para el add
   };
 
   const handleShowModal = () => {
@@ -62,8 +79,14 @@ function Postulants() {
                 <td>{postulant.country}</td>
                 <td>{postulant.status}</td>
                 <td>
-                  <Button type="delete" onClick={() => handleDelete(postulant._id)} />
-                  <Button type="update" />
+                  <Button
+                    type="delete"
+                    onClick={() => {
+                      setShowModal(true);
+                      setIdDelete(postulant._id);
+                    }}
+                  />
+                  <Button type="update" onClick={() => handleUpdate(postulant._id)} />
                 </td>
               </tr>
             );
@@ -71,7 +94,29 @@ function Postulants() {
         </tbody>
       </table>
       <Button type="add" onClick={() => handleAdd()} />
-      {showModal && <Modal handleShowModal={handleShowModal} component={<Form />} />}
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          component={
+            isForm ? (
+              <Form />
+            ) : (
+              //Convertir esto en un componente?
+              <div>
+                <p>Do you want to Delete?</p>
+                <Button
+                  type="confirm"
+                  onClick={() => {
+                    handleDelete(idDelete);
+                    setShowModal(false);
+                  }}
+                />
+                <Button type="cancel" onClick={() => setShowModal(false)} />
+              </div>
+            )
+          }
+        />
+      )}
     </section>
   );
 }
