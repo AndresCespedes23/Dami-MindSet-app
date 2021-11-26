@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./modal.module.css";
-import Button from "../Button";
+import React from 'react';
+import styles from './modal.module.css';
+import Button from '../Button';
 
 function Modal({ handleShowModal }) {
   return (
@@ -12,12 +12,9 @@ function Modal({ handleShowModal }) {
         <div className={styles.title}>
           <h1>Example text</h1>
         </div>
-        <div className={styles.body}>
-        </div>
+        <div className={styles.body}></div>
         <div className={styles.footer}>
-          <button className={styles.cancelBtn}>
-            Cancel
-          </button>
+          <button className={styles.cancelBtn}>Cancel</button>
           <button>Continue</button>
         </div>
       </div>
