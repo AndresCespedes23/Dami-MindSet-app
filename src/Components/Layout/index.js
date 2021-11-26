@@ -57,24 +57,6 @@ function Layout() {
     <div className={styles.container}>
       <Header />
       {currentScreen}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sara</td>
-            <td>Garcia</td>
-          </tr>
-          <tr>
-            <td>Román</td>
-            <td>Garcia</td>
-          </tr>
-        </tbody>
-      </table>
       {showModal && <Modal handleShowModal={handleShowModal} />}
       <Footer />
     </div>
