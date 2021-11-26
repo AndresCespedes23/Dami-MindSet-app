@@ -6,8 +6,8 @@ function Modal({ handleShowModal }) {
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
-        <div className={styles.titleCloseBtn}>
-          <Button type="close" valor="close" handleShowModal={handleShowModal} />
+        <div className={styles.titleCloseBtn} onClick={handleShowModal}>
+          <Button type="close" />
         </div>
         <div className={styles.title}>
           <h1>Example text</h1>
@@ -15,7 +15,7 @@ function Modal({ handleShowModal }) {
         <div className={styles.body}>
         </div>
         <div className={styles.footer}>
-          <button >
+          <button className={styles.cancelBtn}>
             Cancel
           </button>
           <button>Continue</button>
