@@ -4,7 +4,6 @@ import styles from './psychologists.module.css';
 
 function Psychologists() {
   const [psychologists, setPsychologists] = useState([]);
-
   useEffect(() => {
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/psychologists`)
       .then((response) => response.json())
@@ -41,9 +40,9 @@ function Psychologists() {
                   <td>{psychologist.username}</td>
                   <td>{psychologist.phoneNumber}</td>
                   <td>{psychologist.enrollmentNumber}</td>
-                  <td>{psychologist.timeRange}</td>
-                  <td>{psychologist.dayRange}</td>
-                  <td>{psychologist.status}</td>
+                  <td>{psychologist.timeRange[0] + ' to ' + psychologist.timeRange[1]}</td>
+                  <td>{psychologist.dayRange[0] + ' to ' + psychologist.dayRange[1]}</td>
+                  <td>{String(psychologist.status)}</td>
                   <td>
                     <Button type="delete" />
                     <Button type="update" />
