@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import styles from './postulants.module.css';
-/* import Modal from '../../../components/Modal' */
+import Button from '../../Components/Shared/Button';
+import Modal from '../Shared/Modal';
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
-  /* const [showModal, setShowModal] = useState(false); */
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // Cambiar por variable de entorno
@@ -15,10 +16,58 @@ function Postulants() {
       });
   }, []);
 
+  const handleDelete = (id) => {
+    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates/${id}`, {
+      method: 'DELETE'
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setPostulants(postulants.filter((postulant) => postulant._id !== id));
+      });
+  };
+
+  const handleAdd = () => {
+    setShowModal(true);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <section className={styles.container}>
       <h2>Postulants</h2>
-      {postulants.map((postulants) => console.log(postulants))}
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Country</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {postulants.map((postulant) => {
+            return (
+              <tr key={postulant._id}>
+                <td>{postulant.name}</td>
+                <td>{postulant.email}</td>
+                <td>{postulant.phoneNumber}</td>
+                <td>{postulant.country}</td>
+                <td>{postulant.status}</td>
+                <td>
+                  <Button type="delete" onClick={() => handleDelete(postulant._id)} />
+                  <Button type="update" />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <Button type="add" onClick={() => handleAdd()} />
+      {showModal && <Modal handleShowModal={handleShowModal} />}
     </section>
   );
 }
