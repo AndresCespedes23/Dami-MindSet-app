@@ -14,6 +14,7 @@ import styles from './layout.module.css';
 import Modal from '../Shared/Modal/index';
 import { useState } from 'react';
 function Layout() {
+  const [showModal, setShowModal] = useState(true);
   let currentScreen = <Home />;
   switch (window.location.pathname) {
     case '/admins':
@@ -46,7 +47,6 @@ function Layout() {
     default:
       break;
   }
-  const [showModal, setShowModal] = useState(true);
   const handleShowModal = () => {
     setShowModal(!showModal);
   };
