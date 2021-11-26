@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./modal.module.css";
 import Button from "../Button/index";
 
-function Modal() {
+function Modal({ handleShowModal }) {
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
