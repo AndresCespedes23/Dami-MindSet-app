@@ -7,9 +7,28 @@ function Interviews() {
   const [interviews, setInterviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const handleShowModal = (e) => {
-    console.log(e);
+  const handleShowModal = () => {
     setShowModal(!showModal);
+  };
+  const handleDelete = (id) => {
+    console.log(id);
+    //CONFIRMACION FALTA
+    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setInterviews(interviews.filter((interviews) => interviews._id !== id));
+      });
+  };
+  const handleUpdate = (id) => {
+    console.log(id);
+  };
+  const handleAdd = () => {
+    console.log('add');
   };
 
   useEffect(() => {
@@ -45,8 +64,8 @@ function Interviews() {
                   <td>{interview.dateTime}</td>
                   <td>{interview.status}</td>
                   <td>
-                    <Button type="delete" onClick={handleShowModal} />
-                    <Button type="update" onClick={handleShowModal} />
+                    <Button type="delete" onClick={() => handleDelete(interview._id)} />
+                    <Button type="update" onClick={() => handleUpdate(interview._id)} />
                   </td>
                 </tr>
               ];
@@ -54,7 +73,7 @@ function Interviews() {
           </tbody>
         </table>
       </div>
-      <Button type="add" onClick={handleShowModal} />
+      <Button type="add" onClick={() => handleAdd()} />
       {showModal && <Modal handleShowModal={handleShowModal} />}
     </section>
   );
