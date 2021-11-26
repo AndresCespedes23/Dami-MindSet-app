@@ -13,8 +13,6 @@ import Home from '../Home/index';
 import styles from './layout.module.css';
 import Modal from '../Shared/Modal/index';
 import { useState } from 'react';
-import Button from '../Shared/Button/index';
-
 function Layout() {
   const [showModal, setShowModal] = useState(true);
 
@@ -69,20 +67,11 @@ function Layout() {
         <tbody>
           <tr>
             <td>Sara</td>
-            <td>
-              <Button type="confirm" />
-              <Button type="cancel" />
-            </td>
+            <td>Garcia</td>
           </tr>
           <tr>
-            <td>
-              <Button type="confirm" />
-              <Button type="cancel" />
-            </td>
-            <td>
-              <Button type="confirm" />
-              <Button type="cancel" />
-            </td>
+            <td>Román</td>
+            <td>Garcia</td>
           </tr>
         </tbody>
       </table>
