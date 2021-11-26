@@ -1,9 +1,9 @@
 import styles from './button.module.css';
 import { FaPlus, FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
 
-function Button({ type }) {
+function Button({ type, onClick }) {
   return (
-    <button className={styles[type]}>
+    <button className={styles[type]} onClick={onClick}>
       {type === 'add' && <FaPlus />}
       {type === 'update' && <FaEdit />}
       {type === 'delete' && <FaTrashAlt />}
