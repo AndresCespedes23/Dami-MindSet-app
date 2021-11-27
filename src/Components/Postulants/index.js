@@ -38,8 +38,8 @@ function Postulants() {
       });
   };
 
-  const handleUpdatePostulant = () => {
-    console.log('editing');
+  const handleUpdatePostulant = (postulant) => {
+    console.log(postulant);
   };
 
   const handleClickUpdate = (id) => {
