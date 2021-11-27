@@ -24,7 +24,6 @@
     border: 1px solid rgb(167, 167, 167);
     border-radius: 30px;
 }
-
 .button {
     display: flex;
     justify-content: flex-end;
@@ -44,4 +43,13 @@
 .input-error {
     border-color: red;
     color: red;
+}
+.submit{
+    border: 1px solid #28a745;
+    border-radius: 8px;
+    color: #28a745;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+    margin: 40px
 }

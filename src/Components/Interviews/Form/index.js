@@ -24,9 +24,23 @@ function InterviewForm({ id, handleSubmit }) {
       });
   }, []);
   console.log(id);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    //Falta validar y msg de error
+    const newInterview = {
+      idCandidate: event.target.candidate.value,
+      idPosition: event.target.position.value,
+      idClient: event.target.client.value,
+      status: event.target.status.value,
+      date: event.target.date.value
+    };
+    handleSubmit(newInterview);
+  };
+
   return (
     <div>
-      <form className={styles.containerForm} onSubmit={() => handleSubmit({ name: 'das' })}>
+      <form className={styles.containerForm} onSubmit={onSubmit}>
         <div className={styles.column}>
           <div>
             <label>Candidate:</label>
@@ -75,7 +89,12 @@ function InterviewForm({ id, handleSubmit }) {
           </div>
           <div>
             <label>Date:</label>
-            <input type="date" name="date" placeholder="Insert a date" />
+            <input type="date" name="date" placeholder="Insert a date" required />
+          </div>
+          <div>
+            <button type="submit" className={styles.submit}>
+              Submit
+            </button>
           </div>
         </div>
       </form>

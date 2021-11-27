@@ -11,7 +11,7 @@ function Interviews() {
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews`)
+    fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => response.json())
       .then((response) => {
         setInterviews(response);
@@ -30,7 +30,7 @@ function Interviews() {
   };
 
   const handleDeleteInterview = (id) => {
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/interviews/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -56,8 +56,21 @@ function Interviews() {
     setModalType('interviews');
   };
   const handleAddInterview = (interview) => {
-    //METODO DE CREAR
-    console.log(interview);
+    fetch(`${process.env.REACT_APP_API}/interviews`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(interview)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
