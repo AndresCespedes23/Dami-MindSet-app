@@ -10,7 +10,6 @@ function Postulants() {
   const [showModal, setShowModal] = useState(false);
   const [isForm, setIsForm] = useState();
   const [idDelete, setIdDelete] = useState('');
-  /* const [isMessage, setIsMessage] = useState(); */
 
   useEffect(() => {
     // Cambiar por variable de entorno
@@ -21,9 +20,13 @@ function Postulants() {
       });
   }, []);
 
-  const handleDelete = (id) => {
+  const handleClickDelete = (id) => {
     setIsForm(false);
     setShowModal(true);
+    setIdDelete(id);
+  };
+
+  const handleDelete = (id) => {
     /* setIsMessage(true); */
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates/${id}`, {
       method: 'DELETE',
@@ -37,18 +40,14 @@ function Postulants() {
       });
   };
 
-  const handleUpdate = () => {
-    /* setIsMessage(false); */
-    setShowModal(true);
+  const handleClickUpdate = () => {
     setIsForm(true);
-    // logica para el edit
+    setShowModal(true);
   };
 
-  const handleAdd = () => {
-    /* setIsMessage(false); */
-    setShowModal(true);
+  const handleClickAdd = () => {
     setIsForm(true);
-    // logica para el add
+    setShowModal(true);
   };
 
   const handleShowModal = () => {
@@ -79,21 +78,15 @@ function Postulants() {
                 <td>{postulant.country}</td>
                 <td>{postulant.status}</td>
                 <td>
-                  <Button
-                    type="delete"
-                    onClick={() => {
-                      setShowModal(true);
-                      setIdDelete(postulant._id);
-                    }}
-                  />
-                  <Button type="update" onClick={() => handleUpdate(postulant._id)} />
+                  <Button type="delete" onClick={() => handleClickDelete(postulant._id)} />
+                  <Button type="update" onClick={() => handleClickUpdate(postulant._id)} />
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <Button type="add" onClick={() => handleAdd()} />
+      <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}
@@ -101,7 +94,7 @@ function Postulants() {
             isForm ? (
               <Form />
             ) : (
-              //Convertir esto en un componente?
+              //** Convertir esto en un componente?
               <div>
                 <p>Do you want to Delete?</p>
                 <Button
@@ -113,6 +106,7 @@ function Postulants() {
                 />
                 <Button type="cancel" onClick={() => setShowModal(false)} />
               </div>
+              //**
             )
           }
         />
