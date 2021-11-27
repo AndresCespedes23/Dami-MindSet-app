@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './admins.module.css';
+import Button from '../../Components/Shared/Button';
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
@@ -31,6 +32,9 @@ function Admins() {
                 <td>{admin.name}</td>
                 <td>{admin.email}</td>
                 <td>{admin.username}</td>
+                <td>
+                  <Button type="delete" />
+                </td>
               </tr>
             );
           })}
