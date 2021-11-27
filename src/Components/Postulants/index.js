@@ -38,10 +38,8 @@ function Postulants() {
       });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowModal(false);
-    console.log('submit');
+  const handleUpdatePostulant = (postulant) => {
+    console.log(postulant);
   };
 
   const handleClickUpdate = (id) => {
@@ -53,6 +51,10 @@ function Postulants() {
   const handleClickAdd = () => {
     setShowModal(true);
     setModalType('addForm');
+  };
+
+  const handleAddPostulant = (postulant) => {
+    console.log(postulant);
   };
 
   const handleShowModal = () => {
@@ -97,7 +99,11 @@ function Postulants() {
           handleShowModal={handleShowModal}
           modalType={modalType}
           handleSubmit={
-            modalType === 'deleteConfirmation' ? () => handleDelete(idActive) : handleSubmit
+            modalType === 'deleteConfirmation'
+              ? () => handleDelete(idActive)
+              : modalType === 'editForm'
+              ? handleUpdatePostulant
+              : handleAddPostulant
           }
           meta={idActive}
         />
