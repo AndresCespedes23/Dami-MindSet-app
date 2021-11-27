@@ -1,19 +1,15 @@
 /* import { useState } from 'react'; */
 import styles from './form.module.css';
 
-function Form() {
+function Form({ handleSubmit }) {
   /* const [candidate, setCandidate] = useState({}); */
 
   // Aca va la request de POST
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('submit');
-  };
 
   // Hacer una request para buscar por ID unico aca o en handleUpdate del Postulants/index
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form}>
       <div className={styles.formField}>
         <label>Name</label>
         <input type="text" />
@@ -44,7 +40,9 @@ function Form() {
           </option>
         </select>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
     </form>
   );
 }

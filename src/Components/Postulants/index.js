@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
-import Form from './Form';
 /* import Message from '../Shared/Message'; */
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [isForm, setIsForm] = useState();
-  const [idDelete, setIdDelete] = useState('');
+  const [modalType, setModalType] = useState('');
+  const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
     // Cambiar por variable de entorno
@@ -21,13 +20,12 @@ function Postulants() {
   }, []);
 
   const handleClickDelete = (id) => {
-    setIsForm(false);
     setShowModal(true);
-    setIdDelete(id);
+    setIdActive(id);
+    setModalType('deleteConfirmation');
   };
 
   const handleDelete = (id) => {
-    /* setIsMessage(true); */
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates/${id}`, {
       method: 'DELETE',
       headers: {
@@ -40,14 +38,21 @@ function Postulants() {
       });
   };
 
-  const handleClickUpdate = () => {
-    setIsForm(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowModal(false);
+    console.log('submit');
+  };
+
+  const handleClickUpdate = (id) => {
     setShowModal(true);
+    setIdActive(id);
+    setModalType('editForm');
   };
 
   const handleClickAdd = () => {
-    setIsForm(true);
     setShowModal(true);
+    setModalType('addForm');
   };
 
   const handleShowModal = () => {
@@ -90,25 +95,11 @@ function Postulants() {
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}
-          component={
-            isForm ? (
-              <Form />
-            ) : (
-              //** Convertir esto en un componente?
-              <div>
-                <p>Do you want to Delete?</p>
-                <Button
-                  type="confirm"
-                  onClick={() => {
-                    handleDelete(idDelete);
-                    setShowModal(false);
-                  }}
-                />
-                <Button type="cancel" onClick={() => setShowModal(false)} />
-              </div>
-              //**
-            )
+          modalType={modalType}
+          handleSubmit={
+            modalType === 'deleteConfirmation' ? () => handleDelete(idActive) : handleSubmit
           }
+          meta={idActive}
         />
       )}
     </section>
