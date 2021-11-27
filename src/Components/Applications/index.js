@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import styles from './applications.module.css';
-import Button from '../Shared/Button/index';
+import Button from '../Shared/Button';
+import Modal from '../Shared/Modal';
 
 function Applications() {
-  const [applications, setApplications] = useState([]);
+  const [applications, setApplications] = useState([]); //esto es para el fetch
+  const [showModal, setShowModal] = useState(false); // modal
 
   useEffect(() => {
     // fetch(`${process.env.REACT_APP_API}/applications`)
@@ -14,6 +16,10 @@ function Applications() {
       });
   }, []);
 
+  const handleShowModal = () => {
+    setShowModal(false); // modal
+  };
+
   return (
     <section className={styles.container}>
       <h2>Applications</h2>
@@ -21,9 +27,9 @@ function Applications() {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Position</th>
-              <th>Candidate</th>
-              <th>Interview</th>
+              <th>ID Position</th>
+              <th>ID Candidate</th>
+              <th>ID Interview</th>
               <th>Result</th>
               <th>Date</th>
               <th>Status</th>
@@ -50,6 +56,7 @@ function Applications() {
         </table>
       </div>
       <Button type="add" />
+      {showModal && <Modal handleShowModal={handleShowModal} />}
     </section>
   );
 }
