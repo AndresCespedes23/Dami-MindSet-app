@@ -1,6 +1,38 @@
+import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    username: '',
+    password: '',
+    gender: '',
+    address: '',
+    phoneNumber: '',
+    dateOfBirth: '',
+    zipCode: '',
+    city: '',
+    state: '',
+    country: '',
+    dni: ''
+  });
+
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:4000/api/candidates/${id}`)
+        .then((response) => response.json())
+        .then((response) => {
+          setFormData(response);
+        });
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
     const newCandidate = {
@@ -21,70 +53,80 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
     handleSubmit(newCandidate);
     handleShowModal();
   };
-  console.log(id);
+
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.formField}>
         <label>Name</label>
-        <input type="text" />
+        <input type="text" name="name" value={formData.name} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>Email</label>
-        <input type="text" />
+        <input type="text" name="email" value={formData.email} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>Username</label>
-        <input type="text" />
+        <input type="text" name="username" value={formData.username} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>Password</label>
-        <input type="password" />
+        <input type="password" name="password" value={formData.password} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>Gender</label>
-        <select>
+        <select name="gender" value={formData.gender} onChange={handleChange}>
           <option value="male" key="m">
             Male
           </option>
           <option value="female" key="f">
             Female
           </option>
-          <option value="Other" key="o">
+          <option value="other" key="o">
             Other
           </option>
         </select>
       </div>
       <div className={styles.formField}>
         <label>Address</label>
-        <input type="text" />
+        <input type="text" name="address" value={formData.address} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>Phone Number</label>
-        <input type="number" />
+        <input
+          type="number"
+          name="phoneNumber"
+          value={formData.phoneNumber}
+          onChange={handleChange}
+        />
       </div>
       <div className={styles.formField}>
         <label>Date of Birth</label>
-        <input type="date" />
+        <input
+          type="date"
+          name="dateOfBirth"
+          value={formData.dateOfBirth}
+          onChange={handleChange}
+        />
       </div>
       <div className={styles.formField}>
         <label>Zip Code</label>
-        <input type="number" />
+        <input type="number" name="zipCode" value={formData.zipCode} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>City</label>
-        <input type="text" />
+        <input type="text" name="city" value={formData.city} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>State</label>
-        <input type="text" />
+        <input type="text" name="state" value={formData.state} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>Country</label>
-        <input type="text" />
+        <input type="text" name="country" value={formData.country} onChange={handleChange} />
       </div>
       <div className={styles.formField}>
         <label>DNI</label>
-        <input type="number" />
+        <input type="number" name="dni" value={formData.dni} onChange={handleChange} />
       </div>
       <button type="submit">Submit</button>
     </form>

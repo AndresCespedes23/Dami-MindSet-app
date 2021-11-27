@@ -9,11 +9,7 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   switch (modalType) {
     case 'postulants':
       modalComponent = (
-        <PostulantsForm
-          id={meta.id}
-          handleSubmit={handleSubmit}
-          handleShowModal={handleShowModal}
-        />
+        <PostulantsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
     case 'delete':
