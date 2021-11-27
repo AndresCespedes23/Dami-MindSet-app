@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import styles from './interviews.module.css';
 import Button from '../Shared/Button/index';
 import Modal from '../Shared/Modal/index';
+import { FaCheckCircle, FaClock } from 'react-icons/fa';
 
 function Interviews() {
   const [interviews, setInterviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('');
+  const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews`)
@@ -16,11 +19,17 @@ function Interviews() {
   }, []);
 
   const handleShowModal = () => {
-    setShowModal(!showModal);
+    setShowModal(false);
   };
-  const handleDelete = (id) => {
-    console.log(id);
+
+  const handleDeleteClick = (id) => {
     //CONFIRMACION FALTA
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDeleteInterview = (id) => {
     fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews/${id}`, {
       method: 'DELETE',
       headers: {
@@ -32,11 +41,24 @@ function Interviews() {
         setInterviews(interviews.filter((interviews) => interviews._id !== id));
       });
   };
-  const handleUpdate = (id) => {
-    console.log(id);
+
+  const handleUpdateClick = (id) => {
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('interviews');
   };
-  const handleAdd = () => {
-    setShowModal(!showModal);
+  const handleUpdateInterview = (interview) => {
+    //METODO DE UPDATE
+    console.log(interview);
+  };
+  const handleAddClick = () => {
+    setShowModal(true);
+    console.log('aa');
+    setModalType('postulants');
+  };
+  const handleAddInterview = (interview) => {
+    //METODO DE CREAR
+    console.log(interview);
   };
 
   return (
@@ -62,10 +84,12 @@ function Interviews() {
                   <td>{interview.idClient}</td>
                   <td>{interview.idPosition}</td>
                   <td>{interview.dateTime}</td>
-                  <td>{interview.status}</td>
+                  <td className={styles[interview.status.toLowerCase()]}>
+                    {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                  </td>
                   <td>
-                    <Button type="delete" onClick={() => handleDelete(interview._id)} />
-                    <Button type="update" onClick={() => handleUpdate(interview._id)} />
+                    <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
+                    <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
                   </td>
                 </tr>
               ];
@@ -73,8 +97,21 @@ function Interviews() {
           </tbody>
         </table>
       </div>
-      <Button type="add" onClick={() => handleAdd()} />
-      {showModal && <Modal handleShowModal={handleShowModal} />}
+      <Button type="add" onClick={() => handleAddClick} />
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={
+            modalType === 'delete'
+              ? () => handleDeleteInterview(idActive)
+              : modalType === 'postulants'
+              ? handleUpdateInterview
+              : handleAddInterview
+          }
+          meta={idActive}
+        />
+      )}
     </section>
   );
 }

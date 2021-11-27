@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 
-function InterviewForm() {
+function InterviewForm({ id, handleSubmit }) {
   const [candidates, setCandidates] = useState([]);
   const [clients, setClients] = useState([]);
   const [positions, setPositions] = useState([]);
@@ -23,10 +23,10 @@ function InterviewForm() {
         setPositions(response);
       });
   }, []);
-
+  console.log(id);
   return (
     <div>
-      <form className={styles.containerForm}>
+      <form className={styles.containerForm} onSubmit={() => handleSubmit({ name: 'das' })}>
         <div className={styles.column}>
           <div>
             <label>Candidate:</label>

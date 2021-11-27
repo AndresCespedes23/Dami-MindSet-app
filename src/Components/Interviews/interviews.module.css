@@ -34,3 +34,11 @@
 .table tr:nth-of-type(even) {
   background-color: #fff3cd;
 }
+
+.done {
+  color: #28a745;
+}
+
+.pending {
+  color: #ffc107;
+}
