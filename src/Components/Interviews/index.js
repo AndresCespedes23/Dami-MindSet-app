@@ -7,6 +7,14 @@ function Interviews() {
   const [interviews, setInterviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  useEffect(() => {
+    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews`)
+      .then((response) => response.json())
+      .then((response) => {
+        setInterviews(response);
+      });
+  }, []);
+
   const handleShowModal = () => {
     setShowModal(!showModal);
   };
@@ -30,14 +38,6 @@ function Interviews() {
   const handleAdd = () => {
     setShowModal(!showModal);
   };
-
-  useEffect(() => {
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/interviews`)
-      .then((response) => response.json())
-      .then((response) => {
-        setInterviews(response);
-      });
-  }, []);
 
   return (
     <section className={styles.container}>
