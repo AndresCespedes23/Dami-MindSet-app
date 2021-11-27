@@ -1,6 +1,7 @@
 import styles from './form.module.css';
 
-function Form({ handleSubmit }) {
+function PostulantsForm({ id, handleSubmit }) {
+  console.log(id);
   return (
     <form className={styles.form} onSubmit={() => handleSubmit({ name: 'das' })}>
       <div className={styles.formField}>
@@ -38,4 +39,4 @@ function Form({ handleSubmit }) {
   );
 }
 
-export default Form;
+export default PostulantsForm;

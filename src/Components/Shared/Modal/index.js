@@ -2,12 +2,22 @@ import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
 import PostulantsForm from '../../Postulants/Form';
+import Confirmation from '../../Postulants/Confirmation';
 
-function Modal({ handleShowModal, form, meta, handleSubmit }) {
+function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
-  switch (form) {
-    case 'clients':
+  switch (modalType) {
+    case 'postulants':
       modalComponent = <PostulantsForm id={meta.id} handleSubmit={handleSubmit} />;
+      break;
+    case 'delete':
+      modalComponent = (
+        <Confirmation
+          message="Did you want to Delete?"
+          handleDelete={handleSubmit}
+          handleShowModal={handleShowModal}
+        />
+      );
       break;
   }
   return (
