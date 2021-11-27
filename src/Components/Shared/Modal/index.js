@@ -1,28 +1,24 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import Form from '../../Postulants/Form';
-import Confirmation from '../../Postulants/Confirmation';
+import PostulantsForm from '../../Postulants/Form';
 
-function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
+function Modal({ handleShowModal, form, meta, handleSubmit }) {
+  let modalComponent;
+  switch (form) {
+    case 'clients':
+      modalComponent = <PostulantsForm id={meta.id} handleSubmit={handleSubmit} />;
+      break;
+  }
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
         <div className={styles.titleCloseBtn}>
           <Button type="close" onClick={handleShowModal} />
         </div>
-        {modalType === 'addForm' && <Form handleSubmit={handleSubmit} />}
-        {modalType === 'editForm' && <Form handleSubmit={handleSubmit} meta={meta} />}
-        {modalType === 'deleteConfirmation' && (
-          <Confirmation
-            message={'Did you want to Delete?'}
-            handleDelete={handleSubmit}
-            handleShowModal={handleShowModal}
-          />
-        )}
+        {modalComponent}
       </div>
     </div>
   );
 }
-
 export default Modal;
