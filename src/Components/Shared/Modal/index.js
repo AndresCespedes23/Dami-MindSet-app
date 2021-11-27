@@ -11,7 +11,13 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
       modalComponent = <InterviewForm id={meta.id} handleSubmit={handleSubmit} />;
       break;
     case 'delete':
-      modalComponent = <Confirmation message="¿" handleDelete={handleSubmit} />;
+      modalComponent = (
+        <Confirmation
+          message="Are you sure to delete this interview?"
+          handleDelete={handleSubmit}
+          handleShowModal={handleShowModal}
+        />
+      );
   }
   return (
     <div className={styles.modalBackground}>

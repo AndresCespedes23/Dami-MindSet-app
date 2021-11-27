@@ -53,8 +53,7 @@ function Interviews() {
   };
   const handleAddClick = () => {
     setShowModal(true);
-    console.log('aa');
-    setModalType('postulants');
+    setModalType('interviews');
   };
   const handleAddInterview = (interview) => {
     //METODO DE CREAR
@@ -97,7 +96,7 @@ function Interviews() {
           </tbody>
         </table>
       </div>
-      <Button type="add" onClick={() => handleAddClick} />
+      <Button type="add" onClick={handleAddClick} />
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

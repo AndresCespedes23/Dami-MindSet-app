@@ -4,6 +4,7 @@
     color: #28a745;
     cursor: pointer;
     font-weight: bold;
+    padding: 5px;
 }
 .add:hover {
     background-color: #28a745;
@@ -15,6 +16,7 @@
     color: #dc3545;
     cursor: pointer;
     font-weight: bold;
+    padding: 5px;
 }
 .delete:hover {
     background-color: #dc3545;
@@ -26,9 +28,36 @@
     color: #17a2b8;
     cursor: pointer;
     font-weight: bold;
+    padding: 5px;
 }
 .update:hover {
     background-color: #17a2b8;
+    color: white;
+}
+.confirm {
+    background-color: #002147;
+    border: 1px solid #002147;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+}
+.confirm:hover {
+    background-color: white;
+    border: 1px solid #002147;
+    color: #002147;
+}
+.cancel {
+    border: 1px solid #002147;
+    border-radius: 8px;
+    color: #002147;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+}
+.cancel:hover {
+    background-color: #002147;
     color: white;
 }
 .hide{

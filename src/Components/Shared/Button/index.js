@@ -8,6 +8,8 @@ function Button({ type, onClick }) {
       {type === 'update' && <FaEdit />}
       {type === 'delete' && <FaTrashAlt />}
       {type === 'close' && <FaRegWindowClose />}
+      {type === 'confirm' && 'YES'}
+      {type === 'cancel' && 'NO'}
     </button>
   );
 }
