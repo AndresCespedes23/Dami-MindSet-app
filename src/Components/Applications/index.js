@@ -28,23 +28,23 @@ function Applications() {
     setModalType('applications');
   };
 
-  const handleAddApplication = (application) => {
-    fetch('http://localhost:4000/api/applications', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(application)
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        setApplications([...applications, response]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const handleAddApplication = (application) => {
+  //   fetch('http://localhost:4000/api/applications', {
+  //     method: 'POST',
+  //     mode: 'cors',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(application)
+  //   })
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       setApplications([...applications, response]);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <section className={styles.container}>
