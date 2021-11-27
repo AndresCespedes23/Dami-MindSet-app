@@ -38,8 +38,8 @@ function Postulants() {
       });
   };
 
-  const handleUpdatePostulant = (postulant) => {
-    console.log(postulant);
+  const handleUpdatePostulant = () => {
+    console.log('editing');
   };
 
   const handleClickUpdate = (id) => {
@@ -51,6 +51,7 @@ function Postulants() {
   const handleClickAdd = () => {
     setShowModal(true);
     setModalType('postulants');
+    setIdActive('');
   };
 
   const handleAddPostulant = (postulant) => {
@@ -64,6 +65,9 @@ function Postulants() {
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
+        //Si hay errores del backend no se agrega, acá se debe mostrar un mensaje de error
+        if (response.errors || response.code) return;
         setPostulants([...postulants, response]);
       })
       .catch((err) => {
@@ -115,7 +119,7 @@ function Postulants() {
           handleSubmit={
             modalType === 'delete'
               ? () => handleDelete(idActive)
-              : modalType === 'postulants'
+              : modalType === 'postulants' && !idActive
               ? handleAddPostulant
               : handleUpdatePostulant
           }

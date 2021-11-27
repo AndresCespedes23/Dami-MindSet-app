@@ -8,7 +8,13 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
   switch (modalType) {
     case 'postulants':
-      modalComponent = <PostulantsForm id={meta.id} handleSubmit={handleSubmit} />;
+      modalComponent = (
+        <PostulantsForm
+          id={meta.id}
+          handleSubmit={handleSubmit}
+          handleShowModal={handleShowModal}
+        />
+      );
       break;
     case 'delete':
       modalComponent = (
