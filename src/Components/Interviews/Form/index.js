@@ -5,26 +5,33 @@ function InterviewForm({ id, handleSubmit }) {
   const [candidates, setCandidates] = useState([]);
   const [clients, setClients] = useState([]);
   const [positions, setPositions] = useState([]);
-
+  const setForm = (interview) => {
+    console.log(interview);
+  };
   useEffect(() => {
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates`)
+    fetch(`http://localhost:5000/api/candidates`)
       .then((response) => response.json())
       .then((response) => {
         setCandidates(response);
       });
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/clients`)
+    fetch(`http://localhost:5000/api/clients`)
       .then((response) => response.json())
       .then((response) => {
         setClients(response);
       });
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/positions`)
+    fetch(`http://localhost:5000/api/positions`)
       .then((response) => response.json())
       .then((response) => {
         setPositions(response);
       });
+    if (id !== null) {
+      fetch(`http://localhost:5000/api/interviews/${id}`)
+        .then((response) => response.json())
+        .then((response) => {
+          setForm(response);
+        });
+    }
   }, []);
-  console.log(id);
-
   const onSubmit = (event) => {
     event.preventDefault();
     //Falta validar y msg de error
@@ -33,7 +40,7 @@ function InterviewForm({ id, handleSubmit }) {
       idPosition: event.target.position.value,
       idClient: event.target.client.value,
       status: event.target.status.value,
-      date: event.target.date.value
+      dateTime: event.target.dateTime.value
     };
     handleSubmit(newInterview);
   };
@@ -89,7 +96,7 @@ function InterviewForm({ id, handleSubmit }) {
           </div>
           <div>
             <label>Date:</label>
-            <input type="date" name="date" placeholder="Insert a date" required />
+            <input type="date" name="dateTime" placeholder="Insert a date" required />
           </div>
           <div>
             <button type="submit" className={styles.submit}>

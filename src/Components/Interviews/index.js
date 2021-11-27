@@ -11,7 +11,7 @@ function Interviews() {
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/interviews`)
+    fetch(`http://localhost:5000/api/interviews`)
       .then((response) => response.json())
       .then((response) => {
         setInterviews(response);
@@ -30,7 +30,7 @@ function Interviews() {
   };
 
   const handleDeleteInterview = (id) => {
-    fetch(`${process.env.REACT_APP_API}/interviews/${id}`, {
+    fetch(`http://localhost:5000/api/interviews/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -53,10 +53,11 @@ function Interviews() {
   };
   const handleAddClick = () => {
     setShowModal(true);
+    setIdActive(null);
     setModalType('interviews');
   };
   const handleAddInterview = (interview) => {
-    fetch(`${process.env.REACT_APP_API}/interviews`, {
+    fetch(`http://localhost:5000/api/interviews`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -118,7 +119,7 @@ function Interviews() {
             modalType === 'delete'
               ? () => handleDeleteInterview(idActive)
               : modalType === 'postulants'
-              ? handleUpdateInterview
+              ? handleUpdateInterview(idActive)
               : handleAddInterview
           }
           meta={idActive}
