@@ -11,11 +11,8 @@ import Psychologists from '../Psychologists/index';
 import Sessions from '../Sessions/index';
 import Home from '../Home/index';
 import styles from './layout.module.css';
-import Modal from '../Shared/Modal/index';
-import { useState } from 'react';
-function Layout() {
-  const [showModal, setShowModal] = useState(true);
 
+function Layout() {
   let currentScreen = <Home />;
   switch (window.location.pathname) {
     case '/admins':
@@ -49,33 +46,10 @@ function Layout() {
       break;
   }
 
-  const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
-
   return (
     <div className={styles.container}>
       <Header />
       {currentScreen}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sara</td>
-            <td>Garcia</td>
-          </tr>
-          <tr>
-            <td>Román</td>
-            <td>Garcia</td>
-          </tr>
-        </tbody>
-      </table>
-      {showModal && <Modal handleShowModal={handleShowModal} />}
       <Footer />
     </div>
   );
