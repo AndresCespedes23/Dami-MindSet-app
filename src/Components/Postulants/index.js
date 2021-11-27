@@ -12,7 +12,7 @@ function Postulants() {
 
   useEffect(() => {
     // Cambiar por variable de entorno
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates`)
+    fetch(`http://localhost:4000/api/candidates`)
       .then((response) => response.json())
       .then((response) => {
         setPostulants(response);
@@ -26,7 +26,7 @@ function Postulants() {
   };
 
   const handleDelete = (id) => {
-    fetch(`https://basd21-dami-mindset-api-dev.herokuapp.com/api/candidates/${id}`, {
+    fetch(`http://localhost:4000/api/candidates/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -54,7 +54,21 @@ function Postulants() {
   };
 
   const handleAddPostulant = (postulant) => {
-    console.log(postulant);
+    fetch(`http://localhost:4000/api/candidates`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postulant)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleShowModal = () => {
@@ -102,8 +116,8 @@ function Postulants() {
             modalType === 'delete'
               ? () => handleDelete(idActive)
               : modalType === 'postulants'
-              ? handleUpdatePostulant
-              : handleAddPostulant
+              ? handleAddPostulant
+              : handleUpdatePostulant
           }
           meta={idActive}
         />

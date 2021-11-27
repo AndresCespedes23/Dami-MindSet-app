@@ -1,9 +1,27 @@
 import styles from './form.module.css';
 
 function PostulantsForm({ id, handleSubmit }) {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const newCandidate = {
+      name: 'Candidate ffffff',
+      email: 'mail@gmaidl.com',
+      username: 'mtreble1',
+      password: 'tR0R234kUD',
+      gender: 'male',
+      address: '2386 Fuller Trail',
+      phoneNumber: 545454456,
+      dateOfBirth: '1956/07/18',
+      zipCode: '9928',
+      city: 'Bloemfontein',
+      state: 'Troms',
+      country: 'South Africa'
+    };
+    handleSubmit(newCandidate);
+  };
   console.log(id);
   return (
-    <form className={styles.form} onSubmit={() => handleSubmit({ name: 'das' })}>
+    <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.formField}>
         <label>Name</label>
         <input type="text" />
