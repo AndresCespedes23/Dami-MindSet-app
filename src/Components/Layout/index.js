@@ -2,8 +2,6 @@ import Header from '../Shared/Header/index';
 import Footer from '../Shared/Footer/index';
 import Admins from '../Admins/index';
 import Applications from '../Applications/index';
-//agregando segun clase Esteban TENGO QUE VOLVER A CREAR LA CARPETA FORM
-// import ApplicationsForm from '../Applications/Form';
 import Clients from '../Clients/index';
 import Interviews from '../Interviews/index';
 import Positions from '../Positions/index';
@@ -23,9 +21,6 @@ function Layout() {
     case '/applications':
       currentScreen = <Applications />;
       break;
-    //case '/applications/form':
-    //  currentScreen = <ApplicationsForm />;
-    //  break;
     case '/clients':
       currentScreen = <Clients />;
       break;
