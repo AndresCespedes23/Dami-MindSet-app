@@ -64,7 +64,7 @@ function Postulants() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        setPostulants([...postulants, response]);
       })
       .catch((err) => {
         console.log(err);
