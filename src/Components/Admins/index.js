@@ -42,6 +42,36 @@ function Admins() {
     setIdActive('');
   };
 
+  const handleUpdateAdmin = (admin) => {
+    console.log(admin);
+  };
+
+  const handleClickUpdate = (id) => {
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('admins');
+  };
+
+  const handleAddAdmin = (postulant) => {
+    fetch(`${process.env.REACT_APP_API}/admins`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postulant)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        if (response.errors || response.code) return;
+        setAdmins([...admins, response]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const handleShowModal = () => {
     setShowModal(false);
   };
@@ -67,6 +97,7 @@ function Admins() {
                 <td>{admin.username}</td>
                 <td>
                   <Button type="delete" onClick={() => handleClickDelete(admin._id)} />
+                  <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
                 </td>
               </tr>
             );
@@ -81,7 +112,9 @@ function Admins() {
           handleSubmit={
             modalType === 'delete'
               ? () => handleDelete(idActive)
-              : modalType === 'admins' && !idActive
+              : modalType === 'postulants' && !idActive
+              ? handleAddAdmin
+              : handleUpdateAdmin
           }
           meta={idActive}
         />
