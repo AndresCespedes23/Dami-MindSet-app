@@ -112,7 +112,7 @@ function Admins() {
           handleSubmit={
             modalType === 'delete'
               ? () => handleDelete(idActive)
-              : modalType === 'postulants' && !idActive
+              : modalType === 'admins' && !idActive
               ? handleAddAdmin
               : handleUpdateAdmin
           }
