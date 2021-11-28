@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
+import Message from '../Shared/Message';
 
 function Clients() {
   const [clients, setClients] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState('');
 
   useEffect(() => {
     fetch(`http://localhost:4000/api/clients`)
@@ -33,11 +36,35 @@ function Clients() {
       .then((response) => response.json())
       .then(() => {
         setClients(clients.filter((client) => client._id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
   const handleUpdateClients = (client) => {
     console.log(client);
+    fetch(`http://localhost:4000/api/clients/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(client)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setShowMessage(true);
+        setMessageType('success');
+        setClients(clients.map((client) => (client._id === idActive ? response : client)));
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowMessage(true);
+        setMessageType('error');
+      });
   };
 
   const handleClickUpdate = (id) => {
@@ -64,11 +91,19 @@ function Clients() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        if (response.errors || response.code) return;
+        if (response.errors || response.code) {
+          setShowMessage(true);
+          setMessageType('error');
+          return;
+        }
+        setShowMessage(true);
+        setMessageType('success');
         setClients([...clients, response]);
       })
       .catch((err) => {
         console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
@@ -76,9 +111,20 @@ function Clients() {
     setShowModal(false);
   };
 
+  const handleShowMessage = () => {
+    setShowMessage(false);
+  };
+
   return (
     <section className={styles.container}>
       <h2>Clients</h2>
+      {showMessage && (
+        <Message
+          type={messageType}
+          message={messageType === 'success' ? 'Action Complete' : 'Error'}
+          showMessage={handleShowMessage}
+        />
+      )}
       <table className={styles.table}>
         <thead>
           <tr>
@@ -128,5 +174,4 @@ function Clients() {
     </section>
   );
 }
-
 export default Clients;
