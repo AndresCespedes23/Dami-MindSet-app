@@ -23,28 +23,28 @@ function Applications() {
   };
 
   // ADD
-  const handleAddClick = () => {
+  const handleClickAdd = () => {
     setShowModal(true); //abre el modal al tocar el botton add
     setModalType('applications');
   };
 
-  // const handleAddApplication = (application) => {
-  //   fetch('http://localhost:4000/api/applications', {
-  //     method: 'POST',
-  //     mode: 'cors',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(application)
-  //   })
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       setApplications([...applications, response]);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const handleAddApplication = (application) => {
+    fetch('http://localhost:4000/api/applications', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(application)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setApplications([...applications, response]);
+      })
+      .catch((err) => {
+        console.log(err); //falta codigo
+      });
+  };
 
   return (
     <section className={styles.container}>
@@ -81,18 +81,19 @@ function Applications() {
           </tbody>
         </table>
       </div>
-      <Button type="add" onClick={handleAddClick} />
+      <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
-          handleShowModal={handleShowModal} //hasta acá es para que el modal aparezca bsicmnte
+          handleShowModal={handleShowModal} //hasta acá es para que el modal aparezca basicamente
           modalType={modalType} //esto sería para manejar las acciones
-          //handleSubmit={
-          //  modalType === 'delete'
-          //    ? () => handleDelete(idActive)
-          //    : modalType === 'applications'
-          //    ? handleAddApplication
-          //    : handleAddApplication //
-          //}
+          handleSubmit={
+            handleAddApplication
+            //  modalType === 'delete'
+            //    ? () => handleDelete(idActive)
+            //    : modalType === 'applications'
+            //    ? handleAddApplication
+            //    : handleAddApplication //
+          }
         />
       )}
     </section>

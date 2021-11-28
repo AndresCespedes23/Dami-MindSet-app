@@ -1,14 +1,18 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import PostulantsForm from '../../Postulants/Form';
+import ApllicationForm from '../../Applications/Form';
 
-function Modal({ handleShowModal, form, meta, handleSubmit }) {
+function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
-  switch (form) {
-    case 'clients':
-      modalComponent = <PostulantsForm id={meta.id} handleSubmit={handleSubmit} />;
+  switch (modalType) {
+    case 'applications':
+      modalComponent = (
+        <ApllicationForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
       break;
+
+    // case 'delete'
   }
   return (
     <div className={styles.modalBackground}>
