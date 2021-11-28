@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
 import AdminsForm from '../../Admins/Form';
-import Confirmation from '../../Admins/Confirmation';
+import Confirmation from '../Confirmation';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;

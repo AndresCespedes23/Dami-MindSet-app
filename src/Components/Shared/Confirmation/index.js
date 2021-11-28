@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../Shared/Button';
+import Button from '../Button';
 
 function Confirmation({ message, handleDelete, handleShowModal }) {
   return (
