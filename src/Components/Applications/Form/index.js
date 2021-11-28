@@ -12,17 +12,18 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
     fetch('http://localhost:4000/api/positions')
       .then((response) => response.json())
       .then((response) => {
-        setPositions(response);
+        if (response.length > 0) setPositions(response);
       });
     fetch('http://localhost:4000/api/candidates')
       .then((response) => response.json())
       .then((response) => {
-        setCandidates(response);
+        if (response.length > 0) setCandidates(response);
       });
     fetch('http://localhost:4000/api/interviews')
       .then((response) => response.json())
       .then((response) => {
-        setInterviews(response);
+        console.log(response);
+        if (response.length > 0) setInterviews(response);
       });
 
     if (id !== null) {
@@ -42,13 +43,14 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const onSubmit = (event) => {
     event.preventDefault();
     const newApplication = {
-      idPosition: event.target.idPosition.value,
-      idCandidate: event.target.idCandidate.value,
-      idInterview: event.target.idInterview.value,
+      idPosition: event.target.position.value,
+      idCandidate: event.target.candidate.value,
+      idInterview: event.target.interview.value,
       result: event.target.result.value,
       dateTime: event.target.dateTime.value,
       status: event.target.status.value
     };
+    console.log(newApplication);
     handleSubmit(newApplication);
     handleShowModal();
   };
@@ -82,41 +84,41 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           </select>
         </div>
         <div>
-          <label>ID Interview:</label>
+          <label>Interview date:</label>
           <select name="interview">
             {interviews.map((interview) => {
               return [
                 <option key={interview._id} value={interview._id}>
-                  {interview.name}
+                  {interview.dateTime}
                 </option>
               ];
             })}
           </select>
         </div>
         <div>
-          <label>Result:</label>
-          <select name="status">
-            <opcion value="PENDING" key="p">
-              PENDING
-            </opcion>
-            <opcion value="SCHEDULED" key="s">
-              SCHEDULED
-            </opcion>
-            <opcion value="HIRED" key="h">
-              HIRED
-            </opcion>
-            <opcion value="REJECTED" key="r">
-              REJECTED
-            </opcion>
-          </select>
+          <label>Result</label>
+          <input type="text" name="result" value={formData.result} />
         </div>
         <div>
           <label>Date:</label>
-          <input type="text" name="dateTime" value={formData.dateTime} />
+          <input type="date" name="dateTime" value={formData.dateTime} />
         </div>
         <div>
-          <label>Status</label>
-          <input type="text" name="status" value={formData.status} />
+          <label>Status:</label>
+          <select name="status">
+            <option value="PENDING" key="p">
+              PENDING
+            </option>
+            <option value="SCHEDULED" key="s">
+              SCHEDULED
+            </option>
+            <option value="HIRED" key="h">
+              HIRED
+            </option>
+            <option value="REJECTED" key="r">
+              REJECTED
+            </option>
+          </select>
         </div>
         <button type="submit">Submit</button>
       </form>

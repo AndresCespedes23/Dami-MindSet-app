@@ -16,6 +16,7 @@ function Applications() {
     fetch('http://localhost:4000/api/applications')
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         setApplications(response);
       });
   }, []);
@@ -77,9 +78,9 @@ function Applications() {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>ID Position</th>
-              <th>ID Candidate</th>
-              <th>ID Interview</th>
+              <th>Position</th>
+              <th>Candidate</th>
+              <th>Interview Date</th>
               <th>Result</th>
               <th>Date</th>
               <th>Status</th>
@@ -90,14 +91,16 @@ function Applications() {
             {applications.map((application) => {
               return [
                 <tr key={application._id}>
-                  <td>{application.idPosition}</td>
-                  <td>{application.idCandidate}</td>
-                  <td>{application.idInterview}</td>
+                  <td>{application.idPosition ? application.idPosition.name : 'ID deleted'}</td>
+                  <td>{application.idCandidate ? application.idCandidate.name : 'ID deleted'}</td>
+                  <td>
+                    {application.idInterview ? application.idInterview.dateTime : 'ID deleted'}
+                  </td>
                   <td>{application.result}</td>
                   <td>{application.dateTime}</td>
                   <td>{application.status}</td>
                   <td>
-                    <Button type="delete" onClick={() => handleClickDelete()} />
+                    <Button type="delete" onClick={() => handleClickDelete(application._id)} />
                   </td>
                 </tr>
               ];
@@ -112,7 +115,7 @@ function Applications() {
           modalType={modalType} //esto sería para manejar las acciones
           handleSubmit={
             modalType === 'delete'
-              ? () => handleDelete()
+              ? () => handleDelete(idActive)
               : modalType === 'applications' && !idActive
               ? handleAddApplication
               : handleAddApplication //esto se que no iria, creo
