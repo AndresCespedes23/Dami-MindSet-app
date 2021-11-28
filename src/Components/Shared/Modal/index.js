@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import ApllicationForm from '../../Applications/Form';
+import ApplicationsForm from '../../Applications/Form';
 import Confirmation from '../../Applications';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
@@ -9,7 +9,7 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   switch (modalType) {
     case 'applications':
       modalComponent = (
-        <ApllicationForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <ApplicationsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
     case 'delete':

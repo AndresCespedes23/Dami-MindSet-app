@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
 //CODIGO DE JULI 27/11 16HS         Y DE VALEN
 
-function ApllicationForm({ id, handleSubmit, handleShowModal }) {
+function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const [positions, setPositions] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [interviews, setInterviews] = useState([]);
@@ -54,10 +54,10 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
   };
 
   return (
-    <div className={styles.form}>
+    <div className={styles.title}>
       <h2>New Application</h2>
       <form className={styles.form} onSubmit={onSubmit}>
-        <div className={styles.form}>
+        <div>
           <label>ID Position:</label>
           <select name="position">
             {positions.map((position) => {
@@ -69,7 +69,7 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
             })}
           </select>
         </div>
-        <div className={styles.form}>
+        <div>
           <label>ID Candidate:</label>
           <select name="candidate">
             {candidates.map((candidate) => {
@@ -81,7 +81,7 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
             })}
           </select>
         </div>
-        <div className={styles.form}>
+        <div>
           <label>ID Interview:</label>
           <select name="interview">
             {interviews.map((interview) => {
@@ -93,7 +93,7 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
             })}
           </select>
         </div>
-        <div className={styles.form}>
+        <div>
           <label>Result:</label>
           <select name="status">
             <opcion value="PENDING" key="p">
@@ -110,11 +110,11 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
             </opcion>
           </select>
         </div>
-        <div className={styles.form}>
+        <div>
           <label>Date:</label>
           <input type="text" name="dateTime" value={formData.dateTime} />
         </div>
-        <div className={styles.form}>
+        <div>
           <label>Status</label>
           <input type="text" name="status" value={formData.status} />
         </div>
@@ -124,4 +124,4 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
   );
 }
 
-export default ApllicationForm;
+export default ApplicationsForm;
