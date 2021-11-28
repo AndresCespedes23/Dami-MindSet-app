@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../Shared/Button';
+import Button from '../../Button';
 import styles from './confirmation.module.css';
 
 function Confirmation({ message, handleDelete, handleShowModal }) {
