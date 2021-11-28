@@ -1,16 +1,8 @@
 import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
+//CODIGO DE JULI 27/11 16HS         Y DE VALEN
 
 function ApllicationForm({ id, handleSubmit, handleShowModal }) {
-  //const [formData, setFormData] = useState({
-  //  idPosition: '',
-  //  idCandidate: '',
-  //  idInterview: '',
-  //  result: '',
-  //  dateTime: '',
-  //  status: ''
-  //});
-
   const [positions, setPositions] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [interviews, setInterviews] = useState([]);
@@ -42,7 +34,7 @@ function ApllicationForm({ id, handleSubmit, handleShowModal }) {
     }
   }, []);
 
-  //const handleChange = (event) => {
+  //const handleChange = (event) => {        //CODIGO DE JULI QUE NO LO TIENE VALEN... JULI LO USA EN RETURN
   //  const { name, value } = event.target;
   //  setFormData({ ...formData, [name]: value });
   //};
