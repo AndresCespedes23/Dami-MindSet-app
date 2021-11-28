@@ -97,7 +97,7 @@ function Applications() {
                   <td>{application.dateTime}</td>
                   <td>{application.status}</td>
                   <td>
-                    <Button type="delete" onClick={() => handleClickDelete(application._id)} />
+                    <Button type="delete" onClick={() => handleClickDelete()} />
                   </td>
                 </tr>
               ];
@@ -112,7 +112,7 @@ function Applications() {
           modalType={modalType} //esto sería para manejar las acciones
           handleSubmit={
             modalType === 'delete'
-              ? () => handleDelete(idActive)
+              ? () => handleDelete()
               : modalType === 'applications' && !idActive
               ? handleAddApplication
               : handleAddApplication //esto se que no iria, creo
