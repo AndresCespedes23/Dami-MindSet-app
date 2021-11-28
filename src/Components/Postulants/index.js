@@ -14,7 +14,7 @@ function Postulants() {
 
   useEffect(() => {
     // Cambiar por variable de entorno
-    fetch(`http://localhost:4000/api/candidates`)
+    fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => response.json())
       .then((response) => {
         setPostulants(response);
@@ -28,7 +28,7 @@ function Postulants() {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:4000/api/candidates/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/candidates/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -49,7 +49,7 @@ function Postulants() {
 
   const handleUpdatePostulant = (postulant) => {
     console.log(postulant);
-    fetch(`http://localhost:4000/api/candidates/${idActive}`, {
+    fetch(`${process.env.REACT_APP_API}/candidates/${idActive}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -85,7 +85,7 @@ function Postulants() {
   };
 
   const handleAddPostulant = (postulant) => {
-    fetch(`http://localhost:4000/api/candidates`, {
+    fetch(`${process.env.REACT_APP_API}/candidates`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -96,7 +96,6 @@ function Postulants() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        //Si hay errores del backend no se agrega, acá se debe mostrar un mensaje de error
         if (response.errors || response.code) {
           setShowMessage(true);
           setMessageType('error');
