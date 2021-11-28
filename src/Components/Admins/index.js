@@ -15,7 +15,10 @@ function Admins() {
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/admins`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setAdmins(response);
       });
@@ -29,7 +32,10 @@ function Admins() {
       },
       body: JSON.stringify(admin)
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setShowMessage(true);
         setMessageType('success');
