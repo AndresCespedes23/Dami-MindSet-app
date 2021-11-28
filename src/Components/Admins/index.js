@@ -17,59 +17,14 @@ function Admins() {
       });
   }, []);
 
-  const handleClickDelete = (id) => {
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('delete');
-  };
-
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/admins/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => response.json())
-      .then(() => {
-        setAdmins(admins.filter((admin) => admin._id !== id));
-      });
-  };
-
   const handleUpdateAdmin = (admin) => {
     console.log(admin);
-  };
-
-  const handleClickAdd = () => {
-    setShowModal(true);
-    setModalType('admins');
-    setIdActive('');
   };
 
   const handleClickUpdate = (id) => {
     setShowModal(true);
     setIdActive(id);
     setModalType('admins');
-  };
-
-  const handleAddAdmin = (admin) => {
-    fetch(`${process.env.REACT_APP_API}/admins`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(admin)
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        if (response.errors || response.code) return;
-        setAdmins([...admins, response]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const handleShowModal = () => {
@@ -96,7 +51,6 @@ function Admins() {
                 <td>{admin.email}</td>
                 <td>{admin.username}</td>
                 <td>
-                  <Button type="delete" onClick={() => handleClickDelete(admin._id)} />
                   <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
                 </td>
               </tr>
@@ -104,18 +58,11 @@ function Admins() {
           })}
         </tbody>
       </table>
-      <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={
-            modalType === 'delete'
-              ? () => handleDelete(idActive)
-              : modalType === 'admins' && !idActive
-              ? handleAddAdmin
-              : handleUpdateAdmin
-          }
+          handleSubmit={handleUpdateAdmin}
           meta={idActive}
         />
       )}
