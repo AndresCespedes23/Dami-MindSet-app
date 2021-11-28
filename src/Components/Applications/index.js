@@ -7,7 +7,7 @@ function Applications() {
   const [applications, setApplications] = useState([]); //esto es para el fetch
   const [showModal, setShowModal] = useState(false); // modal
   const [modalType, setModalType] = useState(''); // modal para las acciones
-  // const [idActive, setIdActive] = useState(''); // esto esta para las acciones que no sean ADD
+  const [idActive, setIdActive] = useState(''); // esto esta para las acciones que no sean ADD
 
   useEffect(() => {
     // fetch(`${process.env.REACT_APP_API}/applications`)
@@ -46,6 +46,26 @@ function Applications() {
       });
   };
 
+  // DELETE
+  const handleClickDelete = (id) => {
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDelete = (id) => {
+    fetch(`http://localhost:4000/api/applications/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setApplications(applications.filter((application) => application._id !== id));
+      });
+  };
+
   return (
     <section className={styles.container}>
       <h2>Applications</h2>
@@ -73,7 +93,7 @@ function Applications() {
                   <td>{application.dateTime}</td>
                   <td>{application.status /* falta terminar esto y el boton de add*/}</td>
                   <td>
-                    <Button type="delete" />
+                    <Button type="delete" onClick={() => handleClickDelete(application._id)} />
                   </td>
                 </tr>
               ];
@@ -87,12 +107,11 @@ function Applications() {
           handleShowModal={handleShowModal} //hasta acá es para que el modal aparezca basicamente
           modalType={modalType} //esto sería para manejar las acciones
           handleSubmit={
-            handleAddApplication
-            //  modalType === 'delete'
-            //    ? () => handleDelete(idActive)
-            //    : modalType === 'applications'
-            //    ? handleAddApplication
-            //    : handleAddApplication //
+            modalType === 'delete'
+              ? () => handleDelete(idActive)
+              : modalType === 'applications' && !idActive
+              ? handleAddApplication
+              : handleAddApplication
           }
         />
       )}
