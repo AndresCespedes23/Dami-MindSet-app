@@ -11,6 +11,7 @@ function Postulants() {
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     // Cambiar por variable de entorno
@@ -38,6 +39,7 @@ function Postulants() {
       .then(() => {
         setShowMessage(true);
         setMessageType('success');
+        setMessage('Candidate deleted');
         setPostulants(postulants.filter((postulant) => postulant._id !== id));
       })
       .catch((error) => {
@@ -61,6 +63,7 @@ function Postulants() {
         console.log(response);
         setShowMessage(true);
         setMessageType('success');
+        setMessage('Candidate updated');
         setPostulants(
           postulants.map((postulant) => (postulant._id === idActive ? response : postulant))
         );
@@ -99,10 +102,12 @@ function Postulants() {
         if (response.errors || response.code) {
           setShowMessage(true);
           setMessageType('error');
+          setMessage('Error with parameters');
           return;
         }
         setShowMessage(true);
         setMessageType('success');
+        setMessage('Candidate added');
         setPostulants([...postulants, response]);
       })
       .catch((err) => {
@@ -124,11 +129,7 @@ function Postulants() {
     <section className={styles.container}>
       <h2>Postulants</h2>
       {showMessage && (
-        <Message
-          type={messageType}
-          message={messageType === 'success' ? 'Action Complete' : 'Error'}
-          showMessage={handleShowMessage}
-        />
+        <Message type={messageType} message={message} showMessage={handleShowMessage} />
       )}
       <table className={styles.table}>
         <thead>
