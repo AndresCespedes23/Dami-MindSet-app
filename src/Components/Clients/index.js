@@ -32,7 +32,7 @@ function Clients() {
     })
       .then((response) => response.json())
       .then(() => {
-        setClients(clients.filter((clients) => clients._id !== id));
+        setClients(clients.filter((client) => client._id !== id));
       });
   };
 
