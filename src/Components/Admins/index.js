@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import styles from './admins.module.css';
 import Button from '../../Components/Shared/Button';
+import Modal from '../Shared/Modal';
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('');
+  const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/admins`)
@@ -12,6 +16,35 @@ function Admins() {
         setAdmins(response);
       });
   }, []);
+
+  const handleClickDelete = (id) => {
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_API}/admins/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setAdmins(admins.filter((admin) => admin._id !== id));
+      });
+  };
+
+  const handleClickAdd = () => {
+    setShowModal(true);
+    setModalType('admins');
+    setIdActive('');
+  };
+
+  const handleShowModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <section className={styles.container}>
@@ -33,13 +66,26 @@ function Admins() {
                 <td>{admin.email}</td>
                 <td>{admin.username}</td>
                 <td>
-                  <Button type="delete" />
+                  <Button type="delete" onClick={() => handleClickDelete(admin._id)} />
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Button type="add" onClick={handleClickAdd} />
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={
+            modalType === 'delete'
+              ? () => handleDelete(idActive)
+              : modalType === 'admins' && !idActive
+          }
+          meta={idActive}
+        />
+      )}
     </section>
   );
 }
