@@ -16,7 +16,10 @@ function Postulants() {
   useEffect(() => {
     // Cambiar por variable de entorno
     fetch(`${process.env.REACT_APP_API}/candidates`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setPostulants(response);
       });
@@ -35,7 +38,10 @@ function Postulants() {
         'Content-type': 'application/json; charset=UTF-8'
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then(() => {
         setShowMessage(true);
         setMessageType('success');
@@ -57,7 +63,10 @@ function Postulants() {
       },
       body: JSON.stringify(postulant)
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setShowMessage(true);
         setMessageType('success');
@@ -94,7 +103,10 @@ function Postulants() {
       },
       body: JSON.stringify(postulant)
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         if (response.errors || response.code) {
           setShowMessage(true);

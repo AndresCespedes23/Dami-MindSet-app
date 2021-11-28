@@ -36,7 +36,10 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
   useEffect(() => {
     if (id) {
       fetch(`${process.env.REACT_APP_API}/candidates/${id}`)
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) return response.json();
+          throw new Error(`HTTP ${response.status}`);
+        })
         .then((response) => {
           response.dateOfBirth = response.dateOfBirth.split('T')[0];
           setFormData(response);
