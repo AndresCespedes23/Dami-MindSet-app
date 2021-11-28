@@ -1,25 +1,36 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
+import ClientsForm from '../../Clients/Form';
+import Confirmation from '../../Clients/Confirmation';
 
-function Modal({ handleShowModal }) {
+function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
+  let modalComponent;
+  switch (modalType) {
+    case 'clients':
+      modalComponent = (
+        <ClientsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'delete':
+      modalComponent = (
+        <Confirmation
+          message="Did you want to Delete?"
+          handleDelete={handleSubmit}
+          handleShowModal={handleShowModal}
+        />
+      );
+      break;
+  }
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
         <div className={styles.titleCloseBtn}>
           <Button type="close" onClick={handleShowModal} />
         </div>
-        <div className={styles.title}>
-          <h1>Example text</h1>
-        </div>
-        <div className={styles.body}></div>
-        <div className={styles.footer}>
-          <button className={styles.cancelBtn}>Cancel</button>
-          <button>Continue</button>
-        </div>
+        {modalComponent}
       </div>
     </div>
   );
 }
-
 export default Modal;
