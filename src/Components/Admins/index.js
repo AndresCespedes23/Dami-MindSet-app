@@ -33,7 +33,7 @@ function Admins() {
       .then((response) => {
         setShowMessage(true);
         setMessageType('success');
-        setMessage('Candidate updated');
+        setMessage('Admin updated');
         setAdmins(admins.map((admin) => (admin._id === idActive ? response : admin)));
       })
       .catch((error) => {
