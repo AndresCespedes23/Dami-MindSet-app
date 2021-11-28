@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
-/* import Message from '../Shared/Message'; */
+import Message from '../Shared/Message';
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState('');
 
   useEffect(() => {
     // Cambiar por variable de entorno
@@ -34,12 +36,40 @@ function Postulants() {
     })
       .then((response) => response.json())
       .then(() => {
+        setShowMessage(true);
+        setMessageType('success');
         setPostulants(postulants.filter((postulant) => postulant._id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
   const handleUpdatePostulant = (postulant) => {
     console.log(postulant);
+    fetch(`http://localhost:4000/api/candidates/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(postulant)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setShowMessage(true);
+        setMessageType('success');
+        setPostulants(
+          postulants.map((postulant) => (postulant._id === idActive ? response : postulant))
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowMessage(true);
+        setMessageType('error');
+      });
   };
 
   const handleClickUpdate = (id) => {
@@ -67,11 +97,19 @@ function Postulants() {
       .then((response) => {
         console.log(response);
         //Si hay errores del backend no se agrega, acá se debe mostrar un mensaje de error
-        if (response.errors || response.code) return;
+        if (response.errors || response.code) {
+          setShowMessage(true);
+          setMessageType('error');
+          return;
+        }
+        setShowMessage(true);
+        setMessageType('success');
         setPostulants([...postulants, response]);
       })
       .catch((err) => {
         console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
@@ -79,9 +117,20 @@ function Postulants() {
     setShowModal(false);
   };
 
+  const handleShowMessage = () => {
+    setShowMessage(false);
+  };
+
   return (
     <section className={styles.container}>
       <h2>Postulants</h2>
+      {showMessage && (
+        <Message
+          type={messageType}
+          message={messageType === 'success' ? 'Action Complete' : 'Error'}
+          showMessage={handleShowMessage}
+        />
+      )}
       <table className={styles.table}>
         <thead>
           <tr>
