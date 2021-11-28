@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 import styles from './admins.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
+import Message from '../Shared/Message';
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/admins`)
@@ -18,7 +22,25 @@ function Admins() {
   }, []);
 
   const handleUpdateAdmin = (admin) => {
-    console.log(admin);
+    fetch(`${process.env.REACT_APP_API}/admins/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(admin)
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Candidate updated');
+        setAdmins(admins.map((admin) => (admin._id === idActive ? response : admin)));
+      })
+      .catch((error) => {
+        console.log(error);
+        setShowMessage(true);
+        setMessageType('error');
+      });
   };
 
   const handleClickUpdate = (id) => {
@@ -31,9 +53,16 @@ function Admins() {
     setShowModal(false);
   };
 
+  const handleShowMessage = () => {
+    setShowMessage(false);
+  };
+
   return (
     <section className={styles.container}>
       <h2>Admins</h2>
+      {showMessage && (
+        <Message type={messageType} message={message} showMessage={handleShowMessage} />
+      )}
       <table className={styles.table}>
         <thead>
           <tr>
