@@ -36,14 +36,14 @@ function Admins() {
       });
   };
 
+  const handleUpdateAdmin = (admin) => {
+    console.log(admin);
+  };
+
   const handleClickAdd = () => {
     setShowModal(true);
     setModalType('admins');
     setIdActive('');
-  };
-
-  const handleUpdateAdmin = (admin) => {
-    console.log(admin);
   };
 
   const handleClickUpdate = (id) => {
@@ -52,14 +52,14 @@ function Admins() {
     setModalType('admins');
   };
 
-  const handleAddAdmin = (postulant) => {
+  const handleAddAdmin = (admin) => {
     fetch(`${process.env.REACT_APP_API}/admins`, {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(postulant)
+      body: JSON.stringify(admin)
     })
       .then((response) => response.json())
       .then((response) => {
