@@ -50,7 +50,6 @@ function Postulants() {
   };
 
   const handleUpdatePostulant = (postulant) => {
-    console.log(postulant);
     fetch(`${process.env.REACT_APP_API}/candidates/${idActive}`, {
       method: 'PUT',
       headers: {
@@ -60,7 +59,6 @@ function Postulants() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         setShowMessage(true);
         setMessageType('success');
         setMessage('Candidate updated');
@@ -98,7 +96,6 @@ function Postulants() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if (response.errors || response.code) {
           setShowMessage(true);
           setMessageType('error');
