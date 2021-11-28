@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './confirmation.module.css';
-import Button from '../../Shared/Button';
+import Button from '../Button';
 
 function Confirmation({ message, handleDelete, handleShowModal }) {
   return (

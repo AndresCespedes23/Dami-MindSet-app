@@ -1,48 +1,87 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 
-function InterviewForm({ id, handleSubmit }) {
+function InterviewForm({ id, handleSubmit, handleShowModal }) {
   const [candidates, setCandidates] = useState([]);
   const [clients, setClients] = useState([]);
   const [positions, setPositions] = useState([]);
-  const setForm = (interview) => {
-    console.log(interview);
-  };
+  const [formData, setFormData] = useState({
+    idCandidate: '',
+    idPosition: '',
+    idClient: '',
+    status: '',
+    dateTime: ''
+  });
+  const [error, setIsError] = useState({
+    idCandidate: false,
+    idPosition: false,
+    idClient: false,
+    status: false,
+    dateTime: false
+  });
+
   useEffect(() => {
-    fetch(`http://localhost:5000/api/candidates`)
-      .then((response) => response.json())
+    fetch(`${process.env.REACT_APP_API}/candidates`)
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setCandidates(response);
       });
-    fetch(`http://localhost:5000/api/clients`)
-      .then((response) => response.json())
+    fetch(`${process.env.REACT_APP_API}/clients`)
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setClients(response);
       });
-    fetch(`http://localhost:5000/api/positions`)
-      .then((response) => response.json())
+    fetch(`${process.env.REACT_APP_API}/positions`)
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setPositions(response);
       });
     if (id !== null) {
-      fetch(`http://localhost:5000/api/interviews/${id}`)
-        .then((response) => response.json())
+      fetch(`${process.env.REACT_APP_API}/interviews/${id}`)
         .then((response) => {
-          setForm(response);
+          if (response.status === 200 || response.status === 201) return response.json();
+          throw new Error(`HTTP ${response.status}`);
+        })
+        .then((response) => {
+          response.dateTime = response.dateTime.split('T')[0];
+          setFormData(response);
         });
     }
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
-    //Falta validar y msg de error
     const newInterview = {
-      idCandidate: event.target.candidate.value,
-      idPosition: event.target.position.value,
-      idClient: event.target.client.value,
+      idCandidate: event.target.idCandidate.value,
+      idPosition: event.target.idPosition.value,
+      idClient: event.target.idClient.value,
       status: event.target.status.value,
       dateTime: event.target.dateTime.value
     };
+    for (let key in newInterview) {
+      if (newInterview[key] === '') {
+        setIsError({ ...error, [key]: true });
+        return;
+      } else {
+        setIsError({ ...error, [key]: false });
+      }
+    }
     handleSubmit(newInterview);
+    handleShowModal();
   };
 
   return (
@@ -51,7 +90,7 @@ function InterviewForm({ id, handleSubmit }) {
         <div className={styles.column}>
           <div>
             <label>Candidate:</label>
-            <select name="candidate">
+            <select name="idCandidate" value={formData.idCandidate} onChange={handleChange}>
               {candidates.map((candidate) => {
                 return [
                   <option key={candidate._id} value={candidate._id}>
@@ -59,11 +98,12 @@ function InterviewForm({ id, handleSubmit }) {
                   </option>
                 ];
               })}
+              {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
             </select>
           </div>
           <div>
             <label>Client:</label>
-            <select name="client">
+            <select name="idClient" value={formData.idClient} onChange={handleChange}>
               {clients.map((client) => {
                 return [
                   <option key={client._id} value={client._id}>
@@ -71,20 +111,22 @@ function InterviewForm({ id, handleSubmit }) {
                   </option>
                 ];
               })}
+              {error.client && <span className={styles.error}>*Client is missing</span>}
             </select>
           </div>
           <div>
             <label>Status:</label>
-            <select name="status">
+            <select name="status" value={formData.status} onChange={handleChange}>
               <option>DONE</option>
               <option>PENDING</option>
+              {error.status && <span className={styles.error}>*Status is missing</span>}
             </select>
           </div>
         </div>
         <div className={styles.column}>
           <div>
             <label>Position:</label>
-            <select name="position">
+            <select name="idPosition" value={formData.idPosition} onChange={handleChange}>
               {positions.map((position) => {
                 return [
                   <option key={position._id} value={position._id}>
@@ -92,11 +134,19 @@ function InterviewForm({ id, handleSubmit }) {
                   </option>
                 ];
               })}
+              {error.position && <span className={styles.error}>*Position is missing</span>}
             </select>
           </div>
           <div>
             <label>Date:</label>
-            <input type="date" name="dateTime" placeholder="Insert a date" required />
+            <input
+              type="date"
+              name="dateTime"
+              placeholder="Insert a date"
+              value={formData.dateTime}
+              onChange={handleChange}
+            />
+            {error.dateTime && <span className={styles.error}>*Date is missing</span>}
           </div>
           <div>
             <button type="submit" className={styles.submit}>

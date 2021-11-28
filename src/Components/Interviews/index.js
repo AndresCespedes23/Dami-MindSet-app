@@ -3,16 +3,23 @@ import styles from './interviews.module.css';
 import Button from '../Shared/Button/index';
 import Modal from '../Shared/Modal/index';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
+import Message from '../Shared/Message';
 
 function Interviews() {
   const [interviews, setInterviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/interviews`)
-      .then((response) => response.json())
+    fetch(`${process.env.REACT_APP_API}/interviews`)
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setInterviews(response);
       });
@@ -22,23 +29,37 @@ function Interviews() {
     setShowModal(false);
   };
 
+  const handleShowMessage = () => {
+    setShowMessage(false);
+  };
+
   const handleDeleteClick = (id) => {
-    //CONFIRMACION FALTA
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
   };
 
   const handleDeleteInterview = (id) => {
-    fetch(`http://localhost:5000/api/interviews/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/interviews/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then(() => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Interview deleted');
         setInterviews(interviews.filter((interviews) => interviews._id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
@@ -47,17 +68,43 @@ function Interviews() {
     setIdActive(id);
     setModalType('interviews');
   };
+
   const handleUpdateInterview = (interview) => {
-    //METODO DE UPDATE
-    console.log(interview);
+    fetch(`${process.env.REACT_APP_API}/interviews/${idActive}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(interview)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Candidate updated');
+        setInterviews(
+          interviews.map((interview) => (interview._id === idActive ? response : interview))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+      });
   };
+
   const handleAddClick = () => {
     setShowModal(true);
     setIdActive(null);
     setModalType('interviews');
   };
+
   const handleAddInterview = (interview) => {
-    fetch(`http://localhost:5000/api/interviews`, {
+    fetch(`${process.env.REACT_APP_API}/interviews`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -65,18 +112,35 @@ function Interviews() {
       },
       body: JSON.stringify(interview)
     })
-      .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        if (response.errors || response.code) {
+          setShowMessage(true);
+          setMessageType('error');
+          setMessage('Error with parameters');
+          return;
+        }
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Interview added');
+        setInterviews([...interviews, response]);
       })
       .catch((err) => {
         console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
   return (
     <section className={styles.container}>
       <h2>Interviews</h2>
+      {showMessage && (
+        <Message type={messageType} message={message} showMessage={handleShowMessage} />
+      )}
       <div>
         <table className={styles.table}>
           <thead>
@@ -91,21 +155,23 @@ function Interviews() {
           </thead>
           <tbody>
             {interviews.map((interview) => {
-              return [
-                <tr key={interview._id}>
-                  <td>{interview.idCandidate}</td>
-                  <td>{interview.idClient}</td>
-                  <td>{interview.idPosition}</td>
-                  <td>{interview.dateTime}</td>
-                  <td className={styles[interview.status.toLowerCase()]}>
-                    {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                  </td>
-                  <td>
-                    <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
-                    <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
-                  </td>
-                </tr>
-              ];
+              if (interview.idCandidate && interview.idClient && interview.idPosition) {
+                return [
+                  <tr key={interview._id}>
+                    <td>{interview.idCandidate.name}</td>
+                    <td>{interview.idClient.name}</td>
+                    <td>{interview.idPosition.name}</td>
+                    <td>{interview.dateTime.split('T')[0]}</td>
+                    <td className={styles[interview.status.toLowerCase()]}>
+                      {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                    </td>
+                    <td>
+                      <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
+                      <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
+                    </td>
+                  </tr>
+                ];
+              }
             })}
           </tbody>
         </table>
@@ -118,9 +184,9 @@ function Interviews() {
           handleSubmit={
             modalType === 'delete'
               ? () => handleDeleteInterview(idActive)
-              : modalType === 'postulants'
-              ? handleUpdateInterview(idActive)
-              : handleAddInterview
+              : modalType === 'interviews' && !idActive
+              ? handleAddInterview
+              : handleUpdateInterview
           }
           meta={idActive}
         />
