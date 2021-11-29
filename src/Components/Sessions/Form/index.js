@@ -108,7 +108,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       <div className={styles.formField}>
         <label>Date Time</label>
         <input
-          type="date"
+          type="datetime-local"
           name="dateTime"
           placeholder="Insert a date"
           required
@@ -119,8 +119,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       <div className={styles.formField}>
         <label>Status</label>
         <select name="status" value={formData.status} required onChange={handleChange}>
-          <option value="pending">Pending</option>
-          <option value="done">Done</option>
+          <option value="pending">PENDING</option>
+          <option value="done">DONE</option>
         </select>
         {error.status && <span className={styles.error}>Status time is missing</span>}
       </div>
