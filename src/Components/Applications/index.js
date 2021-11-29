@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
-/* import Message from '../Shared/Message'; */
+import Message from '../Shared/Message';
 
 function Applications() {
-  const [applications, setApplications] = useState([]); //esto es para el fetch
+  const [applications, setApplications] = useState([]); // this is for "fetch"
   const [showModal, setShowModal] = useState(false); // modal
-  const [modalType, setModalType] = useState(''); // modal para las acciones
-  const [idActive, setIdActive] = useState(''); // esto esta para las acciones que no sean ADD
-  // const [showMessage, setShowMessage] // (true/false) ESTOS STATUS C/ MSG SON PARA EL DELETE
-  // const [messageType, setMessageType] // ('error'; 'success' ) ESTOS STATUS C/ MSG SON PARA EL DELETE
-  // const [message, setMessage] // (string) ESTOS STATUS C/ MSG SON PARA EL DELETE
+  const [modalType, setModalType] = useState(''); // modal for add, update and delete
+  const [idActive, setIdActive] = useState(''); // modal for update and delete
+  const [showMessage, setShowMessage] = useState(false); // (true/false)
+  const [messageType, setMessageType] = useState(''); // ('error'/'success')
+  const [message, setMessage] = useState(''); // (string)
 
   useEffect(() => {
     // fetch(`${process.env.REACT_APP_API}/applications`)
@@ -27,9 +27,9 @@ function Applications() {
 
   // ----------- ADD -----------
   const handleClickAdd = () => {
-    setShowModal(true); //abre el modal al tocar el botton add
-    setModalType('applications');
+    setShowModal(true); // this is for open the modal
     setIdActive('');
+    setModalType('applications');
   };
 
   const handleAddApplication = (application) => {
@@ -47,17 +47,21 @@ function Applications() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
-        // messages
-        // messages
-        // messages
+        if (response.errors || response.code) {
+          setShowMessage(true);
+          setMessageType('error');
+          setMessage('Error with parameters');
+          return;
+        }
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Application added');
         setApplications([...applications, response]);
       })
       .catch((err) => {
-        console.log(err); //falta codigo -------------------------------------------------
-        // messages
-        // messages
-        // messages
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
@@ -81,15 +85,15 @@ function Applications() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then(() => {
-        // AQUI LOS STATES PARA EL MENSAJE
-        // AQUI LOS STATES PARA EL MENSAJE
-        // AQUI LOS STATES PARA EL MENSAJE
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Application deleted');
         setApplications(applications.filter((application) => application._id !== id));
       })
       .catch((error) => {
         console.log(error);
-        //message
-        //message
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
@@ -114,32 +118,35 @@ function Applications() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
-        // messages
-        // messages
-        // messages
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Application updated');
         setApplications(
           applications.map((application) => (application._id === idActive ? response : application))
         );
       })
       .catch((err) => {
         console.log(err);
-        // messages
-        // messages
+        setShowMessage(true);
+        setMessageType('error');
       });
   };
 
   // -----------MODAL AND MESSAGES-----------
   const handleShowModal = () => {
-    setShowModal(false); // para que el modal este desactivado por defecto
+    setShowModal(false);
+  };
+
+  const handleShowMessage = () => {
+    setShowMessage(false);
   };
 
   return (
     <section className={styles.container}>
       <h2>Applications</h2>
-      {
-        // llamada a LOS STATUS MESSAGES
-      }
+      {showMessage && (
+        <Message type={messageType} message={message} showMessage={handleShowMessage} />
+      )}
       <div>
         <table className={styles.table}>
           <thead>
@@ -178,8 +185,8 @@ function Applications() {
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
-          handleShowModal={handleShowModal} //hasta acá es para que el modal aparezca basicamente
-          modalType={modalType} //esto sería para manejar las acciones
+          handleShowModal={handleShowModal} // to show modal
+          modalType={modalType} // this is for manage the actions
           handleSubmit={
             modalType === 'delete'
               ? () => handleDelete(idActive)

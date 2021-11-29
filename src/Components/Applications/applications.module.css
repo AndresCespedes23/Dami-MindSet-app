@@ -4,6 +4,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
+}
+
+.container button {
+  margin: 2px;
 }
 
 .table {
@@ -21,6 +26,7 @@
   font-weight: normal;
 }
 .table td {
+  padding: 10px;
   text-align: center;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
