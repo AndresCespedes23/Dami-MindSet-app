@@ -45,7 +45,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPositions(response);
       });
-    if (id !== null) {
+    if (id) {
       fetch(`${process.env.REACT_APP_API}/interviews/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
@@ -85,77 +85,75 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
   };
 
   return (
-    <div>
-      <form className={styles.containerForm} onSubmit={onSubmit}>
-        <div className={styles.column}>
-          <div>
-            <label>Candidate:</label>
-            <select name="idCandidate" value={formData.idCandidate} onChange={handleChange}>
-              {candidates.map((candidate) => {
-                return [
-                  <option key={candidate._id} value={candidate._id}>
-                    {candidate.name}
-                  </option>
-                ];
-              })}
-              {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
-            </select>
-          </div>
-          <div>
-            <label>Client:</label>
-            <select name="idClient" value={formData.idClient} onChange={handleChange}>
-              {clients.map((client) => {
-                return [
-                  <option key={client._id} value={client._id}>
-                    {client.name}
-                  </option>
-                ];
-              })}
-              {error.client && <span className={styles.error}>*Client is missing</span>}
-            </select>
-          </div>
-          <div>
-            <label>Status:</label>
-            <select name="status" value={formData.status} onChange={handleChange}>
-              <option>DONE</option>
-              <option>PENDING</option>
-              {error.status && <span className={styles.error}>*Status is missing</span>}
-            </select>
-          </div>
+    <form className={styles.containerForm} onSubmit={onSubmit}>
+      <div className={styles.column}>
+        <div>
+          <label>Candidate:</label>
+          <select name="idCandidate" value={formData.idCandidate} onChange={handleChange}>
+            {candidates.map((candidate) => {
+              return [
+                <option key={candidate._id} value={candidate._id}>
+                  {candidate.name}
+                </option>
+              ];
+            })}
+            {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
+          </select>
         </div>
-        <div className={styles.column}>
-          <div>
-            <label>Position:</label>
-            <select name="idPosition" value={formData.idPosition} onChange={handleChange}>
-              {positions.map((position) => {
-                return [
-                  <option key={position._id} value={position._id}>
-                    {position.name}
-                  </option>
-                ];
-              })}
-              {error.position && <span className={styles.error}>*Position is missing</span>}
-            </select>
-          </div>
-          <div>
-            <label>Date:</label>
-            <input
-              type="date"
-              name="dateTime"
-              placeholder="Insert a date"
-              value={formData.dateTime}
-              onChange={handleChange}
-            />
-            {error.dateTime && <span className={styles.error}>*Date is missing</span>}
-          </div>
-          <div>
-            <button type="submit" className={styles.submit}>
-              Submit
-            </button>
-          </div>
+        <div>
+          <label>Client:</label>
+          <select name="idClient" value={formData.idClient} onChange={handleChange}>
+            {clients.map((client) => {
+              return [
+                <option key={client._id} value={client._id}>
+                  {client.name}
+                </option>
+              ];
+            })}
+            {error.client && <span className={styles.error}>*Client is missing</span>}
+          </select>
         </div>
-      </form>
-    </div>
+        <div>
+          <label>Status:</label>
+          <select name="status" value={formData.status} onChange={handleChange}>
+            <option>DONE</option>
+            <option>PENDING</option>
+            {error.status && <span className={styles.error}>*Status is missing</span>}
+          </select>
+        </div>
+      </div>
+      <div className={styles.column}>
+        <div>
+          <label>Position:</label>
+          <select name="idPosition" value={formData.idPosition} onChange={handleChange}>
+            {positions.map((position) => {
+              return [
+                <option key={position._id} value={position._id}>
+                  {position.name}
+                </option>
+              ];
+            })}
+            {error.position && <span className={styles.error}>*Position is missing</span>}
+          </select>
+        </div>
+        <div>
+          <label>Date:</label>
+          <input
+            type="date"
+            name="dateTime"
+            placeholder="Insert a date"
+            value={formData.dateTime}
+            onChange={handleChange}
+          />
+          {error.dateTime && <span className={styles.error}>*Date is missing</span>}
+        </div>
+        <div>
+          <button type="submit" className={styles.submit}>
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
   );
 }
 

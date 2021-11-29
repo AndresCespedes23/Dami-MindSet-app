@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import InterviewForm from '../../Interviews/Form/index';
-import Confirmation from '../Confirmation/index';
+import InterviewForm from '../../Interviews/Form';
+import Confirmation from '../Confirmation';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;

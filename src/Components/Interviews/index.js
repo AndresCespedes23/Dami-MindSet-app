@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './interviews.module.css';
-import Button from '../Shared/Button/index';
-import Modal from '../Shared/Modal/index';
+import Button from '../Shared/Button';
+import Modal from '../Shared/Modal';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Message from '../Shared/Message';
 
@@ -85,7 +85,7 @@ function Interviews() {
       .then((response) => {
         setShowMessage(true);
         setMessageType('success');
-        setMessage('Candidate updated');
+        setMessage('Interview updated');
         setInterviews(
           interviews.map((interview) => (interview._id === idActive ? response : interview))
         );
