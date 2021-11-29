@@ -3,29 +3,29 @@ import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 /* import Message from '../Shared/Message'; */
-//REPO JULI 27/11 18hs
 
 function Applications() {
   const [applications, setApplications] = useState([]); //esto es para el fetch
   const [showModal, setShowModal] = useState(false); // modal
   const [modalType, setModalType] = useState(''); // modal para las acciones
   const [idActive, setIdActive] = useState(''); // esto esta para las acciones que no sean ADD
+  // const [showMessage, setShowMessage] // (true/false) ESTOS STATUS C/ MSG SON PARA EL DELETE
+  // const [messageType, setMessageType] // ('error'; 'success' ) ESTOS STATUS C/ MSG SON PARA EL DELETE
+  // const [message, setMessage] // (string) ESTOS STATUS C/ MSG SON PARA EL DELETE
 
   useEffect(() => {
     // fetch(`${process.env.REACT_APP_API}/applications`)
     fetch('http://localhost:4000/api/applications')
-      .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`); // preguntar
+      })
+      .then((response) => {
         setApplications(response);
       });
   }, []);
 
-  const handleShowModal = () => {
-    setShowModal(false); // para que el modal este desactivado por defecto
-  };
-
-  // ADD
+  // ----------- ADD -----------
   const handleClickAdd = () => {
     setShowModal(true); //abre el modal al tocar el botton add
     setModalType('applications');
@@ -33,6 +33,7 @@ function Applications() {
   };
 
   const handleAddApplication = (application) => {
+    // fetch(`${process.env.REACT_APP_API}/applications`, {
     fetch('http://localhost:4000/api/applications', {
       method: 'POST',
       mode: 'cors',
@@ -41,17 +42,26 @@ function Applications() {
       },
       body: JSON.stringify(application)
     })
-      .then((response) => response.json())
       .then((response) => {
-        console.log(response); //ACÁ AGREGAN UN IF
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        console.log(response);
+        // messages
+        // messages
+        // messages
         setApplications([...applications, response]);
       })
       .catch((err) => {
         console.log(err); //falta codigo -------------------------------------------------
+        // messages
+        // messages
+        // messages
       });
   };
 
-  // DELETE
+  // ----------- DELETE -----------
   const handleClickDelete = (id) => {
     setShowModal(true);
     setIdActive(id);
@@ -59,21 +69,77 @@ function Applications() {
   };
 
   const handleDelete = (id) => {
+    // fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
     fetch(`http://localhost:4000/api/applications/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-type': 'application/json; charset=UTF-8' //¿PARA QUE SIRVE ESTO?
+        'Content-type': 'application/json; charset=UTF-8'
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then(() => {
+        // AQUI LOS STATES PARA EL MENSAJE
+        // AQUI LOS STATES PARA EL MENSAJE
+        // AQUI LOS STATES PARA EL MENSAJE
         setApplications(applications.filter((application) => application._id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+        //message
+        //message
       });
+  };
+
+  // ----------- UPDATE(EDIT) -----------
+  const handleClickUpdate = (id) => {
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('applications');
+  };
+
+  const handleUpdateApplication = (application) => {
+    // fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
+    fetch(`http://localhost:4000/api/applications/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(application)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        console.log(response);
+        // messages
+        // messages
+        // messages
+        setApplications(
+          applications.map((application) => (application._id === idActive ? response : application))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        // messages
+        // messages
+      });
+  };
+
+  // -----------MODAL AND MESSAGES-----------
+  const handleShowModal = () => {
+    setShowModal(false); // para que el modal este desactivado por defecto
   };
 
   return (
     <section className={styles.container}>
       <h2>Applications</h2>
+      {
+        // llamada a LOS STATUS MESSAGES
+      }
       <div>
         <table className={styles.table}>
           <thead>
@@ -100,6 +166,7 @@ function Applications() {
                   <td>{application.dateTime}</td>
                   <td>{application.status}</td>
                   <td>
+                    <Button type="update" onClick={() => handleClickUpdate(application._id)} />
                     <Button type="delete" onClick={() => handleClickDelete(application._id)} />
                   </td>
                 </tr>
@@ -118,7 +185,7 @@ function Applications() {
               ? () => handleDelete(idActive)
               : modalType === 'applications' && !idActive
               ? handleAddApplication
-              : handleAddApplication //esto se que no iria, creo
+              : handleUpdateApplication
           }
           meta={idActive}
         />

@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-.title {
-  text-align: center;
-}
-
 .form {
   display: flex;
   flex-wrap: wrap;
