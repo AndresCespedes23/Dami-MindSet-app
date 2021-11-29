@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import InterviewForm from '../../Interviews/Form';
 import Confirmation from '../Confirmation';
+import PsychologistsForm from '../../Psychologists/Form';
+import InterviewForm from '../../Interviews/Form';
 import PostulantsForm from '../../Postulants/Form';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
@@ -23,6 +24,15 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
         <Confirmation
           message="Did you want to Delete?"
           handleDelete={handleSubmit}
+          handleShowModal={handleShowModal}
+        />
+      );
+      break;
+    case 'psychologists':
+      modalComponent = (
+        <PsychologistsForm
+          id={meta}
+          handleSubmit={handleSubmit}
           handleShowModal={handleShowModal}
         />
       );
