@@ -10,11 +10,22 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
     cuit: '',
     activity: ''
   });
+  const [error, setIsError] = useState({
+    name: false,
+    email: false,
+    address: false,
+    phoneNumber: false,
+    cuit: false,
+    activity: false
+  });
 
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:4000/api/clients/${id}`)
-        .then((response) => response.json())
+        .then((response) => {
+          if (response.status === 200 || response.status === 201) return response.json();
+          throw new Error(`HTTP ${response.status}`);
+        })
         .then((response) => {
           setFormData(response);
         });
@@ -36,6 +47,15 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
       cuit: event.target[4].value,
       activity: event.target[5].value
     };
+
+    for (let key in newClient) {
+      if (newClient[key] === '') {
+        setIsError({ ...error, [key]: true });
+        return;
+      } else {
+        setIsError({ ...error, [key]: false });
+      }
+    }
     handleSubmit(newClient);
     handleShowModal();
   };
@@ -45,14 +65,17 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
       <div className={styles.formField}>
         <label>Name</label>
         <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        {error.name && <span className={styles.error}>Name is missing</span>}
       </div>
       <div className={styles.formField}>
         <label>Email</label>
         <input type="text" name="email" value={formData.email} onChange={handleChange} />
+        {error.email && <span className={styles.error}>Email is missing</span>}
       </div>
       <div className={styles.formField}>
         <label>Address</label>
         <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        {error.address && <span className={styles.error}>Address is missing</span>}
       </div>
       <div className={styles.formField}>
         <label>Phone Number</label>
@@ -62,14 +85,17 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
           value={formData.phoneNumber}
           onChange={handleChange}
         />
+        {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
       </div>
       <div className={styles.formField}>
         <label>CUIT</label>
         <input type="number" name="cuit" value={formData.cuit} onChange={handleChange} />
+        {error.cuit && <span className={styles.error}>Cuit is missing</span>}
       </div>
       <div className={styles.formField}>
         <label>Activity Type</label>
         <input type="text" name="activity" value={formData.activity} onChange={handleChange} />
+        {error.activity && <span className={styles.error}>Activity is missing</span>}
       </div>
       <button type="submit">Submit</button>
     </form>

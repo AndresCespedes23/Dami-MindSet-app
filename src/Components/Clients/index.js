@@ -11,10 +11,14 @@ function Clients() {
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     fetch(`http://localhost:4000/api/clients`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         setClients(response);
       });
@@ -33,14 +37,21 @@ function Clients() {
         'Content-type': 'application/json; charset=UTF-8'
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then(() => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Client deleted');
         setClients(clients.filter((client) => client._id !== id));
       })
       .catch((err) => {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error');
       });
   };
 
@@ -53,17 +64,22 @@ function Clients() {
       },
       body: JSON.stringify(client)
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         console.log(response);
         setShowMessage(true);
         setMessageType('success');
+        setMessage('Client updated');
         setClients(clients.map((client) => (client._id === idActive ? response : client)));
       })
       .catch((error) => {
         console.log(error);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error');
       });
   };
 
@@ -88,22 +104,28 @@ function Clients() {
       },
       body: JSON.stringify(client)
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         console.log(response);
         if (response.errors || response.code) {
           setShowMessage(true);
           setMessageType('error');
+          setMessage('Error');
           return;
         }
         setShowMessage(true);
         setMessageType('success');
+        setMessage('Client added');
         setClients([...clients, response]);
       })
       .catch((err) => {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error');
       });
   };
 
@@ -119,11 +141,7 @@ function Clients() {
     <section className={styles.container}>
       <h2>Clients</h2>
       {showMessage && (
-        <Message
-          type={messageType}
-          message={messageType === 'success' ? 'Action Complete' : 'Error'}
-          showMessage={handleShowMessage}
-        />
+        <Message type={messageType} message={message} showMessage={handleShowMessage} />
       )}
       <table className={styles.table}>
         <thead>
