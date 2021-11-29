@@ -83,13 +83,12 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
     handleSubmit(newInterview);
     handleShowModal();
   };
-
   return (
     <form className={styles.containerForm} onSubmit={onSubmit}>
       <div className={styles.column}>
         <div>
           <label>Candidate:</label>
-          <select name="idCandidate" value={formData.idCandidate} onChange={handleChange}>
+          <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
             {candidates.map((candidate) => {
               return [
                 <option key={candidate._id} value={candidate._id}>
@@ -102,7 +101,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         </div>
         <div>
           <label>Client:</label>
-          <select name="idClient" value={formData.idClient} onChange={handleChange}>
+          <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
             {clients.map((client) => {
               return [
                 <option key={client._id} value={client._id}>
@@ -125,7 +124,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       <div className={styles.column}>
         <div>
           <label>Position:</label>
-          <select name="idPosition" value={formData.idPosition} onChange={handleChange}>
+          <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
             {positions.map((position) => {
               return [
                 <option key={position._id} value={position._id}>
