@@ -9,13 +9,6 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
     password: ''
   });
 
-  const [error, setIsError] = useState({
-    name: false,
-    email: false,
-    username: false,
-    password: false
-  });
-
   useEffect(() => {
     if (id) {
       fetch(`${process.env.REACT_APP_API}/admins/${id}`)
@@ -43,14 +36,6 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
       password: event.target[3].value
     };
 
-    for (let key in UpdateAdmin) {
-      if (UpdateAdmin[key] === '') {
-        setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: false });
-      }
-    }
     handleSubmit(UpdateAdmin);
     handleShowModal();
   };
@@ -59,19 +44,31 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
     <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.formField}>
         <label>Name</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
       </div>
       <div className={styles.formField}>
         <label>Email</label>
-        <input type="text" name="email" value={formData.email} onChange={handleChange} />
+        <input type="text" name="email" value={formData.email} onChange={handleChange} required />
       </div>
       <div className={styles.formField}>
         <label>Username</label>
-        <input type="text" name="username" value={formData.username} onChange={handleChange} />
+        <input
+          type="text"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
       </div>
       <div className={styles.formField}>
         <label>Password</label>
-        <input type="password" name="password" value={formData.password} onChange={handleChange} />
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
       </div>
       <button type="submit">Submit</button>
     </form>
