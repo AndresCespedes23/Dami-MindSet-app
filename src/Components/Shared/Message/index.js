@@ -1,19 +1,15 @@
+import { useEffect } from 'react';
 import styles from './message.module.css';
 
-// eslint-disable-next-line react/prop-types
-function Message({ type, message }) {
+function Message({ type, message, showMessage }) {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      showMessage();
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [showMessage]);
   return (
-    <div
-      className={
-        type === 'error'
-          ? styles.error
-          : type === 'success'
-          ? styles.success
-          : type === 'warning'
-          ? styles.warning
-          : styles.hide
-      }
-    >
+    <div className={styles[type] || styles.hide}>
       <p>{message}</p>
     </div>
   );
