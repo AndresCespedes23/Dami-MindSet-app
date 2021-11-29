@@ -59,7 +59,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          response.dateTime = response.dateTime.split('T')[0];
+          //response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         });
     }

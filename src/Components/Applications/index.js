@@ -18,7 +18,7 @@ function Applications() {
     fetch('http://localhost:4000/api/applications')
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`); // preguntar
+        throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
         setApplications(response);
@@ -38,7 +38,7 @@ function Applications() {
       method: 'POST',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json' // ¿POR QUÉ VA A APPLICATION?
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(application)
     })
