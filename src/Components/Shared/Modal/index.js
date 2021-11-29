@@ -4,6 +4,7 @@ import Button from '../Button';
 import InterviewForm from '../../Interviews/Form';
 import Confirmation from '../Confirmation';
 import PostulantsForm from '../../Postulants/Form';
+import ProfilesForm from '../../Profiles/Form';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
@@ -16,6 +17,11 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
     case 'postulants':
       modalComponent = (
         <PostulantsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'profiles':
+      modalComponent = (
+        <ProfilesForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
     case 'delete':
