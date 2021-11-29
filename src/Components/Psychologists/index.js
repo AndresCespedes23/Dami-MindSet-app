@@ -30,7 +30,7 @@ function Psychologists() {
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/psychologists${id}`, {
+    fetch(`${process.env.REACT_APP_API}/psychologists/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -53,7 +53,7 @@ function Psychologists() {
   };
 
   const handleUpdatePsychologist = (psychologist) => {
-    fetch(`${process.env.REACT_APP_API}/psychologists${idActive}`, {
+    fetch(`${process.env.REACT_APP_API}/psychologists/${idActive}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -166,7 +166,7 @@ function Psychologists() {
                   <td>{psychologist.enrollmentNumber}</td>
                   <td>{psychologist.timeRange[0] + ' to ' + psychologist.timeRange[1]}</td>
                   <td>{psychologist.dayRange[0] + ' to ' + psychologist.dayRange[1]}</td>
-                  <td>{psychologist.status}</td>
+                  <td>{String(psychologist.status)}</td>
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(psychologist._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(psychologist._id)} />
