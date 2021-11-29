@@ -56,7 +56,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         })
         .then((response) => {
           console.log(response);
-          response.dateTime = response.dateTime.split('T')[0];
+          //response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         });
     }
@@ -80,9 +80,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
     for (let key in newApplication) {
       if (newApplication[key] === '') {
         setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: true });
+        return setIsError({ ...error, [key]: true });
       }
     }
     handleSubmit(newApplication);
@@ -95,11 +93,11 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         <label>ID Position:</label>
         <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
           {positions.map((position) => {
-            return [
+            return (
               <option key={position._id} value={position._id}>
-                {position.name}
+                {position._id}
               </option>
-            ];
+            );
           })}
           {error.position && <span className={styles.error}>*Position is missing</span>}
         </select>
@@ -108,11 +106,11 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         <label>ID Candidate:</label>
         <select name="idCandidate" value={formData.idCandidate_id} onChange={handleChange}>
           {candidates.map((candidate) => {
-            return [
+            return (
               <option key={candidate._id} value={candidate._id}>
-                {candidate.name}
+                {candidate._id}
               </option>
-            ];
+            );
           })}
           {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
         </select>
@@ -121,11 +119,11 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         <label>Interview date:</label>
         <select name="idInterview" value={formData.idInterview_id} onChange={handleChange}>
           {interviews.map((interview) => {
-            return [
+            return (
               <option key={interview._id} value={interview._id}>
-                {interview.dateTime}
+                {interview._id}
               </option>
-            ];
+            );
           })}
           {error.interview && <span className={styles.error}>*Interview is missing</span>}
         </select>
