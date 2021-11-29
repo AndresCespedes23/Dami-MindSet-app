@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
 import PositionsForm from '../../Positions/Form';
+import Confirmation from './Confirmation';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
