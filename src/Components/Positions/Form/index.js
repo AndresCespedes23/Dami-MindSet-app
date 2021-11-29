@@ -92,7 +92,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         <div className={styles.column}>
           <div className={styles.fields}>
             <label>Client</label>
-            <select name="idClient" value={formData.idClient} onChange={handleChange}>
+            <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
               {clients.map((client) => {
                 return [
                   <option key={client._id} value={client._id}>
@@ -105,7 +105,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           </div>
           <div className={styles.fields}>
             <label>Profile</label>
-            <select name="idProfile" value={formData.idProfile} onChange={handleChange}>
+            <select name="idProfile" value={formData.idProfile._id} onChange={handleChange}>
               {profiles.map((profile) => {
                 return [
                   <option key={profile._id} value={profile._id}>
