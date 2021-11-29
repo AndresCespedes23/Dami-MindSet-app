@@ -51,7 +51,7 @@ function Clients() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error');
+        setMessage('Error deleted Client');
       });
   };
 
@@ -125,7 +125,7 @@ function Clients() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error');
+        setMessage('Error added client');
       });
   };
 
