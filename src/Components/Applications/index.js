@@ -14,8 +14,7 @@ function Applications() {
   const [message, setMessage] = useState(''); // (string)
 
   useEffect(() => {
-    // fetch(`${process.env.REACT_APP_API}/applications`)
-    fetch('http://localhost:4000/api/applications')
+    fetch(`${process.env.REACT_APP_API}/applications`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -33,8 +32,7 @@ function Applications() {
   };
 
   const handleAddApplication = (application) => {
-    // fetch(`${process.env.REACT_APP_API}/applications`, {
-    fetch('http://localhost:4000/api/applications', {
+    fetch(`${process.env.REACT_APP_API}/applications`, {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -73,8 +71,7 @@ function Applications() {
   };
 
   const handleDelete = (id) => {
-    // fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
-    fetch(`http://localhost:4000/api/applications/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
