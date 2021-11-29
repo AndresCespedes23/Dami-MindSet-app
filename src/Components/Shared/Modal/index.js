@@ -2,7 +2,9 @@ import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
 import PositionsForm from '../../Positions/Form';
-import Confirmation from './Confirmation';
+import InterviewForm from '../../Interviews/Form';
+import Confirmation from '../Confirmation';
+import PostulantsForm from '../../Postulants/Form';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
@@ -10,6 +12,15 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
     case 'positions':
       modalComponent = (
         <PositionsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+
+    case 'interviews':
+      modalComponent = (
+        <InterviewForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'postulants':
+      modalComponent = (
+        <PostulantsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
     case 'delete':

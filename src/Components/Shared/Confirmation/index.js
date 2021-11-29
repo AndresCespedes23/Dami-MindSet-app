@@ -1,26 +1,23 @@
 import React from 'react';
-import Button from '../../Button';
 import styles from './confirmation.module.css';
+import Button from '../Button';
 
 function Confirmation({ message, handleDelete, handleShowModal }) {
   return (
-    <div className={styles.container}>
+    <div>
       <p>{message}</p>
-      <div className={styles.buttonsContainer}>
+      <div className={styles.container}>
         <Button
           type="confirm"
           onClick={() => {
             handleDelete();
             handleShowModal();
           }}
-        >
-          Yes
-        </Button>
-        <Button type="cancel" onClick={handleShowModal}>
-          No
-        </Button>
+        />
+        <Button type="cancel" onClick={handleShowModal} />
       </div>
     </div>
   );
 }
+
 export default Confirmation;
