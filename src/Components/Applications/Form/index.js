@@ -23,43 +23,40 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    // fetch(`${process.env.REACT_APP_API}/positions`)
-    fetch('http://localhost:4000/api/positions')
+    fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        if (response.length > 0) setPositions(response);
+        setPositions(response);
       });
-    // fetch(`${process.env.REACT_APP_API}/candidates`)
-    fetch('http://localhost:4000/api/candidates')
+    fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        if (response.length > 0) setCandidates(response);
+        setCandidates(response);
       });
-    // fetch(`${process.env.REACT_APP_API}/interviews`)
-    fetch('http://localhost:4000/api/interviews')
+    fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        if (response.length > 0) setInterviews(response);
+        setInterviews(response);
       });
 
-    if (id !== null) {
-      // fetch(`${process.env.REACT_APP_API}/applications/${id}`)
-      fetch(`http://localhost:4000/api/applications/${id}`)
+    if (id) {
+      fetch(`${process.env.REACT_APP_API}/applications/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          //response.dateTime = response.dateTime.split('T')[0];
+          console.log(response);
+          response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         });
     }
@@ -73,9 +70,9 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const onSubmit = (event) => {
     event.preventDefault();
     const newApplication = {
-      idPosition: event.target.position.value,
-      idCandidate: event.target.candidate.value,
-      idInterview: event.target.interview.value,
+      idPosition: event.target.idPosition.value,
+      idCandidate: event.target.idCandidate.value,
+      idInterview: event.target.idInterview.value,
       result: event.target.result.value,
       dateTime: event.target.dateTime.value,
       status: event.target.status.value
@@ -93,70 +90,68 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   };
 
   return (
-    <div>
-      <form className={styles.form} onSubmit={onSubmit}>
-        <div>
-          <label>ID Position:</label>
-          <select name="position" value={formData.idPosition} onChange={handleChange}>
-            {positions.map((position) => {
-              return [
-                <option key={position._id} value={position._id}>
-                  {position.name}
-                </option>
-              ];
-            })}
-            {error.position && <span className={styles.error}>*Position is missing</span>}
-          </select>
-        </div>
-        <div>
-          <label>ID Candidate:</label>
-          <select name="candidate" value={formData.idCandidate} onChange={handleChange}>
-            {candidates.map((candidate) => {
-              return [
-                <option key={candidate._id} value={candidate._id}>
-                  {candidate.name}
-                </option>
-              ];
-            })}
-            {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
-          </select>
-        </div>
-        <div>
-          <label>Interview date:</label>
-          <select name="interview" value={formData.idInterview} onChange={handleChange}>
-            {interviews.map((interview) => {
-              return [
-                <option key={interview._id} value={interview._id}>
-                  {interview.dateTime}
-                </option>
-              ];
-            })}
-            {error.interview && <span className={styles.error}>*Interview is missing</span>}
-          </select>
-        </div>
-        <div>
-          <label>Result</label>
-          <input type="text" name="result" value={formData.result} onChange={handleChange} />
-          {error.result && <span className={styles.error}>*Result is missing</span>}
-        </div>
-        <div>
-          <label>Date:</label>
-          <input type="date" name="dateTime" value={formData.dateTime} onChange={handleChange} />
-          {error.dateTime && <span className={styles.error}>*Date is missing</span>}
-        </div>
-        <div>
-          <label>Status:</label>
-          <select type="text" name="status" value={formData.status} onChange={handleChange}>
-            <option>PENDING</option>
-            <option>SCHEDULED</option>
-            <option>HIRED</option>
-            <option>REJECTED</option>
-            {error.status && <span className={styles.error}>*Status is missing</span>}
-          </select>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <form className={styles.form} onSubmit={onSubmit}>
+      <div>
+        <label>ID Position:</label>
+        <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
+          {positions.map((position) => {
+            return [
+              <option key={position._id} value={position._id}>
+                {position.name}
+              </option>
+            ];
+          })}
+          {error.position && <span className={styles.error}>*Position is missing</span>}
+        </select>
+      </div>
+      <div>
+        <label>ID Candidate:</label>
+        <select name="idCandidate" value={formData.idCandidate_id} onChange={handleChange}>
+          {candidates.map((candidate) => {
+            return [
+              <option key={candidate._id} value={candidate._id}>
+                {candidate.name}
+              </option>
+            ];
+          })}
+          {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
+        </select>
+      </div>
+      <div>
+        <label>Interview date:</label>
+        <select name="idInterview" value={formData.idInterview_id} onChange={handleChange}>
+          {interviews.map((interview) => {
+            return [
+              <option key={interview._id} value={interview._id}>
+                {interview.dateTime}
+              </option>
+            ];
+          })}
+          {error.interview && <span className={styles.error}>*Interview is missing</span>}
+        </select>
+      </div>
+      <div>
+        <label>Result</label>
+        <input type="text" name="result" value={formData.result} onChange={handleChange} />
+        {error.result && <span className={styles.error}>*Result is missing</span>}
+      </div>
+      <div>
+        <label>Date:</label>
+        <input type="date" name="dateTime" value={formData.dateTime} onChange={handleChange} />
+        {error.dateTime && <span className={styles.error}>*Date is missing</span>}
+      </div>
+      <div>
+        <label>Status:</label>
+        <select name="status" value={formData.status} onChange={handleChange}>
+          <option>PENDING</option>
+          <option>SCHEDULED</option>
+          <option>HIRED</option>
+          <option>REJECTED</option>
+          {error.status && <span className={styles.error}>*Status is missing</span>}
+        </select>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 

@@ -105,8 +105,7 @@ function Applications() {
   };
 
   const handleUpdateApplication = (application) => {
-    // fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
-    fetch(`http://localhost:4000/api/applications/${idActive}`, {
+    fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -167,12 +166,14 @@ function Applications() {
                   <td>{application.idPosition ? application.idPosition.name : 'ID deleted'}</td>
                   <td>{application.idCandidate ? application.idCandidate.name : 'ID deleted'}</td>
                   <td>
-                    {application.idInterview
+                    {!application.idInterview
+                      ? 'ID deleted'
+                      : application.idInterview.dateTime
                       ? application.idInterview.dateTime.split('T')[0]
-                      : 'ID deleted'}
+                      : '...loading...'}
                   </td>
                   <td>{application.result}</td>
-                  <td>{application.dateTime.split('T')[0]}</td>
+                  <td>{application.dateTime ? application.dateTime.split('T')[0] : ''}</td>
                   <td>{application.status}</td>
                   <td>
                     <Button type="update" onClick={() => handleClickUpdate(application._id)} />
