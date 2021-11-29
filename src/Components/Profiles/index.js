@@ -20,6 +20,7 @@ function Profiles() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
+        console.log(response);
         setProfiles(response);
       });
   }, []);
@@ -142,6 +143,7 @@ function Profiles() {
           <tr>
             <th>Type of Profile</th>
             <th>Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -149,7 +151,7 @@ function Profiles() {
             return (
               <tr key={profile._id}>
                 <td>{profile.name}</td>
-                <td>{profile.typeOfProfile}</td>
+                <td>{profile.description}</td>
                 <td>
                   <Button type="delete" onClick={() => handleClickDelete(profile._id)} />
                   <Button type="update" onClick={() => handleClickUpdate(profile._id)} />
