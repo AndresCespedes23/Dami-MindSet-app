@@ -167,10 +167,12 @@ function Applications() {
                   <td>{application.idPosition ? application.idPosition.name : 'ID deleted'}</td>
                   <td>{application.idCandidate ? application.idCandidate.name : 'ID deleted'}</td>
                   <td>
-                    {application.idInterview ? application.idInterview.dateTime : 'ID deleted'}
+                    {application.idInterview
+                      ? application.idInterview.dateTime.split('T')[0]
+                      : 'ID deleted'}
                   </td>
                   <td>{application.result}</td>
-                  <td>{application.dateTime}</td>
+                  <td>{application.dateTime.split('T')[0]}</td>
                   <td>{application.status}</td>
                   <td>
                     <Button type="update" onClick={() => handleClickUpdate(application._id)} />
