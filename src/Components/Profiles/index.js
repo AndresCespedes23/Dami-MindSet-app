@@ -20,7 +20,6 @@ function Profiles() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
         setProfiles(response);
       });
   }, []);
