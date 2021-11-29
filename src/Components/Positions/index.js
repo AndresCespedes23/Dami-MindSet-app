@@ -14,7 +14,6 @@ function Positions() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Cambiar por variable de entorno
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -25,6 +24,45 @@ function Positions() {
       });
   }, []);
 
+  // add
+  const handleClickAdd = () => {
+    setShowModal(true);
+    setModalType('positions');
+    setIdActive('');
+  };
+
+  const handleAddPosition = (position) => {
+    fetch(`${process.env.REACT_APP_API}/positions`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(position)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        if (response.errors || response.code) {
+          setShowMessage(true);
+          setMessageType('error');
+          setMessage('Error with parameters');
+          return;
+        }
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Position added');
+        setPositions([...positions, response]);
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+      });
+  };
+  //delete position
   const handleClickDelete = (id) => {
     setShowModal(true);
     setIdActive(id);
@@ -55,6 +93,13 @@ function Positions() {
       });
   };
 
+  // update position 
+  const handleClickUpdate = (id) => {
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('positions');
+  };
+
   const handleUpdatePosition = (position) => {
     fetch(`${process.env.REACT_APP_API}/positions/${idActive}`, {
       method: 'PUT',
@@ -70,7 +115,7 @@ function Positions() {
       .then((response) => {
         setShowMessage(true);
         setMessageType('success');
-        setMessage('Candidate updated');
+        setMessage('Position updated');
         setPositions(
           positions.map((position) => (position._id === idActive ? response : position))
         );
@@ -81,51 +126,7 @@ function Positions() {
         setMessageType('error');
       });
   };
-
-  const handleClickUpdate = (id) => {
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('positions');
-  };
-
-  const handleClickAdd = () => {
-    setShowModal(true);
-    setModalType('positions');
-    setIdActive('');
-  };
-
-  const handleAddPosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate added');
-        setPositions([...positions, response]);
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-      });
-  };
-
+  //
   const handleShowModal = () => {
     setShowModal(false);
   };
@@ -158,8 +159,8 @@ function Positions() {
           {positions.map((position) => {
             return (
               <tr key={position._id}>
-                <td>{positions.idClient}</td>
-                <td>{positions.idProfile}</td>
+                <td>{positions.idClient ? positions.idClient.name : 'ID not found'}</td>
+                <td>{positions.idProfile ? positions.idProfile.name : 'ID not found'}</td>
                 <td>{positions.name}</td>
                 <td>{positions.description}</td>
                 <td>{positions.status}</td>
