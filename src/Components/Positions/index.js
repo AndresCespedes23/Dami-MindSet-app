@@ -54,7 +54,10 @@ function Positions() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Position added');
-        setPositions([...positions, response]);
+        console.log(response);
+        fetch(`${process.env.REACT_APP_API}/positions/${response._id}`)
+          .then((response) => response.json())
+          .then((response) => setPositions([...positions, response]));
       })
       .catch((err) => {
         console.log(err);
@@ -159,8 +162,10 @@ function Positions() {
           {positions.map((position) => {
             return (
               <tr key={position._id}>
-                <td>{position.idClient ? position.idClient.name : 'ID not found'}</td>
-                <td>{position.idProfile.length ? position.idProfile[0].name : 'ID not found'}</td>
+                <td>{position.idClient ? position.idClient.name : position.idClient}</td>
+                <td>
+                  {position.idProfile.length ? position.idProfile[0].name : position.idClient}
+                </td>
                 <td>{position.name}</td>
                 <td>{position.description}</td>
                 <td>{position.status}</td>
