@@ -3,6 +3,7 @@ import styles from './modal.module.css';
 import Button from '../Button';
 import InterviewForm from '../../Interviews/Form';
 import Confirmation from '../Confirmation';
+import PostulantsForm from '../../Postulants/Form';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
@@ -12,14 +13,20 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
         <InterviewForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
+    case 'postulants':
+      modalComponent = (
+        <PostulantsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
     case 'delete':
       modalComponent = (
         <Confirmation
-          message="Are you sure to delete this interview?"
+          message="Did you want to Delete?"
           handleDelete={handleSubmit}
           handleShowModal={handleShowModal}
         />
       );
+      break;
   }
   return (
     <div className={styles.modalBackground}>
