@@ -148,7 +148,7 @@ function Applications() {
           <tr>
             <th>Position</th>
             <th>Candidate</th>
-            <th>Interview Date</th>
+            <th>Interview</th>
             <th>Result</th>
             <th>Date</th>
             <th>Status</th>
