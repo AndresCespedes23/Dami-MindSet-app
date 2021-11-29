@@ -119,8 +119,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       <div className={styles.formField}>
         <label>Status</label>
         <select name="status" value={formData.status} required onChange={handleChange}>
-          <option value="pending">PENDING</option>
-          <option value="done">DONE</option>
+          <option value="PENDING">PENDING</option>
+          <option value="DONE">DONE</option>
         </select>
         {error.status && <span className={styles.error}>Status time is missing</span>}
       </div>
