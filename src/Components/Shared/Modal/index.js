@@ -1,12 +1,18 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
+import InterviewForm from '../../Interviews/Form';
+import Confirmation from '../Confirmation';
 import PostulantsForm from '../../Postulants/Form';
-import Confirmation from './Confirmation';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
   switch (modalType) {
+    case 'interviews':
+      modalComponent = (
+        <InterviewForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
     case 'postulants':
       modalComponent = (
         <PostulantsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
