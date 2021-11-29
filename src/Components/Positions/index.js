@@ -159,14 +159,14 @@ function Positions() {
           {positions.map((position) => {
             return (
               <tr key={position._id}>
-                <td>{positions.idClient ? positions.idClient.name : 'ID not found'}</td>
-                <td>{positions.idProfile ? positions.idProfile.name : 'ID not found'}</td>
-                <td>{positions.name}</td>
-                <td>{positions.description}</td>
-                <td>{positions.status}</td>
-                <td>{positions.address}</td>
-                <td>{positions.city}</td>
-                <td>{positions.postalCode}</td>
+                <td>{position.idClient ? position.idClient.name : 'ID not found'}</td>
+                <td>{position.idProfile.length ? position.idProfile[0].name : 'ID not found'}</td>
+                <td>{position.name}</td>
+                <td>{position.description}</td>
+                <td>{position.status}</td>
+                <td>{position.address}</td>
+                <td>{position.city}</td>
+                <td>{position.postalCode}</td>
                 <td>
                   <Button type="delete" onClick={() => handleClickDelete(position._id)} />
                   <Button type="update" onClick={() => handleClickUpdate(position._id)} />
