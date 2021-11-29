@@ -159,8 +159,8 @@ function Sessions() {
           {sessions.map((session) => {
             return (
               <tr key={session._id}>
-                <td>{session.idPsychologist}</td>
-                <td>{session.idCandidate}</td>
+                <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
+                <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
                 <td>{session.dateTime}</td>
                 <td>{session.status}</td>
                 <td>{session.result}</td>
