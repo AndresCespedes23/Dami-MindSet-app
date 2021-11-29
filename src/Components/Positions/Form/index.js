@@ -40,13 +40,6 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {setProfiles(response);
       });
-    fetch('http://localhost:4000/api/positions')
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {setFormData(response);
-      });
       if (id) {
         fetch(`${process.env.REACT_APP_API}/positions/${id}`)
           .then((response) => {
@@ -69,7 +62,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
     event.preventDefault();
     const newPosition = {
       idClient: event.target.idClient.value,
-      idProfile: event.target.idPosition.value,
+      idProfile: event.target.idProfile.value,
       name: event.target.name.value,
       description: event.target.description.value,
       status: event.target.status.value,
@@ -123,7 +116,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           </div>
           <div className={styles.formField}>
             <label>Full Name</label>
-            <input type="text" name="username" value={formData.name} onChange={handleChange} />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} />
             {error.name && <span className={styles.error}>Name is missing</span>}
           </div>
           <div className={styles.formField}>
@@ -135,8 +128,11 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         <div className={styles.column}>
           <div className={styles.formField}>
             <label>Status</label>
-            <input type="text" name="status" value={formData.status} onChange={handleChange} />
-            {error.status && <span className={styles.error}>State is missing</span>}
+            <select name="status" value={formData.status} onChange={handleChange}>
+              <option>DONE</option>
+              <option>PENDING</option>
+              {error.status && <span className={styles.error}>Status is missing</span>}
+            </select>
           </div>
           <div className={styles.formField}>
             <label>Address</label>
@@ -150,7 +146,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           </div>
           <div className={styles.formField}>
             <label>ZIP Code</label>
-            <input type="number" name="zip" value={formData.postalCode} onChange={handleChange} />
+            <input type="number" name="postalCode" value={formData.postalCode} onChange={handleChange} />
             {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
           </div>
           <button type="submit">Submit</button>
