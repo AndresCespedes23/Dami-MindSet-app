@@ -44,7 +44,7 @@
     padding: 5px;
 }
 .confirm:hover {
-    background-color: white;
+    background-color: #fff;
     border: 1px solid #002147;
     color: #002147;
 }
@@ -58,7 +58,7 @@
 }
 .cancel:hover {
     background-color: #002147;
-    color: white;
+    color: #fff;
 }
 .hide{
     display: none;

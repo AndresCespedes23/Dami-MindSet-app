@@ -21,7 +21,7 @@
     display: inline;
     width: 100%;
     padding: 10px 20px;
-    border: 1px solid rgb(167, 167, 167);
+    border: 1px solid #a7a7a7;
     border-radius: 30px;
 }
 .button {
@@ -31,7 +31,7 @@
 }
 .msg-error {
     display: block;
-    color: red;
+    color: #dc3545;
     padding: 2px; 
     font-size: 12px; 
 }
@@ -41,8 +41,8 @@
 }
 
 .input-error {
-    border-color: red;
-    color: red;
+    border-color: #dc3545;
+    color: #dc3545;
 }
 .submit{
     border: 1px solid #28a745;
@@ -54,5 +54,5 @@
     margin: 40px
 }
 .error {
-    color: red;
-  }
+    color: #dc3545;
+}
