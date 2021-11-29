@@ -51,9 +51,10 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       username: event.target[2].value,
       phoneNumber: event.target[3].value,
       enrollmentNumber: event.target[4].value,
-      status: event.target[5].value,
-      timeRange: [event.target[6].value, event.target[7].value],
-      dayRange: [event.target[8].value, event.target[9].value]
+      status: event.target.status.value === 'false' ? false : true,
+      password: event.target.password.value,
+      timeRange: [event.target.timeStart.value, event.target.timeEnd.value],
+      dayRange: [event.target.dayStart.value, event.target.dayEnd.value]
     };
 
     for (let key in newPsychologist) {
@@ -110,8 +111,11 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       </div>
       <div className={styles.formField}>
         <label>Status</label>
-        <input type="string" name="status" value={formData.status} onChange={handleChange} />
-        {error.status && <span className={styles.error}>Status is missing</span>}
+        <select name="status" value={formData.status} onChange={handleChange}>
+          <option value={true}>Available</option>
+          <option value={false}>No available</option>
+        </select>
+        {error.status && <span className={styles.error}>*Status is missing</span>}
       </div>
       <div className={styles.formField}>
         <label>Time Range:</label>
@@ -126,6 +130,11 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         -To-
         <input type="date" name="dayEnd" onChange={handleChange} />
         {error.dayRange && <span className={styles.error}>Time Range is missing</span>}
+      </div>
+      <div className={styles.formField}>
+        <label>Password</label>
+        <input type="password" name="password" onChange={handleChange} />
+        {error.password && <span className={styles.error}>Password is missing</span>}
       </div>
       <button type="submit">Submit</button>
     </form>
