@@ -1,13 +1,24 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import PostulantsForm from '../../Postulants/Form';
+import PositionsForm from '../../Positions/Form';
 
-function Modal({ handleShowModal, form, meta, handleSubmit }) {
+function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
-  switch (form) {
-    case 'clients':
-      modalComponent = <PostulantsForm id={meta.id} handleSubmit={handleSubmit} />;
+  switch (modalType) {
+    case 'positions':
+      modalComponent = (
+        <PositionsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'delete':
+      modalComponent = (
+        <Confirmation
+          message="Did you want to Delete?"
+          handleDelete={handleSubmit}
+          handleShowModal={handleShowModal}
+        />
+      );
       break;
   }
   return (
