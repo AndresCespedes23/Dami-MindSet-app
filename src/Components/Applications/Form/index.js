@@ -56,7 +56,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         })
         .then((response) => {
           console.log(response);
-          //response.dateTime = response.dateTime.split('T')[0];
+          response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         });
     }
@@ -95,7 +95,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {positions.map((position) => {
             return (
               <option key={position._id} value={position._id}>
-                {position._id}
+                {position.name}
               </option>
             );
           })}
@@ -108,7 +108,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {candidates.map((candidate) => {
             return (
               <option key={candidate._id} value={candidate._id}>
-                {candidate._id}
+                {candidate.name}
               </option>
             );
           })}
@@ -121,7 +121,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {interviews.map((interview) => {
             return (
               <option key={interview._id} value={interview._id}>
-                {interview._id}
+                {interview.dateTime}
               </option>
             );
           })}

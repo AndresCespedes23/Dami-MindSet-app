@@ -54,7 +54,9 @@ function Applications() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Application added');
-        setApplications([...applications, response]);
+        fetch(`${process.env.REACT_APP_API}/applications/${response._id}`)
+          .then((response) => response.json())
+          .then((response) => setApplications([...applications, response]));
       })
       .catch((err) => {
         console.log(err);
@@ -148,7 +150,7 @@ function Applications() {
           <tr>
             <th>Position</th>
             <th>Candidate</th>
-            <th>Interview</th>
+            <th>Interview Date</th>
             <th>Result</th>
             <th>Date</th>
             <th>Status</th>
@@ -159,9 +161,15 @@ function Applications() {
           {applications.map((application) => {
             return (
               <tr key={application._id}>
-                <td>{application.idPosition ? application.idPosition._id : 'empty'}</td>
-                <td>{application.idCandidate ? application.idCandidate._id : 'empty'}</td>
-                <td>{application.idInterview ? application.idInterview._id : 'empty'}</td>
+                <td>{application.idPosition ? application.idPosition.name : 'ID deleted'}</td>
+                <td>{application.idCandidate ? application.idCandidate.name : 'ID deleted'}</td>
+                <td>
+                  {!application.idInterview
+                    ? 'ID deleted'
+                    : application.idInterview.dateTime
+                    ? application.idInterview.dateTime.split('T')[0]
+                    : '...loading...'}
+                </td>
                 <td>{application.result}</td>
                 <td>{application.dateTime ? application.dateTime.split('T')[0] : ''}</td>
                 <td>{application.status}</td>
