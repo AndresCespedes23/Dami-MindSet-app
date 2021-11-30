@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
+import AdminsForm from '../../Admins/Form';
 import Confirmation from './Confirmation';
 import PsychologistsForm from '../../Psychologists/Form';
 import PositionsForm from '../../Positions/Form';
@@ -11,6 +12,11 @@ import ApplicationsForm from '../../Applications/Form';
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
   switch (modalType) {
+    case 'admins':
+      modalComponent = (
+        <AdminsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
     case 'positions':
       modalComponent = (
         <PositionsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
