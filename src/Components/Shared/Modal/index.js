@@ -1,15 +1,28 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
-import Confirmation from '../Confirmation';
+import AdminsForm from '../../Admins/Form';
+import Confirmation from './Confirmation';
 import PsychologistsForm from '../../Psychologists/Form';
+import PositionsForm from '../../Positions/Form';
 import InterviewForm from '../../Interviews/Form';
 import PostulantsForm from '../../Postulants/Form';
 import ProfilesForm from '../../Profiles/Form';
+import ApplicationsForm from '../../Applications/Form'
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
   switch (modalType) {
+    case 'admins':
+      modalComponent = (
+        <AdminsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'positions':
+      modalComponent = (
+        <PositionsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
     case 'interviews':
       modalComponent = (
         <InterviewForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
@@ -41,6 +54,11 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
           handleSubmit={handleSubmit}
           handleShowModal={handleShowModal}
         />
+      );
+      break;
+    case 'applications':
+      modalComponent = (
+        <ApplicationsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
   }
