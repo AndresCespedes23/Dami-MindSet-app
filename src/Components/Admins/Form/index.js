@@ -30,10 +30,10 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
   const onSubmit = (event) => {
     event.preventDefault();
     const UpdateAdmin = {
-      name: event.target[0].value,
-      email: event.target[1].value,
-      username: event.target[2].value,
-      password: event.target[3].value
+      name: event.target.name.value,
+      email: event.target.email.value,
+      username: event.target.username.value,
+      password: event.target.password.value
     };
 
     handleSubmit(UpdateAdmin);
