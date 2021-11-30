@@ -1,6 +1,7 @@
 .container {
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -19,6 +20,7 @@
   color: #f0f4f9;
   font-weight: normal;
 }
+
 .table td {
   text-align: center;
   border-left: 1px solid #000;
