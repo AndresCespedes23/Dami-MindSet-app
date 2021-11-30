@@ -81,7 +81,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
     <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.formField}>
         <label>Psychologist</label>
-        <select name="idPsychologist" value={formData.idPsychologist} onChange={handleChange}>
+        <select name="idPsychologist" value={formData.idPsychologist._id} onChange={handleChange}>
           {psychologists.map((psychologist) => {
             return [
               <option key={psychologist._id} value={psychologist._id}>
@@ -94,7 +94,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       </div>
       <div className={styles.formField}>
         <label>Candidate</label>
-        <select name="idCandidate" value={formData.idCandidate} onChange={handleChange}>
+        <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
           {candidates.map((candidate) => {
             return [
               <option key={candidate._id} value={candidate._id}>
