@@ -8,7 +8,7 @@ import PositionsForm from '../../Positions/Form';
 import InterviewForm from '../../Interviews/Form';
 import PostulantsForm from '../../Postulants/Form';
 import ProfilesForm from '../../Profiles/Form';
-import ApplicationsForm from '../../Applications/Form'
+import ApplicationsForm from '../../Applications/Form';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
