@@ -26,7 +26,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/clients')
+    fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -34,7 +34,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setClients(response);
       });
-    fetch('http://localhost:4000/api/profiles')
+    fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
