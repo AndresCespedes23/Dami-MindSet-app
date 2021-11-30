@@ -21,7 +21,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4000/api/clients/${id}`)
+      fetch(`${process.env.REACT_APP_API}/clients/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
           throw new Error(`HTTP ${response.status}`);

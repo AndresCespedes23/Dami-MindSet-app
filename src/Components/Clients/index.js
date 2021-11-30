@@ -14,7 +14,7 @@ function Clients() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/clients`)
+    fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -31,7 +31,7 @@ function Clients() {
   };
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:4000/api/clients/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/clients/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -57,7 +57,7 @@ function Clients() {
 
   const handleUpdateClients = (client) => {
     console.log(client);
-    fetch(`http://localhost:4000/api/clients/${idActive}`, {
+    fetch(`${process.env.REACT_APP_API}/clients/${idActive}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json; charset=UTF-8'
@@ -96,7 +96,7 @@ function Clients() {
   };
 
   const handleAddClients = (client) => {
-    fetch(`http://localhost:4000/api/clients`, {
+    fetch(`${process.env.REACT_APP_API}/clients`, {
       method: 'POST',
       mode: 'cors',
       headers: {
