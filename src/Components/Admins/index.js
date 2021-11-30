@@ -24,36 +24,6 @@ function Admins() {
       });
   }, []);
 
-  const handleClickDelete = (id) => {
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('delete');
-  };
-
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/admins/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Admin deleted');
-        setAdmins(admins.filter((admin) => admin._id !== id));
-      })
-      .catch((error) => {
-        console.log(error);
-        setShowMessage(true);
-        setMessageType('error');
-      });
-  };
-
   const handleUpdateAdmin = (admin) => {
     fetch(`${process.env.REACT_APP_API}/admins/${idActive}`, {
       method: 'PUT',
@@ -83,44 +53,6 @@ function Admins() {
     setShowModal(true);
     setIdActive(id);
     setModalType('admins');
-  };
-
-  const handleClickAdd = () => {
-    setShowModal(true);
-    setModalType('admins');
-    setIdActive('');
-  };
-
-  const handleAddAdmin = (admin) => {
-    fetch(`${process.env.REACT_APP_API}/admins`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(admin)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Admin added');
-        setAdmins([...admins, response]);
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-      });
   };
 
   const handleShowModal = () => {
@@ -154,7 +86,6 @@ function Admins() {
                 <td>{admin.email}</td>
                 <td>{admin.username}</td>
                 <td>
-                  <Button type="delete" onClick={() => handleClickDelete(admin._id)} />
                   <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
                 </td>
               </tr>
@@ -162,18 +93,11 @@ function Admins() {
           })}
         </tbody>
       </table>
-      <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={
-            modalType === 'delete'
-              ? () => handleDelete(idActive)
-              : modalType === 'admins' && !idActive
-              ? handleAddAdmin
-              : handleUpdateAdmin
-          }
+          handleSubmit={handleUpdateAdmin}
           meta={idActive}
         />
       )}
