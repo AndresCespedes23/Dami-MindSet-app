@@ -3,6 +3,8 @@
   height: 100vh;
   background-color: rgba(200, 200, 200);
   position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +12,7 @@
 
 .modalContainer {
   width: 500px;
-  height: 500px;
+  height: auto;
   border-radius: 12px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
