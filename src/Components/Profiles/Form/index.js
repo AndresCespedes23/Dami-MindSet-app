@@ -37,10 +37,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
     };
     for (let key in newProfile) {
       if (newProfile[key] === '') {
-        setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: false });
+        return setIsError({ ...error, [key]: true });
       }
     }
     handleSubmit(newProfile);
