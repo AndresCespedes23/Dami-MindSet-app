@@ -14,7 +14,7 @@ function Interviews() {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
+  const getInterviews = () => {
     fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -23,6 +23,10 @@ function Interviews() {
       .then((response) => {
         setInterviews(response);
       });
+  };
+
+  useEffect(() => {
+    getInterviews();
   }, []);
 
   const handleShowModal = () => {
@@ -51,10 +55,10 @@ function Interviews() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then(() => {
+        getInterviews();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Interview deleted');
-        setInterviews(interviews.filter((interviews) => interviews._id !== id));
       })
       .catch((err) => {
         console.log(err);
@@ -82,13 +86,11 @@ function Interviews() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
+        getInterviews();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Interview updated');
-        setInterviews(
-          interviews.map((interview) => (interview._id === idActive ? response : interview))
-        );
       })
       .catch((err) => {
         console.log(err);
@@ -123,10 +125,10 @@ function Interviews() {
           setMessage('Error with parameters');
           return;
         }
+        getInterviews();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Interview added');
-        setInterviews([...interviews, response]);
       })
       .catch((err) => {
         console.log(err);
