@@ -14,7 +14,7 @@ function Sessions() {
   const [message, setMessage] = useState('');
 
   // GET All Sessions
-  useEffect(() => {
+  const getSessions = () => {
     fetch(`${process.env.REACT_APP_API}/sessions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -23,6 +23,9 @@ function Sessions() {
       .then((response) => {
         setSessions(response);
       });
+  };
+  useEffect(() => {
+    getSessions();
   }, []);
 
   // ADD Button
@@ -53,6 +56,7 @@ function Sessions() {
           setMessage('Error with parameters');
           return;
         }
+        getSessions();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Session added');
@@ -85,6 +89,7 @@ function Sessions() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then(() => {
+        getSessions();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Session deleted');
@@ -118,6 +123,7 @@ function Sessions() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
+        getSessions();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Session updated');
@@ -159,8 +165,8 @@ function Sessions() {
           {sessions.map((session) => {
             return (
               <tr key={session._id}>
-                <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
-                <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
+                <td>{session.idPsychologist.length ? session.idPsychologist[0].name : ''}</td>
+                <td>{session.idCandidate.length ? session.idCandidate[0].name : ''}</td>
                 <td>{session.dateTime}</td>
                 <td>{session.status}</td>
                 <td>{session.result}</td>
