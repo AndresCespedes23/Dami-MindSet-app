@@ -7,6 +7,7 @@ import PsychologistsForm from '../../Psychologists/Form';
 import PositionsForm from '../../Positions/Form';
 import InterviewForm from '../../Interviews/Form';
 import PostulantsForm from '../../Postulants/Form';
+import ProfilesForm from '../../Profiles/Form';
 import ApplicationsForm from '../../Applications/Form';
 
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
@@ -30,6 +31,11 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
     case 'postulants':
       modalComponent = (
         <PostulantsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'profiles':
+      modalComponent = (
+        <ProfilesForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
     case 'delete':
