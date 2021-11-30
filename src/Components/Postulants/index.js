@@ -13,8 +13,7 @@ function Postulants() {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    // Cambiar por variable de entorno
+  const getPostulants = () => {
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -23,6 +22,10 @@ function Postulants() {
       .then((response) => {
         setPostulants(response);
       });
+  };
+
+  useEffect(() => {
+    getPostulants();
   }, []);
 
   const handleClickDelete = (id) => {
@@ -46,7 +49,7 @@ function Postulants() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Candidate deleted');
-        setPostulants(postulants.filter((postulant) => postulant._id !== id));
+        getPostulants();
       })
       .catch((error) => {
         console.log(error);
@@ -67,13 +70,11 @@ function Postulants() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Candidate updated');
-        setPostulants(
-          postulants.map((postulant) => (postulant._id === idActive ? response : postulant))
-        );
+        getPostulants();
       })
       .catch((error) => {
         console.log(error);
@@ -117,7 +118,7 @@ function Postulants() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Candidate added');
-        setPostulants([...postulants, response]);
+        getPostulants();
       })
       .catch((err) => {
         console.log(err);
