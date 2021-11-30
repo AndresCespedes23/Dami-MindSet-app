@@ -23,5 +23,4 @@ function Confirmation({ message, handleDelete, handleShowModal }) {
     </div>
   );
 }
-
 export default Confirmation;
