@@ -13,7 +13,7 @@ function Applications() {
   const [messageType, setMessageType] = useState(''); // ('error'/'success')
   const [message, setMessage] = useState(''); // (string)
 
-  useEffect(() => {
+  const getApplications = () => {
     fetch(`${process.env.REACT_APP_API}/applications`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -21,7 +21,15 @@ function Applications() {
       })
       .then((response) => {
         setApplications(response);
+      })
+      .catch((err) => {
+        setMessageType('error');
+        setMessage('Error:', err);
       });
+  };
+
+  useEffect(() => {
+    getApplications();
   }, []);
 
   // ----------- ADD -----------
@@ -54,9 +62,7 @@ function Applications() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Application added');
-        fetch(`${process.env.REACT_APP_API}/applications/${response._id}`)
-          .then((response) => response.json())
-          .then((response) => setApplications([...applications, response]));
+        getApplications();
       })
       .catch((err) => {
         console.log(err);
