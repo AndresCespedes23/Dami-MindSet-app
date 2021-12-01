@@ -43,7 +43,7 @@
   font-weight: 600;
   text-decoration: none;
   text-transform: capitalize;
-  color: black;
+  color: #000;
 }
 
 @media screen and (min-width: 750px) {

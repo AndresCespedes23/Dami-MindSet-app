@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './modal.module.css';
 import Button from '../Button';
+import SessionsForm from '../../Sessions/Form';
 import AdminsForm from '../../Admins/Form';
 import Confirmation from './Confirmation';
 import PsychologistsForm from '../../Psychologists/Form';
@@ -41,6 +42,11 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
     case 'profiles':
       modalComponent = (
         <ProfilesForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'sessions':
+      modalComponent = (
+        <SessionsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
     case 'delete':
