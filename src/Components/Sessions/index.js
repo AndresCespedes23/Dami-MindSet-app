@@ -60,7 +60,6 @@ function Sessions() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Session added');
-        setSessions([...sessions, response]);
       })
       .catch((err) => {
         console.log(err);
@@ -93,7 +92,6 @@ function Sessions() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Session deleted');
-        setSessions(sessions.filter((session) => session._id !== id));
       })
       .catch((error) => {
         console.log(error);
@@ -122,12 +120,11 @@ function Sessions() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
         getSessions();
         setShowMessage(true);
         setMessageType('success');
         setMessage('Session updated');
-        setSessions(sessions.map((session) => (session._id === idActive ? response : session)));
       })
       .catch((error) => {
         console.log(error);
