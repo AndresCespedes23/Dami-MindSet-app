@@ -11,8 +11,9 @@ function Psychologists() {
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
 
-  useEffect(() => {
+  const getPsychologists = () => {
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -21,6 +22,10 @@ function Psychologists() {
       .then((response) => {
         setPsychologists(response);
       });
+  };
+
+  useEffect(() => {
+    getPsychologists();
   }, []);
 
   const handleClickDelete = (id) => {
@@ -41,9 +46,10 @@ function Psychologists() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then(() => {
+        getPsychologists();
         setShowMessage(true);
         setMessageType('success');
-        setPsychologists(psychologists.filter((psychologist) => psychologist._id !== id));
+        setMessage('Psychologist deleted');
       })
       .catch((error) => {
         console.log(error);
@@ -64,15 +70,11 @@ function Psychologists() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        getPsychologists();
         setShowMessage(true);
         setMessageType('success');
-        setPsychologists(
-          psychologists.map((psychologist) =>
-            psychologist._id === idActive ? response : psychologist
-          )
-        );
+        setMessage('Psychologist updated');
       })
       .catch((error) => {
         console.log(error);
@@ -110,11 +112,13 @@ function Psychologists() {
         if (response.errors || response.code) {
           setShowMessage(true);
           setMessageType('error');
+          setMessage('Error with parameters');
           return;
         }
+        getPsychologists();
         setShowMessage(true);
         setMessageType('success');
-        setPsychologists([...psychologists, response]);
+        setMessage('Psychologist added');
       })
       .catch((err) => {
         console.log(err);
@@ -134,11 +138,7 @@ function Psychologists() {
     <section className={styles.container}>
       <h2>Psychologists</h2>
       {showMessage && (
-        <Message
-          type={messageType}
-          message={messageType === 'success' ? 'Action Complete' : 'Error'}
-          showMessage={handleShowMessage}
-        />
+        <Message type={messageType} message={message} showMessage={handleShowMessage} />
       )}
       <div>
         <table className={styles.table}>
