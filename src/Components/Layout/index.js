@@ -1,3 +1,4 @@
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from '../Shared/Header/index';
 import Footer from '../Shared/Footer/index';
 import Admins from '../Admins/index';
@@ -13,43 +14,23 @@ import Home from '../Home/index';
 import styles from './layout.module.css';
 
 function Layout() {
-  let currentScreen = <Home />;
-  switch (window.location.pathname) {
-    case '/admins':
-      currentScreen = <Admins />;
-      break;
-    case '/applications':
-      currentScreen = <Applications />;
-      break;
-    case '/clients':
-      currentScreen = <Clients />;
-      break;
-    case '/interviews':
-      currentScreen = <Interviews />;
-      break;
-    case '/positions':
-      currentScreen = <Positions />;
-      break;
-    case '/postulants':
-      currentScreen = <Postulants />;
-      break;
-    case '/profiles':
-      currentScreen = <Profiles />;
-      break;
-    case '/psychologists':
-      currentScreen = <Psychologists />;
-      break;
-    case '/sessions':
-      currentScreen = <Sessions />;
-      break;
-    default:
-      break;
-  }
-
   return (
     <div className={styles.container}>
       <Header />
-      {currentScreen}
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/admins" component={Admins} />
+          <Route path="/applications" component={Applications} />
+          <Route path="/clients" component={Clients} />
+          <Route path="/interviews" component={Interviews} />
+          <Route path="/positions" component={Positions} />
+          <Route path="/postulants" component={Postulants} />
+          <Route path="/profiles" component={Profiles} />
+          <Route path="/psychologists" component={Psychologists} />
+          <Route path="/sessions" component={Sessions} />
+        </Switch>
+      </BrowserRouter>
       <Footer />
     </div>
   );
