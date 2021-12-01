@@ -13,7 +13,7 @@ function Positions() {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
+  const getPositions = () => {
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -22,6 +22,10 @@ function Positions() {
       .then((response) => {
         setPositions(response);
       });
+  };
+
+  useEffect(() => {
+    getPositions();
   }, []);
 
   // add
@@ -55,9 +59,7 @@ function Positions() {
         setMessageType('success');
         setMessage('Position added');
         console.log(response);
-        fetch(`${process.env.REACT_APP_API}/positions/${response._id}`)
-          .then((response) => response.json())
-          .then((response) => setPositions([...positions, response]));
+        getPositions();
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +89,7 @@ function Positions() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Candidate deleted');
-        setPositions(positions.filter((position) => position._id !== id));
+        getPositions();
       })
       .catch((error) => {
         console.log(error);
@@ -115,13 +117,11 @@ function Positions() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Position updated');
-        setPositions(
-          positions.map((position) => (position._id === idActive ? response : position))
-        );
+        getPositions();
       })
       .catch((error) => {
         console.log(error);
