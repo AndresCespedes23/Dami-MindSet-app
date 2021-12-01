@@ -9,10 +9,15 @@ import InterviewForm from '../../Interviews/Form';
 import PostulantsForm from '../../Postulants/Form';
 import ProfilesForm from '../../Profiles/Form';
 import ApplicationsForm from '../../Applications/Form';
-
+import ClientsForm from '../../Clients/Form';
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
   switch (modalType) {
+    case 'clients':
+      modalComponent = (
+        <ClientsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
     case 'admins':
       modalComponent = (
         <AdminsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
