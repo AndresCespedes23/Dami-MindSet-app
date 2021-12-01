@@ -162,8 +162,8 @@ function Sessions() {
           {sessions.map((session) => {
             return (
               <tr key={session._id}>
-                <td>{session.idPsychologist.length ? session.idPsychologist[0].name : ''}</td>
-                <td>{session.idCandidate.length ? session.idCandidate[0].name : ''}</td>
+                <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
+                <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
                 <td>{session.dateTime}</td>
                 <td>{session.status}</td>
                 <td>{session.result}</td>
