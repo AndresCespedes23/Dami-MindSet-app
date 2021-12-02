@@ -56,6 +56,7 @@ function Postulants() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting candidate');
       });
   };
 
@@ -81,6 +82,7 @@ function Postulants() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating candidate');
       });
   };
 
@@ -125,6 +127,7 @@ function Postulants() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding candidate');
       });
   };
 

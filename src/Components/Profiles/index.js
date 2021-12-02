@@ -52,6 +52,7 @@ function Profiles() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting profile');
       });
   };
 
@@ -77,6 +78,7 @@ function Profiles() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating profile');
       });
   };
 
@@ -121,6 +123,7 @@ function Profiles() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding profile');
       });
   };
 

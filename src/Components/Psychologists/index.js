@@ -56,6 +56,7 @@ function Psychologists() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting psychologist');
       });
   };
 
@@ -81,6 +82,7 @@ function Psychologists() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating psychologist');
       });
   };
 
@@ -125,6 +127,7 @@ function Psychologists() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding psychologist');
       });
   };
 

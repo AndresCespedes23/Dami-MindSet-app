@@ -65,6 +65,7 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting interview');
       });
   };
 
@@ -97,6 +98,7 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating interview');
       });
   };
 
@@ -135,6 +137,7 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error creating interview');
       });
   };
 
