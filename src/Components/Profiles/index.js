@@ -21,7 +21,8 @@ function Profiles() {
       })
       .then((response) => {
         setProfiles(response);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleClickDelete = (id) => {
