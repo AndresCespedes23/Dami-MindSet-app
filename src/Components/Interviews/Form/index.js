@@ -84,22 +84,20 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
     handleShowModal();
   };
   return (
-    <form className={styles.containerForm} onSubmit={onSubmit}>
-      <div className={styles.column}>
-        <div>
-          <label>Candidate:</label>
-          <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
-            {candidates.map((candidate) => {
-              return [
-                <option key={candidate._id} value={candidate._id}>
-                  {candidate.name}
-                </option>
-              ];
-            })}
-            {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
-          </select>
-        </div>
-        <div>
+    <form className={styles.form} onSubmit={onSubmit}>
+      <div className={styles.formField}>
+        <label>Candidate:</label>
+        <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
+          {candidates.map((candidate) => {
+            return [
+              <option key={candidate._id} value={candidate._id}>
+                {candidate.name}
+              </option>
+            ];
+          })}
+          {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
+        </select>
+        <div className={styles.formField}>
           <label>Client:</label>
           <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
             {clients.map((client) => {
@@ -112,7 +110,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
             {error.client && <span className={styles.error}>*Client is missing</span>}
           </select>
         </div>
-        <div>
+        <div className={styles.formField}>
           <label>Status:</label>
           <select name="status" value={formData.status} onChange={handleChange}>
             <option>DONE</option>
@@ -121,7 +119,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
           </select>
         </div>
       </div>
-      <div className={styles.column}>
+      <div className={styles.formField}>
         <div>
           <label>Position:</label>
           <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
@@ -146,11 +144,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
           />
           {error.dateTime && <span className={styles.error}>*Date is missing</span>}
         </div>
-        <div>
-          <button type="submit" className={styles.submit}>
-            Submit
-          </button>
-        </div>
+        <button type="submit">Submit</button>
       </div>
     </form>
   );
