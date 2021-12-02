@@ -73,6 +73,7 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error creating session');
       });
   };
 
@@ -106,6 +107,7 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting session');
       });
   };
 
@@ -140,6 +142,7 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating session');
       });
   };
 
