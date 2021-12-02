@@ -135,7 +135,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
             {error.position && <span className={styles.error}>*Position is missing</span>}
           </select>
         </div>
-        <div>
+        <div className={styles.formField}>
           <label>Date:</label>
           <input
             type="date"

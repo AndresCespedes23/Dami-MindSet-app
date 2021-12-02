@@ -89,80 +89,76 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div className={styles.formContainer}>
-        <div className={styles.column}>
-          <div className={styles.fields}>
-            <label>Client</label>
-            <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
-              {clients.map((client) => {
-                return [
-                  <option key={client._id} value={client._id}>
-                    {client.name}
-                  </option>
-                ];
-              })}
-              {error.idClient && <span className={styles.error}>Client is missing</span>}
-            </select>
-          </div>
-          <div className={styles.fields}>
-            <label>Profile</label>
-            <select name="idProfile" value={formData.idProfile._id} onChange={handleChange}>
-              {profiles.map((profile) => {
-                return [
-                  <option key={profile._id} value={profile._id}>
-                    {profile.name}
-                  </option>
-                ];
-              })}
-              {error.idProfile && <span className={styles.error}>Profile is missing</span>}
-            </select>
-          </div>
-          <div className={styles.formField}>
-            <label>Full Name</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} />
-            {error.name && <span className={styles.error}>Name is missing</span>}
-          </div>
-          <div className={styles.formField}>
-            <label>Description</label>
-            <input
-              type="text"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-            {error.description && <span className={styles.error}>Description is missing</span>}
-          </div>
+        <label>Client</label>
+        <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
+          {clients.map((client) => {
+            return [
+              <option key={client._id} value={client._id}>
+                {client.name}
+              </option>
+            ];
+          })}
+          {error.idClient && <span className={styles.error}>Client is missing</span>}
+        </select>
+        <div className={styles.fields}>
+          <label>Profile</label>
+          <select name="idProfile" value={formData.idProfile._id} onChange={handleChange}>
+            {profiles.map((profile) => {
+              return [
+                <option key={profile._id} value={profile._id}>
+                  {profile.name}
+                </option>
+              ];
+            })}
+            {error.idProfile && <span className={styles.error}>Profile is missing</span>}
+          </select>
         </div>
-        <div className={styles.column}>
-          <div className={styles.formField}>
-            <label>Status</label>
-            <select name="status" value={formData.status} onChange={handleChange}>
-              <option>DONE</option>
-              <option>PENDING</option>
-              {error.status && <span className={styles.error}>Status is missing</span>}
-            </select>
-          </div>
-          <div className={styles.formField}>
-            <label>Address</label>
-            <input type="text" name="address" value={formData.address} onChange={handleChange} />
-            {error.address && <span className={styles.error}>Address is missing</span>}
-          </div>
-          <div className={styles.formField}>
-            <label>City</label>
-            <input type="text" name="city" value={formData.city} onChange={handleChange} />
-            {error.city && <span className={styles.error}>City is missing</span>}
-          </div>
-          <div className={styles.formField}>
-            <label>ZIP Code</label>
-            <input
-              type="number"
-              name="postalCode"
-              value={formData.postalCode}
-              onChange={handleChange}
-            />
-            {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
-          </div>
-          <button type="submit">Submit</button>
+        <div className={styles.formField}>
+          <label>Full Name</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+          {error.name && <span className={styles.error}>Name is missing</span>}
         </div>
+        <div className={styles.formField}>
+          <label>Description</label>
+          <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+          {error.description && <span className={styles.error}>Description is missing</span>}
+        </div>
+      </div>
+      <div className={styles.column}>
+        <div className={styles.formField}>
+          <label>Status</label>
+          <select name="status" value={formData.status} onChange={handleChange}>
+            <option>DONE</option>
+            <option>PENDING</option>
+            {error.status && <span className={styles.error}>Status is missing</span>}
+          </select>
+        </div>
+        <div className={styles.formField}>
+          <label>Address</label>
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+          {error.address && <span className={styles.error}>Address is missing</span>}
+        </div>
+        <div className={styles.formField}>
+          <label>City</label>
+          <input type="text" name="city" value={formData.city} onChange={handleChange} />
+          {error.city && <span className={styles.error}>City is missing</span>}
+        </div>
+        <div className={styles.formField}>
+          <label>ZIP Code</label>
+          <input
+            type="number"
+            name="postalCode"
+            value={formData.postalCode}
+            onChange={handleChange}
+          />
+          {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
+        </div>
+        <button type="submit">Submit</button>
       </div>
     </form>
   );
