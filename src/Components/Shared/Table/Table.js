@@ -3,6 +3,7 @@ import Button from '../Button';
 import styles from './table.module.css';
 
 function Table({ headers, elements, tableData, deleteAction, updateAction }) {
+  console.log(tableData);
   return (
     <table className={styles.table}>
       <thead>

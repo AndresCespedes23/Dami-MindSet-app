@@ -3,6 +3,7 @@ import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Table from '../Shared/Table/Table';
 
 function Applications() {
   const [applications, setApplications] = useState([]); // this is for "fetch"
@@ -144,6 +145,25 @@ function Applications() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+  //Array con los th de cada tabla, cada uno pone los de su recurso
+  const tableHeaders = [
+    'Position',
+    'Candidate',
+    'Interview Date',
+    'Result',
+    'Date',
+    'Status',
+    'Actions'
+  ];
+  //Array con los td de cada tabla, cada uno pone los de su recurso
+  const tableData = [
+    'idPosition.name',
+    'idCandidate.name',
+    'idInterview.dateTime',
+    'result',
+    'dateTime',
+    'status'
+  ];
 
   return (
     <section className={styles.container}>
@@ -151,43 +171,13 @@ function Applications() {
       {showMessage && (
         <Message type={messageType} message={message} showMessage={handleShowMessage} />
       )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Candidate</th>
-            <th>Interview Date</th>
-            <th>Result</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {applications.map((application) => {
-            return (
-              <tr key={application._id}>
-                <td>{application.idPosition ? application.idPosition.name : 'ID deleted'}</td>
-                <td>{application.idCandidate ? application.idCandidate.name : 'ID deleted'}</td>
-                <td>
-                  {!application.idInterview
-                    ? 'ID deleted'
-                    : application.idInterview.dateTime
-                    ? application.idInterview.dateTime.split('T')[0]
-                    : '...loading...'}
-                </td>
-                <td>{application.result}</td>
-                <td>{application.dateTime ? application.dateTime.split('T')[0] : ''}</td>
-                <td>{application.status}</td>
-                <td>
-                  <Button type="update" onClick={() => handleClickUpdate(application._id)} />
-                  <Button type="delete" onClick={() => handleClickDelete(application._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table
+        headers={tableHeaders}
+        elements={applications}
+        tableData={tableData}
+        deleteAction={handleClickDelete}
+        updateAction={handleClickUpdate}
+      />
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

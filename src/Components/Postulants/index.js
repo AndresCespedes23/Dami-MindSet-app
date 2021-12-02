@@ -135,8 +135,9 @@ function Postulants() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
-
+  //Array con los th de cada tabla, cada uno pone los de su recurso
   const tableHeaders = ['Name', 'Email', 'Phone Number', 'Status', 'Actions'];
+  //Array con los td de cada tabla, cada uno pone los de su recurso
   const tableData = ['name', 'email', 'phoneNumber', 'status'];
 
   return (
