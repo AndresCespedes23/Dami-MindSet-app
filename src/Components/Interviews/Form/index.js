@@ -85,67 +85,65 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
   };
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
+      <div>
         <label>Candidate:</label>
         <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
           {candidates.map((candidate) => {
-            return [
+            return (
               <option key={candidate._id} value={candidate._id}>
                 {candidate.name}
               </option>
-            ];
+            );
           })}
           {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
         </select>
-        <div className={styles.formField}>
-          <label>Client:</label>
-          <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
-            {clients.map((client) => {
-              return [
-                <option key={client._id} value={client._id}>
-                  {client.name}
-                </option>
-              ];
-            })}
-            {error.client && <span className={styles.error}>*Client is missing</span>}
-          </select>
-        </div>
-        <div className={styles.formField}>
-          <label>Status:</label>
-          <select name="status" value={formData.status} onChange={handleChange}>
-            <option>DONE</option>
-            <option>PENDING</option>
-            {error.status && <span className={styles.error}>*Status is missing</span>}
-          </select>
-        </div>
       </div>
-      <div className={styles.formField}>
-        <div>
-          <label>Position:</label>
-          <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
-            {positions.map((position) => {
-              return [
-                <option key={position._id} value={position._id}>
-                  {position.name}
-                </option>
-              ];
-            })}
-            {error.position && <span className={styles.error}>*Position is missing</span>}
-          </select>
-        </div>
-        <div className={styles.formField}>
-          <label>Date:</label>
-          <input
-            type="date"
-            name="dateTime"
-            placeholder="Insert a date"
-            value={formData.dateTime}
-            onChange={handleChange}
-          />
-          {error.dateTime && <span className={styles.error}>*Date is missing</span>}
-        </div>
-        <button type="submit">Submit</button>
+      <div>
+        <label>Client:</label>
+        <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
+          {clients.map((client) => {
+            return (
+              <option key={client._id} value={client._id}>
+                {client.name}
+              </option>
+            );
+          })}
+          {error.client && <span className={styles.error}>*Client is missing</span>}
+        </select>
       </div>
+      <div>
+        <label>Status:</label>
+        <select name="status" value={formData.status} onChange={handleChange}>
+          <option>DONE</option>
+          <option>PENDING</option>
+          {error.status && <span className={styles.error}>*Status is missing</span>}
+        </select>
+      </div>
+      <div>
+        <label>Position:</label>
+        <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
+          {positions.map((position) => {
+            return [
+              <option key={position._id} value={position._id}>
+                {position.name}
+              </option>
+            ];
+          })}
+          {error.position && <span className={styles.error}>*Position is missing</span>}
+        </select>
+      </div>
+      <div>
+        <label>Date:</label>
+        <input
+          type="date"
+          name="dateTime"
+          placeholder="Insert a date"
+          value={formData.dateTime}
+          onChange={handleChange}
+        />
+        {error.dateTime && <span className={styles.error}>*Date is missing</span>}
+      </div>
+      <button type="submit">Submit</button>
     </form>
   );
 }
