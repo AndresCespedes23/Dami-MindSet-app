@@ -125,11 +125,11 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
         {error.address && <span className={styles.error}>Address is missing</span>}
       </div>
       <div>
-        <div>
-          <label>Address</label>
-          <input type="text" name="address" value={formData.address} onChange={handleChange} />
-          {error.address && <span className={styles.error}>Address is missing</span>}
-        </div>
+        <label>Address</label>
+        <input type="text" name="address" value={formData.address} onChange={handleChange} />
+        {error.address && <span className={styles.error}>Address is missing</span>}
+      </div>
+      <div>
         <label>Phone Number</label>
         <input
           type="number"
