@@ -22,7 +22,8 @@ function Interviews() {
       })
       .then((response) => {
         setInterviews(response);
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {

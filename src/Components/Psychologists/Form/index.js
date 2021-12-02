@@ -34,7 +34,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         })
         .then((response) => {
           setFormData(response);
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 

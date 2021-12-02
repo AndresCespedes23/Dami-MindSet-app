@@ -95,8 +95,8 @@ function Applications() {
         setMessage('Application deleted');
         setApplications(applications.filter((application) => application._id !== id));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

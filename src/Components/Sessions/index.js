@@ -22,7 +22,8 @@ function Sessions() {
       })
       .then((response) => {
         setSessions(response);
-      });
+      })
+      .catch((err) => console.log(err));
   };
   useEffect(() => {
     getSessions();
@@ -93,8 +94,8 @@ function Sessions() {
         setMessageType('success');
         setMessage('Session deleted');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });
@@ -126,8 +127,8 @@ function Sessions() {
         setMessageType('success');
         setMessage('Session updated');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

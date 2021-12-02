@@ -21,7 +21,8 @@ function Profiles() {
       })
       .then((response) => {
         setProfiles(response);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleClickDelete = (id) => {
@@ -47,8 +48,8 @@ function Profiles() {
         setMessage('Profile deleted');
         setProfiles(profiles.filter((profile) => profile._id !== id));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });
@@ -72,8 +73,8 @@ function Profiles() {
         setMessage('Profile updated');
         setProfiles(profiles.map((profile) => (profile._id === idActive ? response : profile)));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

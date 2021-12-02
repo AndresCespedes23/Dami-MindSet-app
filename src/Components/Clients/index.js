@@ -21,7 +21,8 @@ function Clients() {
       })
       .then((response) => {
         setClients(response);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleClickDelete = (id) => {
@@ -75,8 +76,8 @@ function Clients() {
         setMessage('Client updated');
         setClients(clients.map((client) => (client._id === idActive ? response : client)));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
         setMessage('Error');

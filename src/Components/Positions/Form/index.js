@@ -33,7 +33,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setClients(response);
-      });
+      })
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -41,7 +42,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setProfiles(response);
-      });
+      })
+      .catch((err) => console.log(err));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/positions/${id}`)
         .then((response) => {
@@ -51,7 +53,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           console.log(response);
           setFormData(response);
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 

@@ -43,7 +43,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           response.dateOfBirth = response.dateOfBirth.split('T')[0];
           setFormData(response);
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 

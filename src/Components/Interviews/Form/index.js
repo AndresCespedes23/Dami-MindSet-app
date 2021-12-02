@@ -28,7 +28,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setCandidates(response);
-      });
+      })
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -36,7 +37,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setClients(response);
-      });
+      })
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -44,7 +46,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setPositions(response);
-      });
+      })
+      .catch((err) => console.log(err));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/interviews/${id}`)
         .then((response) => {
@@ -54,7 +57,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 
