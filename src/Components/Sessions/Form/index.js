@@ -79,54 +79,58 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
-        <label>Psychologist</label>
-        <select name="idPsychologist" value={formData.idPsychologist._id} onChange={handleChange}>
-          {psychologists.map((psychologist) => {
-            return [
-              <option key={psychologist._id} value={psychologist._id}>
-                {psychologist.name}
-              </option>
-            ];
-          })}
-          {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
-        </select>
+      <div>
+        <div>
+          <label>Psychologist</label>
+          <select name="idPsychologist" value={formData.idPsychologist._id} onChange={handleChange}>
+            {psychologists.map((psychologist) => {
+              return [
+                <option key={psychologist._id} value={psychologist._id}>
+                  {psychologist.name}
+                </option>
+              ];
+            })}
+            {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
+          </select>
+        </div>
+        <div>
+          <label>Candidate</label>
+          <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
+            {candidates.map((candidate) => {
+              return [
+                <option key={candidate._id} value={candidate._id}>
+                  {candidate.name}
+                </option>
+              ];
+            })}
+            {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
+          </select>
+        </div>
+        <div>
+          <label>Date Time</label>
+          <input
+            type="datetime-local"
+            name="dateTime"
+            placeholder="Insert a date"
+            required
+            onChange={handleChange}
+          />
+          {error.dateTime && <span className={styles.error}>Date time is missing</span>}
+        </div>
       </div>
-      <div className={styles.formField}>
-        <label>Candidate</label>
-        <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
-          {candidates.map((candidate) => {
-            return [
-              <option key={candidate._id} value={candidate._id}>
-                {candidate.name}
-              </option>
-            ];
-          })}
-          {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
-        </select>
-      </div>
-      <div className={styles.formField}>
-        <label>Date Time</label>
-        <input
-          type="datetime-local"
-          name="dateTime"
-          placeholder="Insert a date"
-          required
-          onChange={handleChange}
-        />
-        {error.dateTime && <span className={styles.error}>Date time is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Status</label>
-        <select name="status" value={formData.status} required onChange={handleChange}>
-          <option value="PENDING">PENDING</option>
-          <option value="DONE">DONE</option>
-        </select>
-        {error.status && <span className={styles.error}>Status time is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Result</label>
-        <input type="text" name="result" value={formData.result} onChange={handleChange} />
+      <div>
+        <div>
+          <label>Status</label>
+          <select name="status" value={formData.status} required onChange={handleChange}>
+            <option value="PENDING">PENDING</option>
+            <option value="DONE">DONE</option>
+          </select>
+          {error.status && <span className={styles.error}>Status time is missing</span>}
+        </div>
+        <div>
+          <label>Result</label>
+          <input type="text" name="result" value={formData.result} onChange={handleChange} />
+        </div>
       </div>
       <button type="submit">Submit</button>
     </form>

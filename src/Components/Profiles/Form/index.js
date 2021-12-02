@@ -45,12 +45,12 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   };
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
+      <div>
         <label>Type of Profile</label>
         <input type="text" name="name" value={formData.name} onChange={handleChange} />
         {error.name && <span className={styles.error}>Profile is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Description</label>
         <input
           type="text"

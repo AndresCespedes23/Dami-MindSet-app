@@ -4,6 +4,7 @@
     align-items: center;
     position: fixed;
     z-index: 1;
+    overflow: auto;
     top: 0;
     left: 0;
     width: 100%;
@@ -12,8 +13,10 @@
   }
   
   .modalContainer {
+    position: relative;
     width: 50%;
-    height: 80%;
+    top: 20vh;
+    margin-bottom: 50px;
     border-radius: 12px;
     background-color: #f0f4f9;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

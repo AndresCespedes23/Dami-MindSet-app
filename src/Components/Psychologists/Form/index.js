@@ -72,69 +72,77 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
-        <label>Name</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        {error.name && <span className={styles.error}>Name is missing</span>}
+      <div>
+        <div>
+          <label>Name</label>
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+          {error.name && <span className={styles.error}>Name is missing</span>}
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="text" name="email" value={formData.email} onChange={handleChange} />
+          {error.email && <span className={styles.error}>Email is missing</span>}
+        </div>
+        <div>
+          <label>Username</label>
+          <input type="text" name="username" value={formData.username} onChange={handleChange} />
+          {error.username && <span className={styles.error}>Username is missing</span>}
+        </div>
+        <div>
+          <label>Phone Number</label>
+          <input
+            type="number"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+          />
+          {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
+        </div>
+        <div>
+          <label>Enrollment Number</label>
+          <input
+            type="number"
+            name="enrollmentNumber"
+            value={formData.enrollmentNumber}
+            onChange={handleChange}
+          />
+          {error.enrollmentNumber && (
+            <span className={styles.error}>Enrollment Number is missing</span>
+          )}
+        </div>
+        <div>
+          <label>Status</label>
+          <select name="status" value={formData.status} onChange={handleChange}>
+            <option value={true}>Available</option>
+            <option value={false}>No available</option>
+          </select>
+          {error.status && <span className={styles.error}>*Status is missing</span>}
+        </div>
       </div>
-      <div className={styles.formField}>
-        <label>Email</label>
-        <input type="text" name="email" value={formData.email} onChange={handleChange} />
-        {error.email && <span className={styles.error}>Email is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Username</label>
-        <input type="text" name="username" value={formData.username} onChange={handleChange} />
-        {error.username && <span className={styles.error}>Username is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Phone Number</label>
-        <input
-          type="number"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-        />
-        {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Enrollment Number</label>
-        <input
-          type="number"
-          name="enrollmentNumber"
-          value={formData.enrollmentNumber}
-          onChange={handleChange}
-        />
-        {error.enrollmentNumber && (
-          <span className={styles.error}>Enrollment Number is missing</span>
-        )}
-      </div>
-      <div className={styles.formField}>
-        <label>Status</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
-          <option value={true}>Available</option>
-          <option value={false}>No available</option>
-        </select>
-        {error.status && <span className={styles.error}>*Status is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Time Range:</label>
-        <input type="time" name="timeStart" min="09:00" max="18:00" onChange={handleChange} />
-        -To-
-        <input type="time" name="timeEnd" min="09:00" max="18:00" onChange={handleChange} />
-        {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Day Range</label>
-        <input type="date" name="dayStart" onChange={handleChange} />
-        -To-
-        <input type="date" name="dayEnd" onChange={handleChange} />
-        {error.dayRange && <span className={styles.error}>Time Range is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Password</label>
-        <input type="password" name="password" onChange={handleChange} />
-        {error.password && <span className={styles.error}>Password is missing</span>}
+      <div>
+        <div>
+          <label>Time Range:</label>
+          <input type="time" name="timeStart" min="09:00" max="18:00" onChange={handleChange} />
+        </div>
+        <div>
+          <label>-To-</label>
+          <input type="time" name="timeEnd" min="09:00" max="18:00" onChange={handleChange} />
+          {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
+        </div>
+        <div>
+          <label>Day Range</label>
+          <input type="date" name="dayStart" onChange={handleChange} />
+        </div>
+        <div>
+          <label>-To-</label>
+          <input type="date" name="dayEnd" onChange={handleChange} />
+          {error.dayRange && <span className={styles.error}>Time Range is missing</span>}
+        </div>
+        <div>
+          <label>Password</label>
+          <input type="password" name="password" onChange={handleChange} />
+          {error.password && <span className={styles.error}>Password is missing</span>}
+        </div>
       </div>
       <button type="submit">Submit</button>
     </form>
