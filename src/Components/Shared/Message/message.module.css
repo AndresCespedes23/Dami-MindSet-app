@@ -1,11 +1,35 @@
 .error {
-  background-color: rgb(250, 57, 57);
-  color: rgb(0, 0, 0);
+  background-color: #9b0000;
+  height: 1.5vw;
+  width: 16vw;
+  color: rgb(3, 3, 3);
+  text-align: center;
+  border-radius: 10px;
+  opacity: 1;
+}
+.error > p {
+  display: inline;
+  letter-spacing: 0px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 1vw;
 }
 
 .success {
-  background-color: rgb(10, 255, 84);
+  background-color: #0c7700;
+  height: 1.5vw;
+  width: 16vw;
   color: rgb(3, 3, 3);
+  text-align: center;
+  border-radius: 10px;
+  opacity: 1;
+}
+.success > p {
+  display: inline;
+  letter-spacing: 0px;
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 1vw;
 }
 
 .warning {
