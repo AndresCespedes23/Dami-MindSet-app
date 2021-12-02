@@ -21,7 +21,8 @@ function Admins() {
       })
       .then((response) => {
         setAdmins(response);
-      });
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleUpdateAdmin = (admin) => {
@@ -42,8 +43,8 @@ function Admins() {
         setMessage('Admin updated');
         setAdmins(admins.map((admin) => (admin._id === idActive ? response : admin)));
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

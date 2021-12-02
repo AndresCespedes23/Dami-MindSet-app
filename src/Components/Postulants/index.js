@@ -21,7 +21,8 @@ function Postulants() {
       })
       .then((response) => {
         setPostulants(response);
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -51,8 +52,8 @@ function Postulants() {
         setMessage('Candidate deleted');
         getPostulants();
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });
@@ -76,8 +77,8 @@ function Postulants() {
         setMessage('Candidate updated');
         getPostulants();
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

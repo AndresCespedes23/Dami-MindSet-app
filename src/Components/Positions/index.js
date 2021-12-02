@@ -21,7 +21,8 @@ function Positions() {
       })
       .then((response) => {
         setPositions(response);
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -91,8 +92,8 @@ function Positions() {
         setMessage('Candidate deleted');
         getPositions();
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });
@@ -123,8 +124,8 @@ function Positions() {
         setMessage('Position updated');
         getPositions();
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

@@ -21,7 +21,8 @@ function Psychologists() {
       })
       .then((response) => {
         setPsychologists(response);
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -51,8 +52,8 @@ function Psychologists() {
         setMessageType('success');
         setMessage('Psychologist deleted');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });
@@ -76,8 +77,8 @@ function Psychologists() {
         setMessageType('success');
         setMessage('Psychologist updated');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
         setShowMessage(true);
         setMessageType('error');
       });

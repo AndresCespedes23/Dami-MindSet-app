@@ -27,7 +27,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setPsychologists(response);
-      });
+      })
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -35,7 +36,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       })
       .then((response) => {
         setCandidates(response);
-      });
+      })
+      .catch((err) => console.log(err));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/sessions/${id}`)
         .then((response) => {
@@ -45,7 +47,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
-        });
+        })
+        .catch((err) => console.log(err));
     }
   }, []);
 
