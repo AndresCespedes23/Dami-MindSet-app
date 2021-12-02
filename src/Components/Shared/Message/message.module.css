@@ -1,7 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 .error {
   background-color: #9b0000;
   height: 1.5vw;
-  color: rgb(3, 3, 3);
+  color: #0000;
   text-align: center;
   border-radius: 10px;
   opacity: 1;
@@ -12,13 +16,12 @@
   color: #ffffff;
   padding: 0.5vw 1vw;
   text-transform: uppercase;
-  margin-bottom: 1vw;
 }
 
 .success {
   background-color: #0c7700;
   height: 1.5vw;
-  color: rgb(3, 3, 3);
+  color: #0000;
   text-align: center;
   border-radius: 10px;
   opacity: 1;
@@ -29,12 +32,11 @@
   color: #ffffff;
   text-transform: uppercase;
   padding: 0.5vw 1vw;
-  margin-bottom: 1vw;
 }
 
 .warning {
-  background-color: rgb(245, 208, 47);
-  color: rgb(3, 3, 3);
+  background-color: #f5d02f;
+  color: #0000;
 }
 
 .hide {
