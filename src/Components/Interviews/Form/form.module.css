@@ -1,58 +1,57 @@
-.form-subscription {
-    padding: 0px 40px 40px 40px;
-}
-.form-subscription li {
-    padding: 10px;
-}
-.containerForm {
-    display: flex;
-    flex-direction: row;
-}
-.column {
-    width: 50%;
-    padding: 0px 30px;
-    margin: 30px 0px;
-}
-.column label {
-    display: block;
-    padding: 10px 5px;
-}
-.column input, select {
-    display: inline;
-    width: 100%;
-    padding: 10px 20px;
-    border: 1px solid rgb(167, 167, 167);
-    border-radius: 30px;
-}
-.button {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-}
-.msg-error {
-    display: block;
-    color: red;
-    padding: 2px; 
-    font-size: 12px; 
-}
-
-.hide {
-    display: none;
-}
-
-.input-error {
-    border-color: red;
-    color: red;
-}
-.submit{
-    border: 1px solid #28a745;
-    border-radius: 8px;
-    color: #28a745;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-    margin: 40px
-}
-.error {
-    color: red;
+* {
+    box-sizing: border-box;
   }
+  
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .error {
+    color: #ff0000;
+  }
+  
+  .form div {
+    width: 300px;
+    padding: 10px;
+    text-align: left;
+    color: #002147;
+  }
+  
+  .form label {
+    font-size: 18px;
+  }
+  
+  .form input,
+  select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #002147;
+    border-radius: 4px;
+    background-color: #f0f4f9;
+    font-size: 14px;
+  }
+  
+  .form select {
+    background-color: #f0f4f9;
+  }
+  
+  .form button {
+    display: flex;
+    justify-content: center;
+  }
+  .form button {
+    padding: 16px 60px;
+    margin-top: 20px;
+    background-color: #002147;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .form button:hover {
+    background-color: #fdc800;
+    color: #002147;
+  }
+  
