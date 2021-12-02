@@ -13,6 +13,11 @@ function Profiles() {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
@@ -26,6 +31,7 @@ function Profiles() {
   }, []);
 
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -81,12 +87,14 @@ function Profiles() {
   };
 
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('profiles');
   };
 
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('profiles');
     setIdActive('');

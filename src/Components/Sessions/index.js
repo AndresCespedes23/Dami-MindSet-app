@@ -25,12 +25,19 @@ function Sessions() {
       })
       .catch((err) => console.log(err));
   };
+
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getSessions();
   }, []);
 
   // ADD Button
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setIdActive('');
     setModalType('sessions');
@@ -71,6 +78,7 @@ function Sessions() {
 
   // DELETE Button
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -103,6 +111,7 @@ function Sessions() {
 
   // EDIT Button
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('sessions');

@@ -26,6 +26,11 @@ function Interviews() {
       .catch((err) => console.log(err));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getInterviews();
   }, []);
@@ -39,6 +44,7 @@ function Interviews() {
   };
 
   const handleDeleteClick = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -69,6 +75,7 @@ function Interviews() {
   };
 
   const handleUpdateClick = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('interviews');
@@ -101,6 +108,7 @@ function Interviews() {
   };
 
   const handleAddClick = () => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(null);
     setModalType('interviews');
