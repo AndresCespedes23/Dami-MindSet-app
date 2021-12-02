@@ -72,6 +72,7 @@ function Positions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding position');
       });
   };
   //delete position
@@ -103,6 +104,7 @@ function Positions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting position');
       });
   };
 
@@ -136,6 +138,7 @@ function Positions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating position');
       });
   };
   //

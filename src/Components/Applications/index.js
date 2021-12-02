@@ -74,6 +74,7 @@ function Applications() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error creating application');
       });
   };
 
@@ -106,6 +107,7 @@ function Applications() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting application');
       });
   };
 
@@ -141,6 +143,7 @@ function Applications() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating application');
       });
   };
 
