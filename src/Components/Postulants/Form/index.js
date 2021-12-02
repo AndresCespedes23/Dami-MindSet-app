@@ -85,27 +85,27 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
+      <div>
         <label>Name</label>
         <input type="text" name="name" value={formData.name} onChange={handleChange} />
         {error.name && <span className={styles.error}>Name is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Email</label>
         <input type="text" name="email" value={formData.email} onChange={handleChange} />
         {error.email && <span className={styles.error}>Email is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Username</label>
         <input type="text" name="username" value={formData.username} onChange={handleChange} />
         {error.username && <span className={styles.error}>Username is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Password</label>
         <input type="password" name="password" value={formData.password} onChange={handleChange} />
         {error.password && <span className={styles.error}>Password is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Gender</label>
         <select name="gender" value={formData.gender} onChange={handleChange}>
           <option value="male" key="m">
@@ -119,12 +119,17 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           </option>
         </select>
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Address</label>
         <input type="text" name="address" value={formData.address} onChange={handleChange} />
         {error.address && <span className={styles.error}>Address is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
+        <div>
+          <label>Address</label>
+          <input type="text" name="address" value={formData.address} onChange={handleChange} />
+          {error.address && <span className={styles.error}>Address is missing</span>}
+        </div>
         <label>Phone Number</label>
         <input
           type="number"
@@ -134,7 +139,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Date of Birth</label>
         <input
           type="date"
@@ -144,27 +149,27 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.dateOfBirth && <span className={styles.error}>Date is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Zip Code</label>
         <input type="number" name="zipCode" value={formData.zipCode} onChange={handleChange} />
         {error.zipCode && <span className={styles.error}>Zip Code is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>City</label>
         <input type="text" name="city" value={formData.city} onChange={handleChange} />
         {error.city && <span className={styles.error}>City is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>State</label>
         <input type="text" name="state" value={formData.state} onChange={handleChange} />
         {error.state && <span className={styles.error}>State is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>Country</label>
         <input type="text" name="country" value={formData.country} onChange={handleChange} />
         {error.country && <span className={styles.error}>Country is missing</span>}
       </div>
-      <div className={styles.formField}>
+      <div>
         <label>DNI</label>
         <input type="number" name="dni" value={formData.dni} onChange={handleChange} />
         {error.dni && <span className={styles.error}>DNI is missing</span>}
