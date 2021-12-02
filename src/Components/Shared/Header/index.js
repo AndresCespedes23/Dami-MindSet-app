@@ -1,4 +1,4 @@
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './header.module.css';
 
 function Header() {
@@ -65,4 +65,4 @@ function Header() {
   );
 }
 
-export default withRouter(Header);
+export default Header;

@@ -1,4 +1,4 @@
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './footer.module.css';
 
 function Footer() {
@@ -64,4 +64,4 @@ function Footer() {
     </footer>
   );
 }
-export default withRouter(Footer);
+export default Footer;
