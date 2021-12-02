@@ -5,6 +5,7 @@
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
 }
 .add:hover {
     background-color: #28a745;
@@ -17,6 +18,7 @@
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
 }
 .delete:hover {
     background-color: #dc3545;
@@ -29,6 +31,7 @@
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
 }
 .update:hover {
     background-color: #17a2b8;
@@ -42,6 +45,7 @@
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
 }
 .confirm:hover {
     background-color: #fff;
@@ -55,10 +59,30 @@
     cursor: pointer;
     font-weight: bold;
     padding: 5px;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
 }
 .cancel:hover {
     background-color: #002147;
     color: #fff;
+}
+.submit, .search, .addNew {
+    padding: 5px;
+    border: 1px solid #ffffff;
+    background-color: #152231;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
+}
+.submit:hover, .search:hover, .addNew:hover {
+    background-color: #fdc800;
+    color: #002147;
+    border-color: #002147;
+}
+.submit{
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 .hide{
     display: none;
