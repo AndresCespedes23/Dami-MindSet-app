@@ -3,6 +3,7 @@ import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Table from '../Shared/Table/Table';
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
@@ -135,41 +136,22 @@ function Postulants() {
     setShowMessage(false);
   };
 
+  const tableHeaders = ['Name', 'Email', 'Phone Number', 'Status', 'Actions'];
+  const tableData = ['name', 'email', 'phoneNumber', 'status'];
+
   return (
     <section className={styles.container}>
       <h2>Postulants</h2>
       {showMessage && (
         <Message type={messageType} message={message} showMessage={handleShowMessage} />
       )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Country</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {postulants.map((postulant) => {
-            return (
-              <tr key={postulant._id}>
-                <td>{postulant.name}</td>
-                <td>{postulant.email}</td>
-                <td>{postulant.phoneNumber}</td>
-                <td>{postulant.country}</td>
-                <td>{postulant.status}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(postulant._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(postulant._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <Table
+        headers={tableHeaders}
+        elements={postulants}
+        tableData={tableData}
+        deleteAction={handleClickDelete}
+        updateAction={handleClickUpdate}
+      />
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
