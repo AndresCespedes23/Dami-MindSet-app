@@ -25,12 +25,18 @@ function Positions() {
       .catch((err) => console.log(err));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getPositions();
   }, []);
 
   // add
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('positions');
     setIdActive('');
@@ -70,6 +76,7 @@ function Positions() {
   };
   //delete position
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -101,6 +108,7 @@ function Positions() {
 
   // update position
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('positions');
