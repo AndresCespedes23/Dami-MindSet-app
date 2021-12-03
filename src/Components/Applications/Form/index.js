@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [positions, setPositions] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [interviews, setInterviews] = useState([]);
@@ -23,6 +25,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -31,7 +34,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPositions(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -40,7 +44,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -49,7 +54,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setInterviews(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
 
     if (id) {
       fetch(`${process.env.REACT_APP_API}/applications/${id}`)
@@ -62,7 +68,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -152,7 +159,10 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }

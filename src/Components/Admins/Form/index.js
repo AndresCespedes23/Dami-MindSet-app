@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function AdminsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,6 +12,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     if (id) {
       fetch(`${process.env.REACT_APP_API}/admins/${id}`)
         .then((response) => {
@@ -19,7 +22,8 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -71,7 +75,10 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
           required
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [clients, setClients] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -26,6 +28,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -34,7 +37,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setClients(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -43,7 +47,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setProfiles(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/positions/${id}`)
         .then((response) => {
@@ -54,7 +59,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           console.log(response);
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -160,7 +166,10 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }

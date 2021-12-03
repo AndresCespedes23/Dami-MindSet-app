@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -34,6 +36,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     if (id) {
       fetch(`${process.env.REACT_APP_API}/candidates/${id}`)
         .then((response) => {
@@ -44,7 +47,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           response.dateOfBirth = response.dateOfBirth.split('T')[0];
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -179,7 +183,10 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           {error.dni && <span className={styles.error}>DNI is missing</span>}
         </div>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }

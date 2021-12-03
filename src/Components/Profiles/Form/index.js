@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function ProfilesForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: ''
@@ -12,6 +14,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     if (id) {
       fetch(`${process.env.REACT_APP_API}/profiles/${id}`)
         .then((response) => {
@@ -21,7 +24,8 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -61,7 +65,10 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.description && <span className={styles.error}>Description is missing</span>}
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }

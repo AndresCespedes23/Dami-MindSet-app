@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [psychologists, setPsychologists] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [formData, setFormData] = useState({
@@ -20,6 +22,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -28,7 +31,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPsychologists(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -37,7 +41,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/sessions/${id}`)
         .then((response) => {
@@ -48,7 +53,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -135,7 +141,10 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           <input type="text" name="result" value={formData.result} onChange={handleChange} />
         </div>
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }

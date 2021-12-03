@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner/Form';
 
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +22,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoading(true);
     if (id) {
       fetch(`${process.env.REACT_APP_API}/clients/${id}`)
         .then((response) => {
@@ -29,7 +32,8 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -98,7 +102,10 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         <input type="text" name="activity" value={formData.activity} onChange={handleChange} />
         {error.activity && <span className={styles.error}>Activity is missing</span>}
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit">
+        {isLoading === true ? <Spinner /> : null}
+        Submit
+      </button>
     </form>
   );
 }
