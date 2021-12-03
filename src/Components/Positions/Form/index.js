@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
-import Input from '../../Shared/Input';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
   const [clients, setClients] = useState([]);
@@ -89,15 +88,6 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <Input
-        labelText="Full Name"
-        name="name"
-        type="text"
-        errorMessage="*sName is missing"
-        error={error.name}
-        value={formData.name}
-        onChange={handleChange}
-      />
       <div>
         <label>Client</label>
         <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
