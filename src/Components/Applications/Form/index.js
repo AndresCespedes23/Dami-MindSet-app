@@ -3,7 +3,7 @@ import styles from '../Form/form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(true);
   const [positions, setPositions] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [interviews, setInterviews] = useState([]);
@@ -25,7 +25,6 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();

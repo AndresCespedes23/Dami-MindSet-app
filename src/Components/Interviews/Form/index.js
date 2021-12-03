@@ -3,7 +3,7 @@ import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(true);
   const [candidates, setCandidates] = useState([]);
   const [clients, setClients] = useState([]);
   const [positions, setPositions] = useState([]);

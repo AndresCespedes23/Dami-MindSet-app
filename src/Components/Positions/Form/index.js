@@ -3,7 +3,7 @@ import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(true);
   const [clients, setClients] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [formData, setFormData] = useState({

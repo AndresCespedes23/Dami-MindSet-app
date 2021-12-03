@@ -14,8 +14,8 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoadingForm(true);
     if (id) {
+      setLoadingForm(true);
       fetch(`${process.env.REACT_APP_API}/profiles/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
