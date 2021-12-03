@@ -3,7 +3,7 @@ import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [clients, setClients] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -38,7 +38,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         setClients(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -48,7 +48,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         setProfiles(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/positions/${id}`)
         .then((response) => {
@@ -60,7 +60,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           setFormData(response);
         })
         .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -166,7 +166,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
       </div>
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
       ) : (
         <button type="submit">Submit</button>

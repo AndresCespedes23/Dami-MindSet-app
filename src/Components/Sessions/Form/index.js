@@ -3,7 +3,7 @@ import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [psychologists, setPsychologists] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -32,7 +32,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         setPsychologists(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -42,7 +42,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         setCandidates(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/sessions/${id}`)
         .then((response) => {
@@ -54,7 +54,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           setFormData(response);
         })
         .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -141,7 +141,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           <input type="text" name="result" value={formData.result} onChange={handleChange} />
         </div>
       </div>
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
       ) : (
         <button type="submit">Submit</button>

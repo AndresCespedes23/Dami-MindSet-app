@@ -3,7 +3,7 @@ import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,7 +36,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingForm(true);
     if (id) {
       fetch(`${process.env.REACT_APP_API}/candidates/${id}`)
         .then((response) => {
@@ -48,7 +48,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           setFormData(response);
         })
         .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -183,7 +183,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           {error.dni && <span className={styles.error}>DNI is missing</span>}
         </div>
       </div>
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
       ) : (
         <button type="submit">Submit</button>

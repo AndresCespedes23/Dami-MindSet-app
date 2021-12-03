@@ -3,7 +3,7 @@ import styles from '../Form/form.module.css';
 import Spinner from '../../Shared/Spinner';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [positions, setPositions] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [interviews, setInterviews] = useState([]);
@@ -25,7 +25,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoading(true);
+    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -35,7 +35,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         setPositions(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -45,7 +45,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         setCandidates(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -55,7 +55,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         setInterviews(response);
       })
       .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
+      .finally(() => setLoadingForm(false));
 
     if (id) {
       fetch(`${process.env.REACT_APP_API}/applications/${id}`)
@@ -69,7 +69,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           setFormData(response);
         })
         .catch((err) => console.log(err))
-        .finally(() => setLoading(false));
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -159,7 +159,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
       </div>
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
       ) : (
         <button type="submit">Submit</button>
