@@ -3,6 +3,7 @@ import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
 import styles from './psychologists.module.css';
+import Spinner from '../Shared/Spinner';
 
 function Psychologists() {
   const [psychologists, setPsychologists] = useState([]);
@@ -12,8 +13,10 @@ function Psychologists() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const getPsychologists = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -22,7 +25,8 @@ function Psychologists() {
       .then((response) => {
         setPsychologists(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {
@@ -176,6 +180,7 @@ function Psychologists() {
           })}
         </tbody>
       </table>
+      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

@@ -3,6 +3,7 @@ import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Sessions() {
   const [sessions, setSessions] = useState([]);
@@ -12,9 +13,11 @@ function Sessions() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   // GET All Sessions
   const getSessions = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/sessions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -23,7 +26,8 @@ function Sessions() {
       .then((response) => {
         setSessions(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
   useEffect(() => {
     getSessions();
@@ -177,6 +181,7 @@ function Sessions() {
           })}
         </tbody>
       </table>
+      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

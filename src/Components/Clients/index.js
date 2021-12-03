@@ -3,6 +3,7 @@ import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Clients() {
   const [clients, setClients] = useState([]);
@@ -12,8 +13,10 @@ function Clients() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -22,7 +25,8 @@ function Clients() {
       .then((response) => {
         setClients(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleClickDelete = (id) => {
@@ -175,6 +179,7 @@ function Clients() {
           })}
         </tbody>
       </table>
+      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
