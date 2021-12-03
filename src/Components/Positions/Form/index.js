@@ -90,14 +90,13 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <Input
-        id="Full Name"
+        labelText="Full Name"
         name="name"
         type="text"
-        style="success"
-        message="Name is missing"
+        errorMessage="*sName is missing"
         error={error.name}
         value={formData.name}
-        data={handleChange}
+        onChange={handleChange}
       />
       <div>
         <label>Client</label>

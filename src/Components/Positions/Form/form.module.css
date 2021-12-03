@@ -7,20 +7,20 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
-/*
+
 .form div {
   width: 300px;
   padding: 10px;
   text-align: left;
   color: #002147;
-}*/
-/*
+}
+
 .form label {
   padding-left: 20px;
   font-size: 18px;
-}*/
+}
 
-/*.form input,*/
+.form input,
 .form select {
   width: 100%;
   padding: 12px 16px;
