@@ -3,7 +3,7 @@ import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner';
+import Spinner from '../Shared/Spinner/List';
 
 function Applications() {
   const [applications, setApplications] = useState([]); // this is for "fetch"

@@ -3,7 +3,7 @@ import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner';
+import Spinner from '../Shared/Spinner/List';
 
 function Positions() {
   const [positions, setPositions] = useState([]);

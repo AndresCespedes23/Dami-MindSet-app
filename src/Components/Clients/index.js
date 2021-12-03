@@ -3,7 +3,7 @@ import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner';
+import Spinner from '../Shared/Spinner/List';
 
 function Clients() {
   const [clients, setClients] = useState([]);

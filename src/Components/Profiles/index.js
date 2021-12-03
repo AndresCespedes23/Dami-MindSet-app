@@ -3,7 +3,7 @@ import styles from './profiles.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner';
+import Spinner from '../Shared/Spinner/List';
 
 function Profiles() {
   const [profiles, setProfiles] = useState([]);
@@ -97,6 +97,7 @@ function Profiles() {
   };
 
   const handleAddProfile = (profile) => {
+    setLoading(false);
     fetch(`${process.env.REACT_APP_API}/profiles`, {
       method: 'POST',
       mode: 'cors',

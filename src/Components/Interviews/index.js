@@ -4,7 +4,7 @@ import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner';
+import Spinner from '../Shared/Spinner/List';
 
 function Interviews() {
   const [interviews, setInterviews] = useState([]);

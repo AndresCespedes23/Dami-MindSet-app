@@ -3,7 +3,7 @@ import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
 import styles from './psychologists.module.css';
-import Spinner from '../Shared/Spinner';
+import Spinner from '../Shared/Spinner/List';
 
 function Psychologists() {
   const [psychologists, setPsychologists] = useState([]);
