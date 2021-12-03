@@ -3,7 +3,7 @@ import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner/List';
+import Spinner from '../Shared/Spinner';
 
 function Sessions() {
   const [sessions, setSessions] = useState([]);
@@ -146,6 +146,8 @@ function Sessions() {
     setShowMessage(false);
   };
 
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <h2>Sessions</h2>
@@ -181,7 +183,6 @@ function Sessions() {
           })}
         </tbody>
       </table>
-      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

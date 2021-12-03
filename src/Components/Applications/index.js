@@ -3,7 +3,7 @@ import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner/List';
+import Spinner from '../Shared/Spinner';
 
 function Applications() {
   const [applications, setApplications] = useState([]); // this is for "fetch"
@@ -149,6 +149,8 @@ function Applications() {
     setShowMessage(false);
   };
 
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <h2>Applications</h2>
@@ -192,7 +194,6 @@ function Applications() {
           })}
         </tbody>
       </table>
-      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

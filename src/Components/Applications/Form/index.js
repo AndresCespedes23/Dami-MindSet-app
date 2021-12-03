@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
-import Spinner from '../../Shared/Spinner/Form';
+import Spinner from '../../Shared/Spinner';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoading, setLoading] = useState(false);
@@ -159,10 +159,11 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
       </div>
-      <button type="submit">
-        {isLoading === true ? <Spinner /> : null}
-        Submit
-      </button>
+      {isLoading === true ? (
+        <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
+      ) : (
+        <button type="submit">Submit</button>
+      )}
     </form>
   );
 }

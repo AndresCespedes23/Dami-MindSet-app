@@ -3,7 +3,7 @@ import styles from './profiles.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner/List';
+import Spinner from '../Shared/Spinner';
 
 function Profiles() {
   const [profiles, setProfiles] = useState([]);
@@ -137,6 +137,8 @@ function Profiles() {
     setShowMessage(false);
   };
 
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <h2>Profiles</h2>
@@ -166,7 +168,6 @@ function Profiles() {
           })}
         </tbody>
       </table>
-      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

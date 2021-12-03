@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
-import Spinner from '../../Shared/Spinner/Form';
+import Spinner from '../../Shared/Spinner';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoading, setLoading] = useState(false);
@@ -166,10 +166,11 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
       </div>
-      <button type="submit">
-        {isLoading === true ? <Spinner /> : null}
-        Submit
-      </button>
+      {isLoading === true ? (
+        <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
+      ) : (
+        <button type="submit">Submit</button>
+      )}
     </form>
   );
 }

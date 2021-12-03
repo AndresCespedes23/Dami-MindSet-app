@@ -3,7 +3,7 @@ import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner/List';
+import Spinner from '../Shared/Spinner';
 
 function Postulants() {
   const [postulants, setPostulants] = useState([]);
@@ -140,6 +140,8 @@ function Postulants() {
     setShowMessage(false);
   };
 
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <h2>Postulants</h2>
@@ -175,7 +177,6 @@ function Postulants() {
           })}
         </tbody>
       </table>
-      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal

@@ -3,7 +3,7 @@ import styles from './admins.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner/List';
+import Spinner from '../Shared/Spinner';
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
@@ -68,6 +68,8 @@ function Admins() {
     setShowMessage(false);
   };
 
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <h2>Admins</h2>
@@ -98,7 +100,6 @@ function Admins() {
           })}
         </tbody>
       </table>
-      {isLoading === true ? <Spinner /> : null}
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

@@ -4,7 +4,7 @@ import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Message from '../Shared/Message';
-import Spinner from '../Shared/Spinner/List';
+import Spinner from '../Shared/Spinner';
 
 function Interviews() {
   const [interviews, setInterviews] = useState([]);
@@ -142,6 +142,8 @@ function Interviews() {
       });
   };
 
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <h2>Interviews</h2>
@@ -183,7 +185,6 @@ function Interviews() {
           </tbody>
         </table>
       </div>
-      {isLoading === true ? <Spinner /> : null}
       <Button type="add" onClick={handleAddClick} />
       {showModal && (
         <Modal
