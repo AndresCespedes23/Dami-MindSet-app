@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
-import Input from '../../Shared/Input';
 
 function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   const [formData, setFormData] = useState({
@@ -47,20 +46,11 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   };
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      {/* <div>
+      <div>
         <label>Type of Profile</label>
         <input type="text" name="name" value={formData.name} onChange={handleChange} />
         {error.name && <span className={styles.error}>Profile is missing</span>}
-      </div> */}
-      <Input
-        type="text"
-        name="name"
-        labelText="Type of Profile"
-        value={formData.name}
-        onChange={handleChange}
-        error={error.name}
-        errorMessage="Profile is missing"
-      />
+      </div>
       <div>
         <label>Description</label>
         <input
