@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family:  'Poppins', 'Interstate', 'Soleil', 'Quicksand', 'Arial', 'Helvetica', sans-serif;
