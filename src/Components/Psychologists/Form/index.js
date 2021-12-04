@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,6 +29,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
+      setLoadingForm(true);
       fetch(`${process.env.REACT_APP_API}/psychologists/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
@@ -35,7 +38,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -145,7 +149,11 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           {error.password && <span className={styles.error}>Password is missing</span>}
         </div>
       </div>
-      <button type="submit">Submit</button>
+      {isLoadingForm === true ? (
+        <Spinner type="Oval" color="#002147" height={40} width={40} />
+      ) : (
+        <button type="submit">Submit</button>
+      )}
     </form>
   );
 }

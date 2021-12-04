@@ -4,6 +4,7 @@ import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Interviews() {
   const [interviews, setInterviews] = useState([]);
@@ -13,8 +14,10 @@ function Interviews() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const getInterviews = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -23,7 +26,8 @@ function Interviews() {
       .then((response) => {
         setInterviews(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   const cleanMessage = () => {
@@ -148,6 +152,7 @@ function Interviews() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>

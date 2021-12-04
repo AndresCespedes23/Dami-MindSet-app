@@ -3,6 +3,7 @@ import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Positions() {
   const [positions, setPositions] = useState([]);
@@ -12,8 +13,10 @@ function Positions() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const getPositions = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -22,7 +25,8 @@ function Positions() {
       .then((response) => {
         setPositions(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   const cleanMessage = () => {
@@ -147,6 +151,8 @@ function Positions() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>
