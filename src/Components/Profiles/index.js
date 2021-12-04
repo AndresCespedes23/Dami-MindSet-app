@@ -3,6 +3,7 @@ import styles from './profiles.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Profiles() {
   const [profiles, setProfiles] = useState([]);
@@ -12,6 +13,7 @@ function Profiles() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const cleanMessage = () => {
     setShowMessage(false);
@@ -19,6 +21,7 @@ function Profiles() {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -27,7 +30,8 @@ function Profiles() {
       .then((response) => {
         setProfiles(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleClickDelete = (id) => {
@@ -103,6 +107,7 @@ function Profiles() {
   };
 
   const handleAddProfile = (profile) => {
+    setLoading(false);
     fetch(`${process.env.REACT_APP_API}/profiles`, {
       method: 'POST',
       mode: 'cors',
@@ -142,6 +147,8 @@ function Profiles() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>

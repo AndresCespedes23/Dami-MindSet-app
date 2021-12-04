@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner';
 
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,6 +23,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
+      setLoadingForm(true);
       fetch(`${process.env.REACT_APP_API}/clients/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
@@ -29,7 +32,8 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         .then((response) => {
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -98,7 +102,11 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         <input type="text" name="activity" value={formData.activity} onChange={handleChange} />
         {error.activity && <span className={styles.error}>Activity is missing</span>}
       </div>
-      <button type="submit">Submit</button>
+      {isLoadingForm === true ? (
+        <Spinner type="Oval" color="#002147" height={40} width={40} />
+      ) : (
+        <button type="submit">Submit</button>
+      )}
     </form>
   );
 }

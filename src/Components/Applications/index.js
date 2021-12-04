@@ -3,6 +3,7 @@ import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Applications() {
   const [applications, setApplications] = useState([]); // this is for "fetch"
@@ -12,8 +13,10 @@ function Applications() {
   const [showMessage, setShowMessage] = useState(false); // (true/false)
   const [messageType, setMessageType] = useState(''); // ('error'/'success')
   const [message, setMessage] = useState(''); // (string)
+  const [isLoading, setLoading] = useState(false);
 
   const getApplications = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/applications`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -25,7 +28,8 @@ function Applications() {
       .catch((err) => {
         setMessageType('error');
         setMessage('Error:', err);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const cleanMessage = () => {
@@ -155,6 +159,8 @@ function Applications() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>
