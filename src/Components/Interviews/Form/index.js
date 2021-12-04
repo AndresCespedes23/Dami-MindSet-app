@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -143,17 +144,16 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
           {error.position && <span className={styles.error}>*Position is missing</span>}
         </select>
       </div>
-      <div>
-        <label>Date:</label>
-        <input
-          type="date"
-          name="dateTime"
-          placeholder="Insert a date"
-          value={formData.dateTime}
-          onChange={handleChange}
-        />
-        {error.dateTime && <span className={styles.error}>*Date is missing</span>}
-      </div>
+      <Input
+        labelText="Date"
+        name="dateTime"
+        type="date"
+        value={formData.dateTime}
+        errorMessage="Date is missing"
+        error={error.dateTime}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
