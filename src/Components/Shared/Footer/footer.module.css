@@ -1,8 +1,6 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #002147;
+  border-top: 4px solid #680404;
+  background-color: #9a9a9c;
 }
 
 .main {
@@ -10,14 +8,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 5%;
-  width: 90%;
-  height: 250px;
+  width: 100%;
+  height: 100px;
 }
 
-.appName {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #fff;
+.appName a, .appName a:visited  {
+  display: flex;
+  margin: 10px;
+  padding: 5px 40px;
+  border: none;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #1c2e4d;
+  font-weight: lighter;
+  font-size: 1.8rem;
+  text-decoration: none;
 }
 
 .rutes {
@@ -28,22 +33,31 @@
 }
 
 .rutes > li > a {
-  margin-left: 15px;
+  margin: 15px 15px 15px 0px;
+  padding: 10px;
+  border-radius: 30px;
+  color: #343436;
+  line-height: 30px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   text-decoration: none;
   text-transform: capitalize;
+}
+.rutes > li > a:hover {
+  box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
+  background-color: #680404;
   color: #fff;
 }
 
 .license {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  height: 50px;
-  width: 90%;
+  height: 30px;
+  width: 100%;
   padding: 0 20px;
-  background-color: #fdc800;
+  background-color: #343436;
+  color: #fff;
 }
 
 .copyright {
@@ -53,6 +67,8 @@
 
 .socialIcon {
   margin-left: 5px;
+  height: 20px;
+  background-color: #fff;
 }
 
 @media screen and (min-width: 750px) {
@@ -63,7 +79,6 @@
 
   .license {
     padding: 0 20px;
-    width: calc(60% - 40px);
   }
 
   .socialIcon {

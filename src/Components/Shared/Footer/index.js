@@ -6,7 +6,7 @@ function Footer() {
     <footer className={styles.container}>
       <div className={styles.main}>
         <div className={styles.appName}>
-          Mind<span>SET</span>
+          <Link to="/home">MindSet </Link>
         </div>
         <ul className={styles.rutes}>
           <li>
