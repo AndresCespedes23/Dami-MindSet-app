@@ -76,7 +76,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
         />
       </div>
       {isLoadingForm === true ? (
-        <Spinner type="Oval" color="#002147" height={40} width={40} timeout={1000} />
+        <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
         <button type="submit">Submit</button>
       )}
