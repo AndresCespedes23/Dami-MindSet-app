@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -138,11 +139,16 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           {error.interview && <span className={styles.error}>*Interview is missing</span>}
         </select>
       </div>
-      <div>
-        <label>Result</label>
-        <input type="text" name="result" value={formData.result} onChange={handleChange} />
-        {error.result && <span className={styles.error}>*Result is missing</span>}
-      </div>
+      <Input
+        labelText="Result"
+        name="result"
+        type="text"
+        value={formData.result}
+        errorMessage="Result is missing"
+        error={error.result}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       <div>
         <label>Date:</label>
         <input type="date" name="dateTime" value={formData.dateTime} onChange={handleChange} />
