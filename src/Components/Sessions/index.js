@@ -15,7 +15,6 @@ function Sessions() {
   const [message, setMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  // GET All Sessions
   const getSessions = () => {
     setLoading(true);
     fetch(`${process.env.REACT_APP_API}/sessions`)
@@ -39,7 +38,71 @@ function Sessions() {
     getSessions();
   }, []);
 
-  // ADD Button
+  const handleClickDelete = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_API}/sessions/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        getSessions();
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Session deleted');
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error deleting session');
+      });
+  };
+
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('sessions');
+  };
+
+  const handleUpdateSession = (session) => {
+    fetch(`${process.env.REACT_APP_API}/sessions/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(session)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        getSessions();
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Session updated');
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error updating session');
+      });
+  };
+
   const handleClickAdd = () => {
     cleanMessage();
     setShowModal(true);
@@ -47,7 +110,6 @@ function Sessions() {
     setModalType('sessions');
   };
 
-  // CREATE Session
   const handleAddSession = (session) => {
     fetch(`${process.env.REACT_APP_API}/sessions`, {
       method: 'POST',
@@ -77,76 +139,7 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error adding session');
-      });
-  };
-
-  // DELETE Button
-  const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('delete');
-  };
-
-  // DELETE Session
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting session');
-      });
-  };
-
-  // EDIT Button
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('sessions');
-  };
-
-  // PUT Session
-  const handleUpdateSession = (session) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(session)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session updated');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating session');
+        setMessage('Error creating session');
       });
   };
 

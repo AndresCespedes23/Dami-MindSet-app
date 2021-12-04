@@ -39,14 +39,6 @@ function Interviews() {
     getInterviews();
   }, []);
 
-  const handleShowModal = () => {
-    setShowModal(false);
-  };
-
-  const handleShowMessage = () => {
-    setShowMessage(false);
-  };
-
   const handleDeleteClick = (id) => {
     cleanMessage();
     setShowModal(true);
@@ -153,6 +145,13 @@ function Interviews() {
       });
   };
 
+  const handleShowModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowMessage = () => {
+    setShowMessage(false);
+  };
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (

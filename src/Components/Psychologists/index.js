@@ -70,6 +70,13 @@ function Psychologists() {
       });
   };
 
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('psychologists');
+  };
+
   const handleUpdatePsychologist = (psychologist) => {
     fetch(`${process.env.REACT_APP_API}/psychologists/${idActive}`, {
       method: 'PUT',
@@ -94,13 +101,6 @@ function Psychologists() {
         setMessageType('error');
         setMessage('Error updating psychologist');
       });
-  };
-
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('psychologists');
   };
 
   const handleClickAdd = () => {

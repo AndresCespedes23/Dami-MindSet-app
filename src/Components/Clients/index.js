@@ -66,6 +66,13 @@ function Clients() {
       });
   };
 
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('clients');
+  };
+
   const handleUpdateClients = (client) => {
     console.log(client);
     fetch(`${process.env.REACT_APP_API}/clients/${idActive}`, {
@@ -92,13 +99,6 @@ function Clients() {
         setMessageType('error');
         setMessage('Error updating client');
       });
-  };
-
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('clients');
   };
 
   const handleClickAdd = () => {
