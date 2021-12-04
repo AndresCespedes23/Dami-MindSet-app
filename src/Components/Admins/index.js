@@ -34,6 +34,13 @@ function Admins() {
     setMessage('');
   };
 
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('admins');
+  };
+
   const handleUpdateAdmin = (admin) => {
     fetch(`${process.env.REACT_APP_API}/admins/${idActive}`, {
       method: 'PUT',
@@ -57,13 +64,6 @@ function Admins() {
         setShowMessage(true);
         setMessageType('error');
       });
-  };
-
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('admins');
   };
 
   const handleShowModal = () => {

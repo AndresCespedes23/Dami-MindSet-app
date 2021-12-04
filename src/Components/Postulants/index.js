@@ -70,6 +70,13 @@ function Postulants() {
       });
   };
 
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('postulants');
+  };
+
   const handleUpdatePostulant = (postulant) => {
     fetch(`${process.env.REACT_APP_API}/candidates/${idActive}`, {
       method: 'PUT',
@@ -94,13 +101,6 @@ function Postulants() {
         setMessageType('error');
         setMessage('Error updating candidate');
       });
-  };
-
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('postulants');
   };
 
   const handleClickAdd = () => {
