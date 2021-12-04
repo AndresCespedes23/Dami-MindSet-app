@@ -1,34 +1,21 @@
-.container {
+.navbar, .titlebar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 5%;
-  height: 30px;
-  background-color: #343436;
-  color: #ffffff;
-}
-
-.brand {
-  font-weight: bold;
-  font-size: 0.8rem;
-}
-
-.socialIcon {
-  margin-left: 5px;
-  height: 20px;
-  background-color: #ffffff;
-}
-
-.navbar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 5%;
-  border-bottom: 4px solid #680404;
-  border-top: 4px solid #680404;
+  padding: 20px 30px;
   min-height: 70px;
-  background-color: #9a9a9c;
+  width: 100%;
+  background-color: #cdcdce;
   color: #680404;
+}
+
+.titlebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+.titleicon {
+  border-radius: 100%; 
 }
 
 .appName a, .appName a:visited  {
@@ -47,6 +34,27 @@
 
 .appName a span {
   font-size: 2.5rem;
+}
+
+.loginside {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.loginuser {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  font-weight: 700;
+}
+
+.loginphoto {
+  max-height: 50px;
+}
+
+.navbar {
+  border-bottom: 4px solid #680404;
 }
 
 .rutes {
