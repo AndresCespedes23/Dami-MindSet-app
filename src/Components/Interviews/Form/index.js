@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoadingForm, setLoadingForm] = useState(true);
   const [candidates, setCandidates] = useState([]);
   const [clients, setClients] = useState([]);
   const [positions, setPositions] = useState([]);
@@ -21,6 +23,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -29,7 +32,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -38,7 +42,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setClients(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -47,7 +52,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPositions(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoadingForm(false));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/interviews/${id}`)
         .then((response) => {
@@ -58,7 +64,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
           response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -147,7 +154,11 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         />
         {error.dateTime && <span className={styles.error}>*Date is missing</span>}
       </div>
-      <button type="submit">Submit</button>
+      {isLoadingForm === true ? (
+        <Spinner type="Oval" color="#002147" height={40} width={40} />
+      ) : (
+        <button type="submit">Submit</button>
+      )}
     </form>
   );
 }

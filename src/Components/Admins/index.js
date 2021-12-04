@@ -3,6 +3,7 @@ import styles from './admins.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
@@ -12,8 +13,10 @@ function Admins() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/admins`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -22,12 +25,20 @@ function Admins() {
       .then((response) => {
         setAdmins(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   }, []);
 
   const cleanMessage = () => {
     setShowMessage(false);
     setMessage('');
+  };
+
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('admins');
   };
 
   const handleUpdateAdmin = (admin) => {
@@ -55,13 +66,6 @@ function Admins() {
       });
   };
 
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('admins');
-  };
-
   const handleShowModal = () => {
     setShowModal(false);
   };
@@ -69,6 +73,8 @@ function Admins() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>
