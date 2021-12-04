@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -136,10 +137,16 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           </select>
           {error.status && <span className={styles.error}>Status time is missing</span>}
         </div>
-        <div>
-          <label>Result</label>
-          <input type="text" name="result" value={formData.result} onChange={handleChange} />
-        </div>
+        <Input
+          labelText="Result"
+          name="result"
+          type="text"
+          value={formData.result}
+          errorMessage="Result is missing"
+          error={error.result}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
       </div>
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
