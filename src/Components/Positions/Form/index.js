@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -123,21 +124,26 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           {error.idProfile && <span className={styles.error}>Profile is missing</span>}
         </select>
       </div>
-      <div>
-        <label>Full Name</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        {error.name && <span className={styles.error}>Name is missing</span>}
-      </div>
-      <div>
-        <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        {error.description && <span className={styles.error}>Description is missing</span>}
-      </div>
+      <Input
+        labelText="Full Name"
+        name="name"
+        type="text"
+        value={formData.name}
+        errorMessage="Name is missing"
+        error={error.name}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Description"
+        name="description"
+        type="text"
+        value={formData.description}
+        errorMessage="Description is missing"
+        error={error.description}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       <div>
         <label>Status</label>
         <select name="status" value={formData.status} onChange={handleChange}>
@@ -146,26 +152,36 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           {error.status && <span className={styles.error}>Status is missing</span>}
         </select>
       </div>
-      <div>
-        <label>Address</label>
-        <input type="text" name="address" value={formData.address} onChange={handleChange} />
-        {error.address && <span className={styles.error}>Address is missing</span>}
-      </div>
-      <div>
-        <label>City</label>
-        <input type="text" name="city" value={formData.city} onChange={handleChange} />
-        {error.city && <span className={styles.error}>City is missing</span>}
-      </div>
-      <div>
-        <label>ZIP Code</label>
-        <input
-          type="number"
-          name="postalCode"
-          value={formData.postalCode}
-          onChange={handleChange}
-        />
-        {error.postalCode && <span className={styles.error}>Zip Code is missing</span>}
-      </div>
+      <Input
+        labelText="Address"
+        name="address"
+        type="text"
+        value={formData.address}
+        errorMessage="Address is missing"
+        error={error.address}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="City"
+        name="city"
+        type="text"
+        value={formData.city}
+        errorMessage="City is missing"
+        error={error.city}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="ZIP Code"
+        name="postalCode"
+        type="number"
+        value={formData.postalCode}
+        errorMessage="Zip Code is missing"
+        error={error.postalCode}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
