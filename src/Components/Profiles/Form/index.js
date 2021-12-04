@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -50,21 +51,26 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   };
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div>
-        <label>Type of Profile</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        {error.name && <span className={styles.error}>Profile is missing</span>}
-      </div>
-      <div>
-        <label>Description</label>
-        <input
-          type="text"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-        {error.description && <span className={styles.error}>Description is missing</span>}
-      </div>
+      <Input
+        labelText="Type of Profile"
+        name="name"
+        type="text"
+        value={formData.name}
+        errorMessage="Profile is missing"
+        error={error.name}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Description"
+        name="description"
+        type="text"
+        value={formData.description}
+        errorMessage="Description is missing"
+        error={error.description}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
