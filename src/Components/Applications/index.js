@@ -13,6 +13,7 @@ function Applications() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const getApplications = () => {
     setLoading(true);
@@ -203,8 +204,8 @@ function Applications() {
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
-          handleShowModal={handleShowModal} 
-          modalType={modalType} 
+          handleShowModal={handleShowModal}
+          modalType={modalType}
           handleSubmit={
             modalType === 'delete'
               ? () => handleDelete(idActive)
