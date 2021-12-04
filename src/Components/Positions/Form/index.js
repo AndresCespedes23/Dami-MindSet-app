@@ -56,7 +56,6 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          console.log(response);
           setFormData(response);
         })
         .catch((err) => console.log(err))
