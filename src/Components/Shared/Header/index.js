@@ -4,33 +4,27 @@ import styles from './header.module.css';
 function Header() {
   return (
     <header>
-      <div className={styles.container}>
-        <div className={styles.brand}>Radium Rocket</div>
+      <div className={styles.titlebar}>
         <div>
-          <a href={'https://www.facebook.com/radiumrocket'} target={'_blank'} rel="noreferrer">
-            <img
-              className={styles.socialIcon}
-              src={`${process.env.PUBLIC_URL}/assets/images/facebook.svg`}
-            />
-          </a>
-          <a href={'https://twitter.com/radiumrocket'} target={'_blank'} rel="noreferrer">
-            <img
-              className={styles.socialIcon}
-              src={`${process.env.PUBLIC_URL}/assets/images/twitter.svg`}
-            />
-          </a>
-          <a href={'https://www.instagram.com/radium.rocket/'} target={'_blank'} rel="noreferrer">
-            <img
-              className={styles.socialIcon}
-              src={`${process.env.PUBLIC_URL}/assets/images/instagram.svg`}
-            />
-          </a>
+          <img
+            className={styles.titleicon}
+            src={`${process.env.PUBLIC_URL}/assets/images/mindseticon.png`}
+          />
+        </div>
+        <div className={styles.appName}>
+          <Link to="/home">
+            <span>M</span>IND<span>S</span>ET
+          </Link>
+        </div>
+        <div className={styles.loginside}>
+          <div className={styles.loginuser}>user</div>
+          <img
+            className={styles.loginphoto}
+            src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
+          />
         </div>
       </div>
       <nav className={styles.navbar}>
-        <div className={styles.appName}>
-          Mind<span>SET</span>
-        </div>
         <ul className={styles.rutes}>
           <li>
             <Link to="/admins">admins</Link>

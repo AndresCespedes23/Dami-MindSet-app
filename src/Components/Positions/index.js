@@ -3,6 +3,7 @@ import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Positions() {
   const [positions, setPositions] = useState([]);
@@ -12,8 +13,10 @@ function Positions() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const getPositions = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -22,7 +25,8 @@ function Positions() {
       .then((response) => {
         setPositions(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   const cleanMessage = () => {
@@ -34,47 +38,6 @@ function Positions() {
     getPositions();
   }, []);
 
-  // add
-  const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setModalType('positions');
-    setIdActive('');
-  };
-
-  const handleAddPosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Position added');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding position');
-      });
-  };
-  //delete position
   const handleClickDelete = (id) => {
     cleanMessage();
     setShowModal(true);
@@ -107,7 +70,6 @@ function Positions() {
       });
   };
 
-  // update position
   const handleClickUpdate = (id) => {
     cleanMessage();
     setShowModal(true);
@@ -140,7 +102,48 @@ function Positions() {
         setMessage('Error updating position');
       });
   };
-  //
+
+  const handleClickAdd = () => {
+    cleanMessage();
+    setShowModal(true);
+    setModalType('positions');
+    setIdActive('');
+  };
+
+  const handleAddPosition = (position) => {
+    fetch(`${process.env.REACT_APP_API}/positions`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(position)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        if (response.errors || response.code) {
+          setShowMessage(true);
+          setMessageType('error');
+          setMessage('Error with parameters');
+          return;
+        }
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Position added');
+        console.log(response);
+        getPositions();
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error adding position');
+      });
+  };
+
   const handleShowModal = () => {
     setShowModal(false);
   };
@@ -148,6 +151,8 @@ function Positions() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>

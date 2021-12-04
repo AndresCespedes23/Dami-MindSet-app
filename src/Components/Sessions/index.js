@@ -3,6 +3,7 @@ import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
+import Spinner from '../Shared/Spinner';
 
 function Sessions() {
   const [sessions, setSessions] = useState([]);
@@ -12,9 +13,10 @@ function Sessions() {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
-  // GET All Sessions
   const getSessions = () => {
+    setLoading(true);
     fetch(`${process.env.REACT_APP_API}/sessions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -23,7 +25,8 @@ function Sessions() {
       .then((response) => {
         setSessions(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   const cleanMessage = () => {
@@ -35,7 +38,71 @@ function Sessions() {
     getSessions();
   }, []);
 
-  // ADD Button
+  const handleClickDelete = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_API}/sessions/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        getSessions();
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Session deleted');
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error deleting session');
+      });
+  };
+
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('sessions');
+  };
+
+  const handleUpdateSession = (session) => {
+    fetch(`${process.env.REACT_APP_API}/sessions/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(session)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        getSessions();
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Session updated');
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error updating session');
+      });
+  };
+
   const handleClickAdd = () => {
     cleanMessage();
     setShowModal(true);
@@ -43,7 +110,6 @@ function Sessions() {
     setModalType('sessions');
   };
 
-  // CREATE Session
   const handleAddSession = (session) => {
     fetch(`${process.env.REACT_APP_API}/sessions`, {
       method: 'POST',
@@ -77,75 +143,6 @@ function Sessions() {
       });
   };
 
-  // DELETE Button
-  const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('delete');
-  };
-
-  // DELETE Session
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting session');
-      });
-  };
-
-  // EDIT Button
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('sessions');
-  };
-
-  // PUT Session
-  const handleUpdateSession = (session) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(session)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session updated');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating session');
-      });
-  };
-
   const handleShowModal = () => {
     setShowModal(false);
   };
@@ -153,6 +150,8 @@ function Sessions() {
   const handleShowMessage = () => {
     setShowMessage(false);
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>

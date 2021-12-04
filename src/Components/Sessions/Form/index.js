@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
+import Spinner from '../../Shared/Spinner';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
+  const [isLoadingForm, setLoadingForm] = useState(false);
   const [psychologists, setPsychologists] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [formData, setFormData] = useState({
@@ -20,6 +22,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
+    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -28,7 +31,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPsychologists(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoadingForm(false));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -37,7 +41,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoadingForm(false));
     if (id) {
       fetch(`${process.env.REACT_APP_API}/sessions/${id}`)
         .then((response) => {
@@ -48,7 +53,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           response.dateTime = response.dateTime.split('T')[0];
           setFormData(response);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => setLoadingForm(false));
     }
   }, []);
 
@@ -135,7 +141,11 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           <input type="text" name="result" value={formData.result} onChange={handleChange} />
         </div>
       </div>
-      <button type="submit">Submit</button>
+      {isLoadingForm === true ? (
+        <Spinner type="Oval" color="#002147" height={40} width={40} />
+      ) : (
+        <button type="submit">Submit</button>
+      )}
     </form>
   );
 }

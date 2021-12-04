@@ -1,0 +1,9 @@
+.error {
+  display: flex;
+  justify-content: flex-end;
+  color: #9b0000;
+}
+
+.hide{
+  visibility: hidden;
+}
