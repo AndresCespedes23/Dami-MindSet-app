@@ -56,6 +56,7 @@ function Admins() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating admin');
       });
   };
 

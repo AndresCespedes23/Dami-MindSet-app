@@ -27,7 +27,7 @@ function Applications() {
       })
       .catch((err) => {
         setMessageType('error');
-        setMessage('Error:', err);
+        setMessage('Error getting aplications:', err);
       })
       .finally(() => setLoading(false));
   };

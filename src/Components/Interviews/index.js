@@ -149,7 +149,7 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error creating interview');
+        setMessage('Error adding interview');
       });
   };
 

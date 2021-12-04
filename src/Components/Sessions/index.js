@@ -77,7 +77,7 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error creating session');
+        setMessage('Error adding session');
       });
   };
 
