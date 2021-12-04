@@ -4,7 +4,7 @@ import styles from './home.module.css';
 function Home() {
   return (
     <section className={styles.container}>
-      <div>
+      <div className={styles.containerrutes}>
         <ul className={styles.rutes}>
           <li>
             <Link to="/admins">admins</Link>
