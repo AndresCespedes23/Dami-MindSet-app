@@ -63,7 +63,6 @@ function Clients() {
   };
 
   const handleUpdateClients = (client) => {
-    console.log(client);
     fetch(`${process.env.REACT_APP_API}/clients/${idActive}`, {
       method: 'PUT',
       headers: {
@@ -76,7 +75,6 @@ function Clients() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
         setShowMessage(true);
         setMessageType('success');
         setMessage('Client updated');
@@ -118,7 +116,6 @@ function Clients() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
         if (response.errors || response.code) {
           setShowMessage(true);
           setMessageType('error');

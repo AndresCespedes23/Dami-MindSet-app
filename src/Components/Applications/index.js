@@ -202,8 +202,8 @@ function Applications() {
       <Button type="add" onClick={handleClickAdd} />
       {showModal && (
         <Modal
-          handleShowModal={handleShowModal} // to show modal
-          modalType={modalType} // this is for manage the actions
+          handleShowModal={handleShowModal} 
+          modalType={modalType} 
           handleSubmit={
             modalType === 'delete'
               ? () => handleDelete(idActive)
