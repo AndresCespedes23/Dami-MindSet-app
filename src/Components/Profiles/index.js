@@ -13,11 +13,6 @@ function Profiles() {
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
 
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
-
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
@@ -29,6 +24,11 @@ function Profiles() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
 
   const handleClickDelete = (id) => {
     cleanMessage();
@@ -62,6 +62,13 @@ function Profiles() {
       });
   };
 
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('profiles');
+  };
+
   const handleUpdateProfile = (profile) => {
     fetch(`${process.env.REACT_APP_API}/profiles/${idActive}`, {
       method: 'PUT',
@@ -86,13 +93,6 @@ function Profiles() {
         setMessageType('error');
         setMessage('Error updating profile');
       });
-  };
-
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('profiles');
   };
 
   const handleClickAdd = () => {

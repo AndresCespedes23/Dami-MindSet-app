@@ -5,13 +5,13 @@ import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
 
 function Applications() {
-  const [applications, setApplications] = useState([]); // this is for "fetch"
-  const [showModal, setShowModal] = useState(false); // modal
-  const [modalType, setModalType] = useState(''); // modal for add, update and delete
-  const [idActive, setIdActive] = useState(''); // modal for update and delete
-  const [showMessage, setShowMessage] = useState(false); // (true/false)
-  const [messageType, setMessageType] = useState(''); // ('error'/'success')
-  const [message, setMessage] = useState(''); // (string)
+  const [applications, setApplications] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('');
+  const [idActive, setIdActive] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState('');
+  const [message, setMessage] = useState('');
 
   const getApplications = () => {
     fetch(`${process.env.REACT_APP_API}/applications`)
@@ -37,10 +37,76 @@ function Applications() {
     getApplications();
   }, []);
 
-  // ----------- ADD -----------
+  const handleClickDelete = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Application deleted');
+        setApplications(applications.filter((application) => application._id !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error deleting application');
+      });
+  };
+
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('applications');
+  };
+
+  const handleUpdateApplication = (application) => {
+    fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(application)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Application updated');
+        setApplications(
+          applications.map((application) => (application._id === idActive ? response : application))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error updating application');
+      });
+  };
+
   const handleClickAdd = () => {
     cleanMessage();
-    setShowModal(true); // this is for open the modal
+    setShowModal(true);
     setIdActive('');
     setModalType('applications');
   };
@@ -78,76 +144,6 @@ function Applications() {
       });
   };
 
-  // ----------- DELETE -----------
-  const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('delete');
-  };
-
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application deleted');
-        setApplications(applications.filter((application) => application._id !== id));
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting application');
-      });
-  };
-
-  // ----------- UPDATE(EDIT) -----------
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('applications');
-  };
-
-  const handleUpdateApplication = (application) => {
-    fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(application)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application updated');
-        setApplications(
-          applications.map((application) => (application._id === idActive ? response : application))
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating application');
-      });
-  };
-
-  // -----------MODAL AND MESSAGES-----------
   const handleShowModal = () => {
     setShowModal(false);
   };

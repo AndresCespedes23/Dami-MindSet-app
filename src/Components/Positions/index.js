@@ -34,7 +34,71 @@ function Positions() {
     getPositions();
   }, []);
 
-  // add
+  const handleClickDelete = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('delete');
+  };
+
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_API}/positions/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Candidate deleted');
+        getPositions();
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error deleting position');
+      });
+  };
+
+  const handleClickUpdate = (id) => {
+    cleanMessage();
+    setShowModal(true);
+    setIdActive(id);
+    setModalType('positions');
+  };
+
+  const handleUpdatePosition = (position) => {
+    fetch(`${process.env.REACT_APP_API}/positions/${idActive}`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      },
+      body: JSON.stringify(position)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then(() => {
+        setShowMessage(true);
+        setMessageType('success');
+        setMessage('Position updated');
+        getPositions();
+      })
+      .catch((err) => {
+        console.log(err);
+        setShowMessage(true);
+        setMessageType('error');
+        setMessage('Error updating position');
+      });
+  };
+
   const handleClickAdd = () => {
     cleanMessage();
     setShowModal(true);
@@ -75,73 +139,7 @@ function Positions() {
         setMessage('Error adding position');
       });
   };
-  //delete position
-  const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('delete');
-  };
 
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/positions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate deleted');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting position');
-      });
-  };
-
-  // update position
-  const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(id);
-    setModalType('positions');
-  };
-
-  const handleUpdatePosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Position updated');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating position');
-      });
-  };
-  //
   const handleShowModal = () => {
     setShowModal(false);
   };

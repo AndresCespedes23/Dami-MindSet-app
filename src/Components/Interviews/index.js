@@ -35,14 +35,6 @@ function Interviews() {
     getInterviews();
   }, []);
 
-  const handleShowModal = () => {
-    setShowModal(false);
-  };
-
-  const handleShowMessage = () => {
-    setShowMessage(false);
-  };
-
   const handleDeleteClick = (id) => {
     cleanMessage();
     setShowModal(true);
@@ -147,6 +139,14 @@ function Interviews() {
         setMessageType('error');
         setMessage('Error creating interview');
       });
+  };
+
+  const handleShowModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowMessage = () => {
+    setShowMessage(false);
   };
 
   return (
