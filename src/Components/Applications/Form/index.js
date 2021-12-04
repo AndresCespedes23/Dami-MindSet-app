@@ -149,11 +149,16 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         onChange={handleChange}
         disbled={isLoadingForm}
       />
-      <div>
-        <label>Date:</label>
-        <input type="date" name="dateTime" value={formData.dateTime} onChange={handleChange} />
-        {error.dateTime && <span className={styles.error}>*Date is missing</span>}
-      </div>
+      <Input
+        labelText="Date"
+        name="dateTime"
+        type="date"
+        value={formData.dateTime}
+        errorMessage="Date is missing"
+        error={error.dateTime}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       <div>
         <label>Status:</label>
         <select name="status" value={formData.status} onChange={handleChange}>
