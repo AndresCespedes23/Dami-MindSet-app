@@ -29,12 +29,19 @@ function Sessions() {
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   };
+
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getSessions();
   }, []);
 
   // ADD Button
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setIdActive('');
     setModalType('sessions');
@@ -70,11 +77,13 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error creating session');
       });
   };
 
   // DELETE Button
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -102,11 +111,13 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting session');
       });
   };
 
   // EDIT Button
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('sessions');
@@ -135,6 +146,7 @@ function Sessions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating session');
       });
   };
 

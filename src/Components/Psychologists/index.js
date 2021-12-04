@@ -29,11 +29,17 @@ function Psychologists() {
       .finally(() => setLoading(false));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getPsychologists();
   }, []);
 
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -60,6 +66,7 @@ function Psychologists() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting psychologist');
       });
   };
 
@@ -85,16 +92,19 @@ function Psychologists() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating psychologist');
       });
   };
 
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('psychologists');
   };
 
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('psychologists');
     setIdActive('');
@@ -129,6 +139,7 @@ function Psychologists() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding psychologist');
       });
   };
 

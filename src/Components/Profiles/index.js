@@ -15,6 +15,11 @@ function Profiles() {
   const [message, setMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     setLoading(true);
     fetch(`${process.env.REACT_APP_API}/profiles`)
@@ -30,6 +35,7 @@ function Profiles() {
   }, []);
 
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -56,6 +62,7 @@ function Profiles() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting profile');
       });
   };
 
@@ -81,16 +88,19 @@ function Profiles() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating profile');
       });
   };
 
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('profiles');
   };
 
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('profiles');
     setIdActive('');
@@ -126,6 +136,7 @@ function Profiles() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding profile');
       });
   };
 

@@ -29,11 +29,17 @@ function Postulants() {
       .finally(() => setLoading(false));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getPostulants();
   }, []);
 
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -60,6 +66,7 @@ function Postulants() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting candidate');
       });
   };
 
@@ -85,16 +92,19 @@ function Postulants() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating candidate');
       });
   };
 
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('postulants');
   };
 
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('postulants');
     setIdActive('');
@@ -129,6 +139,7 @@ function Postulants() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding candidate');
       });
   };
 

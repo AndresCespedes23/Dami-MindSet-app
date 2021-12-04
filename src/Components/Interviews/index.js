@@ -30,6 +30,11 @@ function Interviews() {
       .finally(() => setLoading(false));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getInterviews();
   }, []);
@@ -43,6 +48,7 @@ function Interviews() {
   };
 
   const handleDeleteClick = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -69,10 +75,12 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting interview');
       });
   };
 
   const handleUpdateClick = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('interviews');
@@ -101,10 +109,12 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating interview');
       });
   };
 
   const handleAddClick = () => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(null);
     setModalType('interviews');
@@ -139,6 +149,7 @@ function Interviews() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error creating interview');
       });
   };
 

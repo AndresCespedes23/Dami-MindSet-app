@@ -29,7 +29,13 @@ function Clients() {
       .finally(() => setLoading(false));
   }, []);
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -56,7 +62,7 @@ function Clients() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error deleted Client');
+        setMessage('Error deleting client');
       });
   };
 
@@ -84,17 +90,19 @@ function Clients() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error');
+        setMessage('Error updating client');
       });
   };
 
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('clients');
   };
 
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('clients');
     setIdActive('');
@@ -130,7 +138,7 @@ function Clients() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
-        setMessage('Error added client');
+        setMessage('Error adding client');
       });
   };
 

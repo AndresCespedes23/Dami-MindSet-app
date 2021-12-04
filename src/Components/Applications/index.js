@@ -32,12 +32,18 @@ function Applications() {
       .finally(() => setLoading(false));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getApplications();
   }, []);
 
   // ----------- ADD -----------
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true); // this is for open the modal
     setIdActive('');
     setModalType('applications');
@@ -72,11 +78,13 @@ function Applications() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error creating application');
       });
   };
 
   // ----------- DELETE -----------
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -103,11 +111,13 @@ function Applications() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting application');
       });
   };
 
   // ----------- UPDATE(EDIT) -----------
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('applications');
@@ -137,6 +147,7 @@ function Applications() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating application');
       });
   };
 

@@ -29,12 +29,18 @@ function Positions() {
       .finally(() => setLoading(false));
   };
 
+  const cleanMessage = () => {
+    setShowMessage(false);
+    setMessage('');
+  };
+
   useEffect(() => {
     getPositions();
   }, []);
 
   // add
   const handleClickAdd = () => {
+    cleanMessage();
     setShowModal(true);
     setModalType('positions');
     setIdActive('');
@@ -70,10 +76,12 @@ function Positions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error adding position');
       });
   };
   //delete position
   const handleClickDelete = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -100,11 +108,13 @@ function Positions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error deleting position');
       });
   };
 
   // update position
   const handleClickUpdate = (id) => {
+    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('positions');
@@ -132,6 +142,7 @@ function Positions() {
         console.log(err);
         setShowMessage(true);
         setMessageType('error');
+        setMessage('Error updating position');
       });
   };
   //
