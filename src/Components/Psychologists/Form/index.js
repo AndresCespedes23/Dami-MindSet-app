@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -78,43 +79,56 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div>
-        <div>
-          <label>Name</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-          {error.name && <span className={styles.error}>Name is missing</span>}
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="text" name="email" value={formData.email} onChange={handleChange} />
-          {error.email && <span className={styles.error}>Email is missing</span>}
-        </div>
-        <div>
-          <label>Username</label>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
-          {error.username && <span className={styles.error}>Username is missing</span>}
-        </div>
-        <div>
-          <label>Phone Number</label>
-          <input
-            type="number"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-          />
-          {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
-        </div>
-        <div>
-          <label>Enrollment Number</label>
-          <input
-            type="number"
-            name="enrollmentNumber"
-            value={formData.enrollmentNumber}
-            onChange={handleChange}
-          />
-          {error.enrollmentNumber && (
-            <span className={styles.error}>Enrollment Number is missing</span>
-          )}
-        </div>
+        <Input
+          labelText="Name"
+          name="name"
+          type="text"
+          value={formData.name}
+          errorMessage="Name is missing"
+          error={error.name}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          errorMessage="Email is missing"
+          error={error.email}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Username"
+          name="username"
+          type="text"
+          value={formData.username}
+          errorMessage="Username is missing"
+          error={error.username}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Phone Number"
+          name="phoneNumber"
+          type="number"
+          value={formData.phoneNumber}
+          errorMessage="Phone Number is missing"
+          error={error.phoneNumber}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Enrollment Number"
+          name="enrollmentNumber"
+          type="number"
+          value={formData.enrollmentNumber}
+          errorMessage="Enrollment Number is missing"
+          error={error.enrollmentNumber}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
         <div>
           <label>Status</label>
           <select name="status" value={formData.status} onChange={handleChange}>
@@ -134,20 +148,34 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           <input type="time" name="timeEnd" min="09:00" max="18:00" onChange={handleChange} />
           {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
         </div>
-        <div>
-          <label>Day Range</label>
-          <input type="date" name="dayStart" onChange={handleChange} />
-        </div>
-        <div>
-          <label>-To-</label>
-          <input type="date" name="dayEnd" onChange={handleChange} />
-          {error.dayRange && <span className={styles.error}>Time Range is missing</span>}
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" name="password" onChange={handleChange} />
-          {error.password && <span className={styles.error}>Password is missing</span>}
-        </div>
+        <Input
+          labelText="Day Range"
+          name="dayStart"
+          type="date"
+          errorMessage="Day is missing"
+          error={error.dayRange}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="-To-"
+          name="dayEnd"
+          type="date"
+          errorMessage="Day is missing"
+          error={error.dayRange}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          errorMessage="Password is missing"
+          error={error.password}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
       </div>
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />

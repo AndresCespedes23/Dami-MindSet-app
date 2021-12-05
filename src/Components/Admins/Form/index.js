@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function AdminsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -47,34 +48,46 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
-        <label>Name</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-      </div>
-      <div className={styles.formField}>
-        <label>Email</label>
-        <input type="text" name="email" value={formData.email} onChange={handleChange} required />
-      </div>
-      <div className={styles.formField}>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className={styles.formField}>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-      </div>
+      <Input
+        labelText="Name"
+        name="name"
+        type="text"
+        value={formData.name}
+        errorMessage="Name is missing"
+        error={false}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Email"
+        name="email"
+        type="email"
+        value={formData.email}
+        errorMessage="Email is missing"
+        error={false}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Username"
+        name="username"
+        type="text"
+        value={formData.username}
+        errorMessage="Username is missing"
+        error={false}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Password"
+        name="password"
+        type="password"
+        value={formData.password}
+        errorMessage="Password is missing"
+        error={false}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (

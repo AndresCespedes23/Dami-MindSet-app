@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -67,41 +68,66 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit}>
-      <div className={styles.formField}>
-        <label>Name</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-        {error.name && <span className={styles.error}>Name is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Email</label>
-        <input type="text" name="email" value={formData.email} onChange={handleChange} />
-        {error.email && <span className={styles.error}>Email is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Address</label>
-        <input type="text" name="address" value={formData.address} onChange={handleChange} />
-        {error.address && <span className={styles.error}>Address is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Phone Number</label>
-        <input
-          type="number"
-          name="phoneNumber"
-          value={formData.phoneNumber}
-          onChange={handleChange}
-        />
-        {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>CUIT</label>
-        <input type="number" name="cuit" value={formData.cuit} onChange={handleChange} />
-        {error.cuit && <span className={styles.error}>Cuit is missing</span>}
-      </div>
-      <div className={styles.formField}>
-        <label>Activity Type</label>
-        <input type="text" name="activity" value={formData.activity} onChange={handleChange} />
-        {error.activity && <span className={styles.error}>Activity is missing</span>}
-      </div>
+      <Input
+        labelText="Name"
+        name="name"
+        type="text"
+        value={formData.name}
+        errorMessage="Name is missing"
+        error={error.name}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Email"
+        name="email"
+        type="email"
+        value={formData.email}
+        errorMessage="Email is missing"
+        error={error.email}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Address"
+        name="address"
+        type="text"
+        value={formData.address}
+        errorMessage="Address is missing"
+        error={error.address}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Phone Number"
+        name="phoneNumber"
+        type="number"
+        value={formData.phoneNumber}
+        errorMessage="Phone number is missing"
+        error={error.phoneNumber}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="CUIT"
+        name="cuit"
+        type="number"
+        value={formData.cuit}
+        errorMessage="CUIT is missing"
+        error={error.cuit}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
+      <Input
+        labelText="Activity Type"
+        name="activity"
+        type="text"
+        value={formData.activity}
+        errorMessage="Activity is missing"
+        error={error.activity}
+        onChange={handleChange}
+        disbled={isLoadingForm}
+      />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (

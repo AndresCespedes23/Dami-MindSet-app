@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
+import Input from '../../Shared/Input';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -91,31 +92,46 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div>
-        <div>
-          <label>Name</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} />
-          {error.name && <span className={styles.error}>Name is missing</span>}
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="text" name="email" value={formData.email} onChange={handleChange} />
-          {error.email && <span className={styles.error}>Email is missing</span>}
-        </div>
-        <div>
-          <label>Username</label>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
-          {error.username && <span className={styles.error}>Username is missing</span>}
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {error.password && <span className={styles.error}>Password is missing</span>}
-        </div>
+        <Input
+          labelText="Name"
+          name="name"
+          type="text"
+          value={formData.name}
+          errorMessage="Name is missing"
+          error={error.name}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Email"
+          name="email"
+          type="email"
+          value={formData.email}
+          errorMessage="Email is missing"
+          error={error.email}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Username"
+          name="username"
+          type="text"
+          value={formData.username}
+          errorMessage="Username is missing"
+          error={error.username}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Password"
+          name="password"
+          type="password"
+          value={formData.password}
+          errorMessage="Password is missing"
+          error={error.password}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
         <div>
           <label>Gender</label>
           <select name="gender" value={formData.gender} onChange={handleChange}>
@@ -130,58 +146,88 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
             </option>
           </select>
         </div>
-        <div>
-          <label>Address</label>
-          <input type="text" name="address" value={formData.address} onChange={handleChange} />
-          {error.address && <span className={styles.error}>Address is missing</span>}
-        </div>
-        <div>
-          <label>Phone Number</label>
-          <input
-            type="number"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-          />
-          {error.phoneNumber && <span className={styles.error}>Phone Number is missing</span>}
-        </div>
+        <Input
+          labelText="Address"
+          name="address"
+          type="text"
+          value={formData.address}
+          errorMessage="Address is missing"
+          error={error.address}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Phone Number"
+          name="phoneNumber"
+          type="number"
+          value={formData.phoneNumber}
+          errorMessage="Phone Number is missing"
+          error={error.phoneNumber}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
       </div>
       <div>
-        <div>
-          <label>Date of Birth</label>
-          <input
-            type="date"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleChange}
-          />
-          {error.dateOfBirth && <span className={styles.error}>Date is missing</span>}
-        </div>
-        <div>
-          <label>Zip Code</label>
-          <input type="number" name="zipCode" value={formData.zipCode} onChange={handleChange} />
-          {error.zipCode && <span className={styles.error}>Zip Code is missing</span>}
-        </div>
-        <div>
-          <label>City</label>
-          <input type="text" name="city" value={formData.city} onChange={handleChange} />
-          {error.city && <span className={styles.error}>City is missing</span>}
-        </div>
-        <div>
-          <label>State</label>
-          <input type="text" name="state" value={formData.state} onChange={handleChange} />
-          {error.state && <span className={styles.error}>State is missing</span>}
-        </div>
-        <div>
-          <label>Country</label>
-          <input type="text" name="country" value={formData.country} onChange={handleChange} />
-          {error.country && <span className={styles.error}>Country is missing</span>}
-        </div>
-        <div>
-          <label>DNI</label>
-          <input type="number" name="dni" value={formData.dni} onChange={handleChange} />
-          {error.dni && <span className={styles.error}>DNI is missing</span>}
-        </div>
+        <Input
+          labelText="Date of Birth"
+          name="dateOfBirth"
+          type="date"
+          value={formData.dateOfBirth}
+          errorMessage="Date of Birth is missing"
+          error={error.dateOfBirth}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Zip Code"
+          name="zipCode"
+          type="number"
+          value={formData.zipCode}
+          errorMessage="Zip Code is missing"
+          error={error.zipCode}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="City"
+          name="city"
+          type="text"
+          value={formData.city}
+          errorMessage="City is missing"
+          error={error.city}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="State"
+          name="state"
+          type="text"
+          value={formData.state}
+          errorMessage="State is missing"
+          error={error.state}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="Country"
+          name="country"
+          type="text"
+          value={formData.country}
+          errorMessage="Country is missing"
+          error={error.country}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
+        <Input
+          labelText="DNI"
+          name="dni"
+          type="text"
+          value={formData.dni}
+          errorMessage="DNI is missing"
+          error={error.dni}
+          onChange={handleChange}
+          disbled={isLoadingForm}
+        />
       </div>
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
