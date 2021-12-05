@@ -133,7 +133,6 @@ function Positions() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Position added');
-        console.log(response);
         getPositions();
       })
       .catch((err) => {
