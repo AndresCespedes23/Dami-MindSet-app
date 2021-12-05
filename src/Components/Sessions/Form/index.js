@@ -121,6 +121,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           <input
             type="datetime-local"
             name="dateTime"
+            value={formData.dateTime}
             placeholder="Insert a date"
             required
             onChange={handleChange}
