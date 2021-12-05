@@ -163,7 +163,7 @@ function Applications() {
       <div className={styles.list}>
         <div>
           <h2>Applications</h2>
-          <Button type="add" onClick={handleClickAdd} />
+          <Button type="addNew" text={'APPLICATION'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}

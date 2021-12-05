@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-self: center;
+  height: fit-content;
   margin: 30px;
   padding: 20px 30px;
   border-top: 10px solid #680404;
