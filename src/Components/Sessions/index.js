@@ -155,40 +155,44 @@ function Sessions() {
 
   return (
     <section className={styles.container}>
-      <h2>Sessions</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Psychologist</th>
-            <th>Postulant</th>
-            <th>Date Time</th>
-            <th>Status</th>
-            <th>Result</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sessions.map((session) => {
-            return (
-              <tr key={session._id}>
-                <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
-                <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
-                <td>{session.dateTime}</td>
-                <td>{session.status}</td>
-                <td>{session.result}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(session._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(session._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Button type="add" onClick={handleClickAdd} />
+      <div className={styles.list}>
+        <div>
+          <h2>Sessions</h2>
+          <Button type="addNew" text={'SESSION'} onClick={handleClickAdd} />
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Psychologist</th>
+              <th>Postulant</th>
+              <th>Date Time</th>
+              <th>Status</th>
+              <th>Result</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sessions.map((session) => {
+              return (
+                <tr key={session._id}>
+                  <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
+                  <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
+                  <td>{session.dateTime}</td>
+                  <td>{session.status}</td>
+                  <td>{session.result}</td>
+                  <td>
+                    <Button type="delete" onClick={() => handleClickDelete(session._id)} />
+                    <Button type="update" onClick={() => handleClickUpdate(session._id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

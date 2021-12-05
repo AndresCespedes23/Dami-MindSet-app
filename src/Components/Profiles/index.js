@@ -152,34 +152,38 @@ function Profiles() {
 
   return (
     <section className={styles.container}>
-      <h2>Profiles</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Type of Profile</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {profiles.map((profile) => {
-            return (
-              <tr key={profile._id}>
-                <td>{profile.name}</td>
-                <td>{profile.description}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(profile._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(profile._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Button type="add" onClick={handleClickAdd} />
+      <div className={styles.list}>
+        <div>
+          <h2>Profiles</h2>
+          <Button type="addNew" text={'PROFILES'} onClick={handleClickAdd} />
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Type of Profile</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {profiles.map((profile) => {
+              return (
+                <tr key={profile._id}>
+                  <td>{profile.name}</td>
+                  <td>{profile.description}</td>
+                  <td>
+                    <Button type="delete" onClick={() => handleClickDelete(profile._id)} />
+                    <Button type="update" onClick={() => handleClickUpdate(profile._id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

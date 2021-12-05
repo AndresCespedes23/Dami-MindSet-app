@@ -105,7 +105,7 @@ function Interviews() {
       });
   };
 
-  const handleAddClick = () => {
+  const handleClickAdd = () => {
     cleanMessage();
     setShowModal(true);
     setIdActive(null);
@@ -156,46 +156,50 @@ function Interviews() {
 
   return (
     <section className={styles.container}>
-      <h2>Interviews</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <div>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Candidate</th>
-              <th>Client</th>
-              <th>Position</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {interviews.map((interview) => {
-              if (interview.idCandidate && interview.idClient && interview.idPosition) {
-                return [
-                  <tr key={interview._id}>
-                    <td>{interview.idCandidate.name}</td>
-                    <td>{interview.idClient.name}</td>
-                    <td>{interview.idPosition.name}</td>
-                    <td>{interview.dateTime.split('T')[0]}</td>
-                    <td className={styles[interview.status.toLowerCase()]}>
-                      {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                    </td>
-                    <td>
-                      <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
-                      <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
-                    </td>
-                  </tr>
-                ];
-              }
-            })}
-          </tbody>
-        </table>
+      <div className={styles.list}>
+        <div>
+          <h2>Interviews</h2>
+          <Button type="addNew" text={'INTERVIEW'} onClick={handleClickAdd} />
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+        </div>
+        <div>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Candidate</th>
+                <th>Client</th>
+                <th>Position</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {interviews.map((interview) => {
+                if (interview.idCandidate && interview.idClient && interview.idPosition) {
+                  return [
+                    <tr key={interview._id}>
+                      <td>{interview.idCandidate.name}</td>
+                      <td>{interview.idClient.name}</td>
+                      <td>{interview.idPosition.name}</td>
+                      <td>{interview.dateTime.split('T')[0]}</td>
+                      <td className={styles[interview.status.toLowerCase()]}>
+                        {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                      </td>
+                      <td>
+                        <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
+                        <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
+                      </td>
+                    </tr>
+                  ];
+                }
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <Button type="add" onClick={handleAddClick} />
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}
