@@ -155,40 +155,44 @@ function Postulants() {
 
   return (
     <section className={styles.container}>
-      <h2>Postulants</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Country</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {postulants.map((postulant) => {
-            return (
-              <tr key={postulant._id}>
-                <td>{postulant.name}</td>
-                <td>{postulant.email}</td>
-                <td>{postulant.phoneNumber}</td>
-                <td>{postulant.country}</td>
-                <td>{postulant.status}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(postulant._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(postulant._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Button type="add" onClick={handleClickAdd} />
+      <div className={styles.list}>
+        <div>
+          <h2>Postulants</h2>
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+          <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Country</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {postulants.map((postulant) => {
+              return (
+                <tr key={postulant._id}>
+                  <td>{postulant.name}</td>
+                  <td>{postulant.email}</td>
+                  <td>{postulant.phoneNumber}</td>
+                  <td>{postulant.country}</td>
+                  <td>{postulant.status}</td>
+                  <td>
+                    <Button type="delete" onClick={() => handleClickDelete(postulant._id)} />
+                    <Button type="update" onClick={() => handleClickUpdate(postulant._id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

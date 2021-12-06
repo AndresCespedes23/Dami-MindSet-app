@@ -155,46 +155,50 @@ function Psychologists() {
 
   return (
     <section className={styles.container}>
-      <h2>Psychologists</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Phone number</th>
-            <th>Enrollment Number</th>
-            <th>Time range</th>
-            <th>Day range</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {psychologists.map((psychologist) => {
-            return [
-              <tr key={psychologist._id}>
-                <td>{psychologist.name}</td>
-                <td>{psychologist.email}</td>
-                <td>{psychologist.username}</td>
-                <td>{psychologist.phoneNumber}</td>
-                <td>{psychologist.enrollmentNumber}</td>
-                <td>{psychologist.timeRange[0] + ' to ' + psychologist.timeRange[1]}</td>
-                <td>{psychologist.dayRange[0] + ' to ' + psychologist.dayRange[1]}</td>
-                <td>{String(psychologist.status)}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(psychologist._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(psychologist._id)} />
-                </td>
-              </tr>
-            ];
-          })}
-        </tbody>
-      </table>
-      <Button type="add" onClick={handleClickAdd} />
+      <div className={styles.list}>
+        <div>
+          <h2>Psychologists</h2>
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+          <Button type="addNew" text={'PSYCHOLOGIST'} onClick={handleClickAdd} />
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Username</th>
+              <th>Phone number</th>
+              <th>Enrollment Number</th>
+              <th>Time range</th>
+              <th>Day range</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {psychologists.map((psychologist) => {
+              return [
+                <tr key={psychologist._id}>
+                  <td>{psychologist.name}</td>
+                  <td>{psychologist.email}</td>
+                  <td>{psychologist.username}</td>
+                  <td>{psychologist.phoneNumber}</td>
+                  <td>{psychologist.enrollmentNumber}</td>
+                  <td>{psychologist.timeRange[0] + ' to ' + psychologist.timeRange[1]}</td>
+                  <td>{psychologist.dayRange[0] + ' to ' + psychologist.dayRange[1]}</td>
+                  <td>{String(psychologist.status)}</td>
+                  <td>
+                    <Button type="delete" onClick={() => handleClickDelete(psychologist._id)} />
+                    <Button type="update" onClick={() => handleClickUpdate(psychologist._id)} />
+                  </td>
+                </tr>
+              ];
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

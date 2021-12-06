@@ -79,34 +79,36 @@ function Admins() {
 
   return (
     <section className={styles.container}>
-      <h2>Admins</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {admins.map((admin) => {
-            return (
-              <tr key={admin._id}>
-                <td>{admin.name}</td>
-                <td>{admin.email}</td>
-                <td>{admin.username}</td>
-                <td>
-                  <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className={styles.list}>
+        <h2>Admins</h2>
+        {showMessage && (
+          <Message type={messageType} message={message} showMessage={handleShowMessage} />
+        )}
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Username</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {admins.map((admin) => {
+              return (
+                <tr key={admin._id}>
+                  <td>{admin.name}</td>
+                  <td>{admin.email}</td>
+                  <td>{admin.username}</td>
+                  <td>
+                    <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

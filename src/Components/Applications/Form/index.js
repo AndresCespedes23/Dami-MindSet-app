@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
+import Button from '../../Shared/Button';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -171,7 +172,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
-        <button type="submit">Submit</button>
+        <Button type="submit" />
       )}
     </form>
   );

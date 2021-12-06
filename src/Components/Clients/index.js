@@ -151,42 +151,46 @@ function Clients() {
 
   return (
     <section className={styles.container}>
-      <h2>Clients</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Cuit</th>
-            <th>Address</th>
-            <th>Activity</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clients.map((client) => {
-            return (
-              <tr key={client._id}>
-                <td>{client.name}</td>
-                <td>{client.email}</td>
-                <td>{client.phoneNumber}</td>
-                <td>{client.cuit}</td>
-                <td>{client.address}</td>
-                <td>{client.activity}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(client._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(client._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Button type="add" onClick={handleClickAdd} />
+      <div className={styles.list}>
+        <div>
+          <h2>Clients</h2>
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+          <Button type="addNew" text={'CLIENT'} onClick={handleClickAdd} />
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Cuit</th>
+              <th>Address</th>
+              <th>Activity</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clients.map((client) => {
+              return (
+                <tr key={client._id}>
+                  <td>{client.name}</td>
+                  <td>{client.email}</td>
+                  <td>{client.phoneNumber}</td>
+                  <td>{client.cuit}</td>
+                  <td>{client.address}</td>
+                  <td>{client.activity}</td>
+                  <td>
+                    <Button type="delete" onClick={() => handleClickDelete(client._id)} />
+                    <Button type="update" onClick={() => handleClickUpdate(client._id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}
