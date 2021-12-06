@@ -141,11 +141,11 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       </div>
       <div>
         <div>
-          <label>Time Range:</label>
+          <label>Time Range - From</label>
           <input type="time" name="timeStart" min="09:00" max="18:00" onChange={handleChange} />
         </div>
         <div>
-          <label>-To-</label>
+          <label>To</label>
           <input type="time" name="timeEnd" min="09:00" max="18:00" onChange={handleChange} />
           {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
         </div>
@@ -160,7 +160,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           disbled={isLoadingForm}
         />
         <Input
-          labelText="-To-"
+          labelText="To"
           name="dayEnd"
           type="date"
           value={formData.dayRange[1]}

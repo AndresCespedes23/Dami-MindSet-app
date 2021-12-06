@@ -16,8 +16,9 @@
 }
 
 .form label {
-  padding-left: 20px;
-  font-size: 18px;
+  padding-left: 15px;
+  font-size: 15px;
+  font-weight: 900;
 }
 
 .form input, .form select {

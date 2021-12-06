@@ -101,7 +101,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div>
-        <label>ID Position:</label>
+        <label>ID Position</label>
         <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
           {positions.map((position) => {
             return (
@@ -114,7 +114,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         {error.idPosition && <span className={styles.error}>*Position is missing</span>}
       </div>
       <div>
-        <label>ID Candidate:</label>
+        <label>ID Candidate</label>
         <select name="idCandidate" value={formData.idCandidate_id} onChange={handleChange}>
           {candidates.map((candidate) => {
             return (
@@ -127,7 +127,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         {error.idCandidate && <span className={styles.error}>*Candidate is missing</span>}
       </div>
       <div>
-        <label>Interview date:</label>
+        <label>Interview date</label>
         <select name="idInterview" value={formData.idInterview_id} onChange={handleChange}>
           {interviews.map((interview) => {
             return (
@@ -160,7 +160,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         disbled={isLoadingForm}
       />
       <div>
-        <label>Status:</label>
+        <label>Status</label>
         <select name="status" value={formData.status} onChange={handleChange}>
           <option>PENDING</option>
           <option>SCHEDULED</option>
