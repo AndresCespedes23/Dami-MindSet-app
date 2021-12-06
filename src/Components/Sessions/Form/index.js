@@ -101,8 +101,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 </option>
               ];
             })}
-            {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
           </select>
+          {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
         </div>
         <div>
           <label>Candidate</label>
@@ -114,8 +114,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 </option>
               ];
             })}
-            {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
           </select>
+          {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
         </div>
         <div>
           <label>Date Time</label>

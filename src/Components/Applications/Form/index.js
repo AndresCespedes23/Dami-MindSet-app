@@ -110,8 +110,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.position && <span className={styles.error}>*Position is missing</span>}
         </select>
+        {error.idPosition && <span className={styles.error}>*Position is missing</span>}
       </div>
       <div>
         <label>ID Candidate:</label>
@@ -123,8 +123,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
         </select>
+        {error.idCandidate && <span className={styles.error}>*Candidate is missing</span>}
       </div>
       <div>
         <label>Interview date:</label>
@@ -136,8 +136,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.interview && <span className={styles.error}>*Interview is missing</span>}
         </select>
+        {error.idInterview && <span className={styles.error}>*Interview is missing</span>}
       </div>
       <Input
         labelText="Result"
@@ -166,8 +166,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           <option>SCHEDULED</option>
           <option>HIRED</option>
           <option>REJECTED</option>
-          {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
+        {error.status && <span className={styles.error}>*Status is missing</span>}
       </div>
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />

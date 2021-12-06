@@ -108,8 +108,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
         </select>
+        {error.idCandidate && <span className={styles.error}>*Candidate is missing</span>}
       </div>
       <div>
         <label>Client:</label>
@@ -121,16 +121,16 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.client && <span className={styles.error}>*Client is missing</span>}
         </select>
+        {error.idClient && <span className={styles.error}>*Client is missing</span>}
       </div>
       <div>
         <label>Status:</label>
         <select name="status" value={formData.status} onChange={handleChange}>
           <option>DONE</option>
           <option>PENDING</option>
-          {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
+        {error.status && <span className={styles.error}>*Status is missing</span>}
       </div>
       <div>
         <label>Position:</label>
@@ -142,8 +142,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               </option>
             ];
           })}
-          {error.position && <span className={styles.error}>*Position is missing</span>}
         </select>
+        {error.idPosition && <span className={styles.error}>*Position is missing</span>}
       </div>
       <Input
         labelText="Date"
