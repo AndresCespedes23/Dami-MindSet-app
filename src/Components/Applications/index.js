@@ -163,10 +163,10 @@ function Applications() {
       <div className={styles.list}>
         <div>
           <h2>Applications</h2>
-          <Button type="addNew" text={'APPLICATION'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'APPLICATION'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>

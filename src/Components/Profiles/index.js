@@ -155,10 +155,10 @@ function Profiles() {
       <div className={styles.list}>
         <div>
           <h2>Profiles</h2>
-          <Button type="addNew" text={'PROFILES'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'PROFILES'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>

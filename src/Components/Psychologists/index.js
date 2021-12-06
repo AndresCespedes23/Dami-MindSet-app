@@ -158,10 +158,10 @@ function Psychologists() {
       <div className={styles.list}>
         <div>
           <h2>Psychologists</h2>
-          <Button type="addNew" text={'PSYCHOLOGIST'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'PSYCHOLOGIST'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>

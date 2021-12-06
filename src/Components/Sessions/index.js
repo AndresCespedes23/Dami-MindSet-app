@@ -158,10 +158,10 @@ function Sessions() {
       <div className={styles.list}>
         <div>
           <h2>Sessions</h2>
-          <Button type="addNew" text={'SESSION'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'SESSION'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>

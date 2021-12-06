@@ -159,10 +159,10 @@ function Interviews() {
       <div className={styles.list}>
         <div>
           <h2>Interviews</h2>
-          <Button type="addNew" text={'INTERVIEW'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'INTERVIEW'} onClick={handleClickAdd} />
         </div>
         <div>
           <table className={styles.table}>

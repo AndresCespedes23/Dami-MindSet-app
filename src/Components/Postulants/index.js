@@ -158,10 +158,10 @@ function Postulants() {
       <div className={styles.list}>
         <div>
           <h2>Postulants</h2>
-          <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>

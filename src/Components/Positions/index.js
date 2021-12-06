@@ -159,10 +159,10 @@ function Positions() {
       <div className={styles.list}>
         <div>
           <h2>Positions</h2>
-          <Button type="addNew" text={'POSITION'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'POSITION'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>

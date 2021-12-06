@@ -157,10 +157,10 @@ function Clients() {
       <div className={styles.list}>
         <div>
           <h2>Clients</h2>
-          <Button type="addNew" text={'CLIENT'} onClick={handleClickAdd} />
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
+          <Button type="addNew" text={'CLIENT'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>
