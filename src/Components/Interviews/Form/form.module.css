@@ -5,19 +5,23 @@
 .form {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .form div {
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  width: 50%;
   padding: 10px;
   text-align: left;
   color: #002147;
 }
 
 .form label {
-  padding-left: 20px;
-  font-size: 18px;
+  padding-left: 15px;
+  font-size: 15px;
+  font-weight: 900;
 }
 
 .form input,
@@ -30,7 +34,9 @@
   font-size: 14px;
 }
 
+
 .form button {
-  display: flex;
-  justify-content: center;
+  width: 30%;
+  padding: 5px;
+  margin: auto;
 }
