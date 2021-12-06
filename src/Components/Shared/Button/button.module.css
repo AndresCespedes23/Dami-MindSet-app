@@ -6,6 +6,7 @@
     font-weight: bold;
     padding: 5px;
     box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
+    cursor: cell
 }
 .add:hover {
     background-color: #28a745;
