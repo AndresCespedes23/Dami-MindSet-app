@@ -152,6 +152,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           labelText="Day Range"
           name="dayStart"
           type="date"
+          value={formData.dayRange[0]}
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
@@ -161,6 +162,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           labelText="-To-"
           name="dayEnd"
           type="date"
+          value={formData.dayRange[1]}
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
