@@ -181,10 +181,8 @@ function Positions() {
             {positions.map((position) => {
               return (
                 <tr key={position._id}>
-                  <td>{position.idClient ? position.idClient.name : position.idClient}</td>
-                  <td>
-                    {position.idProfile.length ? position.idProfile[0].name : position.idClient}
-                  </td>
+                  <td>{position.idClient ? position.idClient.name : position.idClient._id}</td>
+                  <td>{position.idProfile.length ? position.idProfile[0].name : ''}</td>
                   <td>{position.name}</td>
                   <td>{position.description}</td>
                   <td>{position.status}</td>
