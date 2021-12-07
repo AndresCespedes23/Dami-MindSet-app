@@ -183,7 +183,7 @@ function Psychologists() {
                 <tr key={psychologist._id}>
                   <td>{psychologist.name}</td>
                   <td>{psychologist.email}</td>
-                  <td>{psychologist.username}</td>
+                  <td>{psychologist.userName}</td>
                   <td>{psychologist.phoneNumber}</td>
                   <td>{psychologist.enrollmentNumber}</td>
                   <td>{psychologist.timeRange[0] + ' to ' + psychologist.timeRange[1]}</td>
