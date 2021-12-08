@@ -17,7 +17,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     timeEnd: '',
     dayStart: '',
     dayEnd: '',
-    status: ''
+    status
   });
   const [error, setIsError] = useState({
     name: false,
@@ -60,7 +60,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       username: event.target[2].value,
       phoneNumber: event.target[3].value,
       enrollmentNumber: event.target[4].value,
-      status: event.target.status.value,
+      status: event.target.status.value === 'false' ? false : true,
       password: event.target.password.value,
       timeStart: event.target.timeStart.value,
       timeEnd: event.target.timeEnd.value,
@@ -137,8 +137,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         <div>
           <label>Status</label>
           <select name="status" value={formData.status} onChange={handleChange}>
-            <option value="AVAILABLE">AVAILABLE</option>
-            <option value="UNAVAILABLE">UNAVAILABLE</option>
+            <option value={true}>AVAILABLE</option>
+            <option value={false}>UNAVAILABLE</option>
           </select>
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </div>
