@@ -34,7 +34,6 @@
 .form button {
   display: flex;
   justify-content: center;
-  cursor: pointer;
 }
 
 .form select,

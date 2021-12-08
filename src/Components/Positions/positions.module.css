@@ -60,13 +60,8 @@
   border-left: 2px solid #002147;
 }
 
-<<<<<<< HEAD
-.table tr:hover {
-  background-color: #8e8e8f;
-=======
 .table td:last-child,
 .table th:last-child {
   border-radius: 0 20px 20px 0;
   border-right: 2px solid #002147;
->>>>>>> development
 }
