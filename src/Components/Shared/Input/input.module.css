@@ -7,3 +7,15 @@
 .hide{
   visibility: hidden;
 }
+
+input[type=date] {
+  cursor: pointer;
+}
+
+input[type=time] {
+  cursor: pointer;
+}
+
+input[type=datetime-local] {
+  cursor: pointer;
+}
