@@ -168,7 +168,8 @@ function Sessions() {
             <tr>
               <th>Psychologist</th>
               <th>Postulant</th>
-              <th>Date Time</th>
+              <th>Date</th>
+              <th>Time</th>
               <th>Status</th>
               <th>Result</th>
               <th>Actions</th>
@@ -180,7 +181,8 @@ function Sessions() {
                 <tr key={session._id}>
                   <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
                   <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
-                  <td>{session.dateTime}</td>
+                  <td>{session.date}</td>
+                  <td>{session.time}</td>
                   <td>{session.status}</td>
                   <td>{session.result}</td>
                   <td>

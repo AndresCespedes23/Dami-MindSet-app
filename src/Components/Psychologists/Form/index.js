@@ -13,8 +13,10 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     password: '',
     phoneNumber: '',
     enrollmentNumber: '',
-    timeRange: [],
-    dayRange: [],
+    timeStart: '',
+    timeEnd: '',
+    dayStart: '',
+    dayEnd: '',
     status: ''
   });
   const [error, setIsError] = useState({
@@ -58,10 +60,12 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       username: event.target[2].value,
       phoneNumber: event.target[3].value,
       enrollmentNumber: event.target[4].value,
-      status: event.target.status.value === 'false' ? false : true,
+      status: event.target.status.value,
       password: event.target.password.value,
-      timeRange: [event.target.timeStart.value, event.target.timeEnd.value],
-      dayRange: [event.target.dayStart.value, event.target.dayEnd.value]
+      timeStart: event.target.timeStart.value,
+      timeEnd: event.target.timeEnd.value,
+      dayStart: event.target.dayStart.value,
+      dayEnd: event.target.dayEnd.value
     };
 
     for (let key in newPsychologist) {
@@ -133,8 +137,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         <div>
           <label>Status</label>
           <select name="status" value={formData.status} onChange={handleChange}>
-            <option value={true}>Available</option>
-            <option value={false}>No available</option>
+            <option value="AVAILABLE">AVAILABLE</option>
+            <option value="UNAVAILABLE">UNAVAILABLE</option>
           </select>
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </div>
@@ -142,18 +146,33 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       <div>
         <div>
           <label>Time Range - From</label>
-          <input type="time" name="timeStart" min="09:00" max="18:00" onChange={handleChange} />
+          <input
+            type="time"
+            name="timeStart"
+            value={formData.timeStart}
+            min="09:00"
+            max="18:00"
+            onChange={handleChange}
+          />
+          {error.timeRange && <span className={styles.error}>*Time Range is missing</span>}
         </div>
         <div>
           <label>To</label>
-          <input type="time" name="timeEnd" min="09:00" max="18:00" onChange={handleChange} />
+          <input
+            type="time"
+            name="timeEnd"
+            value={formData.timeEnd}
+            min="09:00"
+            max="18:00"
+            onChange={handleChange}
+          />
           {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
         </div>
         <Input
           labelText="Day Range"
           name="dayStart"
           type="date"
-          value={formData.dayRange[0]}
+          value={formData.dayStart}
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
@@ -163,7 +182,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           labelText="To"
           name="dayEnd"
           type="date"
-          value={formData.dayRange[1]}
+          value={formData.dayEnd}
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
