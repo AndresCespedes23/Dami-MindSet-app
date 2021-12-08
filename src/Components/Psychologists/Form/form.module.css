@@ -35,3 +35,8 @@
   display: flex;
   justify-content: center;
 }
+
+.form select,
+.form button { 
+  cursor: pointer;
+}

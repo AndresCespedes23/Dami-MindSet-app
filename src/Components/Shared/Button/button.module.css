@@ -13,6 +13,11 @@
   box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
   color: #002147;
 }
+
+.add {
+  cursor: cell
+}
+
 .add:hover,
 .delete:hover,
 .update:hover {

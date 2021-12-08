@@ -21,7 +21,8 @@
   font-weight: 900;
 }
 
-.form input, .form select {
+.form input,
+.form select {
   width: 100%;
   padding: 12px 16px;
   border: 2px solid #002147;
@@ -33,4 +34,9 @@
 .form button {
   display: flex;
   justify-content: center;
+}
+
+.form select,
+.form button { 
+  cursor: pointer;
 }

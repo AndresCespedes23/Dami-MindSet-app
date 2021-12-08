@@ -40,3 +40,8 @@
   padding: 5px;
   margin: auto;
 }
+
+.form select,
+.form button { 
+  cursor: pointer;
+}
