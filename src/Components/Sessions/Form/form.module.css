@@ -16,19 +16,12 @@
 }
 
 .form label {
-  padding-left: 20px;
-  font-size: 18px;
+  padding-left: 15px;
+  font-size: 15px;
+  font-weight: 900;
 }
 
-.form input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #002147;
-  border-radius: 20px;
-  background-color: #f0f4f9;
-  font-size: 14px;
-}
-
+.form input, 
 .form select {
   width: 100%;
   padding: 12px 16px;
@@ -36,25 +29,14 @@
   border-radius: 20px;
   background-color: #f0f4f9;
   font-size: 14px;
-  cursor: pointer;
 }
 
 .form button {
   display: flex;
   justify-content: center;
-  padding: 16px 60px;
-  margin-top: 20px;
-  border-radius: 25px;
-  border: none;
-  box-shadow: 10px 5px rgba(0, 0, 0, 0.050);
-  background-color: #152231;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
-.form button:hover {
-  background-color: #fdc800;;
-  color: #002147;
+.form select,
+.form button { 
+  cursor: pointer;
 }

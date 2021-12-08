@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
+import Button from '../../Shared/Button';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -107,8 +108,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             ];
           })}
-          {error.idClient && <span className={styles.error}>Client is missing</span>}
         </select>
+        {error.idClient && <span className={styles.error}>Client is missing</span>}
       </div>
       <div>
         <label>Profile</label>
@@ -120,8 +121,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             ];
           })}
-          {error.idProfile && <span className={styles.error}>Profile is missing</span>}
         </select>
+        {error.idProfile && <span className={styles.error}>Profile is missing</span>}
       </div>
       <Input
         labelText="Full Name"
@@ -148,8 +149,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         <select name="status" value={formData.status} onChange={handleChange}>
           <option>DONE</option>
           <option>PENDING</option>
-          {error.status && <span className={styles.error}>Status is missing</span>}
         </select>
+        {error.status && <span className={styles.error}>Status is missing</span>}
       </div>
       <Input
         labelText="Address"
@@ -184,7 +185,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
-        <button type="submit">Submit</button>
+        <Button type="submit" />
       )}
     </form>
   );

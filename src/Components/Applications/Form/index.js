@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../Form/form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
+import Button from '../../Shared/Button';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -100,7 +101,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div>
-        <label>ID Position:</label>
+        <label>ID Position</label>
         <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
           {positions.map((position) => {
             return (
@@ -109,11 +110,11 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.position && <span className={styles.error}>*Position is missing</span>}
         </select>
+        {error.idPosition && <span className={styles.error}>*Position is missing</span>}
       </div>
       <div>
-        <label>ID Candidate:</label>
+        <label>ID Candidate</label>
         <select name="idCandidate" value={formData.idCandidate_id} onChange={handleChange}>
           {candidates.map((candidate) => {
             return (
@@ -122,11 +123,11 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
         </select>
+        {error.idCandidate && <span className={styles.error}>*Candidate is missing</span>}
       </div>
       <div>
-        <label>Interview date:</label>
+        <label>Interview date</label>
         <select name="idInterview" value={formData.idInterview_id} onChange={handleChange}>
           {interviews.map((interview) => {
             return (
@@ -135,8 +136,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.interview && <span className={styles.error}>*Interview is missing</span>}
         </select>
+        {error.idInterview && <span className={styles.error}>*Interview is missing</span>}
       </div>
       <Input
         labelText="Result"
@@ -159,19 +160,19 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         disbled={isLoadingForm}
       />
       <div>
-        <label>Status:</label>
+        <label>Status</label>
         <select name="status" value={formData.status} onChange={handleChange}>
           <option>PENDING</option>
           <option>SCHEDULED</option>
           <option>HIRED</option>
           <option>REJECTED</option>
-          {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
+        {error.status && <span className={styles.error}>*Status is missing</span>}
       </div>
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
-        <button type="submit">Submit</button>
+        <Button type="submit" />
       )}
     </form>
   );

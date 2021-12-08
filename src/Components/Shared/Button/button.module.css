@@ -1,90 +1,71 @@
-.add {
-    border: 1px solid #28a745;
-    border-radius: 8px;
-    color: #28a745;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
-    cursor: cell
+* {
+  color: #002147;
+  font-size: 14px;
+  font-weight: 900;
 }
-.add:hover {
-    background-color: #28a745;
-    color: white;
-}
-.delete {
-    border: 1px solid #dc3545;
-    border-radius: 8px;
-    color: #dc3545;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
-}
-.delete:hover {
-    background-color: #dc3545;
-    color: white;
-}
+.add,
+.delete,
 .update {
-    border: 1px solid #17a2b8;
-    border-radius: 8px;
-    color: #17a2b8;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
+  margin: 1px;
+  padding: 5px;
+  border: 1.5px solid #002147;
+  border-radius: 8px;
+  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+  color: #002147;
 }
+
+.add {
+  cursor: cell
+}
+
+.add:hover,
+.delete:hover,
 .update:hover {
-    background-color: #17a2b8;
-    color: white;
+  background-color: #6666666e;
+  cursor: pointer;
 }
-.confirm {
-    background-color: #002147;
-    border: 1px solid #002147;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
+
+.submit,
+.search,
+.addNew {
+  margin: 5px;
+  padding: 5px 20px;
+  background-color: #680404;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 900;
 }
-.confirm:hover {
-    background-color: #fff;
-    border: 1px solid #002147;
-    color: #002147;
+.submit {
+    font-size: 16px;
+    font-weight: 700;
 }
+.submit:hover,
+.search:hover,
+.addNew:hover {
+  background-color: #002147;
+  color: #fff;
+  cursor: pointer;
+}
+
+.confirm,
 .cancel {
-    border: 1px solid #002147;
-    border-radius: 8px;
-    color: #002147;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 5px;
-    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
+  padding: 5px 15px;
+  background-color: #fff;
+  border: 2px solid #002147;
+  border-radius: 15px;
+  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
 }
+.confirm:hover,
 .cancel:hover {
-    background-color: #002147;
-    color: #fff;
+  background-color: #680404;
+  border: 2px solid #680404;
+  color: #fff;
+  cursor: pointer;
 }
-.submit, .search, .addNew {
-    padding: 5px;
-    border: 1px solid #ffffff;
-    background-color: #152231;
-    border-radius: 8px;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 10px 5px rgba(0, 0, 0, 0.05);
-}
-.submit:hover, .search:hover, .addNew:hover {
-    background-color: #fdc800;
-    color: #002147;
-    border-color: #002147;
-}
-.submit{
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-}
-.hide{
-    display: none;
+
+.hide {
+  display: none;
 }

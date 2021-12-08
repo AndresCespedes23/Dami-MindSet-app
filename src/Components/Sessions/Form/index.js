@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
+import Button from '../../Shared/Button';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(false);
@@ -100,8 +101,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 </option>
               ];
             })}
-            {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
           </select>
+          {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
         </div>
         <div>
           <label>Candidate</label>
@@ -113,14 +114,15 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 </option>
               ];
             })}
-            {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
           </select>
+          {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
         </div>
         <div>
           <label>Date Time</label>
           <input
             type="datetime-local"
             name="dateTime"
+            value={formData.dateTime}
             placeholder="Insert a date"
             required
             onChange={handleChange}
@@ -151,7 +153,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
-        <button type="submit">Submit</button>
+        <Button type="submit" />
       )}
     </form>
   );

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
+import Button from '../../Shared/Button';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
   const [isLoadingForm, setLoadingForm] = useState(true);
@@ -98,7 +99,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <div>
-        <label>Candidate:</label>
+        <label>Candidate</label>
         <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
           {candidates.map((candidate) => {
             return (
@@ -107,11 +108,11 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.candidate && <span className={styles.error}>*Candidate is missing</span>}
         </select>
+        {error.idCandidate && <span className={styles.error}>*Candidate is missing</span>}
       </div>
       <div>
-        <label>Client:</label>
+        <label>Client</label>
         <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
           {clients.map((client) => {
             return (
@@ -120,19 +121,19 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               </option>
             );
           })}
-          {error.client && <span className={styles.error}>*Client is missing</span>}
         </select>
+        {error.idClient && <span className={styles.error}>*Client is missing</span>}
       </div>
       <div>
-        <label>Status:</label>
+        <label>Status</label>
         <select name="status" value={formData.status} onChange={handleChange}>
           <option>DONE</option>
           <option>PENDING</option>
-          {error.status && <span className={styles.error}>*Status is missing</span>}
         </select>
+        {error.status && <span className={styles.error}>*Status is missing</span>}
       </div>
       <div>
-        <label>Position:</label>
+        <label>Position</label>
         <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
           {positions.map((position) => {
             return [
@@ -141,8 +142,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               </option>
             ];
           })}
-          {error.position && <span className={styles.error}>*Position is missing</span>}
         </select>
+        {error.idPosition && <span className={styles.error}>*Position is missing</span>}
       </div>
       <Input
         labelText="Date"
@@ -157,7 +158,9 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
-        <button type="submit">Submit</button>
+        <div>
+          <Button type="submit" />
+        </div>
       )}
     </form>
   );

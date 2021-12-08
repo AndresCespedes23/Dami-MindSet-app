@@ -155,48 +155,50 @@ function Positions() {
 
   return (
     <section className={styles.container}>
-      <h2>Positions</h2>
-      {showMessage && (
-        <Message type={messageType} message={message} showMessage={handleShowMessage} />
-      )}
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Client</th>
-            <th>Profile</th>
-            <th>Full Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>ZIP Code</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {positions.map((position) => {
-            return (
-              <tr key={position._id}>
-                <td>{position.idClient ? position.idClient.name : position.idClient}</td>
-                <td>
-                  {position.idProfile.length ? position.idProfile[0].name : position.idClient}
-                </td>
-                <td>{position.name}</td>
-                <td>{position.description}</td>
-                <td>{position.status}</td>
-                <td>{position.address}</td>
-                <td>{position.city}</td>
-                <td>{position.postalCode}</td>
-                <td>
-                  <Button type="delete" onClick={() => handleClickDelete(position._id)} />
-                  <Button type="update" onClick={() => handleClickUpdate(position._id)} />
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Button type="add" onClick={handleClickAdd} />
+      <div className={styles.list}>
+        <div>
+          <h2>Positions</h2>
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+          <Button type="addNew" text={'POSITION'} onClick={handleClickAdd} />
+        </div>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Profile</th>
+              <th>Full Name</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>ZIP Code</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {positions.map((position) => {
+              return (
+                <tr key={position._id}>
+                  <td>{position.idClient ? position.idClient.name : position.idClient._id}</td>
+                  <td>{position.idProfile.length ? position.idProfile[0].name : ''}</td>
+                  <td>{position.name}</td>
+                  <td>{position.description}</td>
+                  <td>{position.status}</td>
+                  <td>{position.address}</td>
+                  <td>{position.city}</td>
+                  <td>{position.postalCode}</td>
+                  <td>
+                    <Button type="delete" onClick={() => handleClickDelete(position._id)} />
+                    <Button type="update" onClick={() => handleClickUpdate(position._id)} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showModal && (
         <Modal
           handleShowModal={handleShowModal}

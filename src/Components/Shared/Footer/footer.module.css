@@ -41,7 +41,7 @@
   margin: 15px 15px 15px 0px;
   padding: 10px;
   border-radius: 30px;
-  color: #343436;
+  color: #1c2e4d;
   line-height: 30px;
   font-size: 1rem;
   font-weight: bold;
@@ -68,6 +68,7 @@
 .copyright {
   font-size: 0.7rem;
   font-style: italic;
+  color: #fff;
 }
 
 .socialIcon {
