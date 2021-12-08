@@ -1,6 +1,6 @@
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from 'redux';
-import rootReducer from './redux/reducers/rootReducer';
+import rootReducer from './reducers/rootReducers';
 
 const configureStore = () => {
   const enhancer = composeWithDevTools();
