@@ -1,10 +1,12 @@
+import { TEST_ADMIN } from '../../constants/actionTypes';
+
 const initialState = {
   list: []
 };
 
 const adminsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'TEST_ADMIN':
+    case TEST_ADMIN:
       return {
         ...state,
         list: [
