@@ -33,7 +33,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setPositions(response);
+        setPositions(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoadingForm(false));
@@ -43,7 +43,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setCandidates(response);
+        setCandidates(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoadingForm(false));
@@ -53,7 +53,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setInterviews(response);
+        setInterviews(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoadingForm(false));
@@ -65,8 +65,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          response.dateTime = response.dateTime.split('T')[0];
-          setFormData(response);
+          response.data.dateTime = response.data.dateTime.split('T')[0];
+          setFormData(response.data);
         })
         .catch((err) => console.log(err))
         .finally(() => setLoadingForm(false));

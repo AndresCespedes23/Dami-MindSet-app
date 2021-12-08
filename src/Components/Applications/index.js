@@ -23,7 +23,7 @@ function Applications() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setApplications(response);
+        setApplications(response.data);
       })
       .catch((err) => {
         setMessageType('error');
@@ -63,7 +63,7 @@ function Applications() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Application deleted');
-        setApplications(applications.filter((application) => application._id !== id));
+        getApplications();
       })
       .catch((err) => {
         console.log(err);
@@ -92,13 +92,11 @@ function Applications() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Application updated');
-        setApplications(
-          applications.map((application) => (application._id === idActive ? response : application))
-        );
+        getApplications();
       })
       .catch((err) => {
         console.log(err);

@@ -46,8 +46,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          response.dateOfBirth = response.dateOfBirth.split('T')[0];
-          setFormData(response);
+          response.data.dateOfBirth = response.data.dateOfBirth.split('T')[0];
+          setFormData(response.data);
         })
         .catch((err) => console.log(err))
         .finally(() => setLoadingForm(false));

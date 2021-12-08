@@ -24,7 +24,7 @@ function Interviews() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setInterviews(response);
+        setInterviews(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));

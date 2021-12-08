@@ -15,18 +15,22 @@ function Clients() {
   const [message, setMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
+  const getClients = () => {
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setClients(response);
+        setClients(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getClients();
   }, []);
 
   const cleanMessage = () => {
@@ -56,7 +60,7 @@ function Clients() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Client deleted');
-        setClients(clients.filter((client) => client._id !== id));
+        getClients();
       })
       .catch((err) => {
         console.log(err);
@@ -85,11 +89,11 @@ function Clients() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Client updated');
-        setClients(clients.map((client) => (client._id === idActive ? response : client)));
+        getClients();
       })
       .catch((err) => {
         console.log(err);
@@ -129,7 +133,7 @@ function Clients() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Client added');
-        setClients([...clients, response]);
+        getClients();
       })
       .catch((err) => {
         console.log(err);

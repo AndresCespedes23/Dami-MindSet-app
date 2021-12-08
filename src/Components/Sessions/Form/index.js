@@ -11,7 +11,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
   const [formData, setFormData] = useState({
     idPsychologist: '',
     idCandidate: '',
-    dateTime: '',
+    date: '',
+    time: '',
     status: '',
     result: ''
   });
@@ -31,7 +32,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setPsychologists(response);
+        setPsychologists(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoadingForm(false));
@@ -41,7 +42,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setCandidates(response);
+        setCandidates(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoadingForm(false));
@@ -52,8 +53,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          response.dateTime = response.dateTime.split('T')[0];
-          setFormData(response);
+          response.data.date = response.data.date.split('T')[0];
+          setFormData(response.data);
         })
         .catch((err) => console.log(err))
         .finally(() => setLoadingForm(false));
@@ -70,7 +71,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
     const newSession = {
       idPsychologist: event.target.idPsychologist.value,
       idCandidate: event.target.idCandidate.value,
-      dateTime: event.target.dateTime.value,
+      date: event.target.date.value,
+      time: event.target.time.value,
       status: event.target.status.value,
       result: event.target.result.value
     };
@@ -118,12 +120,24 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
           {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
         </div>
         <div>
-          <label>Date Time</label>
+          <label>Date</label>
           <input
-            type="datetime-local"
-            name="dateTime"
-            value={formData.dateTime}
+            type="date"
+            name="date"
+            value={formData.date}
             placeholder="Insert a date"
+            required
+            onChange={handleChange}
+          />
+          {error.dateTime && <span className={styles.error}>Date time is missing</span>}
+        </div>
+        <div>
+          <label>Time</label>
+          <input
+            type="time"
+            name="time"
+            value={formData.time}
+            placeholder="Insert a time"
             required
             onChange={handleChange}
           />
