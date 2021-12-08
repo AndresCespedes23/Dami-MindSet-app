@@ -4,6 +4,8 @@ import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import { testAdmin } from '../../redux/Admins/actions';
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
@@ -15,7 +17,13 @@ function Admins() {
   const [message, setMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+  const list = useSelector((state) => state.admins.list);
+  console.log(list);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(testAdmin('fsfdsfsdf'));
     setLoading(true);
     fetch(`${process.env.REACT_APP_API}/admins`)
       .then((response) => {

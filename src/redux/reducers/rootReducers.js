@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import adminsReducer from '../Admins/reducer';
 
 const rootReducer = combineReducers({
-  // reducers go here
+  admins: adminsReducer
 });
 
 export default rootReducer;

@@ -1,21 +1,22 @@
-// const initialState = {
-//   list: {}
-// };
+const initialState = {
+  list: []
+};
 
-// const reducer = (state = initialState, action) => {
-//   switch (action.type) {
-//     case 'ADD_ADMIN':
-//       return {
-//         ...state,
-//         list: [
-//           ...state.list,
-//           {
-//             name: action.name,
-//             email: action.email,
-//             username: action.username,
-//             password: action.password
-//           }
-//         ]
-//       };
-//   }
-// };
+const adminsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'TEST_ADMIN':
+      return {
+        ...state,
+        list: [
+          ...state.list,
+          {
+            test: action.test
+          }
+        ]
+      };
+    default:
+      return state;
+  }
+};
+
+export default adminsReducer;
