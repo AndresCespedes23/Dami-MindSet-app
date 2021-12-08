@@ -23,7 +23,7 @@ function Postulants() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setPostulants(response);
+        setPostulants(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));

@@ -15,18 +15,22 @@ function Profiles() {
   const [message, setMessage] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setLoading(true);
+  const getProfiles = () => {
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setProfiles(response);
+        setProfiles(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getProfiles();
   }, []);
 
   const cleanMessage = () => {
@@ -56,7 +60,7 @@ function Profiles() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Profile deleted');
-        setProfiles(profiles.filter((profile) => profile._id !== id));
+        getProfiles();
       })
       .catch((err) => {
         console.log(err);
@@ -85,11 +89,11 @@ function Profiles() {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
-      .then((response) => {
+      .then(() => {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Profile updated');
-        setProfiles(profiles.map((profile) => (profile._id === idActive ? response : profile)));
+        getProfiles();
       })
       .catch((err) => {
         console.log(err);
@@ -130,7 +134,7 @@ function Profiles() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Candidate added');
-        setProfiles([...profiles, response]);
+        getProfiles();
       })
       .catch((err) => {
         console.log(err);
