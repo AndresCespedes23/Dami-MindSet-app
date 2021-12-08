@@ -23,7 +23,7 @@ function Positions() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setPositions(response);
+        setPositions(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));

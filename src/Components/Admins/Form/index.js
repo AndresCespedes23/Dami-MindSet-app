@@ -22,7 +22,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
           throw new Error(`HTTP ${response.status}`);
         })
         .then((response) => {
-          setFormData(response);
+          setFormData(response.data);
         })
         .catch((err) => console.log(err))
         .finally(() => setLoadingForm(false));

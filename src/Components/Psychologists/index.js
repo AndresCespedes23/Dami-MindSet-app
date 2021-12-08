@@ -23,7 +23,7 @@ function Psychologists() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setPsychologists(response);
+        setPsychologists(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));

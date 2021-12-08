@@ -23,7 +23,7 @@ function Sessions() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setSessions(response);
+        setSessions(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));

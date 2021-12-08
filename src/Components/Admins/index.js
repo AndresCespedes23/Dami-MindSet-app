@@ -23,7 +23,7 @@ function Admins() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        setAdmins(response);
+        setAdmins(response.data);
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
@@ -54,6 +54,7 @@ function Admins() {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
+        console.log(response);
         setShowMessage(true);
         setMessageType('success');
         setMessage('Admin updated');
