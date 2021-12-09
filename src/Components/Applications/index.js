@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getApplications } from '../../redux/Applications/thunks.js';
+import { getApplications, addApplication } from '../../redux/Applications/thunks.js';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -101,36 +101,8 @@ function Applications() {
   };
 
   const handleAddApplication = (application) => {
-    fetch(`${process.env.REACT_APP_API}/applications`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(application)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application added');
-        getApplications();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error creating application');
-      });
+    dispatch(addApplication(application));
+    setShowModal(!showModal);
   };
 
   const handleShowModal = () => {
