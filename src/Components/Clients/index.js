@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getClients, deleteClient } from '../../redux/Clients/thunks.js';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
@@ -6,32 +8,19 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Clients() {
-  const [clients, setClients] = useState([]);
+  const clients = useSelector((store) => store.clients.list);
+  const isLoading = useSelector((store) => store.clients.isLoading);
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getClients = () => {
-    fetch(`${process.env.REACT_APP_API}/clients`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setClients(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
 
   useEffect(() => {
-    setLoading(true);
-    getClients();
-  }, []);
+    dispatch(getClients());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
@@ -46,28 +35,7 @@ function Clients() {
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/clients/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Client deleted');
-        getClients();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting client');
-      });
+    dispatch(deleteClient(id));
   };
 
   const handleClickUpdate = (id) => {
