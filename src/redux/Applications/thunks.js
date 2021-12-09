@@ -10,7 +10,10 @@ import {
   DELETE_APPLICATIONS_REJECTED,
   UPDATE_APPLICATIONS_FETCHING,
   UPDATE_APPLICATIONS_FULFILLED,
-  UPDATE_APPLICATIONS_REJECTED
+  UPDATE_APPLICATIONS_REJECTED,
+  GET_ONE_APPLICATION_FETCHING,
+  GET_ONE_APPLICATION_FULFILLED,
+  GET_ONE_APPLICATION_REJECTED
 } from '../../constants/actionTypes';
 
 const URL = `${process.env.REACT_APP_API}/applications`;
@@ -173,26 +176,26 @@ export const deleteApplication = (id) => (dispatch) => {
 //       setMessage('Error deleting application');
 //     });
 // };
+
 const updateApplicationFetching = () => ({
   type: UPDATE_APPLICATIONS_FETCHING
 });
 
-const updateApplicationFullfiled = (payload, id) => ({
+const updateApplicationFullfiled = (payload) => ({
   type: UPDATE_APPLICATIONS_FULFILLED,
-  payload,
-  id
+  payload
 });
 
 const updateApplicationRejected = () => ({
   type: UPDATE_APPLICATIONS_REJECTED
 });
 
-export const updateApplication = (application, id) => (dispatch) => {
+export const updateApplication = (applications, id) => (dispatch) => {
   dispatch(updateApplicationFetching());
   return fetch(`${URL}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(application)
+    body: JSON.stringify(applications)
   })
     .then((data) => data.json())
     .then(() => {
@@ -228,3 +231,35 @@ export const updateApplication = (application, id) => (dispatch) => {
 //       setMessage('Error updating application');
 //     });
 // };
+
+const getApplicationFetching = (id) => ({
+  type: GET_ONE_APPLICATION_FETCHING,
+  id
+});
+
+const getApplicationFullfiled = (payload) => ({
+  type: GET_ONE_APPLICATION_FULFILLED,
+  payload
+});
+
+const getApplicationRejected = () => ({
+  type: GET_ONE_APPLICATION_REJECTED
+});
+
+export const getOneApplication = (id) => (dispatch) => {
+  dispatch(getApplicationFetching());
+  fetch(`${process.env.REACT_APP_API}/applications/${id}`)
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
+    .then((response) => {
+      response.data.dateTime = response.data.dateTime.split('T')[0];
+
+      dispatch(getApplicationFullfiled(response.data));
+      response.data;
+    })
+    .catch(() => {
+      dispatch(getApplicationRejected());
+    });
+};

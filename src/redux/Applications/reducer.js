@@ -84,16 +84,22 @@ const applicationsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        applications: state.applications.map((application) =>
-          application._id === action.payload.id ? action.payload : application
-        )
+        list: state.list.map((application) => {
+          if (application._id === action.payload.id) {
+            return action.payload;
+          }
+          return application;
+        })
       };
     case UPDATE_APPLICATIONS_REJECTED:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot update sessions'
       };
+
     default:
       return state;
   }
