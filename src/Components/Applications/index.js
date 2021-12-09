@@ -40,9 +40,10 @@ function Applications() {
     setModalType('delete');
   };
 
-  const handleDeleteApplication = (application) => {
-    console.log(application);
-    dispatch(deleteApplication(application));
+  const handleDeleteApplication = (id) => {
+    dispatch(deleteApplication(id)).then(() => {
+      dispatch(getApplications());
+    });
   };
 
   const handleClickUpdate = (id) => {
@@ -52,8 +53,10 @@ function Applications() {
     setModalType('applications');
   };
 
-  const handleUpdateApplication = (application, idActive) => {
-    dispatch(updateApplication(application, idActive));
+  const handleUpdateApplication = (application) => {
+    dispatch(updateApplication(application, idActive)).then(() => {
+      dispatch(getApplications());
+    });
   };
 
   const handleClickAdd = () => {
