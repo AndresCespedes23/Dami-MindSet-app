@@ -11,11 +11,11 @@ function Clients() {
   const clients = useSelector((store) => store.clients.list);
   const isLoading = useSelector((store) => store.clients.isLoading);
   const messageType = useSelector((store) => store.clients.messageType);
-  const message = useSelector((store) => store.clients.message);
-  const showMessage = useSelector((store) => store.clients.showMessage);
+  const message = useSelector((store) => store.clients.messageText);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function Clients() {
 
   const handleDelete = (id) => {
     dispatch(deleteClient(id)).then(() => {
+      setShowMessage(true);
       dispatch(getClients());
     });
   };
@@ -42,6 +43,7 @@ function Clients() {
 
   const handleUpdateClients = (client) => {
     dispatch(updateClient(client)).then(() => {
+      setShowMessage(true);
       dispatch(getClients());
     });
   };
@@ -54,6 +56,7 @@ function Clients() {
 
   const handleAddClients = (client) => {
     dispatch(addClient(client)).then(() => {
+      setShowMessage(true);
       dispatch(getClients());
     });
   };
@@ -62,7 +65,9 @@ function Clients() {
     setShowModal(false);
   };
 
-  const handleShowMessage = () => {};
+  const handleShowMessage = () => {
+    setShowMessage(false);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 

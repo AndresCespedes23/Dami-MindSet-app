@@ -113,12 +113,13 @@ const clientsReducer = (state = initialState, action) => {
         ...state,
         isLoading: true
       };
-    case GET_ONE_CLIENTS_FULFILLED:
+    case GET_ONE_CLIENTS_FULFILLED: {
       return {
         ...state,
         isLoading: false,
-        client: state.client
+        client: action.payload
       };
+    }
     case GET_ONE_CLIENTS_REJECTED:
       return {
         ...state,
