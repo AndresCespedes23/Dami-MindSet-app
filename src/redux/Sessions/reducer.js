@@ -10,10 +10,10 @@ import {
   DELETE_SESSIONS_REJECTED,
   UPDATE_SESSIONS_FETCHING,
   UPDATE_SESSIONS_FULFILLED,
-  UPDATE_SESSIONS_REJECTED
-  /* GET_ONE_SESSION_FETCHING,
+  UPDATE_SESSIONS_REJECTED,
+  GET_ONE_SESSION_FETCHING,
   GET_ONE_SESSION_FULFILLED,
-  GET_ONE_SESSION_REJECTED */
+  GET_ONE_SESSION_REJECTED
 } from '../../constants/actionTypes';
 
 const initialState = {
@@ -107,6 +107,25 @@ const sessionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot update sessions'
+      };
+    case GET_ONE_SESSION_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_ONE_SESSION_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        session: action.payload
+      };
+    case GET_ONE_SESSION_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get session'
       };
 
     default:

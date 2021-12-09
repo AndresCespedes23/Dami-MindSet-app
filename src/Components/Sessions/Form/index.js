@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOneSession } from '../../../redux/Sessions/thunks';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
+  const dispatch = useDispatch();
   const [isLoadingForm, setLoadingForm] = useState(false);
   const [psychologists, setPsychologists] = useState([]);
   const [candidates, setCandidates] = useState([]);
@@ -46,20 +49,13 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       })
       .catch((err) => console.log(err))
       .finally(() => setLoadingForm(false));
-    if (id) {
-      fetch(`${process.env.REACT_APP_API}/sessions/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          response.data.date = response.data.date.split('T')[0];
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
-    }
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getOneSession(id));
+    }
+  }, [dispatch, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

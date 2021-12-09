@@ -10,10 +10,10 @@ import {
   DELETE_SESSIONS_REJECTED,
   UPDATE_SESSIONS_FETCHING,
   UPDATE_SESSIONS_FULFILLED,
-  UPDATE_SESSIONS_REJECTED
-  /* GET_ONE_SESSION_FETCHING,
+  UPDATE_SESSIONS_REJECTED,
+  GET_ONE_SESSION_FETCHING,
   GET_ONE_SESSION_FULFILLED,
-  GET_ONE_SESSION_REJECTED */
+  GET_ONE_SESSION_REJECTED
 } from '../../constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/sessions`;
@@ -130,4 +130,42 @@ export const updateSessions = (sessions, id) => (dispatch) => {
     .catch(() => {
       dispatch(updateSessionsRejected());
     });
+};
+
+const getOneSessionFetching = () => ({
+  type: GET_ONE_SESSION_FETCHING
+});
+
+const getOneSessionFulfilled = (payload) => ({
+  type: GET_ONE_SESSION_FULFILLED,
+  payload
+});
+
+const getOneSessionRejected = () => ({
+  type: GET_ONE_SESSION_REJECTED
+});
+
+export const getOneSession = (id) => {
+  /* dispatch(getOneSessionFetching());
+  return fetch(`${BASE_URL}/${id}`)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response.data);
+      dispatch(getOneSessionFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(getOneSessionRejected());
+    }); */
+  return (dispatch) => {
+    dispatch(getOneSessionFetching());
+    fetch(`${BASE_URL}/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response.data);
+        dispatch(getOneSessionFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(getOneSessionRejected());
+      });
+  };
 };
