@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getApplications, addApplication } from '../../redux/Applications/thunks.js';
+import {
+  getApplications,
+  addApplication,
+  deleteApplication
+} from '../../redux/Applications/thunks.js';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -35,29 +39,9 @@ function Applications() {
     setModalType('delete');
   };
 
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application deleted');
-        getApplications();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting application');
-      });
+  const handleDeleteApplication = (application) => {
+    dispatch(deleteApplication(application));
+    dispatch(getApplications());
   };
 
   const handleClickUpdate = (id) => {
@@ -102,7 +86,7 @@ function Applications() {
 
   const handleAddApplication = (application) => {
     dispatch(addApplication(application));
-    setShowModal(!showModal);
+    dispatch(getApplications());
   };
 
   const handleShowModal = () => {
@@ -169,7 +153,7 @@ function Applications() {
           modalType={modalType}
           handleSubmit={
             modalType === 'delete'
-              ? () => handleDelete(idActive)
+              ? () => handleDeleteApplication(idActive)
               : modalType === 'applications' && !idActive
               ? handleAddApplication
               : handleUpdateApplication
