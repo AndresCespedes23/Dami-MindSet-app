@@ -41,7 +41,6 @@ function Applications() {
 
   const handleDeleteApplication = (application) => {
     dispatch(deleteApplication(application));
-    dispatch(getApplications());
   };
 
   const handleClickUpdate = (id) => {
@@ -84,9 +83,9 @@ function Applications() {
     setModalType('applications');
   };
 
-  const handleAddApplication = (application) => {
-    dispatch(addApplication(application));
-    dispatch(getApplications());
+  const handleAddApplication = async (application) => {
+    await dispatch(addApplication(application));
+    await dispatch(getApplications());
   };
 
   const handleShowModal = () => {
@@ -98,7 +97,6 @@ function Applications() {
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-
   return (
     <section className={styles.container}>
       <div className={styles.list}>
