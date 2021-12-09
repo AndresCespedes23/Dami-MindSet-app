@@ -7,11 +7,11 @@ import {
   ADD_SESSIONS_REJECTED,
   DELETE_SESSIONS_FETCHING,
   DELETE_SESSIONS_FULFILLED,
-  DELETE_SESSIONS_REJECTED
-  /* UPDATE_SESSIONS_FETCHING,
+  DELETE_SESSIONS_REJECTED,
+  UPDATE_SESSIONS_FETCHING,
   UPDATE_SESSIONS_FULFILLED,
-  UPDATE_SESSIONS_REJECTED,
-  GET_ONE_SESSION_FETCHING,
+  UPDATE_SESSIONS_REJECTED
+  /* GET_ONE_SESSION_FETCHING,
   GET_ONE_SESSION_FULFILLED,
   GET_ONE_SESSION_REJECTED */
 } from '../../constants/actionTypes';
@@ -83,6 +83,30 @@ const sessionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot delete sessions'
+      };
+    case UPDATE_SESSIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case UPDATE_SESSIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: state.list.map((session) => {
+          if (session._id === action.payload.id) {
+            return action.payload;
+          }
+          return session;
+        })
+      };
+    case UPDATE_SESSIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot update sessions'
       };
 
     default:

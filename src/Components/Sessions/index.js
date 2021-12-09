@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSessions, addSessions, deleteSessions } from '../../redux/Sessions/thunks';
+import {
+  getSessions,
+  addSessions,
+  deleteSessions,
+  updateSessions
+} from '../../redux/Sessions/thunks';
 import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -12,7 +17,6 @@ function Sessions() {
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const sessions = useSelector((state) => state.sessions.list);
   const isLoading = useSelector((state) => state.sessions.isLoading);
@@ -51,29 +55,9 @@ function Sessions() {
   };
 
   const handleUpdateSession = (session) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(session)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session updated');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating session');
-      });
+    dispatch(updateSessions(session, idActive)).then(() => {
+      dispatch(getSessions());
+    });
   };
 
   const handleClickAdd = () => {
@@ -104,9 +88,7 @@ function Sessions() {
       <div className={styles.list}>
         <div>
           <h2>Sessions</h2>
-          {showMessage && (
-            <Message type={messageType} message={message} showMessage={handleShowMessage} />
-          )}
+          {showMessage && <Message type={''} message={message} showMessage={handleShowMessage} />}
           <Button type="addNew" text={'SESSION'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>

@@ -7,11 +7,11 @@ import {
   ADD_SESSIONS_REJECTED,
   DELETE_SESSIONS_FETCHING,
   DELETE_SESSIONS_FULFILLED,
-  DELETE_SESSIONS_REJECTED
-  /* UPDATE_SESSIONS_FETCHING,
+  DELETE_SESSIONS_REJECTED,
+  UPDATE_SESSIONS_FETCHING,
   UPDATE_SESSIONS_FULFILLED,
-  UPDATE_SESSIONS_REJECTED,
-  GET_ONE_SESSION_FETCHING,
+  UPDATE_SESSIONS_REJECTED
+  /* GET_ONE_SESSION_FETCHING,
   GET_ONE_SESSION_FULFILLED,
   GET_ONE_SESSION_REJECTED */
 } from '../../constants/actionTypes';
@@ -37,7 +37,6 @@ export const getSessions = () => {
     fetch(BASE_URL)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         dispatch(getSessionsFulfilled(response.data));
       })
       .catch(() => {
@@ -100,5 +99,35 @@ export const deleteSessions = (id) => (dispatch) => {
     })
     .catch(() => {
       dispatch(deleteSessionsRejected());
+    });
+};
+
+const updateSessionsFetching = () => ({
+  type: UPDATE_SESSIONS_FETCHING
+});
+
+const updateSessionsFullfiled = (payload, id) => ({
+  type: UPDATE_SESSIONS_FULFILLED,
+  payload,
+  id
+});
+
+const updateSessionsRejected = () => ({
+  type: UPDATE_SESSIONS_REJECTED
+});
+
+export const updateSessions = (sessions, id) => (dispatch) => {
+  dispatch(updateSessionsFetching());
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(sessions)
+  })
+    .then((data) => data.json())
+    .then(() => {
+      dispatch(updateSessionsFullfiled(id));
+    })
+    .catch(() => {
+      dispatch(updateSessionsRejected());
     });
 };
