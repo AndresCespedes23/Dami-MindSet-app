@@ -147,11 +147,13 @@ const getOneClientsRejected = () => ({
 });
 
 export const getOneClients = (id) => {
+  console.log(id);
   return (dispatch) => {
     dispatch(getOneClientsFetching());
     fetch(`${BASE_URL}/${id}`)
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         dispatch(getOneClientsFulfilled(response.data));
       })
       .catch(() => {

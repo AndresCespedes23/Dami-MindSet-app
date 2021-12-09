@@ -8,6 +8,9 @@ import {
   DELETE_CLIENTS_FETCHING,
   DELETE_CLIENTS_FULFILLED,
   DELETE_CLIENTS_REJECTED,
+  UPDATE_CLIENTS_FETCHING,
+  UPDATE_CLIENTS_FULFILLED,
+  UPDATE_CLIENTS_REJECTED,
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
   GET_ONE_CLIENTS_REJECTED
@@ -17,7 +20,8 @@ const initialState = {
   list: [],
   error: false,
   messageType: '',
-  messageText: ''
+  messageText: '',
+  client: null
 };
 
 const clientsReducer = (state = initialState, action) => {
@@ -50,13 +54,17 @@ const clientsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        messageType: 'success',
+        messageText: 'Added Client',
         list: [...state.list, action.payload]
       };
     case ADD_CLIENTS_REJECTED:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot Add Clients'
       };
     case DELETE_CLIENTS_FETCHING:
       return {
@@ -66,13 +74,39 @@ const clientsReducer = (state = initialState, action) => {
     case DELETE_CLIENTS_FULFILLED:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Deleted Client',
+        list: [...state.list, action.payload]
       };
     case DELETE_CLIENTS_REJECTED:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot delete Clients'
+      };
+    case UPDATE_CLIENTS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case UPDATE_CLIENTS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Updated Client',
+        list: [...state.list, action.payload]
+      };
+    case UPDATE_CLIENTS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot update Clients'
       };
     case GET_ONE_CLIENTS_FETCHING:
       return {
@@ -82,13 +116,16 @@ const clientsReducer = (state = initialState, action) => {
     case GET_ONE_CLIENTS_FULFILLED:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        client: state.client
       };
     case GET_ONE_CLIENTS_REJECTED:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get one Clients'
       };
     default:
       return state;

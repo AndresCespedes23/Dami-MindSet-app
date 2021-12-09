@@ -10,26 +10,19 @@ import Spinner from '../Shared/Spinner';
 function Clients() {
   const clients = useSelector((store) => store.clients.list);
   const isLoading = useSelector((store) => store.clients.isLoading);
+  const messageType = useSelector((store) => store.clients.messageType);
+  const message = useSelector((store) => store.clients.message);
+  const showMessage = useSelector((store) => store.clients.showMessage);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  // const [messageType, setMessageType] = useState('');
-  const [messageType] = useState('');
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     dispatch(getClients());
   }, [dispatch]);
 
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
-
   const handleClickDelete = (id) => {
-    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
@@ -42,7 +35,6 @@ function Clients() {
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('clients');
@@ -55,7 +47,6 @@ function Clients() {
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
     setShowModal(true);
     setModalType('clients');
     setIdActive('');
@@ -71,9 +62,7 @@ function Clients() {
     setShowModal(false);
   };
 
-  const handleShowMessage = () => {
-    setShowMessage(false);
-  };
+  const handleShowMessage = () => {};
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
