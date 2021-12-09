@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSessions, addSessions } from '../../redux/Sessions/thunks';
+import { getSessions, addSessions, deleteSessions } from '../../redux/Sessions/thunks';
 import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -38,28 +38,9 @@ function Sessions() {
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting session');
-      });
+    dispatch(deleteSessions(id)).then(() => {
+      dispatch(getSessions());
+    });
   };
 
   const handleClickUpdate = (id) => {

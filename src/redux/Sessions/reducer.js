@@ -4,11 +4,11 @@ import {
   GET_SESSIONS_REJECTED,
   ADD_SESSIONS_FETCHING,
   ADD_SESSIONS_FULFILLED,
-  ADD_SESSIONS_REJECTED
-  /* DELETE_SESSIONS_FETCHING,
+  ADD_SESSIONS_REJECTED,
+  DELETE_SESSIONS_FETCHING,
   DELETE_SESSIONS_FULFILLED,
-  DELETE_SESSIONS_REJECTED,
-  UPDATE_SESSIONS_FETCHING,
+  DELETE_SESSIONS_REJECTED
+  /* UPDATE_SESSIONS_FETCHING,
   UPDATE_SESSIONS_FULFILLED,
   UPDATE_SESSIONS_REJECTED,
   GET_ONE_SESSION_FETCHING,
@@ -22,7 +22,7 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  client: null
+  session: null
 };
 
 const sessionsReducer = (state = initialState, action) => {
@@ -64,6 +64,25 @@ const sessionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot add sessions'
+      };
+    case DELETE_SESSIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case DELETE_SESSIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: state.list.filter((session) => session.id !== action.payload)
+      };
+    case DELETE_SESSIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot delete sessions'
       };
 
     default:

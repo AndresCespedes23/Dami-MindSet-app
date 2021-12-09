@@ -4,11 +4,11 @@ import {
   GET_SESSIONS_REJECTED,
   ADD_SESSIONS_FETCHING,
   ADD_SESSIONS_FULFILLED,
-  ADD_SESSIONS_REJECTED
-  /* DELETE_SESSIONS_FETCHING,
+  ADD_SESSIONS_REJECTED,
+  DELETE_SESSIONS_FETCHING,
   DELETE_SESSIONS_FULFILLED,
-  DELETE_SESSIONS_REJECTED,
-  UPDATE_SESSIONS_FETCHING,
+  DELETE_SESSIONS_REJECTED
+  /* UPDATE_SESSIONS_FETCHING,
   UPDATE_SESSIONS_FULFILLED,
   UPDATE_SESSIONS_REJECTED,
   GET_ONE_SESSION_FETCHING,
@@ -75,5 +75,30 @@ export const addSessions = (client) => (dispatch) => {
     })
     .catch(() => {
       dispatch(addSessionsRejected());
+    });
+};
+
+const deleteSessionsFetching = () => ({
+  type: DELETE_SESSIONS_FETCHING
+});
+
+const deleteSessionsFulfilled = (payload) => ({
+  type: DELETE_SESSIONS_FULFILLED,
+  payload
+});
+
+const deleteSessionsRejected = () => ({
+  type: DELETE_SESSIONS_REJECTED
+});
+
+export const deleteSessions = (id) => (dispatch) => {
+  dispatch(deleteSessionsFetching());
+  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+    .then((response) => response.json())
+    .then((response) => {
+      dispatch(deleteSessionsFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(deleteSessionsRejected());
     });
 };
