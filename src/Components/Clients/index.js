@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getClients, addClient, deleteClient, updateClient } from '../../redux/Clients/thunks';
+import { setShowModal, setShowMessage } from '../../redux/Clients/actions';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
@@ -12,10 +13,10 @@ function Clients() {
   const isLoading = useSelector((store) => store.clients.isLoading);
   const messageType = useSelector((store) => store.clients.messageType);
   const message = useSelector((store) => store.clients.messageText);
+  const showModal = useSelector((store) => store.clients.showModal);
+  const showMessage = useSelector((store) => store.clients.showMessage);
   const dispatch = useDispatch();
-  const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -23,50 +24,50 @@ function Clients() {
   }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
     setModalType('delete');
   };
 
   const handleDelete = (id) => {
     dispatch(deleteClient(id)).then(() => {
-      setShowMessage(true);
+      dispatch(setShowMessage(true));
       dispatch(getClients());
     });
   };
 
   const handleClickUpdate = (id) => {
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
     setModalType('clients');
   };
 
   const handleUpdateClients = (client) => {
     dispatch(updateClient(client)).then(() => {
-      setShowMessage(true);
+      dispatch(setShowMessage(true));
       dispatch(getClients());
     });
   };
 
   const handleClickAdd = () => {
-    setShowModal(true);
     setModalType('clients');
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddClients = (client) => {
     dispatch(addClient(client)).then(() => {
-      setShowMessage(true);
+      dispatch(setShowMessage(true));
       dispatch(getClients());
     });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;

@@ -59,7 +59,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
       }
     }
     handleSubmit(newClient);
-    handleShowModal();
+    handleShowModal(false);
   };
 
   return (

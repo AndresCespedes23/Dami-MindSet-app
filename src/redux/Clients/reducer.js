@@ -13,7 +13,9 @@ import {
   UPDATE_CLIENTS_REJECTED,
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
-  GET_ONE_CLIENTS_REJECTED
+  GET_ONE_CLIENTS_REJECTED,
+  SHOW_MODAL,
+  SHOW_MESSAGE
 } from '../../constants/actionTypes';
 const initialState = {
   isLoading: false,
@@ -21,7 +23,9 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  client: null
+  client: null,
+  showModal: false,
+  showMessage: false
 };
 
 const clientsReducer = (state = initialState, action) => {
@@ -128,6 +132,18 @@ const clientsReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get one Clients'
       };
+    case SHOW_MODAL: {
+      return {
+        ...state,
+        showModal: action.showModal
+      };
+    }
+    case SHOW_MESSAGE: {
+      return {
+        ...state,
+        showMessage: action.showMessage
+      };
+    }
     default:
       return state;
   }
