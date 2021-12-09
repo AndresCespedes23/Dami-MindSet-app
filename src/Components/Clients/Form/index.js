@@ -29,9 +29,11 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      dispatch(getOneClients(id));
+      dispatch(getOneClients(id)).then(() => {
+        console.log(client);
+        // setFormData(client);
+      });
     }
-    console.log(client);
   }, [dispatch]);
 
   const handleChange = (e) => {

@@ -146,16 +146,15 @@ const getOneClientsRejected = () => ({
   type: GET_ONE_CLIENTS_REJECTED
 });
 
-export const getOneClients = (id) => {
-  return (dispatch) => {
-    dispatch(getOneClientsFetching());
-    fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        dispatch(getOneClientsFulfilled(response.data));
-      })
-      .catch(() => {
-        dispatch(getOneClientsRejected());
-      });
-  };
+export const getOneClients = (id) => (dispatch) => {
+  dispatch(getOneClientsFetching());
+  return fetch(`${BASE_URL}/${id}`)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response.data);
+      dispatch(getOneClientsFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(getOneClientsRejected());
+    });
 };

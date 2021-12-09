@@ -37,9 +37,9 @@ function Clients() {
   };
 
   const handleClickUpdate = (id) => {
-    dispatch(setShowModal(true));
-    setIdActive(id);
     dispatch(setModalType('clients'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
   };
 
   const handleUpdateClients = (client) => {
