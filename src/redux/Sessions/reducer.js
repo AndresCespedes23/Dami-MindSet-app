@@ -1,11 +1,11 @@
 import {
   GET_SESSIONS_FETCHING,
   GET_SESSIONS_FULFILLED,
-  GET_SESSIONS_REJECTED
-  /* ADD_SESSIONS_FETCHING,
+  GET_SESSIONS_REJECTED,
+  ADD_SESSIONS_FETCHING,
   ADD_SESSIONS_FULFILLED,
-  ADD_SESSIONS_REJECTED,
-  DELETE_SESSIONS_FETCHING,
+  ADD_SESSIONS_REJECTED
+  /* DELETE_SESSIONS_FETCHING,
   DELETE_SESSIONS_FULFILLED,
   DELETE_SESSIONS_REJECTED,
   UPDATE_SESSIONS_FETCHING,
@@ -46,6 +46,26 @@ const sessionsReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get sessions'
       };
+    case ADD_SESSIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ADD_SESSIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: [...state.list, action.payload]
+      };
+    case ADD_SESSIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot add sessions'
+      };
+
     default:
       return state;
   }

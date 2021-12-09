@@ -1,11 +1,11 @@
 import {
   GET_SESSIONS_FETCHING,
   GET_SESSIONS_FULFILLED,
-  GET_SESSIONS_REJECTED
-  /*   ADD_SESSIONS_FETCHING,
+  GET_SESSIONS_REJECTED,
+  ADD_SESSIONS_FETCHING,
   ADD_SESSIONS_FULFILLED,
-  ADD_SESSIONS_REJECTED,
-  DELETE_SESSIONS_FETCHING,
+  ADD_SESSIONS_REJECTED
+  /* DELETE_SESSIONS_FETCHING,
   DELETE_SESSIONS_FULFILLED,
   DELETE_SESSIONS_REJECTED,
   UPDATE_SESSIONS_FETCHING,
@@ -44,4 +44,36 @@ export const getSessions = () => {
         dispatch(getSessionsRejected());
       });
   };
+};
+
+const addSessionsFetching = () => ({
+  type: ADD_SESSIONS_FETCHING
+});
+
+const addSessionsFulfilled = (payload) => ({
+  type: ADD_SESSIONS_FULFILLED,
+  payload
+});
+
+const addSessionsRejected = () => ({
+  type: ADD_SESSIONS_REJECTED
+});
+
+export const addSessions = (client) => (dispatch) => {
+  dispatch(addSessionsFetching());
+  return fetch(BASE_URL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(client)
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      dispatch(addSessionsFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(addSessionsRejected());
+    });
 };

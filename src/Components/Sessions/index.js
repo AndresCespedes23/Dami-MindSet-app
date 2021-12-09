@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSessions } from '../../redux/Sessions/thunks';
+import { getSessions, addSessions } from '../../redux/Sessions/thunks';
 import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -29,10 +29,6 @@ function Sessions() {
     setShowMessage(false);
     setMessage('');
   };
-
-  useEffect(() => {
-    getSessions();
-  }, []);
 
   const handleClickDelete = (id) => {
     cleanMessage();
@@ -107,36 +103,9 @@ function Sessions() {
   };
 
   const handleAddSession = (session) => {
-    fetch(`${process.env.REACT_APP_API}/sessions`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(session)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session added');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error creating session');
-      });
+    dispatch(addSessions(session)).then(() => {
+      dispatch(getSessions());
+    });
   };
 
   const handleShowModal = () => {
