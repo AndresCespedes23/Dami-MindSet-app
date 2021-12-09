@@ -4,10 +4,10 @@ import {
   GET_APPLICATIONS_REJECTED,
   ADD_APPLICATIONS_FETCHING,
   ADD_APPLICATIONS_FULFILLED,
-  ADD_APPLICATIONS_REJECTED
-  //   DELETE_APPLICATIONS_FETCHING,
-  //   DELETE_APPLICATIONS_FULFILLED,
-  //   DELETE_APPLICATIONS_REJECTED
+  ADD_APPLICATIONS_REJECTED,
+  DELETE_APPLICATIONS_FETCHING,
+  DELETE_APPLICATIONS_FULFILLED,
+  DELETE_APPLICATIONS_REJECTED
 } from '../../constants/actionTypes';
 
 const getApplicationsFetching = () => ({
@@ -70,6 +70,7 @@ export const addApplication = (application) => (dispatch) => {
   dispatch(addApplicationFetching());
   fetch(URL, {
     method: 'POST',
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -119,27 +120,53 @@ export const addApplication = (application) => (dispatch) => {
 // };
 
 // ----------------------------------------------------------------
-// const deleteCharacterFetching = () => ({
-//   type: DELETE_APPLICATIONS_FETCHING
-// });
+const deleteApplicationFetching = () => ({
+  type: DELETE_APPLICATIONS_FETCHING
+});
 
-// const deleteCharacterFulfilled = (payload) => ({
-//   type: DELETE_APPLICATIONS_FULFILLED,
-//   payload
-// });
+const deleteApplicationFulfilled = (payload) => ({
+  type: DELETE_APPLICATIONS_FULFILLED,
+  payload
+});
 
-// const deleteCharacterRejected = () => ({
-//   type: DELETE_APPLICATIONS_REJECTED
-// });
+const deleteApplicationRejected = () => ({
+  type: DELETE_APPLICATIONS_REJECTED
+});
 
-// export const deleteCharacter = (id) => (dispatch) => {
-//   dispatch(deleteCharacterFetching());
-//   return fetch(`${URL}/${id}`, { method: 'DELETE' })
-//     .then((data) => data.json())
-//     .then(() => {
-//       dispatch(deleteCharacterFulfilled(id));
+export const deleteApplication = (id) => (dispatch) => {
+  dispatch(deleteApplicationFetching());
+  return fetch(`${URL}/${id}`, { method: 'DELETE' })
+    .then((data) => data.json())
+    .then(() => {
+      dispatch(deleteApplicationFulfilled(id));
+    })
+    .catch(() => {
+      dispatch(deleteApplicationRejected());
+    });
+};
+
+// OLD DELETE APPLICATION FUNCTION FUNCTION
+// const handleDelete = (id) => {
+//   fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
+//     method: 'DELETE',
+//     headers: {
+//       'Content-type': 'application/json; charset=UTF-8'
+//     }
+//   })
+//     .then((response) => {
+//       if (response.status === 200 || response.status === 201) return response.json();
+//       throw new Error(`HTTP ${response.status}`);
 //     })
-//     .catch(() => {
-//       dispatch(deleteCharacterRejected());
+//     .then(() => {
+//       setShowMessage(true);
+//       setMessageType('success');
+//       setMessage('Application deleted');
+//       getApplications();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       setShowMessage(true);
+//       setMessageType('error');
+//       setMessage('Error deleting application');
 //     });
 // };
