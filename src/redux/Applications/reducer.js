@@ -7,7 +7,10 @@ import {
   ADD_APPLICATIONS_REJECTED,
   DELETE_APPLICATIONS_FETCHING,
   DELETE_APPLICATIONS_FULFILLED,
-  DELETE_APPLICATIONS_REJECTED
+  DELETE_APPLICATIONS_REJECTED,
+  UPDATE_APPLICATIONS_FETCHING,
+  UPDATE_APPLICATIONS_FULFILLED,
+  UPDATE_APPLICATIONS_REJECTED
 } from '../../constants/actionTypes';
 const initialState = {
   isLoading: false,
@@ -67,6 +70,25 @@ const applicationsReducer = (state = initialState, action) => {
         list: state.list.filter((application) => application._id !== action.payload)
       };
     case DELETE_APPLICATIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      };
+    case UPDATE_APPLICATIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case UPDATE_APPLICATIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        applications: state.applications.map((application) =>
+          application._id === action.payload.id ? action.payload : application
+        )
+      };
+    case UPDATE_APPLICATIONS_REJECTED:
       return {
         ...state,
         isLoading: false,

@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getApplications,
   addApplication,
-  deleteApplication
+  deleteApplication,
+  updateApplication
 } from '../../redux/Applications/thunks.js';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
@@ -19,7 +20,7 @@ function Applications() {
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
+  const [messageType /*, setMessageType*/] = useState('');
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
@@ -40,6 +41,7 @@ function Applications() {
   };
 
   const handleDeleteApplication = (application) => {
+    console.log(application);
     dispatch(deleteApplication(application));
   };
 
@@ -50,30 +52,8 @@ function Applications() {
     setModalType('applications');
   };
 
-  const handleUpdateApplication = (application) => {
-    fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(application)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application updated');
-        getApplications();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating application');
-      });
+  const handleUpdateApplication = (application, idActive) => {
+    dispatch(updateApplication(application, idActive));
   };
 
   const handleClickAdd = () => {
@@ -83,9 +63,10 @@ function Applications() {
     setModalType('applications');
   };
 
-  const handleAddApplication = async (application) => {
-    await dispatch(addApplication(application));
-    await dispatch(getApplications());
+  const handleAddApplication = (application) => {
+    dispatch(addApplication(application)).then(() => {
+      dispatch(getApplications());
+    });
   };
 
   const handleShowModal = () => {
