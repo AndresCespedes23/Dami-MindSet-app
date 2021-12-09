@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSessions } from '../../redux/Sessions/thunks';
 import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,28 +8,22 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Sessions() {
-  const [sessions, setSessions] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const sessions = useSelector((state) => state.sessions.list);
+  const isLoading = useSelector((state) => state.sessions.isLoading);
+  /* const messageType = useSelector(state => state.sessions.messageType);
+  const message = useSelector(state => state.sessions.message);
+  const showMessage = useSelector(state => state.sessions.showMessage); */
+  const dispatch = useDispatch();
 
-  const getSessions = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/sessions`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setSessions(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+  useEffect(() => {
+    dispatch(getSessions());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
