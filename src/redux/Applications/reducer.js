@@ -1,10 +1,10 @@
 import {
   GET_APPLICATIONS_FETCHING,
   GET_APPLICATIONS_FULFILLED,
-  GET_APPLICATIONS_REJECTED
-  //   ADD_APPLICATIONS_FETCHING,
-  //   ADD_APPLICATIONS_FULFILLED,
-  //   ADD_APPLICATIONS_REJECTED,
+  GET_APPLICATIONS_REJECTED,
+  ADD_APPLICATIONS_FETCHING,
+  ADD_APPLICATIONS_FULFILLED,
+  ADD_APPLICATIONS_REJECTED
   //   DELETE_APPLICATIONS_FETCHING,
   //   DELETE_APPLICATIONS_FULFILLED,
   //   DELETE_APPLICATIONS_REJECTED
@@ -38,23 +38,23 @@ const applicationsReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get applications'
       };
-    // case ADD_APPLICATIONS_FETCHING:
-    //   return {
-    //     ...state,
-    //     isLoading: true
-    //   };
-    // case ADD_APPLICATIONS_FULFILLED:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     list: [...state.list, action.payload]
-    //   };
-    // case ADD_APPLICATIONS_REJECTED:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     error: true
-    //   };
+    case ADD_APPLICATIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ADD_APPLICATIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: [...state.list, action.payload]
+      };
+    case ADD_APPLICATIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      };
     // case DELETE_APPLICATIONS_FETCHING:
     //   return {
     //     ...state,
