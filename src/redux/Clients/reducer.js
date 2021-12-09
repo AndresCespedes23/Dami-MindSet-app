@@ -4,10 +4,13 @@ import {
   GET_CLIENTS_REJECTED,
   ADD_CLIENTS_FETCHING,
   ADD_CLIENTS_FULFILLED,
-  ADD_CLIENTS_REJECTED
-  //   DELETE_CLIENTS_FETCHING,
-  //   DELETE_CLIENTS_FULFILLED,
-  //   DELETE_CLIENTS_REJECTED
+  ADD_CLIENTS_REJECTED,
+  DELETE_CLIENTS_FETCHING,
+  DELETE_CLIENTS_FULFILLED,
+  DELETE_CLIENTS_REJECTED,
+  GET_ONE_CLIENTS_FETCHING,
+  GET_ONE_CLIENTS_FULFILLED,
+  GET_ONE_CLIENTS_REJECTED
 } from '../../constants/actionTypes';
 const initialState = {
   isLoading: false,
@@ -55,23 +58,38 @@ const clientsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true
       };
-    // case DELETE_CLIENTS_FETCHING:
-    //   return {
-    //     ...state,
-    //     isLoading: true
-    //   };
-    // case DELETE_CLIENTS_FULFILLED:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     list: state.list.filter((application) => application._id !== action.payload)
-    //   };
-    // case DELETE_CLIENTS_REJECTED:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     error: true
-    //   };
+    case DELETE_CLIENTS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case DELETE_CLIENTS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false
+      };
+    case DELETE_CLIENTS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      };
+    case GET_ONE_CLIENTS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_ONE_CLIENTS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false
+      };
+    case GET_ONE_CLIENTS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true
+      };
     default:
       return state;
   }

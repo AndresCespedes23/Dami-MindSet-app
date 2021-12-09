@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getClients, deleteClient } from '../../redux/Clients/thunks.js';
+import { getClients, addClient, deleteClient, updateClient } from '../../redux/Clients/thunks';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
@@ -15,7 +15,8 @@ function Clients() {
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
+  // const [messageType, setMessageType] = useState('');
+  const [messageType] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -35,7 +36,9 @@ function Clients() {
   };
 
   const handleDelete = (id) => {
-    dispatch(deleteClient(id));
+    dispatch(deleteClient(id)).then(() => {
+      dispatch(getClients());
+    });
   };
 
   const handleClickUpdate = (id) => {
@@ -46,29 +49,9 @@ function Clients() {
   };
 
   const handleUpdateClients = (client) => {
-    fetch(`${process.env.REACT_APP_API}/clients/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(client)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Client updated');
-        getClients();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating client');
-      });
+    dispatch(updateClient(client)).then(() => {
+      dispatch(getClients());
+    });
   };
 
   const handleClickAdd = () => {
@@ -79,36 +62,9 @@ function Clients() {
   };
 
   const handleAddClients = (client) => {
-    fetch(`${process.env.REACT_APP_API}/clients`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(client)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Client added');
-        getClients();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding client');
-      });
+    dispatch(addClient(client)).then(() => {
+      dispatch(getClients());
+    });
   };
 
   const handleShowModal = () => {
