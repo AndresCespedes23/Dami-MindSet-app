@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getApplications } from '../../redux/Applications/thunks.js';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,40 +8,25 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Applications() {
-  const [applications, setApplications] = useState([]);
+  // const [applications, setApplications] = useState([]);
+  const applications = useSelector((store) => store.applications.list);
+  const isLoading = useSelector((store) => store.applications.isLoading);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const getApplications = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/applications`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setApplications(response.data);
-      })
-      .catch((err) => {
-        setMessageType('error');
-        setMessage('Error:', err);
-      })
-      .finally(() => setLoading(false));
-  };
+  useEffect(() => {
+    dispatch(getApplications());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
     setMessage('');
   };
-
-  useEffect(() => {
-    getApplications();
-  }, []);
 
   const handleClickDelete = (id) => {
     cleanMessage();
