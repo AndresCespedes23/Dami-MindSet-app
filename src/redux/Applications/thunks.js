@@ -78,7 +78,7 @@ export const addApplication = (application) => (dispatch) => {
   })
     .then((data) => data.json())
     .then((response) => {
-      dispatch(addApplicationFullfiled(response));
+      dispatch(addApplicationFullfiled(response.data));
     })
     .catch(() => {
       dispatch(addApplicationRejected());
