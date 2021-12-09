@@ -15,7 +15,8 @@ import {
   GET_ONE_CLIENTS_FULFILLED,
   GET_ONE_CLIENTS_REJECTED,
   SHOW_MODAL,
-  SHOW_MESSAGE
+  SHOW_MESSAGE,
+  MODAL_TYPE
 } from '../../constants/actionTypes';
 const initialState = {
   isLoading: false,
@@ -142,6 +143,12 @@ const clientsReducer = (state = initialState, action) => {
       return {
         ...state,
         showMessage: action.showMessage
+      };
+    }
+    case MODAL_TYPE: {
+      return {
+        ...state,
+        modalType: action.modalType
       };
     }
     default:

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getClients, addClient, deleteClient, updateClient } from '../../redux/Clients/thunks';
-import { setShowModal, setShowMessage } from '../../redux/Clients/actions';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Clients/actions';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
@@ -15,8 +15,8 @@ function Clients() {
   const message = useSelector((store) => store.clients.messageText);
   const showModal = useSelector((store) => store.clients.showModal);
   const showMessage = useSelector((store) => store.clients.showMessage);
+  const modalType = useSelector((store) => store.clients.modalType);
   const dispatch = useDispatch();
-  const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function Clients() {
   const handleClickDelete = (id) => {
     dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
@@ -39,7 +39,7 @@ function Clients() {
   const handleClickUpdate = (id) => {
     dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('clients');
+    dispatch(setModalType('clients'));
   };
 
   const handleUpdateClients = (client) => {
@@ -50,7 +50,7 @@ function Clients() {
   };
 
   const handleClickAdd = () => {
-    setModalType('clients');
+    dispatch(setModalType('clients'));
     setIdActive('');
     dispatch(setShowModal(true));
   };
