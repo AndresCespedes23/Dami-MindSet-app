@@ -1,10 +1,10 @@
 import {
   GET_APPLICATIONS_FETCHING,
   GET_APPLICATIONS_FULFILLED,
-  GET_APPLICATIONS_REJECTED
-  //   ADD_APPLICATIONS_FETCHING,
-  //   ADD_APPLICATIONS_FULFILLED,
-  //   ADD_APPLICATIONS_REJECTED,
+  GET_APPLICATIONS_REJECTED,
+  ADD_APPLICATIONS_FETCHING,
+  ADD_APPLICATIONS_FULFILLED,
+  ADD_APPLICATIONS_REJECTED
   //   DELETE_APPLICATIONS_FETCHING,
   //   DELETE_APPLICATIONS_FULFILLED,
   //   DELETE_APPLICATIONS_REJECTED
@@ -23,10 +23,12 @@ const getApplicationsRejected = () => ({
   type: GET_APPLICATIONS_REJECTED
 });
 
+const URL = `${process.env.REACT_APP_API}/applications`;
+
 export const getApplications = () => {
   return (dispatch) => {
     dispatch(getApplicationsFetching());
-    fetch(`${process.env.REACT_APP_API}/applications`)
+    fetch(URL)
       .then((data) => data.json())
       .then((response) => {
         dispatch(getApplicationsFulfilled(response.data));
@@ -51,48 +53,83 @@ export const getApplications = () => {
 //       })
 //       .finally(() => setLoading(false));
 
-// const addCharacterFetching = () => ({
-//   type: ADD_CHARACTERS_FETCHING
-// });
+const addApplicationFetching = () => ({
+  type: ADD_APPLICATIONS_FETCHING
+});
 
-// const addCharacterFullfiled = (payload) => ({
-//   type: ADD_CHARACTERS_FULFILLED,
-//   payload
-// });
+const addApplicationFullfiled = (payload) => ({
+  type: ADD_APPLICATIONS_FULFILLED,
+  payload
+});
 
-// const addCharacterRejected = () => ({
-//   type: ADD_CHARACTERS_REJECTED
-// });
+const addApplicationRejected = () => ({
+  type: ADD_APPLICATIONS_REJECTED
+});
 
-// export const addCharacter = (character) => (dispatch) => {
-//   dispatch(addCharacterFetching());
-//   fetch(URL, {
+export const addApplication = (application) => (dispatch) => {
+  dispatch(addApplicationFetching());
+  fetch(URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(application)
+  })
+    .then((data) => data.json())
+    .then((response) => {
+      dispatch(addApplicationFullfiled(response));
+    })
+    .catch(() => {
+      dispatch(addApplicationRejected());
+    });
+};
+
+// OLD APPLICATION ADD FUNCTION
+// const handleAddApplication = (application) => {
+//   fetch(`${process.env.REACT_APP_API}/applications`, {
 //     method: 'POST',
+//     mode: 'cors',
 //     headers: {
 //       'Content-Type': 'application/json'
 //     },
-//     body: JSON.stringify(character)
+//     body: JSON.stringify(application)
 //   })
-//     .then((data) => data.json())
 //     .then((response) => {
-//       dispatch(addCharacterFullfiled(response));
+//       if (response.status === 200 || response.status === 201) return response.json();
+//       throw new Error(`HTTP ${response.status}`);
 //     })
-//     .catch(() => {
-//       dispatch(addCharacterRejected());
+//     .then((response) => {
+//       if (response.errors || response.code) {
+//         setShowMessage(true);
+//         setMessageType('error');
+//         setMessage('Error with parameters');
+//         return;
+//       }
+//       setShowMessage(true);
+//       setMessageType('success');
+//       setMessage('Application added');
+//       getApplications();
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       setShowMessage(true);
+//       setMessageType('error');
+//       setMessage('Error creating application');
 //     });
 // };
 
+// ----------------------------------------------------------------
 // const deleteCharacterFetching = () => ({
-//   type: DELETE_CHARACTERS_FETCHING
+//   type: DELETE_APPLICATIONS_FETCHING
 // });
 
 // const deleteCharacterFulfilled = (payload) => ({
-//   type: DELETE_CHARACTERS_FULFILLED,
+//   type: DELETE_APPLICATIONS_FULFILLED,
 //   payload
 // });
 
 // const deleteCharacterRejected = () => ({
-//   type: DELETE_CHARACTERS_REJECTED
+//   type: DELETE_APPLICATIONS_REJECTED
 // });
 
 // export const deleteCharacter = (id) => (dispatch) => {
