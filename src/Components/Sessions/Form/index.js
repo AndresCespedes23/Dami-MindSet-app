@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
@@ -7,7 +7,6 @@ import Button from '../../Shared/Button';
 import { getOneSession } from '../../../redux/Sessions/thunks';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
-  const session = useSelector((store) => store.sessions.session);
   const dispatch = useDispatch();
   const [isLoadingForm, setLoadingForm] = useState(false);
   const [psychologists, setPsychologists] = useState([]);
@@ -27,7 +26,6 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
     status: false,
     result: false
   });
-  console.log(session);
 
   useEffect(() => {
     setLoadingForm(true);
@@ -54,13 +52,10 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
 
     if (id) {
       dispatch(getOneSession(id)).then((data) => {
-        console.log(data);
         setFormData(data);
       });
     }
   }, []);
-
-  console.log(formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
