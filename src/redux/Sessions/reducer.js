@@ -18,11 +18,12 @@ import {
 
 const initialState = {
   isLoading: false,
+  isLoadingForm: false,
   list: [],
   error: false,
   messageType: '',
   messageText: '',
-  session: null
+  session: {}
 };
 
 const sessionsReducer = (state = initialState, action) => {
@@ -111,18 +112,19 @@ const sessionsReducer = (state = initialState, action) => {
     case GET_ONE_SESSION_FETCHING:
       return {
         ...state,
-        isLoading: true
+        isLoadingForm: true,
+        session: initialState.session
       };
     case GET_ONE_SESSION_FULFILLED:
       return {
         ...state,
-        isLoading: false,
+        isLoadingForm: false,
         session: action.payload
       };
     case GET_ONE_SESSION_REJECTED:
       return {
         ...state,
-        isLoading: false,
+        isLoadingForm: false,
         error: true,
         messageType: 'error',
         messageText: 'Cannot get session'
