@@ -7,7 +7,8 @@ import Button from '../../Shared/Button';
 import { getOneClients } from '../../../redux/Clients/thunks';
 
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
-  const client = useSelector((store) => store.clients.client);
+  // const client = useSelector((store) => store.clients.client);
+  // BORRARLO DEL STORE
   const isLoadingForm = useSelector((store) => store.clients.isLoadingForm);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -29,9 +30,8 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      dispatch(getOneClients(id)).then(() => {
-        console.log(client);
-        // setFormData(client);
+      dispatch(getOneClients(id)).then((data) => {
+        setFormData(data);
       });
     }
   }, [dispatch]);

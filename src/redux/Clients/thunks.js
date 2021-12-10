@@ -152,6 +152,7 @@ export const getOneClients = (id) => (dispatch) => {
     .then((response) => response.json())
     .then((response) => {
       dispatch(getOneClientsFulfilled(response.data));
+      return response.data;
     })
     .catch(() => {
       dispatch(getOneClientsRejected());
