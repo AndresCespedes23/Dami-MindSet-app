@@ -20,6 +20,7 @@ import {
 } from '../../constants/actionTypes';
 const initialState = {
   isLoading: false,
+  isLoadingForm: false,
   list: [],
   error: false,
   messageType: '',
@@ -52,8 +53,7 @@ const clientsReducer = (state = initialState, action) => {
       };
     case ADD_CLIENTS_FETCHING:
       return {
-        ...state,
-        isLoading: true
+        ...state
       };
     case ADD_CLIENTS_FULFILLED:
       return {
@@ -94,13 +94,13 @@ const clientsReducer = (state = initialState, action) => {
       };
     case UPDATE_CLIENTS_FETCHING:
       return {
-        ...state,
-        isLoading: true
+        ...state
+        // isLoading: true
       };
     case UPDATE_CLIENTS_FULFILLED:
       return {
         ...state,
-        isLoading: false,
+        // isLoading: false,
         messageType: 'success',
         messageText: 'Updated Client',
         list: [...state.list, action.payload]
@@ -108,7 +108,7 @@ const clientsReducer = (state = initialState, action) => {
     case UPDATE_CLIENTS_REJECTED:
       return {
         ...state,
-        isLoading: false,
+        // isLoading: false,
         error: true,
         messageType: 'error',
         messageText: 'Cannot update Clients'
@@ -116,19 +116,19 @@ const clientsReducer = (state = initialState, action) => {
     case GET_ONE_CLIENTS_FETCHING:
       return {
         ...state,
-        isLoading: true
+        isLoadingForm: true
       };
     case GET_ONE_CLIENTS_FULFILLED: {
       return {
         ...state,
-        isLoading: false,
+        isLoadingForm: false,
         client: action.payload
       };
     }
     case GET_ONE_CLIENTS_REJECTED:
       return {
         ...state,
-        isLoading: false,
+        isLoadingForm: false,
         error: true,
         messageType: 'error',
         messageText: 'Cannot get one Clients'

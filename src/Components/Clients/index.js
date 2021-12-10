@@ -43,7 +43,7 @@ function Clients() {
   };
 
   const handleUpdateClients = (client) => {
-    dispatch(updateClient(client)).then(() => {
+    dispatch(updateClient(client, idActive)).then(() => {
       dispatch(setShowMessage(true));
       dispatch(getClients());
     });

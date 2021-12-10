@@ -8,7 +8,7 @@ import { getOneClients } from '../../../redux/Clients/thunks';
 
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
   const client = useSelector((store) => store.clients.client);
-  const isLoading = useSelector((store) => store.clients.isLoading);
+  const isLoadingForm = useSelector((store) => store.clients.isLoadingForm);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
@@ -74,7 +74,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Name is missing"
         error={error.name}
         onChange={handleChange}
-        disabled={isLoading}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Email"
@@ -84,7 +84,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Email is missing"
         error={error.email}
         onChange={handleChange}
-        disabled={isLoading}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Address"
@@ -94,7 +94,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Address is missing"
         error={error.address}
         onChange={handleChange}
-        disabled={isLoading}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Phone Number"
@@ -104,7 +104,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Phone number is missing"
         error={error.phoneNumber}
         onChange={handleChange}
-        disabled={isLoading}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="CUIT"
@@ -114,7 +114,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="CUIT is missing"
         error={error.cuit}
         onChange={handleChange}
-        disabled={isLoading}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Activity Type"
@@ -124,9 +124,9 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Activity is missing"
         error={error.activity}
         onChange={handleChange}
-        disabled={isLoading}
+        disabled={isLoadingForm}
       />
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
         <Button type="submit" />

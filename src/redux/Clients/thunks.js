@@ -115,7 +115,7 @@ const updateClientsRejected = () => ({
   type: UPDATE_CLIENTS_REJECTED
 });
 
-export const updateClient = (id, client) => (dispatch) => {
+export const updateClient = (client, id) => (dispatch) => {
   dispatch(updateClientsFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
@@ -151,7 +151,6 @@ export const getOneClients = (id) => (dispatch) => {
   return fetch(`${BASE_URL}/${id}`)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response.data);
       dispatch(getOneClientsFulfilled(response.data));
     })
     .catch(() => {
