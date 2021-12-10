@@ -112,8 +112,7 @@ const sessionsReducer = (state = initialState, action) => {
     case GET_ONE_SESSION_FETCHING:
       return {
         ...state,
-        isLoadingForm: true,
-        session: initialState.session
+        isLoadingForm: true
       };
     case GET_ONE_SESSION_FULFILLED:
       return {

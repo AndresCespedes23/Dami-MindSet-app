@@ -27,6 +27,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
     status: false,
     result: false
   });
+  console.log(session);
 
   useEffect(() => {
     setLoadingForm(true);
@@ -52,11 +53,14 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .finally(() => setLoadingForm(false));
 
     if (id) {
-      dispatch(getOneSession(id)).then(() => {
-        setFormData(session);
+      dispatch(getOneSession(id)).then((data) => {
+        console.log(data);
+        setFormData(data);
       });
     }
   }, []);
+
+  console.log(formData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

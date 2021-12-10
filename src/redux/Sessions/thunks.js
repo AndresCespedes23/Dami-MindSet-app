@@ -145,8 +145,8 @@ const getOneSessionRejected = () => ({
   type: GET_ONE_SESSION_REJECTED
 });
 
-export const getOneSession = (id) => (dispatch) => {
-  dispatch(getOneSessionFetching());
+export const getOneSession = (id) => {
+  /* dispatch(getOneSessionFetching());
   return fetch(`${BASE_URL}/${id}`)
     .then((response) => response.json())
     .then((response) => {
@@ -154,7 +154,7 @@ export const getOneSession = (id) => (dispatch) => {
     })
     .catch(() => {
       dispatch(getOneSessionRejected());
-    });
+    }); */
   /* return (dispatch) => {
     dispatch(getOneSessionFetching());
     fetch(`${BASE_URL}/${id}`)
@@ -167,4 +167,16 @@ export const getOneSession = (id) => (dispatch) => {
         dispatch(getOneSessionRejected());
       });
   }; */
+  return (dispatch) => {
+    dispatch(getOneSessionFetching());
+    return fetch(`${BASE_URL}/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch(getOneSessionFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getOneSessionRejected());
+      });
+  };
 };
