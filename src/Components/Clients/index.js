@@ -18,6 +18,7 @@ function Clients() {
   const modalType = useSelector((store) => store.clients.modalType);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
+  const [modalTitle, setModalTitle] = useState('');
 
   useEffect(() => {
     dispatch(getClients());
@@ -39,6 +40,7 @@ function Clients() {
 
   const handleClickUpdate = (id) => {
     dispatch(setModalType('clients'));
+    setModalTitle('Update Client');
     setIdActive(id);
     dispatch(setShowModal(true));
   };
@@ -52,6 +54,7 @@ function Clients() {
 
   const handleClickAdd = () => {
     dispatch(setModalType('clients'));
+    setModalTitle('Add Client');
     setIdActive('');
     dispatch(setShowModal(true));
   };
@@ -65,6 +68,7 @@ function Clients() {
 
   const handleShowModal = () => {
     dispatch(setShowModal(false));
+    setModalTitle('');
   };
 
   const handleShowMessage = () => {
@@ -127,6 +131,7 @@ function Clients() {
               : handleUpdateClients
           }
           meta={idActive}
+          modalTitle={modalTitle}
         />
       )}
     </section>

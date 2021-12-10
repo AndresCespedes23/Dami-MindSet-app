@@ -11,7 +11,7 @@ import PostulantsForm from '../../Postulants/Form';
 import ProfilesForm from '../../Profiles/Form';
 import ApplicationsForm from '../../Applications/Form';
 import ClientsForm from '../../Clients/Form';
-function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
+function Modal({ handleShowModal, modalType, meta, handleSubmit, modalTitle }) {
   let modalComponent;
   switch (modalType) {
     case 'clients':
@@ -78,6 +78,9 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
       <div className={styles.modalContainer}>
         <div className={styles.titleCloseBtn}>
           <Button type="close" onClick={handleShowModal} />
+        </div>
+        <div className={styles.title}>
+          <h1>{modalTitle ? modalTitle : ''}</h1>
         </div>
         {modalComponent}
       </div>
