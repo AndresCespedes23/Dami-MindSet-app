@@ -32,6 +32,7 @@ const getClientsRejected = () => ({
 });
 
 export const getClients = () => {
+  console.log('GET');
   return (dispatch) => {
     dispatch(getClientsFetching());
     fetch(BASE_URL)
@@ -91,6 +92,7 @@ const deleteClientsRejected = () => ({
 });
 
 export const deleteClient = (id) => (dispatch) => {
+  console.log('DELETE');
   dispatch(deleteClientsFetching());
   return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
     .then((response) => response.json())
