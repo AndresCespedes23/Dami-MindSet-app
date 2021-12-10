@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPositions } from '../../redux/Positions/thunks';
 import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,28 +8,19 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Positions() {
-  const [positions, setPositions] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const positions = useSelector((state) => state.positions.list);
+  const isLoading = useSelector((state) => state.positions.isLoading);
+  const dispatch = useDispatch();
 
-  const getPositions = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/positions`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPositions(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+  useEffect(() => {
+    dispatch(getPositions());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
