@@ -36,7 +36,9 @@ function Postulants() {
   };
 
   const handleDelete = (id) => {
-    dispatch(deletePostulants(id));
+    dispatch(deletePostulants(id)).then(() => {
+      dispatch(getPostulants());
+    });
   };
 
   const handleClickUpdate = (id) => {

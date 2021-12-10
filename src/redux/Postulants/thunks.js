@@ -64,16 +64,16 @@ const deletePostulantsFulfilled = (payload) => ({ type: DELETE_POSTULANTS_FULFIL
 
 const deletePostulantsRejected = () => ({ type: DELETE_POSTULANTS_REJETED });
 
-export const deletePostulants = (id) => {
-  return (dispatch) => {
-    dispatch(deletePostulantsFetching());
-    fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        dispatch(deletePostulantsFulfilled(response.data));
-      })
-      .catch(() => {
-        dispatch(deletePostulantsRejected());
-      });
-  };
+export const deletePostulants = (id) => (dispatch) => {
+  dispatch(deletePostulantsFetching());
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'DELETE'
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      dispatch(deletePostulantsFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(deletePostulantsRejected());
+    });
 };
