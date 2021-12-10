@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPostulants, deletePostulants } from '../../redux/Postulants/thunks';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,37 +8,25 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Postulants() {
-  const [postulants, setPostulants] = useState([]);
+  const postulants = useSelector((store) => store.postulants.list);
+  const isLoading = useSelector((store) => store.postulants.isLoading);
+  const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
 
-  const getPostulants = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/candidates`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPostulants(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+  useEffect(() => {
+    dispatch(getPostulants());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
     setMessage('');
   };
-
-  useEffect(() => {
-    getPostulants();
-  }, []);
 
   const handleClickDelete = (id) => {
     cleanMessage();
@@ -46,28 +36,7 @@ function Postulants() {
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/candidates/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate deleted');
-        getPostulants();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting candidate');
-      });
+    dispatch(deletePostulants(id));
   };
 
   const handleClickUpdate = (id) => {
