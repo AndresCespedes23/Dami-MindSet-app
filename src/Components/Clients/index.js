@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getClients, addClient, deleteClient, updateClient } from '../../redux/Clients/thunks';
-import { setShowModal, setShowMessage, setModalType } from '../../redux/Clients/actions';
+import {
+  setShowModal,
+  setShowMessage,
+  setModalType,
+  setModalTitle
+} from '../../redux/Clients/actions';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
@@ -18,7 +23,7 @@ function Clients() {
   const modalType = useSelector((store) => store.clients.modalType);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
-  const [modalTitle, setModalTitle] = useState('');
+  const modalTitle = useSelector((store) => store.clients.modalTitle);
 
   useEffect(() => {
     dispatch(getClients());
@@ -28,7 +33,6 @@ function Clients() {
     dispatch(setShowModal(true));
     setIdActive(id);
     dispatch(setModalType('delete'));
-    console.log(id);
   };
 
   const handleDelete = (id) => {
@@ -40,7 +44,7 @@ function Clients() {
 
   const handleClickUpdate = (id) => {
     dispatch(setModalType('clients'));
-    setModalTitle('Update Client');
+    dispatch(setModalTitle('Update Client'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
@@ -54,7 +58,7 @@ function Clients() {
 
   const handleClickAdd = () => {
     dispatch(setModalType('clients'));
-    setModalTitle('Add Client');
+    dispatch(setModalTitle('Add Client'));
     setIdActive('');
     dispatch(setShowModal(true));
   };
@@ -68,7 +72,7 @@ function Clients() {
 
   const handleShowModal = () => {
     dispatch(setShowModal(false));
-    setModalTitle('');
+    dispatch(setModalTitle(''));
   };
 
   const handleShowMessage = () => {

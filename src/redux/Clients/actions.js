@@ -1,4 +1,4 @@
-import { MODAL_TYPE, SHOW_MODAL } from '../../constants/actionTypes';
+import { MODAL_TITLE, MODAL_TYPE, SHOW_MODAL } from '../../constants/actionTypes';
 import { SHOW_MESSAGE } from '../../constants/actionTypes';
 
 export const setShowModal = (showModal) => {
@@ -19,5 +19,12 @@ export const setModalType = (modalType) => {
   return {
     type: MODAL_TYPE,
     modalType
+  };
+};
+
+export const setModalTitle = (modalTitle) => {
+  return {
+    type: MODAL_TITLE,
+    modalTitle
   };
 };

@@ -16,4 +16,5 @@ export const GET_ONE_CLIENTS_REJECTED = 'GET_ONE_CLIENTS_REJECTED';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const SHOW_MESSAGE = 'SHOW_MESSAGE';
 export const MODAL_TYPE = 'MODAL_TYPE';
+export const MODAL_TITLE = 'MODAL_TITLE';
 export const TEST_ADMIN = 'TEST_ADMIN';
