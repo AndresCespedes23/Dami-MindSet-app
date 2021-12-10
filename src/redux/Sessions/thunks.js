@@ -146,27 +146,6 @@ const getOneSessionRejected = () => ({
 });
 
 export const getOneSession = (id) => {
-  /* dispatch(getOneSessionFetching());
-  return fetch(`${BASE_URL}/${id}`)
-    .then((response) => response.json())
-    .then((response) => {
-      dispatch(getOneSessionFulfilled(response.data));
-    })
-    .catch(() => {
-      dispatch(getOneSessionRejected());
-    }); */
-  /* return (dispatch) => {
-    dispatch(getOneSessionFetching());
-    fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response.data);
-        dispatch(getOneSessionFulfilled(response.data));
-      })
-      .catch(() => {
-        dispatch(getOneSessionRejected());
-      });
-  }; */
   return (dispatch) => {
     dispatch(getOneSessionFetching());
     return fetch(`${BASE_URL}/${id}`)

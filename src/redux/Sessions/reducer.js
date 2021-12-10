@@ -13,7 +13,10 @@ import {
   UPDATE_SESSIONS_REJECTED,
   GET_ONE_SESSION_FETCHING,
   GET_ONE_SESSION_FULFILLED,
-  GET_ONE_SESSION_REJECTED
+  GET_ONE_SESSION_REJECTED,
+  SHOW_MODAL,
+  SHOW_MESSAGE,
+  MODAL_TYPE
 } from '../../constants/actionTypes';
 
 const initialState = {
@@ -23,7 +26,9 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  session: {}
+  session: {},
+  showModal: false,
+  showMessage: false
 };
 
 const sessionsReducer = (state = initialState, action) => {
@@ -56,6 +61,8 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        messageType: 'success',
+        messageText: 'Added Session',
         list: [...state.list, action.payload]
       };
     case ADD_SESSIONS_REJECTED:
@@ -75,6 +82,8 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        messageType: 'success',
+        messageText: 'Session deleted',
         list: state.list.filter((session) => session.id !== action.payload)
       };
     case DELETE_SESSIONS_REJECTED:
@@ -94,6 +103,8 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        messageType: 'success',
+        messageText: 'Updated Client',
         list: state.list.map((session) => {
           if (session._id === action.payload.id) {
             return action.payload;
@@ -128,6 +139,24 @@ const sessionsReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get session'
       };
+    case SHOW_MODAL: {
+      return {
+        ...state,
+        showModal: action.showModal
+      };
+    }
+    case SHOW_MESSAGE: {
+      return {
+        ...state,
+        showMessage: action.showMessage
+      };
+    }
+    case MODAL_TYPE: {
+      return {
+        ...state,
+        modalType: action.modalType
+      };
+    }
 
     default:
       return state;
