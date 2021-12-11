@@ -8,10 +8,10 @@ import {
   DELETE_POSITIONS_FETCHING,
   DELETE_POSITIONS_FULFILLED,
   DELETE_POSITIONS_REJECTED,
-  /*  UPDATE_POSITIONS_FETCHING,
-    UPDATE_POSITIONS_FULFILLED,
-    UPDATE_POSITIONS_REJECTED,
-    GET_ONE_POSITION_FETCHING,
+  UPDATE_POSITIONS_FETCHING,
+  UPDATE_POSITIONS_FULFILLED,
+  UPDATE_POSITIONS_REJECTED,
+  /*GET_ONE_POSITION_FETCHING,
     GET_ONE_POSITION_FULFILLED,
     GET_ONE_POSITION_REJECTED */
   SHOW_MODAL,
@@ -92,6 +92,32 @@ const positionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot delete positions'
+      };
+    case UPDATE_POSITIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case UPDATE_POSITIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Updated positions',
+        list: state.list.map((position) => {
+          if (position._id === action.payload.id) {
+            return action.payload;
+          }
+          return position;
+        })
+      };
+    case UPDATE_POSITIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot update positions'
       };
     case SHOW_MODAL: {
       return {

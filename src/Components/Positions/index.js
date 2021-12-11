@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPositions, addPositions, deletePositions } from '../../redux/Positions/thunks';
+import {
+  getPositions,
+  addPositions,
+  updatePositions,
+  deletePositions
+} from '../../redux/Positions/thunks';
 import { setShowModal, setShowMessage, setModalType } from '../../redux/Positions/actions';
 import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
@@ -13,8 +18,8 @@ function Positions() {
   const modalType = useSelector((state) => state.positions.modalType);
   const [idActive, setIdActive] = useState('');
   const showMessage = useSelector((state) => state.positions.showMessage);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
+  const message = useSelector((state) => state.positions.messageText);
+  const messageType = useSelector((store) => store.positions.messageType);
   const positions = useSelector((state) => state.positions.list);
   const isLoading = useSelector((state) => state.positions.isLoading);
   const dispatch = useDispatch();
@@ -43,36 +48,17 @@ function Positions() {
   };
 
   const handleClickUpdate = (id) => {
-    /*cleanMessage();*/
-    setShowModal(true);
+    /* cleanMessage(); */
+    dispatch(setModalType('positions'));
     setIdActive(id);
-    setModalType('positions');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdatePosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Position updated');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating position');
-      });
+    dispatch(updatePositions(position, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPositions());
+    });
   };
 
   const handleClickAdd = () => {

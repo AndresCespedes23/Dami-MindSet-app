@@ -7,11 +7,11 @@ import {
   ADD_POSITIONS_REJECTED,
   DELETE_POSITIONS_FETCHING,
   DELETE_POSITIONS_FULFILLED,
-  DELETE_POSITIONS_REJECTED
-  /*UPDATE_POSITIONS_FETCHING,
-    UPDATE_POSITIONS_FULFILLED,
-    UPDATE_POSITIONS_REJECTED,
-    GET_ONE_POSITION_FETCHING,
+  DELETE_POSITIONS_REJECTED,
+  UPDATE_POSITIONS_FETCHING,
+  UPDATE_POSITIONS_FULFILLED,
+  UPDATE_POSITIONS_REJECTED
+  /*GET_ONE_POSITION_FETCHING,
     GET_ONE_POSITION_FULFILLED,
     GET_ONE_POSITION_REJECTED */
 } from '../../constants/actionTypes';
@@ -100,5 +100,35 @@ export const deletePositions = (id) => (dispatch) => {
     })
     .catch(() => {
       dispatch(deletePositionsRejected());
+    });
+};
+
+const updatePositionsFetching = () => ({
+  type: UPDATE_POSITIONS_FETCHING
+});
+
+const updatePositionsFullfiled = (payload, id) => ({
+  type: UPDATE_POSITIONS_FULFILLED,
+  payload,
+  id
+});
+
+const updatePositionsRejected = () => ({
+  type: UPDATE_POSITIONS_REJECTED
+});
+
+export const updatePositions = (positions, id) => (dispatch) => {
+  dispatch(updatePositionsFetching());
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(positions)
+  })
+    .then((data) => data.json())
+    .then(() => {
+      dispatch(updatePositionsFullfiled(id));
+    })
+    .catch(() => {
+      dispatch(updatePositionsRejected());
     });
 };
