@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPositions } from '../../redux/Positions/thunks';
+import { getPositions, deletePositions } from '../../redux/Positions/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Positions/actions';
 import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -8,10 +9,10 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Positions() {
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const showModal = useSelector((state) => state.positions.showModal);
+  const modalType = useSelector((state) => state.positions.modalType);
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
+  const showMessage = useSelector((state) => state.positions.showMessage);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
   const positions = useSelector((state) => state.positions.list);
@@ -22,45 +23,27 @@ function Positions() {
     dispatch(getPositions());
   }, [dispatch]);
 
-  const cleanMessage = () => {
+  /* const cleanMessage = () => {
     setShowMessage(false);
     setMessage('');
-  };
+  }; */
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    /* cleanMessage(); */
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/positions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate deleted');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting position');
-      });
+    dispatch(deletePositions(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPositions());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
+    /*cleanMessage();*/
     setShowModal(true);
     setIdActive(id);
     setModalType('positions');
@@ -93,7 +76,7 @@ function Positions() {
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
+    /*cleanMessage();*/
     setShowModal(true);
     setModalType('positions');
     setIdActive('');
