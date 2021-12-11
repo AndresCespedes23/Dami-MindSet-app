@@ -2,9 +2,9 @@ import {
   GET_POSITIONS_FETCHING,
   GET_POSITIONS_FULFILLED,
   GET_POSITIONS_REJECTED,
-  /* ADD_POSITIONS_FETCHING,
-    ADD_POSITIONS_FULFILLED,
-    ADD_POSITIONS_REJECTED, */
+  ADD_POSITIONS_FETCHING,
+  ADD_POSITIONS_FULFILLED,
+  ADD_POSITIONS_REJECTED,
   DELETE_POSITIONS_FETCHING,
   DELETE_POSITIONS_FULFILLED,
   DELETE_POSITIONS_REJECTED
@@ -44,6 +44,38 @@ export const getPositions = () => {
         dispatch(getPositionsRejected());
       });
   };
+};
+
+const addPositionsFetching = () => ({
+  type: ADD_POSITIONS_FETCHING
+});
+
+const addPositionsFulfilled = (payload) => ({
+  type: ADD_POSITIONS_FULFILLED,
+  payload
+});
+
+const addPositionsRejected = () => ({
+  type: ADD_POSITIONS_REJECTED
+});
+
+export const addPositions = (position) => (dispatch) => {
+  dispatch(addPositionsFetching());
+  return fetch(BASE_URL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(position)
+  })
+    .then((response) => response.json())
+    .then((response) => {
+      dispatch(addPositionsFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(addPositionsRejected());
+    });
 };
 
 const deletePositionsFetching = () => ({

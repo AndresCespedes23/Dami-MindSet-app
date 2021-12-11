@@ -2,9 +2,9 @@ import {
   GET_POSITIONS_FETCHING,
   GET_POSITIONS_FULFILLED,
   GET_POSITIONS_REJECTED,
-  /* ADD_POSITIONS_FETCHING,
-    ADD_POSITIONS_FULFILLED,
-    ADD_POSITIONS_REJECTED,*/
+  ADD_POSITIONS_FETCHING,
+  ADD_POSITIONS_FULFILLED,
+  ADD_POSITIONS_REJECTED,
   DELETE_POSITIONS_FETCHING,
   DELETE_POSITIONS_FULFILLED,
   DELETE_POSITIONS_REJECTED,
@@ -25,7 +25,7 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  position: null,
+  position: {},
   showModal: false,
   showMessage: false
 };
@@ -50,6 +50,27 @@ const positionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot get positions'
+      };
+    case ADD_POSITIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ADD_POSITIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Added positions',
+        list: [...state.list, action.payload]
+      };
+    case ADD_POSITIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot add positions'
       };
     case DELETE_POSITIONS_FETCHING:
       return {

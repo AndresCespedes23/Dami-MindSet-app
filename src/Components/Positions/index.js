@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPositions, deletePositions } from '../../redux/Positions/thunks';
+import { getPositions, addPositions, deletePositions } from '../../redux/Positions/thunks';
 import { setShowModal, setShowMessage, setModalType } from '../../redux/Positions/actions';
 import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
@@ -76,43 +76,17 @@ function Positions() {
   };
 
   const handleClickAdd = () => {
-    /*cleanMessage();*/
-    setShowModal(true);
-    setModalType('positions');
+    /* cleanMessage(); */
+    dispatch(setModalType('positions'));
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddPosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Position added');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding position');
-      });
+    dispatch(addPositions(position)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPositions());
+    });
   };
 
   const handleShowModal = () => {
