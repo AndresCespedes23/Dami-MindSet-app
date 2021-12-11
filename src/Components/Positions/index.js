@@ -27,10 +27,6 @@ function Positions() {
     setMessage('');
   };
 
-  useEffect(() => {
-    getPositions();
-  }, []);
-
   const handleClickDelete = (id) => {
     cleanMessage();
     setShowModal(true);
