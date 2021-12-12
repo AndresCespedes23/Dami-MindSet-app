@@ -28,7 +28,10 @@ export const getPostulants = () => {
   return (dispatch) => {
     dispatch(getPostulantsFetching());
     fetch(BASE_URL)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getPostulantsFulfilled(response.data));
       })
@@ -52,9 +55,12 @@ export const addPostulant = (postulant) => (dispatch) => {
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(postulant) //¿ y si se pone "data" en vez de "postulant"?
+    body: JSON.stringify(postulant)
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(addPostulantsFulfilled(response.data));
     })
@@ -72,7 +78,10 @@ const deletePostulantsRejected = () => ({ type: DELETE_POSTULANTS_REJETED });
 export const deletePostulant = (id) => (dispatch) => {
   dispatch(deletePostulantsFetching());
   return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(deletePostulantsFulfilled(response.data));
     })
@@ -91,18 +100,21 @@ const updatePostulantsFulfilled = (payload, id) => ({
 
 const updatePostulantsRejected = () => ({ type: UPDATE_POSTULANTS_REJETED });
 
-export const updatePostulant = (postulant, id) => (dispatch) => {
+export const updatePostulant = (postulants, id) => (dispatch) => {
   dispatch(updatePostulantsFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json; charset=UTF-8'
     },
-    body: JSON.stringify(postulant)
+    body: JSON.stringify(postulants)
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then(() => {
-      dispatch(updatePostulantsFulfilled(id)); //en vez de id Valen tiene response.data
+      dispatch(updatePostulantsFulfilled(id));
     })
     .catch(() => {
       dispatch(updatePostulantsRejected());
@@ -120,7 +132,10 @@ export const getOnePostulant = (id) => {
   return (dispatch) => {
     dispatch(getOnePostulantsFetching());
     return fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getOnePostulantsFulfilled(response.data));
         return response.data;
@@ -130,19 +145,3 @@ export const getOnePostulant = (id) => {
       });
   };
 };
-
-/* 
-FORMA DE VALEN
-export const getOnePostulant = (id) => (dispatch) => {
-  dispatch(getOnePostulantsFetching());
-  return fetch(`${BASE_URL}/${id}`)
-    .then((response) => response.json())
-    .then((response) => {
-      dispatch(getOnePostulantsFulfilled(response.data));
-      return response.data;
-    })
-    .catch(() => {
-      dispatch(getOnePostulantsRejected());
-    });
-};
-*/

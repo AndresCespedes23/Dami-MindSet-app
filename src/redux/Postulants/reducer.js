@@ -55,7 +55,7 @@ const postulantsReducer = (state = initialState, action) => {
     case ADD_POSTULANTS_FETCHING:
       return {
         ...state,
-        isLoading: true // juli distinto Valen
+        isLoading: true
       };
     case ADD_POSTULANTS_FULFILLED:
       return {
@@ -84,7 +84,7 @@ const postulantsReducer = (state = initialState, action) => {
         isLoading: false,
         messageType: 'success',
         messageText: 'Deleted Postulant',
-        list: [...state.list, action.payload]
+        list: state.list.filter((postulant) => postulant.id !== action.payload)
       };
     case DELETE_POSTULANTS_REJETED:
       return {
@@ -97,18 +97,25 @@ const postulantsReducer = (state = initialState, action) => {
     case UPDATE_POSTULANTS_FETCHING:
       return {
         ...state,
-        isLoading: true // juli distinto Valen
+        isLoading: true
       };
     case UPDATE_POSTULANTS_FULFILLED:
       return {
         ...state,
+        isLoading: false,
         messageType: 'success',
         messageText: 'Updated Postulant',
-        list: [...state.list, action.payload]
+        list: state.list.map((postulant) => {
+          if (postulant._id === action.payload.id) {
+            return action.payload;
+          }
+          return postulant;
+        })
       };
     case UPDATE_POSTULANTS_REJETED:
       return {
         ...state,
+        isLoading: false,
         error: true,
         messageType: 'error',
         messageText: 'Cannot update Postulant'
