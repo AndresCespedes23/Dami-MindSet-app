@@ -10,14 +10,24 @@ import {
   DELETE_APPLICATIONS_REJECTED,
   UPDATE_APPLICATIONS_FETCHING,
   UPDATE_APPLICATIONS_FULFILLED,
-  UPDATE_APPLICATIONS_REJECTED
+  UPDATE_APPLICATIONS_REJECTED,
+  GET_ONE_APPLICATION_FETCHING,
+  GET_ONE_APPLICATION_FULFILLED,
+  GET_ONE_APPLICATION_REJECTED,
+  SHOW_MODAL,
+  SHOW_MESSAGE,
+  MODAL_TYPE
 } from '../../constants/actionTypes';
 const initialState = {
   isLoading: false,
+  isLoadingForm: false,
   list: [],
   error: false,
   messageType: '',
-  messageText: ''
+  messageText: '',
+  application: null,
+  showModal: false,
+  showMessage: false
 };
 
 const applicationsReducer = (state = initialState, action) => {
@@ -50,13 +60,17 @@ const applicationsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        messageType: 'success',
+        messageText: 'Application successfully added',
         list: [...state.list, action.payload]
       };
     case ADD_APPLICATIONS_REJECTED:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        messageType: 'error',
+        messageText: 'Error adding application'
       };
     case DELETE_APPLICATIONS_FETCHING:
       return {
@@ -67,13 +81,17 @@ const applicationsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        list: state.list.filter((application) => application._id !== action.payload)
+        messageType: 'success',
+        messageText: 'Application deleted successfully',
+        list: [...state.list, action.payload]
       };
     case DELETE_APPLICATIONS_REJECTED:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: true,
+        messageType: 'error',
+        messageText: 'Error deleting application'
       };
     case UPDATE_APPLICATIONS_FETCHING:
       return {
@@ -89,7 +107,9 @@ const applicationsReducer = (state = initialState, action) => {
             return action.payload;
           }
           return application;
-        })
+        }),
+        messageType: 'success',
+        messageText: 'Application updated successfully'
       };
     case UPDATE_APPLICATIONS_REJECTED:
       return {
@@ -97,9 +117,45 @@ const applicationsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
         messageType: 'error',
-        messageText: 'Cannot update sessions'
+        messageText: 'Error updating session'
       };
-
+    case GET_ONE_APPLICATION_FETCHING:
+      return {
+        ...state,
+        isLoadingForm: true
+      };
+    case GET_ONE_APPLICATION_FULFILLED:
+      return {
+        ...state,
+        isLoadingForm: false,
+        client: action.payload
+      };
+    case GET_ONE_APPLICATION_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Error getting application'
+      };
+    case SHOW_MODAL: {
+      return {
+        ...state,
+        showModal: action.showModal
+      };
+    }
+    case SHOW_MESSAGE: {
+      return {
+        ...state,
+        showMessage: action.showMessage
+      };
+    }
+    case MODAL_TYPE: {
+      return {
+        ...state,
+        modalType: action.modalType
+      };
+    }
     default:
       return state;
   }

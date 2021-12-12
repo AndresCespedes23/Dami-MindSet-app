@@ -45,20 +45,6 @@ export const getApplications = () => {
   };
 };
 
-// fetch(`${process.env.REACT_APP_API}/applications`)
-//       .then((response) => {
-//         if (response.status === 200 || response.status === 201) return response.json();
-//         throw new Error(`HTTP ${response.status}`);
-//       })
-//       .then((response) => {
-//         setApplications(response.data);
-//       })
-//       .catch((err) => {
-//         setMessageType('error');
-//         setMessage('Error:', err);
-//       })
-//       .finally(() => setLoading(false));
-
 const addApplicationFetching = () => ({
   type: ADD_APPLICATIONS_FETCHING
 });
@@ -91,41 +77,6 @@ export const addApplication = (application) => (dispatch) => {
     });
 };
 
-// OLD APPLICATION ADD FUNCTION
-// const handleAddApplication = (application) => {
-//   fetch(`${process.env.REACT_APP_API}/applications`, {
-//     method: 'POST',
-//     mode: 'cors',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(application)
-//   })
-//     .then((response) => {
-//       if (response.status === 200 || response.status === 201) return response.json();
-//       throw new Error(`HTTP ${response.status}`);
-//     })
-//     .then((response) => {
-//       if (response.errors || response.code) {
-//         setShowMessage(true);
-//         setMessageType('error');
-//         setMessage('Error with parameters');
-//         return;
-//       }
-//       setShowMessage(true);
-//       setMessageType('success');
-//       setMessage('Application added');
-//       getApplications();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       setShowMessage(true);
-//       setMessageType('error');
-//       setMessage('Error creating application');
-//     });
-// };
-
-// ----------------------------------------------------------------
 const deleteApplicationFetching = () => ({
   type: DELETE_APPLICATIONS_FETCHING
 });
@@ -150,32 +101,6 @@ export const deleteApplication = (id) => (dispatch) => {
       dispatch(deleteApplicationRejected());
     });
 };
-
-// OLD DELETE APPLICATION FUNCTION FUNCTION
-// const handleDelete = (id) => {
-//   fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
-//     method: 'DELETE',
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8'
-//     }
-//   })
-//     .then((response) => {
-//       if (response.status === 200 || response.status === 201) return response.json();
-//       throw new Error(`HTTP ${response.status}`);
-//     })
-//     .then(() => {
-//       setShowMessage(true);
-//       setMessageType('success');
-//       setMessage('Application deleted');
-//       getApplications();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       setShowMessage(true);
-//       setMessageType('error');
-//       setMessage('Error deleting application');
-//     });
-// };
 
 const updateApplicationFetching = () => ({
   type: UPDATE_APPLICATIONS_FETCHING
@@ -206,32 +131,6 @@ export const updateApplication = (applications, id) => (dispatch) => {
     });
 };
 
-// const handleUpdateApplication = (application) => {
-//   fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8'
-//     },
-//     body: JSON.stringify(application)
-//   })
-//     .then((response) => {
-//       if (response.status === 200 || response.status === 201) return response.json();
-//       throw new Error(`HTTP ${response.status}`);
-//     })
-//     .then(() => {
-//       setShowMessage(true);
-//       setMessageType('success');
-//       setMessage('Application updated');
-//       getApplications();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       setShowMessage(true);
-//       setMessageType('error');
-//       setMessage('Error updating application');
-//     });
-// };
-
 const getApplicationFetching = (id) => ({
   type: GET_ONE_APPLICATION_FETCHING,
   id
@@ -248,7 +147,7 @@ const getApplicationRejected = () => ({
 
 export const getOneApplication = (id) => (dispatch) => {
   dispatch(getApplicationFetching());
-  fetch(`${process.env.REACT_APP_API}/applications/${id}`)
+  return fetch(`${URL}/${id}`)
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
