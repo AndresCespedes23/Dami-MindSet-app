@@ -35,7 +35,10 @@ export const getSessions = () => {
   return (dispatch) => {
     dispatch(getSessionsFetching());
     fetch(BASE_URL)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getSessionsFulfilled(response.data));
       })
@@ -68,7 +71,10 @@ export const addSessions = (client) => (dispatch) => {
     },
     body: JSON.stringify(client)
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(addSessionsFulfilled(response.data));
     })
@@ -93,7 +99,10 @@ const deleteSessionsRejected = () => ({
 export const deleteSessions = (id) => (dispatch) => {
   dispatch(deleteSessionsFetching());
   return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(deleteSessionsFulfilled(response.data));
     })
@@ -123,7 +132,10 @@ export const updateSessions = (sessions, id) => (dispatch) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(sessions)
   })
-    .then((data) => data.json())
+    .then((data) => {
+      if (data.status === 200 || data.status === 201) return data.json();
+      throw new Error(`HTTP ${data.status}`);
+    })
     .then(() => {
       dispatch(updateSessionsFullfiled(id));
     })
@@ -149,7 +161,10 @@ export const getOneSession = (id) => {
   return (dispatch) => {
     dispatch(getOneSessionFetching());
     return fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getOneSessionFulfilled(response.data));
         return response.data;
