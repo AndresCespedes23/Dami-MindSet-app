@@ -5,15 +5,15 @@ import {
   ADD_POSTULANTS_FETCHING,
   ADD_POSTULANTS_FULFILLED,
   ADD_POSTULANTS_REJETED,
+  DELETE_POSTULANTS_FETCHING,
+  DELETE_POSTULANTS_FULFILLED,
+  DELETE_POSTULANTS_REJETED,
   UPDATE_POSTULANTS_FETCHING,
   UPDATE_POSTULANTS_FULFILLED,
   UPDATE_POSTULANTS_REJETED,
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
-  GET_ONE_POSTULANTS_REJETED,
-  DELETE_POSTULANTS_FETCHING,
-  DELETE_POSTULANTS_FULFILLED,
-  DELETE_POSTULANTS_REJETED
+  GET_ONE_POSTULANTS_REJETED
 } from '../../constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/candidates`;
@@ -52,7 +52,7 @@ export const addPostulant = (postulant) => (dispatch) => {
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(postulant)
+    body: JSON.stringify(postulant) //¿ y si se pone "data" en vez de "postulant"?
   })
     .then((response) => response.json())
     .then((response) => {
@@ -71,9 +71,7 @@ const deletePostulantsRejected = () => ({ type: DELETE_POSTULANTS_REJETED });
 
 export const deletePostulant = (id) => (dispatch) => {
   dispatch(deletePostulantsFetching());
-  return fetch(`${BASE_URL}/${id}`, {
-    method: 'DELETE'
-  })
+  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
     .then((response) => response.json())
     .then((response) => {
       dispatch(deletePostulantsFulfilled(response.data));
@@ -85,14 +83,15 @@ export const deletePostulant = (id) => (dispatch) => {
 
 const updatePostulantsFetching = () => ({ type: UPDATE_POSTULANTS_FETCHING });
 
-const updatePostulantsFulfilled = (payload) => ({
+const updatePostulantsFulfilled = (payload, id) => ({
   type: UPDATE_POSTULANTS_FULFILLED,
-  payload
+  payload,
+  id
 });
 
 const updatePostulantsRejected = () => ({ type: UPDATE_POSTULANTS_REJETED });
 
-export const updatePostulant = (id, postulant) => (dispatch) => {
+export const updatePostulant = (postulant, id) => (dispatch) => {
   dispatch(updatePostulantsFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
@@ -102,8 +101,8 @@ export const updatePostulant = (id, postulant) => (dispatch) => {
     body: JSON.stringify(postulant)
   })
     .then((response) => response.json())
-    .then((response) => {
-      dispatch(updatePostulantsFulfilled(response.data));
+    .then(() => {
+      dispatch(updatePostulantsFulfilled(id)); //en vez de id Valen tiene response.data
     })
     .catch(() => {
       dispatch(updatePostulantsRejected());
@@ -112,25 +111,38 @@ export const updatePostulant = (id, postulant) => (dispatch) => {
 
 const getOnePostulantsFetching = () => ({ type: GET_ONE_POSTULANTS_FETCHING });
 
-const getOnePostulantsFulfilled = (payload) => ({
-  type: GET_ONE_POSTULANTS_FULFILLED,
-  payload
-});
+const getOnePostulantsFulfilled = (payload) => ({ type: GET_ONE_POSTULANTS_FULFILLED, payload });
 
-const getOnePostulantsRejected = () => ({
-  type: GET_ONE_POSTULANTS_REJETED
-});
+const getOnePostulantsRejected = () => ({ type: GET_ONE_POSTULANTS_REJETED });
 
+//FORMA DE JULI
+export const getOnePostulant = (id) => {
+  return (dispatch) => {
+    dispatch(getOnePostulantsFetching());
+    return fetch(`${BASE_URL}/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch(getOnePostulantsFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getOnePostulantsRejected());
+      });
+  };
+};
+
+/* 
+FORMA DE VALEN
 export const getOnePostulant = (id) => (dispatch) => {
   dispatch(getOnePostulantsFetching());
   return fetch(`${BASE_URL}/${id}`)
     .then((response) => response.json())
     .then((response) => {
-      console.log('get one is working, 2do then');
       dispatch(getOnePostulantsFulfilled(response.data));
+      return response.data;
     })
     .catch(() => {
-      console.log('get one catch');
       dispatch(getOnePostulantsRejected());
     });
 };
+*/

@@ -7,9 +7,8 @@ import Button from '../../Shared/Button';
 import { getOnePostulant } from '../../../redux/Postulants/thunks';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
-  const postulant = useSelector((store) => store.postulants.postulant);
-  const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
+  const isLoadingForm = useSelector((store) => store.postulants.isLoadingForm);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -43,8 +42,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      dispatch(getOnePostulant(id)).then(() => {
-        console.log(postulant);
+      dispatch(getOnePostulant(id)).then((data) => {
+        setFormData(data);
       });
     }
   }, [dispatch]);
@@ -96,7 +95,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Name is missing"
           error={error.name}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Email"
@@ -106,7 +105,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Email is missing"
           error={error.email}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Username"
@@ -116,7 +115,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Username is missing"
           error={error.username}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Password"
@@ -126,7 +125,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Password is missing"
           error={error.password}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <div>
           <label>Gender</label>
@@ -150,7 +149,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Address is missing"
           error={error.address}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Phone Number"
@@ -160,7 +159,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Phone Number is missing"
           error={error.phoneNumber}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
       </div>
       <div>
@@ -172,7 +171,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Date of Birth is missing"
           error={error.dateOfBirth}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Zip Code"
@@ -182,7 +181,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Zip Code is missing"
           error={error.zipCode}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="City"
@@ -192,7 +191,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="City is missing"
           error={error.city}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="State"
@@ -202,7 +201,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="State is missing"
           error={error.state}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Country"
@@ -212,7 +211,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Country is missing"
           error={error.country}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="DNI"
@@ -222,10 +221,10 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="DNI is missing"
           error={error.dni}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
       </div>
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
         <Button type="submit" />

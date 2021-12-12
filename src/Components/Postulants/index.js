@@ -16,16 +16,12 @@ import Spinner from '../Shared/Spinner';
 function Postulants() {
   const postulants = useSelector((store) => store.postulants.list);
   const isLoading = useSelector((store) => store.postulants.isLoading);
-
   const messageType = useSelector((store) => store.postulants.messageType);
   const message = useSelector((store) => store.postulants.messageText);
-
   const showModal = useSelector((store) => store.postulants.showModal);
   const showMessage = useSelector((store) => store.postulants.showMessage);
   const modalType = useSelector((store) => store.postulants.modalType);
-
   const dispatch = useDispatch();
-
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -46,22 +42,22 @@ function Postulants() {
   };
 
   const handleClickUpdate = (id) => {
-    dispatch(setShowModal(true));
-    setIdActive(id);
     dispatch(setModalType('postulants'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
   };
 
   const handleUpdatePostulant = (postulant) => {
-    dispatch(updatePostulant(postulant)).then(() => {
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
       dispatch(setShowMessage(true));
       dispatch(getPostulants());
     });
   };
 
   const handleClickAdd = () => {
+    dispatch(setModalType('postulants'));
+    setIdActive('');
     dispatch(setShowModal(true));
-    setModalType('postulants');
-    dispatch(setIdActive(''));
   };
 
   const handleAddPostulant = (postulant) => {

@@ -14,18 +14,19 @@ import {
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
   GET_ONE_POSTULANTS_REJETED,
-  SHOW_MESSAGE,
   SHOW_MODAL,
+  SHOW_MESSAGE,
   MODAL_TYPE
 } from '../../constants/actionTypes';
 
 const initialState = {
   isLoading: false,
+  isLoadingForm: false,
   list: [],
   error: false,
   messageType: '',
   messageText: '',
-  postulant: undefined, //valen tiene puesto null, pero me lo rompe eso
+  postulant: {},
   showModal: false,
   showMessage: false
 };
@@ -54,7 +55,7 @@ const postulantsReducer = (state = initialState, action) => {
     case ADD_POSTULANTS_FETCHING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true // juli distinto Valen
       };
     case ADD_POSTULANTS_FULFILLED:
       return {
@@ -96,12 +97,11 @@ const postulantsReducer = (state = initialState, action) => {
     case UPDATE_POSTULANTS_FETCHING:
       return {
         ...state,
-        isLoading: true
+        isLoading: true // juli distinto Valen
       };
     case UPDATE_POSTULANTS_FULFILLED:
       return {
         ...state,
-        isLoading: false,
         messageType: 'success',
         messageText: 'Updated Postulant',
         list: [...state.list, action.payload]
@@ -109,7 +109,6 @@ const postulantsReducer = (state = initialState, action) => {
     case UPDATE_POSTULANTS_REJETED:
       return {
         ...state,
-        isLoading: false,
         error: true,
         messageType: 'error',
         messageText: 'Cannot update Postulant'
@@ -117,22 +116,22 @@ const postulantsReducer = (state = initialState, action) => {
     case GET_ONE_POSTULANTS_FETCHING:
       return {
         ...state,
-        isLoading: true
+        isLoadingForm: true
       };
     case GET_ONE_POSTULANTS_FULFILLED: {
       return {
         ...state,
-        isLoading: false,
+        isLoadingForm: false,
         postulant: action.payload
       };
     }
     case GET_ONE_POSTULANTS_REJETED:
       return {
         ...state,
-        isLoading: false,
+        isLoadingForm: false,
         error: true,
         messageType: 'error',
-        messageText: 'Cannot get one Postulant'
+        messageText: 'Cannot get Postulant'
       };
     case SHOW_MODAL: {
       return {
