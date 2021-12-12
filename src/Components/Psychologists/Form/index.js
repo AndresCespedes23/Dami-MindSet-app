@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  //const dispatch = useDispatch();
+  const isLoading = useSelector((store) => store.sessions.isLoading);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,7 +19,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     timeEnd: '',
     dayStart: '',
     dayEnd: '',
-    status
+    status: ''
   });
   const [error, setIsError] = useState({
     name: false,
@@ -33,7 +35,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      setLoadingForm(true);
+      isLoading(true);
       fetch(`${process.env.REACT_APP_API}/psychologists/${id}`)
         .then((response) => {
           if (response.status === 200 || response.status === 201) return response.json();
@@ -43,7 +45,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           setFormData(response.data);
         })
         .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+        .finally(() => isLoading(false));
     }
   }, []);
 
@@ -92,7 +94,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Name is missing"
           error={error.name}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <Input
           labelText="Email"
@@ -102,7 +104,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Email is missing"
           error={error.email}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <Input
           labelText="Username"
@@ -112,7 +114,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Username is missing"
           error={error.username}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <Input
           labelText="Phone Number"
@@ -122,7 +124,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Phone Number is missing"
           error={error.phoneNumber}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <Input
           labelText="Enrollment Number"
@@ -132,7 +134,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Enrollment Number is missing"
           error={error.enrollmentNumber}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <div>
           <label>Status</label>
@@ -176,7 +178,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <Input
           labelText="To"
@@ -186,7 +188,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
         <Input
           labelText="Password"
@@ -196,10 +198,10 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Password is missing"
           error={error.password}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disbled={isLoading}
         />
       </div>
-      {isLoadingForm === true ? (
+      {isLoading === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
         <Button type="submit" />
