@@ -11,9 +11,9 @@ import {
   UPDATE_POSITIONS_FETCHING,
   UPDATE_POSITIONS_FULFILLED,
   UPDATE_POSITIONS_REJECTED,
-  /*GET_ONE_POSITION_FETCHING,
-    GET_ONE_POSITION_FULFILLED,
-    GET_ONE_POSITION_REJECTED */
+  GET_ONE_POSITION_FETCHING,
+  GET_ONE_POSITION_FULFILLED,
+  GET_ONE_POSITION_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE
@@ -118,6 +118,25 @@ const positionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot update positions'
+      };
+    case GET_ONE_POSITION_FETCHING:
+      return {
+        ...state,
+        isLoadingForm: true
+      };
+    case GET_ONE_POSITION_FULFILLED:
+      return {
+        ...state,
+        isLoadingForm: false,
+        position: action.payload
+      };
+    case GET_ONE_POSITION_REJECTED:
+      return {
+        ...state,
+        isLoadingForm: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get session'
       };
     case SHOW_MODAL: {
       return {

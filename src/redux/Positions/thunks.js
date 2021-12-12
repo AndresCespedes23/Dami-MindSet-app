@@ -10,10 +10,10 @@ import {
   DELETE_POSITIONS_REJECTED,
   UPDATE_POSITIONS_FETCHING,
   UPDATE_POSITIONS_FULFILLED,
-  UPDATE_POSITIONS_REJECTED
-  /*GET_ONE_POSITION_FETCHING,
-    GET_ONE_POSITION_FULFILLED,
-    GET_ONE_POSITION_REJECTED */
+  UPDATE_POSITIONS_REJECTED,
+  GET_ONE_POSITION_FETCHING,
+  GET_ONE_POSITION_FULFILLED,
+  GET_ONE_POSITION_REJECTED
 } from '../../constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/positions`;
@@ -131,4 +131,32 @@ export const updatePositions = (positions, id) => (dispatch) => {
     .catch(() => {
       dispatch(updatePositionsRejected());
     });
+};
+
+const getOnePositionFetching = () => ({
+  type: GET_ONE_POSITION_FETCHING
+});
+
+const getOnePositionFulfilled = (payload) => ({
+  type: GET_ONE_POSITION_FULFILLED,
+  payload
+});
+
+const getOnePositionRejected = () => ({
+  type: GET_ONE_POSITION_REJECTED
+});
+
+export const getOnePosition = (id) => {
+  return (dispatch) => {
+    dispatch(getOnePositionFetching());
+    return fetch(`${BASE_URL}/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch(getOnePositionFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getOnePositionRejected());
+      });
+  };
 };
