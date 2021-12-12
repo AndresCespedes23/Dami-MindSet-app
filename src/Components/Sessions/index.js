@@ -19,7 +19,7 @@ function Sessions() {
   const isLoading = useSelector((state) => state.sessions.isLoading);
   const showMessage = useSelector((state) => state.sessions.showMessage);
   const message = useSelector((state) => state.sessions.messageText);
-  const messageType = useSelector((store) => store.sessions.messageType);
+  const messageType = useSelector((state) => state.sessions.messageType);
   const showModal = useSelector((state) => state.sessions.showModal);
   const modalType = useSelector((state) => state.sessions.modalType);
   const dispatch = useDispatch();
@@ -28,13 +28,7 @@ function Sessions() {
     dispatch(getSessions());
   }, [dispatch]);
 
-  /* const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  }; */
-
   const handleClickDelete = (id) => {
-    /* cleanMessage(); */
     dispatch(setShowModal(true));
     setIdActive(id);
     dispatch(setModalType('delete'));
@@ -48,7 +42,6 @@ function Sessions() {
   };
 
   const handleClickUpdate = (id) => {
-    /* cleanMessage(); */
     dispatch(setModalType('sessions'));
     setIdActive(id);
     dispatch(setShowModal(true));
@@ -62,7 +55,6 @@ function Sessions() {
   };
 
   const handleClickAdd = () => {
-    /* cleanMessage(); */
     dispatch(setModalType('sessions'));
     setIdActive('');
     dispatch(setShowModal(true));
