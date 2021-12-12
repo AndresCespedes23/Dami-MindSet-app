@@ -7,7 +7,7 @@ import Button from '../../Shared/Button';
 import { getOnePostulant } from '../../../redux/Postulants/thunks';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
-  const postulant = useSelector((store) => store.postulants);
+  const postulant = useSelector((store) => store.postulants.postulant);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -43,10 +43,11 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      dispatch(getOnePostulant(id));
-      console.log(postulant);
+      dispatch(getOnePostulant(id)).then(() => {
+        console.log(postulant);
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -81,7 +82,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
     }
 
     handleSubmit(newCandidate);
-    handleShowModal();
+    handleShowModal(false);
   };
 
   return (

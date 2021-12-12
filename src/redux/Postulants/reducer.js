@@ -13,7 +13,10 @@ import {
   UPDATE_POSTULANTS_REJETED,
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
-  GET_ONE_POSTULANTS_REJETED
+  GET_ONE_POSTULANTS_REJETED,
+  SHOW_MESSAGE,
+  SHOW_MODAL,
+  MODAL_TYPE
 } from '../../constants/actionTypes';
 
 const initialState = {
@@ -22,7 +25,9 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  postulant: null
+  postulant: undefined, //valen tiene puesto null, pero me lo rompe eso
+  showModal: false,
+  showMessage: false
 };
 
 const postulantsReducer = (state = initialState, action) => {
@@ -114,12 +119,13 @@ const postulantsReducer = (state = initialState, action) => {
         ...state,
         isLoading: true
       };
-    case GET_ONE_POSTULANTS_FULFILLED:
+    case GET_ONE_POSTULANTS_FULFILLED: {
       return {
         ...state,
         isLoading: false,
-        postulant: state.postulant
+        postulant: action.payload
       };
+    }
     case GET_ONE_POSTULANTS_REJETED:
       return {
         ...state,
@@ -128,6 +134,24 @@ const postulantsReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get one Postulant'
       };
+    case SHOW_MODAL: {
+      return {
+        ...state,
+        showModal: action.showModal
+      };
+    }
+    case SHOW_MESSAGE: {
+      return {
+        ...state,
+        showMessage: action.showMessage
+      };
+    }
+    case MODAL_TYPE: {
+      return {
+        ...state,
+        modalType: action.modalType
+      };
+    }
     default:
       return state;
   }

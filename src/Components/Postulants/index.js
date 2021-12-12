@@ -6,6 +6,7 @@ import {
   addPostulant,
   updatePostulant
 } from '../../redux/Postulants/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Postulants/actions';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -17,13 +18,14 @@ function Postulants() {
   const isLoading = useSelector((store) => store.postulants.isLoading);
 
   const messageType = useSelector((store) => store.postulants.messageType);
-  const message = useSelector((store) => store.postulants.message);
+  const message = useSelector((store) => store.postulants.messageText);
+
+  const showModal = useSelector((store) => store.postulants.showModal);
   const showMessage = useSelector((store) => store.postulants.showMessage);
+  const modalType = useSelector((store) => store.postulants.modalType);
 
   const dispatch = useDispatch();
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -31,46 +33,51 @@ function Postulants() {
   }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
     dispatch(deletePostulant(id)).then(() => {
+      dispatch(setShowMessage(true));
       dispatch(getPostulants());
     });
   };
 
   const handleClickUpdate = (id) => {
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('postulants');
+    dispatch(setModalType('postulants'));
   };
 
   const handleUpdatePostulant = (postulant) => {
     dispatch(updatePostulant(postulant)).then(() => {
+      dispatch(setShowMessage(true));
       dispatch(getPostulants());
     });
   };
 
   const handleClickAdd = () => {
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setModalType('postulants');
-    setIdActive('');
+    dispatch(setIdActive(''));
   };
 
   const handleAddPostulant = (postulant) => {
     dispatch(addPostulant(postulant)).then(() => {
+      dispatch(setShowMessage(true));
       dispatch(getPostulants());
     });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
-  const handleShowMessage = () => {};
+  const handleShowMessage = () => {
+    dispatch(setShowMessage(false));
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 

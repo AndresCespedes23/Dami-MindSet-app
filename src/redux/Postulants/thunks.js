@@ -84,10 +84,12 @@ export const deletePostulant = (id) => (dispatch) => {
 };
 
 const updatePostulantsFetching = () => ({ type: UPDATE_POSTULANTS_FETCHING });
+
 const updatePostulantsFulfilled = (payload) => ({
   type: UPDATE_POSTULANTS_FULFILLED,
   payload
 });
+
 const updatePostulantsRejected = () => ({ type: UPDATE_POSTULANTS_REJETED });
 
 export const updatePostulant = (id, postulant) => (dispatch) => {
@@ -109,26 +111,26 @@ export const updatePostulant = (id, postulant) => (dispatch) => {
 };
 
 const getOnePostulantsFetching = () => ({ type: GET_ONE_POSTULANTS_FETCHING });
+
 const getOnePostulantsFulfilled = (payload) => ({
   type: GET_ONE_POSTULANTS_FULFILLED,
   payload
 });
+
 const getOnePostulantsRejected = () => ({
   type: GET_ONE_POSTULANTS_REJETED
 });
 
-export const getOnePostulant = (id) => {
-  console.log(id);
-  return (dispatch) => {
-    dispatch(getOnePostulantsFetching());
-    fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(response);
-        dispatch(getOnePostulantsFulfilled(response.data));
-      })
-      .catch(() => {
-        dispatch(getOnePostulantsRejected());
-      });
-  };
+export const getOnePostulant = (id) => (dispatch) => {
+  dispatch(getOnePostulantsFetching());
+  return fetch(`${BASE_URL}/${id}`)
+    .then((response) => response.json())
+    .then((response) => {
+      console.log('get one is working, 2do then');
+      dispatch(getOnePostulantsFulfilled(response.data));
+    })
+    .catch(() => {
+      console.log('get one catch');
+      dispatch(getOnePostulantsRejected());
+    });
 };
