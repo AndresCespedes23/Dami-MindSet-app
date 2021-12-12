@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPostulants, deletePostulants } from '../../redux/Postulants/thunks';
+import {
+  getPostulants,
+  deletePostulant,
+  addPostulant,
+  updatePostulant
+} from '../../redux/Postulants/thunks';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -10,117 +15,62 @@ import Spinner from '../Shared/Spinner';
 function Postulants() {
   const postulants = useSelector((store) => store.postulants.list);
   const isLoading = useSelector((store) => store.postulants.isLoading);
+
+  const messageType = useSelector((store) => store.postulants.messageType);
+  const message = useSelector((store) => store.postulants.message);
+  const showMessage = useSelector((store) => store.postulants.showMessage);
+
   const dispatch = useDispatch();
 
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
 
   useEffect(() => {
     dispatch(getPostulants());
   }, [dispatch]);
 
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
-
   const handleClickDelete = (id) => {
-    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('delete');
   };
 
   const handleDelete = (id) => {
-    dispatch(deletePostulants(id)).then(() => {
+    dispatch(deletePostulant(id)).then(() => {
       dispatch(getPostulants());
     });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
     setShowModal(true);
     setIdActive(id);
     setModalType('postulants');
   };
 
   const handleUpdatePostulant = (postulant) => {
-    fetch(`${process.env.REACT_APP_API}/candidates/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(postulant)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate updated');
-        getPostulants();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating candidate');
-      });
+    dispatch(updatePostulant(postulant)).then(() => {
+      dispatch(getPostulants());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
     setShowModal(true);
     setModalType('postulants');
     setIdActive('');
   };
 
   const handleAddPostulant = (postulant) => {
-    fetch(`${process.env.REACT_APP_API}/candidates`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(postulant)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate added');
-        getPostulants();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding candidate');
-      });
+    dispatch(addPostulant(postulant)).then(() => {
+      dispatch(getPostulants());
+    });
   };
 
   const handleShowModal = () => {
     setShowModal(false);
   };
 
-  const handleShowMessage = () => {
-    setShowMessage(false);
-  };
+  const handleShowMessage = () => {};
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
