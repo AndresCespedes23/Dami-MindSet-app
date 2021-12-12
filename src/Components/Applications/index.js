@@ -6,6 +6,7 @@ import {
   deleteApplication,
   updateApplication
 } from '../../redux/Applications/thunks.js';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Applications/actions';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -16,68 +17,65 @@ function Applications() {
   // const [applications, setApplications] = useState([]);
   const applications = useSelector((store) => store.applications.list);
   const isLoading = useSelector((store) => store.applications.isLoading);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const messageType = useSelector((store) => store.applications.messageType);
+  const message = useSelector((store) => store.applications.messageText);
+  const showModal = useSelector((store) => store.applications.showModal);
+  const showMessage = useSelector((store) => store.applications.showMessage);
+  const modalType = useSelector((store) => store.applications.modalType);
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType /*, setMessageType*/] = useState('');
-  const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getApplications());
   }, [dispatch]);
 
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
-
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
+    console.log(id);
   };
 
   const handleDeleteApplication = (id) => {
     dispatch(deleteApplication(id)).then(() => {
+      dispatch(setShowMessage(true));
       dispatch(getApplications());
     });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('applications'));
     setIdActive(id);
-    setModalType('applications');
+    dispatch(setShowModal(true));
+    console.log(id);
   };
 
   const handleUpdateApplication = (application) => {
     dispatch(updateApplication(application, idActive)).then(() => {
+      dispatch(setShowMessage(true));
       dispatch(getApplications());
     });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('applications'));
     setIdActive('');
-    setModalType('applications');
+    dispatch(setShowModal(true));
   };
 
   const handleAddApplication = (application) => {
     dispatch(addApplication(application)).then(() => {
+      dispatch(setShowMessage(true));
       dispatch(getApplications());
     });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
