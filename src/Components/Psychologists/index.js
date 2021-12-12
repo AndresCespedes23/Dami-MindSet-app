@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPsychologists } from '../../redux/Psychologists/thunks';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
@@ -6,16 +8,25 @@ import styles from './psychologists.module.css';
 import Spinner from '../Shared/Spinner';
 
 function Psychologists() {
-  const [psychologists, setPsychologists] = useState([]);
+  const psychologists = useSelector((store) => store.psychologists.list);
+  //const showModal = useSelector((state) => state.psychologists.showModal);
+  //const modalType = useSelector((state) => state.psychologists.modalType);
+  //const showMessage = useSelector((state) => state.psychologists.showMessage);
+  //const messageType = useSelector((state) => state.psychologists.messageType);
+  //const message = useSelector((state) => state.psychologists.messageText);
+  const isLoading = useSelector((store) => store.psychologists.isLoading);
+  const dispatch = useDispatch();
+  const [idActive, setIdActive] = useState('');
+  //const [psychologists, setPsychologists] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
-  const [idActive, setIdActive] = useState('');
+  //const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  //const [isLoading, setLoading] = useState(false);
 
-  const getPsychologists = () => {
+  /*const getPsychologists = () => {
     setLoading(true);
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
@@ -24,19 +35,24 @@ function Psychologists() {
       })
       .then((response) => {
         setPsychologists(response.data);
+        console.log(response.data)
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  };
+  };*/
+
+  useEffect(() => {
+    dispatch(getPsychologists());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
     setMessage('');
   };
 
-  useEffect(() => {
-    getPsychologists();
-  }, []);
+  // useEffect(() => {
+  //   getPsychologists();
+  // }, []);
 
   const handleClickDelete = (id) => {
     cleanMessage();
