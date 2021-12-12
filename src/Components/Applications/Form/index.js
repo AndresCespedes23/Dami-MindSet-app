@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from '../Form/form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOneApplication } from '../../../redux/Applications/thunks';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(true);
+  const isLoadingForm = useSelector((store) => store.applications.isLoadingForm);
+  const dispatch = useDispatch();
   const [positions, setPositions] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [interviews, setInterviews] = useState([]);
@@ -35,8 +38,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPositions(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -45,8 +47,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/interviews`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -55,23 +56,14 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setInterviews(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
 
     if (id) {
-      fetch(`${process.env.REACT_APP_API}/applications/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          response.data.dateTime = response.data.dateTime.split('T')[0];
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOneApplication(id)).then((data) => {
+        setFormData(data).finally(() => isLoadingForm(false));
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
