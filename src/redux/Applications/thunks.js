@@ -145,20 +145,17 @@ const getApplicationRejected = () => ({
   type: GET_ONE_APPLICATION_REJECTED
 });
 
-export const getOneApplication = (id) => (dispatch) => {
-  dispatch(getApplicationFetching());
-  return fetch(`${URL}/${id}`)
-    .then((response) => {
-      if (response.status === 200 || response.status === 201) return response.json();
-      throw new Error(`HTTP ${response.status}`);
-    })
-    .then((response) => {
-      response.data.dateTime = response.data.dateTime.split('T')[0];
-
-      dispatch(getApplicationFullfiled(response.data));
-      response.data;
-    })
-    .catch(() => {
-      dispatch(getApplicationRejected());
-    });
+export const getOneApplication = (id) => {
+  return (dispatch) => {
+    dispatch(getApplicationFetching());
+    return fetch(`${URL}/${id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch(getApplicationFullfiled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getApplicationRejected());
+      });
+  };
 };

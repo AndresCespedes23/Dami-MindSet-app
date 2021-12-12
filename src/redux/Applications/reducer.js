@@ -128,7 +128,7 @@ const applicationsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoadingForm: false,
-        client: action.payload
+        application: action.payload
       };
     case GET_ONE_APPLICATION_REJECTED:
       return {

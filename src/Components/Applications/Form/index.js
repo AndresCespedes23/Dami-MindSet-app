@@ -60,7 +60,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
 
     if (id) {
       dispatch(getOneApplication(id)).then((data) => {
-        setFormData(data).finally(() => isLoadingForm(false));
+        setFormData(data);
       });
     }
   }, [dispatch]);
