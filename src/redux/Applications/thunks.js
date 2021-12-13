@@ -35,7 +35,10 @@ export const getApplications = () => {
   return (dispatch) => {
     dispatch(getApplicationsFetching());
     fetch(URL)
-      .then((data) => data.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getApplicationsFulfilled(response.data));
       })
@@ -68,7 +71,10 @@ export const addApplication = (application) => (dispatch) => {
     },
     body: JSON.stringify(application)
   })
-    .then((data) => data.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(addApplicationFullfiled(response.data));
     })
@@ -93,7 +99,10 @@ const deleteApplicationRejected = () => ({
 export const deleteApplication = (id) => (dispatch) => {
   dispatch(deleteApplicationFetching());
   return fetch(`${URL}/${id}`, { method: 'DELETE' })
-    .then((data) => data.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then(() => {
       dispatch(deleteApplicationFulfilled(id));
     })
@@ -122,7 +131,10 @@ export const updateApplication = (applications, id) => (dispatch) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(applications)
   })
-    .then((data) => data.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then(() => {
       dispatch(updateApplicationFullfiled(id));
     })
@@ -149,7 +161,10 @@ export const getOneApplication = (id) => {
   return (dispatch) => {
     dispatch(getApplicationFetching());
     return fetch(`${URL}/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getApplicationFullfiled(response.data));
         return response.data;
