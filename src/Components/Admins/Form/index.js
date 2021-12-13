@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOneAdmin } from '../../../redux/Admins/thunks';
 
 function AdminsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const dispatch = useDispatch();
+  const isLoadingForm = useSelector((store) => store.positions.isLoadingForm);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,17 +18,9 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      setLoadingForm(true);
-      fetch(`${process.env.REACT_APP_API}/admins/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOneAdmin(id)).then((data) => {
+        setFormData(data);
+      });
     }
   }, []);
 
