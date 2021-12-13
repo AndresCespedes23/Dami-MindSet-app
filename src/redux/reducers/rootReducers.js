@@ -4,7 +4,7 @@ import psychologistReducer from '../Psychologists/reducer';
 
 const rootReducer = combineReducers({
   admins: adminsReducer,
-  psychologist: psychologistReducer
+  psychologists: psychologistReducer
 });
 
 export default rootReducer;
