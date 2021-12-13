@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOnePsychologist } from '../../../redux/Psychologists/thunks';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
-  //const dispatch = useDispatch();
-  const isLoading = useSelector((store) => store.sessions.isLoading);
+  const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -35,19 +36,11 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      isLoading(true);
-      fetch(`${process.env.REACT_APP_API}/psychologists/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => isLoading(false));
+      dispatch(getOnePsychologist(id)).then((data) => {
+        setFormData(data);
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +55,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       username: event.target[2].value,
       phoneNumber: event.target[3].value,
       enrollmentNumber: event.target[4].value,
-      status: event.target.status.value === 'false' ? false : true,
+      status: event.target.status.value,
       password: event.target.password.value,
       timeStart: event.target.timeStart.value,
       timeEnd: event.target.timeEnd.value,
@@ -80,7 +73,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     }
 
     handleSubmit(newPsychologist);
-    handleShowModal();
+    handleShowModal(false);
   };
 
   return (
@@ -94,7 +87,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Name is missing"
           error={error.name}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Email"
@@ -104,7 +97,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Email is missing"
           error={error.email}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Username"
@@ -114,7 +107,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Username is missing"
           error={error.username}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Phone Number"
@@ -124,7 +117,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Phone Number is missing"
           error={error.phoneNumber}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Enrollment Number"
@@ -134,13 +127,13 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Enrollment Number is missing"
           error={error.enrollmentNumber}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <div>
           <label>Status</label>
           <select name="status" value={formData.status} onChange={handleChange}>
-            <option value={true}>AVAILABLE</option>
-            <option value={false}>UNAVAILABLE</option>
+            <option>AVAILABLE</option>
+            <option>UNAVAILABLE</option>
           </select>
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </div>
@@ -178,7 +171,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="To"
@@ -188,7 +181,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
         <Input
           labelText="Password"
@@ -198,10 +191,10 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Password is missing"
           error={error.password}
           onChange={handleChange}
-          disbled={isLoading}
+          disbled={isLoadingForm}
         />
       </div>
-      {isLoading === true ? (
+      {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
       ) : (
         <Button type="submit" />
