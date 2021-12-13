@@ -117,7 +117,7 @@ const applicationsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
         messageType: 'error',
-        messageText: 'Error updating session'
+        messageText: 'Error updating application'
       };
     case GET_ONE_APPLICATION_FETCHING:
       return {
