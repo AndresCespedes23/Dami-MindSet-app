@@ -59,6 +59,7 @@ export const addPostulant = (postulant) => (dispatch) => {
   })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
     })
     .then((response) => {
       dispatch(addPostulantsFulfilled(response.data));
@@ -126,7 +127,6 @@ const getOnePostulantsFulfilled = (payload) => ({ type: GET_ONE_POSTULANTS_FULFI
 
 const getOnePostulantsRejected = () => ({ type: GET_ONE_POSTULANTS_REJETED });
 
-//FORMA DE JULI
 export const getOnePostulant = (id) => {
   return (dispatch) => {
     dispatch(getOnePostulantsFetching());
