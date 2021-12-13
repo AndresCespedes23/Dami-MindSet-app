@@ -1,157 +1,81 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getInterviews,
+  addInterview,
+  deleteInterview,
+  updateInterview
+} from '../../redux/Interviews/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Interviews/actions';
 import styles from './interviews.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
-import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
+import { FaCheckCircle, FaClock } from 'react-icons/fa';
 
 function Interviews() {
-  const [interviews, setInterviews] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getInterviews = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/interviews`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setInterviews(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
+  const interviews = useSelector((state) => state.interviews.list);
+  const isLoading = useSelector((state) => state.interviews.isLoading);
+  const showMessage = useSelector((state) => state.interviews.showMessage);
+  const message = useSelector((state) => state.interviews.messageText);
+  const messageType = useSelector((state) => state.interviews.messageType);
+  const showModal = useSelector((state) => state.interviews.showModal);
+  const modalType = useSelector((state) => state.interviews.modalType);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getInterviews();
-  }, []);
+    dispatch(getInterviews());
+  }, [dispatch]);
 
   const handleDeleteClick = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDeleteInterview = (id) => {
-    fetch(`${process.env.REACT_APP_API}/interviews/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getInterviews();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Interview deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting interview');
-      });
+    dispatch(deleteInterview(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getInterviews());
+    });
   };
 
   const handleUpdateClick = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('interviews'));
     setIdActive(id);
-    setModalType('interviews');
+    dispatch(setShowModal(true));
   };
 
-  const handleUpdateInterview = (interview) => {
-    fetch(`${process.env.REACT_APP_API}/interviews/${idActive}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(interview)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getInterviews();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Interview updated');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating interview');
-      });
+  const handleUpdateInterview = (interviews) => {
+    dispatch(updateInterview(interviews, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getInterviews());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setIdActive(null);
-    setModalType('interviews');
+    dispatch(setModalType('interviews'));
+    setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddInterview = (interview) => {
-    fetch(`${process.env.REACT_APP_API}/interviews`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(interview)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        getInterviews();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Interview added');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding interview');
-      });
+    dispatch(addInterview(interview)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getInterviews());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
+
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
