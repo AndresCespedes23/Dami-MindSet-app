@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getSessions,
+  addSessions,
+  deleteSessions,
+  updateSessions
+} from '../../redux/Sessions/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Sessions/actions';
 import styles from './sessions.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,149 +14,65 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Sessions() {
-  const [sessions, setSessions] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getSessions = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/sessions`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setSessions(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
+  const sessions = useSelector((state) => state.sessions.list);
+  const isLoading = useSelector((state) => state.sessions.isLoading);
+  const showMessage = useSelector((state) => state.sessions.showMessage);
+  const message = useSelector((state) => state.sessions.messageText);
+  const messageType = useSelector((state) => state.sessions.messageType);
+  const showModal = useSelector((state) => state.sessions.showModal);
+  const modalType = useSelector((state) => state.sessions.modalType);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getSessions();
-  }, []);
+    dispatch(getSessions());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting session');
-      });
+    dispatch(deleteSessions(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getSessions());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('sessions'));
     setIdActive(id);
-    setModalType('sessions');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdateSession = (session) => {
-    fetch(`${process.env.REACT_APP_API}/sessions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(session)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session updated');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating session');
-      });
+    dispatch(updateSessions(session, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getSessions());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('sessions'));
     setIdActive('');
-    setModalType('sessions');
+    dispatch(setShowModal(true));
   };
 
   const handleAddSession = (session) => {
-    fetch(`${process.env.REACT_APP_API}/sessions`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(session)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        getSessions();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Session added');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error creating session');
-      });
+    dispatch(addSessions(session)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getSessions());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
