@@ -83,7 +83,7 @@ const applicationsReducer = (state = initialState, action) => {
         isLoading: false,
         messageType: 'success',
         messageText: 'Application deleted successfully',
-        list: [...state.list, action.payload]
+        list: state.list.filter((application) => application.id !== action.payload)
       };
     case DELETE_APPLICATIONS_REJECTED:
       return {
