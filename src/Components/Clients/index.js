@@ -27,7 +27,6 @@ function Clients() {
     dispatch(setShowModal(true));
     setIdActive(id);
     dispatch(setModalType('delete'));
-    console.log(id);
   };
 
   const handleDelete = (id) => {

@@ -5,15 +5,15 @@ import {
   ADD_CLIENTS_FETCHING,
   ADD_CLIENTS_FULFILLED,
   ADD_CLIENTS_REJECTED,
+  DELETE_CLIENTS_FETCHING,
+  DELETE_CLIENTS_FULFILLED,
+  DELETE_CLIENTS_REJECTED,
   UPDATE_CLIENTS_FETCHING,
   UPDATE_CLIENTS_FULFILLED,
   UPDATE_CLIENTS_REJECTED,
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
-  GET_ONE_CLIENTS_REJECTED,
-  DELETE_CLIENTS_FETCHING,
-  DELETE_CLIENTS_FULFILLED,
-  DELETE_CLIENTS_REJECTED
+  GET_ONE_CLIENTS_REJECTED
 } from '../../constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/clients`;
@@ -32,11 +32,13 @@ const getClientsRejected = () => ({
 });
 
 export const getClients = () => {
-  console.log('GET');
   return (dispatch) => {
     dispatch(getClientsFetching());
     fetch(BASE_URL)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getClientsFulfilled(response.data));
       })
@@ -69,7 +71,10 @@ export const addClient = (client) => (dispatch) => {
     },
     body: JSON.stringify(client)
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(addClientsFulfilled(response.data));
     })
@@ -92,10 +97,12 @@ const deleteClientsRejected = () => ({
 });
 
 export const deleteClient = (id) => (dispatch) => {
-  console.log('DELETE');
   dispatch(deleteClientsFetching());
   return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(deleteClientsFulfilled(response.data));
     })
@@ -126,7 +133,10 @@ export const updateClient = (client, id) => (dispatch) => {
     },
     body: JSON.stringify(client)
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(updateClientsFulfilled(response.data));
     })
@@ -151,7 +161,10 @@ const getOneClientsRejected = () => ({
 export const getOneClients = (id) => (dispatch) => {
   dispatch(getOneClientsFetching());
   return fetch(`${BASE_URL}/${id}`)
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(getOneClientsFulfilled(response.data));
       return response.data;

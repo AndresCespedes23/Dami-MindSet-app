@@ -25,7 +25,7 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  client: null,
+  client: {},
   showModal: false,
   showMessage: false
 };
@@ -82,7 +82,7 @@ const clientsReducer = (state = initialState, action) => {
         isLoading: false,
         messageType: 'success',
         messageText: 'Deleted Client',
-        list: [...state.list, action.payload]
+        list: state.list.filter((client) => client.id !== action.payload)
       };
     case DELETE_CLIENTS_REJECTED:
       return {
@@ -94,13 +94,13 @@ const clientsReducer = (state = initialState, action) => {
       };
     case UPDATE_CLIENTS_FETCHING:
       return {
-        ...state
-        // isLoading: true
+        ...state,
+        isLoading: true
       };
     case UPDATE_CLIENTS_FULFILLED:
       return {
         ...state,
-        // isLoading: false,
+        isLoading: false,
         messageType: 'success',
         messageText: 'Updated Client',
         list: [...state.list, action.payload]
@@ -108,7 +108,7 @@ const clientsReducer = (state = initialState, action) => {
     case UPDATE_CLIENTS_REJECTED:
       return {
         ...state,
-        // isLoading: false,
+        isLoading: false,
         error: true,
         messageType: 'error',
         messageText: 'Cannot update Clients'

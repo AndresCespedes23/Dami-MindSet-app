@@ -7,8 +7,6 @@ import Button from '../../Shared/Button';
 import { getOneClients } from '../../../redux/Clients/thunks';
 
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
-  // const client = useSelector((store) => store.clients.client);
-  // BORRARLO DEL STORE
   const isLoadingForm = useSelector((store) => store.clients.isLoadingForm);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
