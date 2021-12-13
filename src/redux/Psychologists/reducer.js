@@ -1,20 +1,31 @@
 import {
   GET_PSYCHOLOGIST_FETCHING,
   GET_PSYCHOLOGIST_FULFILLED,
-  GET_PSYCHOLOGIST_REJECTED
+  GET_PSYCHOLOGIST_REJECTED,
+  DELETE_PSYCHOLOGIST_FETCHING,
+  DELETE_PSYCHOLOGIST_FULFILLED,
+  DELETE_PSYCHOLOGIST_REJECTED,
+  UPDATE_PSYCHOLOGIST_FETCHING,
+  UPDATE_PSYCHOLOGIST_FULFILLED,
+  UPDATE_PSYCHOLOGIST_REJECTED,
+  ADD_PSYCHOLOGIST_FETCHING,
+  ADD_PSYCHOLOGIST_FULFILLED,
+  ADD_PSYCHOLOGIST_REJECTED,
+  SHOW_MODAL,
+  SHOW_MESSAGE,
+  MODAL_TYPE
 } from '../../constants/actionTypes';
 
 const initialState = {
   list: [],
+  isLoading: false,
   isLoadingForm: false,
   psychologists: null,
   showModal: false,
-  modalType: '',
-  idActive: '',
+  error: false,
   showMessage: false,
   messageType: '',
-  message: '',
-  isLoading: false
+  messageText: ''
 };
 
 const psychologistReducer = (state = initialState, action) => {
@@ -38,6 +49,83 @@ const psychologistReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get Psychologists'
       };
+    case DELETE_PSYCHOLOGIST_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case DELETE_PSYCHOLOGIST_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Deleted Psychologist',
+        list: state.list.filter((psychologist) => psychologist.id !== action.payload)
+      };
+    case DELETE_PSYCHOLOGIST_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot delete Psychologist'
+      };
+    case UPDATE_PSYCHOLOGIST_FETCHING:
+      return {
+        ...state
+      };
+    case UPDATE_PSYCHOLOGIST_FULFILLED:
+      return {
+        ...state,
+        messageType: 'success',
+        messageText: 'Updated Psychologist',
+        list: [...state.list, action.payload]
+      };
+    case UPDATE_PSYCHOLOGIST_REJECTED:
+      return {
+        ...state,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot update Psychologist'
+      };
+    case ADD_PSYCHOLOGIST_FETCHING:
+      return {
+        ...state
+      };
+    case ADD_PSYCHOLOGIST_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Added Psychologist',
+        list: [...state.list, action.payload]
+      };
+    case ADD_PSYCHOLOGIST_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot Add Psychologist'
+      };
+    case SHOW_MODAL: {
+      return {
+        ...state,
+        showModal: action.showModal
+      };
+    }
+    case SHOW_MESSAGE: {
+      return {
+        ...state,
+        showMessage: action.showMessage
+      };
+    }
+    case MODAL_TYPE: {
+      return {
+        ...state,
+        modalType: action.modalType
+      };
+    }
     default:
       return state;
   }
