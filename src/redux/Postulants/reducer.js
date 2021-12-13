@@ -92,7 +92,7 @@ const postulantsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
         messageType: 'error',
-        messageText: 'Cannot delete Clients'
+        messageText: 'Cannot delete Postulants'
       };
     case UPDATE_POSTULANTS_FETCHING:
       return {
