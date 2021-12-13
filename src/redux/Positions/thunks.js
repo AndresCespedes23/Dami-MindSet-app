@@ -40,7 +40,6 @@ export const getPositions = () => {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
         dispatch(getPositionsFulfilled(response.data));
       })
       .catch(() => {
