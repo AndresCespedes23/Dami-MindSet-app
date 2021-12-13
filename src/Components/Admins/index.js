@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAdmins } from '../../redux/Admins/thunks.js';
+import { getAdmins, updateAdmins } from '../../redux/Admins/thunks.js';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Positions/actions';
 import styles from './admins.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -11,62 +12,36 @@ function Admins() {
   const [idActive, setIdActive] = useState('');
   const admins = useSelector((state) => state.admins.list);
   const isLoading = useSelector((state) => state.admins.isLoading);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
+  const showMessage = useSelector((state) => state.admins.showMessage);
+  const message = useSelector((state) => state.admins.messageText);
+  const messageType = useSelector((state) => state.admins.messageType);
+  const showModal = useSelector((state) => state.admins.showModal);
+  const modalType = useSelector((state) => state.admins.modalType);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAdmins());
   }, [dispatch]);
 
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
-
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('admins'));
     setIdActive(id);
-    setModalType('admins');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdateAdmin = (admin) => {
-    fetch(`${process.env.REACT_APP_API}/admins/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(admin)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        console.log(response);
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Admin updated');
-        getAdmins(admins.map((admin) => (admin._id === idActive ? response : admin)));
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating admin');
-      });
+    dispatch(updateAdmins(admin, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getAdmins());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
