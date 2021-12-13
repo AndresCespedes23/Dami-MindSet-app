@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getApplications,
+  addApplication,
+  deleteApplication,
+  updateApplication
+} from '../../redux/Applications/thunks.js';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Applications/actions';
 import styles from './applications.module.css';
 import Button from '../Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,156 +14,71 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Applications() {
-  const [applications, setApplications] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  // const [applications, setApplications] = useState([]);
+  const applications = useSelector((store) => store.applications.list);
+  const isLoading = useSelector((store) => store.applications.isLoading);
+  const messageType = useSelector((store) => store.applications.messageType);
+  const message = useSelector((store) => store.applications.messageText);
+  const showModal = useSelector((store) => store.applications.showModal);
+  const showMessage = useSelector((store) => store.applications.showMessage);
+  const modalType = useSelector((store) => store.applications.modalType);
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getApplications = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/applications`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setApplications(response.data);
-      })
-      .catch((err) => {
-        setMessageType('error');
-        setMessage('Error:', err);
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getApplications();
-  }, []);
+    dispatch(getApplications());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
+    console.log(id);
   };
 
-  const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/applications/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application deleted');
-        getApplications();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting application');
-      });
+  const handleDeleteApplication = (id) => {
+    dispatch(deleteApplication(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getApplications());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('applications'));
     setIdActive(id);
-    setModalType('applications');
+    dispatch(setShowModal(true));
+    console.log(id);
   };
 
   const handleUpdateApplication = (application) => {
-    fetch(`${process.env.REACT_APP_API}/applications/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(application)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application updated');
-        getApplications();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating application');
-      });
+    dispatch(updateApplication(application, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getApplications());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('applications'));
     setIdActive('');
-    setModalType('applications');
+    dispatch(setShowModal(true));
   };
 
   const handleAddApplication = (application) => {
-    fetch(`${process.env.REACT_APP_API}/applications`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(application)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Application added');
-        getApplications();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error creating application');
-      });
+    dispatch(addApplication(application)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getApplications());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-
   return (
     <section className={styles.container}>
       <div className={styles.list}>
@@ -210,7 +133,7 @@ function Applications() {
           modalType={modalType}
           handleSubmit={
             modalType === 'delete'
-              ? () => handleDelete(idActive)
+              ? () => handleDeleteApplication(idActive)
               : modalType === 'applications' && !idActive
               ? handleAddApplication
               : handleUpdateApplication
