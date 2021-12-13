@@ -103,7 +103,12 @@ const clientsReducer = (state = initialState, action) => {
         isLoading: false,
         messageType: 'success',
         messageText: 'Updated Client',
-        list: [...state.list, action.payload]
+        list: state.list.map((client) => {
+          if (client._id === action.payload.id) {
+            return action.payload;
+          }
+          return client;
+        })
       };
     case UPDATE_CLIENTS_REJECTED:
       return {
