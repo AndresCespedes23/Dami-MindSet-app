@@ -1,41 +1,26 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAdmins } from '../../redux/Admins/thunks.js';
 import styles from './admins.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import { testAdmin } from '../../redux/Admins/actions';
 
 function Admins() {
-  const [admins, setAdmins] = useState([]);
+  const [idActive, setIdActive] = useState('');
+  const admins = useSelector((state) => state.admins.list);
+  const isLoading = useSelector((state) => state.admins.isLoading);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('');
-  const [idActive, setIdActive] = useState('');
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState('');
   const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const list = useSelector((state) => state.admins.list);
-  console.log(list);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(testAdmin('fsfdsfsdf'));
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/admins`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setAdmins(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  }, []);
+    dispatch(getAdmins());
+  }, [dispatch]);
 
   const cleanMessage = () => {
     setShowMessage(false);
@@ -66,7 +51,7 @@ function Admins() {
         setShowMessage(true);
         setMessageType('success');
         setMessage('Admin updated');
-        setAdmins(admins.map((admin) => (admin._id === idActive ? response : admin)));
+        getAdmins(admins.map((admin) => (admin._id === idActive ? response : admin)));
       })
       .catch((err) => {
         console.log(err);

@@ -1,20 +1,38 @@
-import { TEST_ADMIN } from '../../constants/actionTypes';
-
+import {
+  GET_ADMINS_FETCHING,
+  GET_ADMINS_FULFILLED,
+  GET_ADMINS_REJECTED
+} from '../../constants/actionTypes';
 const initialState = {
-  list: []
+  isLoading: false,
+  isLoadingForm: false,
+  list: [],
+  error: false,
+  messageType: '',
+  messageText: '',
+  admin: null
 };
 
 const adminsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TEST_ADMIN:
+    case GET_ADMINS_FETCHING:
       return {
         ...state,
-        list: [
-          ...state.list,
-          {
-            test: action.test
-          }
-        ]
+        isLoading: true
+      };
+    case GET_ADMINS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_ADMINS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get admins'
       };
     default:
       return state;
