@@ -19,7 +19,7 @@ function Positions() {
   const [idActive, setIdActive] = useState('');
   const showMessage = useSelector((state) => state.positions.showMessage);
   const message = useSelector((state) => state.positions.messageText);
-  const messageType = useSelector((store) => store.positions.messageType);
+  const messageType = useSelector((state) => state.positions.messageType);
   const positions = useSelector((state) => state.positions.list);
   const isLoading = useSelector((state) => state.positions.isLoading);
   const dispatch = useDispatch();
@@ -28,13 +28,7 @@ function Positions() {
     dispatch(getPositions());
   }, [dispatch]);
 
-  /* const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  }; */
-
   const handleClickDelete = (id) => {
-    /* cleanMessage(); */
     dispatch(setShowModal(true));
     setIdActive(id);
     dispatch(setModalType('delete'));
@@ -48,7 +42,6 @@ function Positions() {
   };
 
   const handleClickUpdate = (id) => {
-    /* cleanMessage(); */
     dispatch(setModalType('positions'));
     setIdActive(id);
     dispatch(setShowModal(true));
@@ -62,7 +55,6 @@ function Positions() {
   };
 
   const handleClickAdd = () => {
-    /* cleanMessage(); */
     dispatch(setModalType('positions'));
     setIdActive('');
     dispatch(setShowModal(true));
