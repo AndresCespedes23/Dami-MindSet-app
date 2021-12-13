@@ -35,7 +35,10 @@ export const getPositions = () => {
   return (dispatch) => {
     dispatch(getPositionsFetching());
     fetch(BASE_URL)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         console.log(response);
         dispatch(getPositionsFulfilled(response.data));
@@ -69,7 +72,10 @@ export const addPositions = (position) => (dispatch) => {
     },
     body: JSON.stringify(position)
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(addPositionsFulfilled(response.data));
     })
@@ -94,7 +100,10 @@ const deletePositionsRejected = () => ({
 export const deletePositions = (id) => (dispatch) => {
   dispatch(deletePositionsFetching());
   return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
     .then((response) => {
       dispatch(deletePositionsFulfilled(response.data));
     })
@@ -124,7 +133,10 @@ export const updatePositions = (positions, id) => (dispatch) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(positions)
   })
-    .then((data) => data.json())
+    .then((data) => {
+      if (data.status === 200 || data.status === 201) return data.json();
+      throw new Error(`HTTP ${data.status}`);
+    })
     .then(() => {
       dispatch(updatePositionsFullfiled(id));
     })
@@ -150,7 +162,10 @@ export const getOnePosition = (id) => {
   return (dispatch) => {
     dispatch(getOnePositionFetching());
     return fetch(`${BASE_URL}/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
       .then((response) => {
         dispatch(getOnePositionFulfilled(response.data));
         return response.data;
