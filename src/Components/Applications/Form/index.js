@@ -5,13 +5,16 @@ import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
 import { getOneApplication } from '../../../redux/Applications/thunks';
+import { getPostulants } from '../../../redux/Postulants/thunks';
+import { getPositions } from '../../../redux/Positions/thunks';
+import { getInterviews } from '../../../redux/Interviews/thunks';
 
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const isLoadingForm = useSelector((store) => store.applications.isLoadingForm);
   const dispatch = useDispatch();
-  const [positions, setPositions] = useState([]);
-  const [candidates, setCandidates] = useState([]);
-  const [interviews, setInterviews] = useState([]);
+  const candidates = useSelector((state) => state.postulants.list);
+  const positions = useSelector((state) => state.positions.list);
+  const interviews = useSelector((state) => state.interviews.list);
   const [formData, setFormData] = useState({
     idPosition: '',
     idCandidate: '',
@@ -30,34 +33,9 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/positions`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPositions(response.data);
-      })
-      .catch((err) => console.log(err));
-    fetch(`${process.env.REACT_APP_API}/candidates`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setCandidates(response.data);
-      })
-      .catch((err) => console.log(err));
-    fetch(`${process.env.REACT_APP_API}/interviews`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setInterviews(response.data);
-      })
-      .catch((err) => console.log(err));
-
+    dispatch(getPostulants());
+    dispatch(getPositions());
+    dispatch(getInterviews());
     if (id) {
       dispatch(getOneApplication(id)).then((data) => {
         setFormData(data);
