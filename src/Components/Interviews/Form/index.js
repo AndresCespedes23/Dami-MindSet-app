@@ -140,11 +140,11 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         labelText="Date"
         name="dateTime"
         type="date"
-        value={formData.dateTime}
+        value={formData.dateTime.split('T')[0]}
         errorMessage="Date is missing"
         error={error.dateTime}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
