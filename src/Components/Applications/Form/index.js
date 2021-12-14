@@ -147,17 +147,17 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Result is missing"
         error={error.result}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Date"
         name="dateTime"
         type="date"
-        value={formData.dateTime}
+        value={formData.dateTime ? formData.dateTime.split('T')[0] : ''}
         errorMessage="Date is missing"
         error={error.dateTime}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <div>
         <label>Status</label>
