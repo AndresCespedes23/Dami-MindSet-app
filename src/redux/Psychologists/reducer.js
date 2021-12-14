@@ -11,6 +11,9 @@ import {
   ADD_PSYCHOLOGIST_FETCHING,
   ADD_PSYCHOLOGIST_FULFILLED,
   ADD_PSYCHOLOGIST_REJECTED,
+  GET_ONE_PSYCHOLOGIST_FETCHING,
+  GET_ONE_PSYCHOLOGIST_FULFILLED,
+  GET_ONE_PSYCHOLOGIST_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE
@@ -20,7 +23,7 @@ const initialState = {
   list: [],
   isLoading: false,
   isLoadingForm: false,
-  psychologists: null,
+  psychologist: {},
   showModal: false,
   error: false,
   showMessage: false,
@@ -48,6 +51,26 @@ const psychologistReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot get Psychologists'
+      };
+    case GET_ONE_PSYCHOLOGIST_FETCHING:
+      return {
+        ...state,
+        isLoadingForm: true
+      };
+    case GET_ONE_PSYCHOLOGIST_FULFILLED: {
+      return {
+        ...state,
+        isLoadingForm: false,
+        psychologist: action.payload
+      };
+    }
+    case GET_ONE_PSYCHOLOGIST_REJECTED:
+      return {
+        ...state,
+        isLoadingForm: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get one Psychologist'
       };
     case DELETE_PSYCHOLOGIST_FETCHING:
       return {
