@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getProfiles,
+  addProfile,
+  deleteProfile,
+  updateProfile
+} from '../../redux/Profiles/thunks.js';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Profiles/actions';
 import styles from './profiles.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,150 +14,67 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Profiles() {
-  const [profiles, setProfiles] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const profiles = useSelector((store) => store.profiles.list);
+  const isLoading = useSelector((store) => store.profiles.isLoading);
+  const messageType = useSelector((store) => store.profiles.messageType);
+  const message = useSelector((store) => store.profiles.messageText);
+  const showModal = useSelector((store) => store.profiles.showModal);
+  const showMessage = useSelector((store) => store.profiles.showMessage);
+  const modalType = useSelector((store) => store.profiles.modalType);
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getProfiles = () => {
-    fetch(`${process.env.REACT_APP_API}/profiles`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setProfiles(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    getProfiles();
-  }, []);
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
+    dispatch(getProfiles());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
+    console.log(id);
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/profiles/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Profile deleted');
-        getProfiles();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting profile');
-      });
+    dispatch(deleteProfile(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getProfiles());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('profiles'));
     setIdActive(id);
-    setModalType('profiles');
+    dispatch(setShowModal(true));
+    console.log(id);
   };
 
   const handleUpdateProfile = (profile) => {
-    fetch(`${process.env.REACT_APP_API}/profiles/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(profile)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Profile updated');
-        getProfiles();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating profile');
-      });
+    dispatch(updateProfile(profile, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getProfiles());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setModalType('profiles');
+    dispatch(setModalType('profiles'));
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddProfile = (profile) => {
-    setLoading(false);
-    fetch(`${process.env.REACT_APP_API}/profiles`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(profile)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate added');
-        getProfiles();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding profile');
-      });
+    dispatch(addProfile(profile)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getProfiles());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
