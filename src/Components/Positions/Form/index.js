@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOnePosition } from '../../../redux/Positions/thunks';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(true);
+  const dispatch = useDispatch();
+  const isLoadingForm = useSelector((store) => store.positions.isLoadingForm);
   const [clients, setClients] = useState([]);
   const [profiles, setProfiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -30,7 +33,6 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -39,8 +41,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setClients(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/profiles`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -49,19 +50,11 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setProfiles(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     if (id) {
-      fetch(`${process.env.REACT_APP_API}/positions/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOnePosition(id)).then((data) => {
+        setFormData(data);
+      });
     }
   }, []);
 
@@ -100,7 +93,12 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
     <form className={styles.form} onSubmit={onSubmit}>
       <div>
         <label>Client</label>
-        <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
+        <select
+          name="idClient"
+          value={formData.idClient._id}
+          disabled={isLoadingForm}
+          onChange={handleChange}
+        >
           {clients.map((client) => {
             return [
               <option key={client._id} value={client._id}>
@@ -113,7 +111,12 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       </div>
       <div>
         <label>Profile</label>
-        <select name="idProfile" value={formData.idProfile._id} onChange={handleChange}>
+        <select
+          name="idProfile"
+          value={formData.idProfile._id}
+          disabled={isLoadingForm}
+          onChange={handleChange}
+        >
           {profiles.map((profile) => {
             return [
               <option key={profile._id} value={profile._id}>
@@ -132,7 +135,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Name is missing"
         error={error.name}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Description"
@@ -142,11 +145,16 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Description is missing"
         error={error.description}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <div>
         <label>Status</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
+        <select
+          name="status"
+          value={formData.status}
+          disabled={isLoadingForm}
+          onChange={handleChange}
+        >
           <option>DONE</option>
           <option>PENDING</option>
         </select>
@@ -160,7 +168,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Address is missing"
         error={error.address}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="City"
@@ -170,7 +178,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="City is missing"
         error={error.city}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="ZIP Code"
@@ -180,7 +188,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Zip Code is missing"
         error={error.postalCode}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />

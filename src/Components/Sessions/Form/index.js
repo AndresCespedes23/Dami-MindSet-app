@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOneSession } from '../../../redux/Sessions/thunks';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const dispatch = useDispatch();
+  const isLoadingForm = useSelector((store) => store.sessions.isLoadingForm);
   const [psychologists, setPsychologists] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [formData, setFormData] = useState({
@@ -25,7 +28,6 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/psychologists`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -34,8 +36,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPsychologists(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -44,20 +45,12 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
+
     if (id) {
-      fetch(`${process.env.REACT_APP_API}/sessions/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          response.data.date = response.data.date.split('T')[0];
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOneSession(id)).then((data) => {
+        setFormData(data);
+      });
     }
   }, []);
 
@@ -95,7 +88,12 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       <div>
         <div>
           <label>Psychologist</label>
-          <select name="idPsychologist" value={formData.idPsychologist._id} onChange={handleChange}>
+          <select
+            name="idPsychologist"
+            value={formData.idPsychologist._id}
+            disabled={isLoadingForm}
+            onChange={handleChange}
+          >
             {psychologists.map((psychologist) => {
               return [
                 <option key={psychologist._id} value={psychologist._id}>
@@ -108,7 +106,12 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         </div>
         <div>
           <label>Candidate</label>
-          <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
+          <select
+            name="idCandidate"
+            value={formData.idCandidate._id}
+            disabled={isLoadingForm}
+            onChange={handleChange}
+          >
             {candidates.map((candidate) => {
               return [
                 <option key={candidate._id} value={candidate._id}>
@@ -127,6 +130,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
             value={formData.date}
             placeholder="Insert a date"
             required
+            disabled={isLoadingForm}
             onChange={handleChange}
           />
           {error.dateTime && <span className={styles.error}>Date time is missing</span>}
@@ -139,6 +143,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
             value={formData.time}
             placeholder="Insert a time"
             required
+            disabled={isLoadingForm}
             onChange={handleChange}
           />
           {error.dateTime && <span className={styles.error}>Date time is missing</span>}
@@ -147,7 +152,13 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       <div>
         <div>
           <label>Status</label>
-          <select name="status" value={formData.status} required onChange={handleChange}>
+          <select
+            name="status"
+            value={formData.status}
+            required
+            disabled={isLoadingForm}
+            onChange={handleChange}
+          >
             <option value="PENDING">PENDING</option>
             <option value="DONE">DONE</option>
           </select>
