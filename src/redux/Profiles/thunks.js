@@ -40,7 +40,6 @@ export const getProfiles = () => {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log('PROFILES 1', response.data);
         dispatch(getProfilesFulfilled(response.data));
       })
       .catch(() => {
