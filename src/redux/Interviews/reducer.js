@@ -71,7 +71,7 @@ const interviewsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
         messageType: 'error',
-        messageText: 'Cannot add interviews'
+        messageText: 'Cannot add interview'
       };
     case DELETE_INTERVIEW_FETCHING:
       return {
@@ -92,7 +92,7 @@ const interviewsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
         messageType: 'error',
-        messageText: 'Cannot delete interviews'
+        messageText: 'Cannot delete interview'
       };
     case UPDATE_INTERVIEW_FETCHING:
       return {
@@ -104,7 +104,7 @@ const interviewsReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         messageType: 'success',
-        messageText: 'Updated Client',
+        messageText: 'Updated interview',
         list: state.list.map((interview) => {
           if (interview._id === action.payload.id) {
             return action.payload;
@@ -118,7 +118,7 @@ const interviewsReducer = (state = initialState, action) => {
         isLoading: false,
         error: true,
         messageType: 'error',
-        messageText: 'Cannot update interviews'
+        messageText: 'Cannot update interview'
       };
     case GET_ONE_INTERVIEW_FETCHING:
       return {
