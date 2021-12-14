@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOneProfile } from '../../../redux/Profiles/thunks';
 
 function ProfilesForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const isLoadingForm = useSelector((store) => store.profiles.isLoadingForm);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     description: ''
@@ -17,19 +20,11 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      setLoadingForm(true);
-      fetch(`${process.env.REACT_APP_API}/profiles/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOneProfile(id)).then((data) => {
+        setFormData(data);
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +45,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
     handleSubmit(newProfile);
     handleShowModal();
   };
+
   return (
     <form className={styles.form} onSubmit={onSubmit}>
       <Input

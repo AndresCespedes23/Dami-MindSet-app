@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOnePostulant } from '../../../redux/Postulants/thunks';
 
 function PostulantsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const dispatch = useDispatch();
+  const isLoadingForm = useSelector((store) => store.postulants.isLoadingForm);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,20 +42,11 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      setLoadingForm(true);
-      fetch(`${process.env.REACT_APP_API}/candidates/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          response.data.dateOfBirth = response.data.dateOfBirth.split('T')[0];
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOnePostulant(id)).then((data) => {
+        setFormData(data);
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,7 +81,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
     }
 
     handleSubmit(newCandidate);
-    handleShowModal();
+    handleShowModal(false);
   };
 
   return (
