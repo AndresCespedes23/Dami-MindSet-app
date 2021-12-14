@@ -1,6 +1,23 @@
-import { TEST_ADMIN } from '../../constants/actionTypes';
+import { MODAL_TYPE, SHOW_MODAL } from '../../constants/actionTypes';
+import { SHOW_MESSAGE } from '../../constants/actionTypes';
 
-export const testAdmin = (test) => ({
-  type: TEST_ADMIN,
-  test
-});
+export const setShowModal = (showModal) => {
+  return {
+    type: SHOW_MODAL,
+    showModal
+  };
+};
+
+export const setShowMessage = (showMessage) => {
+  return {
+    type: SHOW_MESSAGE,
+    showMessage
+  };
+};
+
+export const setModalType = (modalType) => {
+  return {
+    type: MODAL_TYPE,
+    modalType
+  };
+};

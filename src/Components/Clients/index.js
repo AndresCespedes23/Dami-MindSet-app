@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getClients, addClient, deleteClient, updateClient } from '../../redux/Clients/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Clients/actions';
 import styles from './clients.module.css';
 import Modal from '../Shared/Modal';
 import Button from '../../Components/Shared/Button';
@@ -6,149 +9,65 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Clients() {
-  const [clients, setClients] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const clients = useSelector((store) => store.clients.list);
+  const isLoading = useSelector((store) => store.clients.isLoading);
+  const messageType = useSelector((store) => store.clients.messageType);
+  const message = useSelector((store) => store.clients.messageText);
+  const showModal = useSelector((store) => store.clients.showModal);
+  const showMessage = useSelector((store) => store.clients.showMessage);
+  const modalType = useSelector((store) => store.clients.modalType);
+  const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getClients = () => {
-    fetch(`${process.env.REACT_APP_API}/clients`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setClients(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
 
   useEffect(() => {
-    setLoading(true);
-    getClients();
-  }, []);
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
+    dispatch(getClients());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/clients/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Client deleted');
-        getClients();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting client');
-      });
+    dispatch(deleteClient(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getClients());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('clients'));
     setIdActive(id);
-    setModalType('clients');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdateClients = (client) => {
-    fetch(`${process.env.REACT_APP_API}/clients/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(client)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Client updated');
-        getClients();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating client');
-      });
+    dispatch(updateClient(client, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getClients());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setModalType('clients');
+    dispatch(setModalType('clients'));
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddClients = (client) => {
-    fetch(`${process.env.REACT_APP_API}/clients`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(client)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Client added');
-        getClients();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding client');
-      });
+    dispatch(addClient(client)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getClients());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;

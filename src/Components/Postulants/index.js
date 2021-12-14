@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getPostulants,
+  deletePostulant,
+  addPostulant,
+  updatePostulant
+} from '../../redux/Postulants/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Postulants/actions';
 import styles from './postulants.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,149 +14,65 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Postulants() {
-  const [postulants, setPostulants] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const postulants = useSelector((store) => store.postulants.list);
+  const isLoading = useSelector((store) => store.postulants.isLoading);
+  const messageType = useSelector((store) => store.postulants.messageType);
+  const message = useSelector((store) => store.postulants.messageText);
+  const showModal = useSelector((store) => store.postulants.showModal);
+  const showMessage = useSelector((store) => store.postulants.showMessage);
+  const modalType = useSelector((store) => store.postulants.modalType);
+  const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getPostulants = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/candidates`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPostulants(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
 
   useEffect(() => {
-    getPostulants();
-  }, []);
+    dispatch(getPostulants());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/candidates/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate deleted');
-        getPostulants();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting candidate');
-      });
+    dispatch(deletePostulant(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPostulants());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('postulants'));
     setIdActive(id);
-    setModalType('postulants');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdatePostulant = (postulant) => {
-    fetch(`${process.env.REACT_APP_API}/candidates/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(postulant)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate updated');
-        getPostulants();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating candidate');
-      });
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPostulants());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setModalType('postulants');
+    dispatch(setModalType('postulants'));
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddPostulant = (postulant) => {
-    fetch(`${process.env.REACT_APP_API}/candidates`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(postulant)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate added');
-        getPostulants();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding candidate');
-      });
+    dispatch(addPostulant(postulant)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPostulants());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
