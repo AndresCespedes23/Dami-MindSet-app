@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import adminsReducer from '../Admins/reducer';
+import psychologistReducer from '../Psychologists/reducer';
 import clientsReducer from '../Clients/reducer';
 import applicationsReducer from '../Applications/reducer';
 import sessionsReducer from '../Sessions/reducer';
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   clients: clientsReducer,
   interviews: interviewsReducer,
   profiles: profilesReducer,
-  postulants: postulantsReducer
+  postulants: postulantsReducer,
+  psychologists: psychologistReducer
 });
 
 export default rootReducer;

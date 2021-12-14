@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getPsychologists,
+  deletePsychologist,
+  updatePsychologist,
+  addPsychologist
+} from '../../redux/Psychologists/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Psychologists/actions';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
 import Message from '../Shared/Message';
@@ -6,149 +14,65 @@ import styles from './psychologists.module.css';
 import Spinner from '../Shared/Spinner';
 
 function Psychologists() {
-  const [psychologists, setPsychologists] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const psychologists = useSelector((store) => store.psychologists.list);
+  const showModal = useSelector((state) => state.psychologists.showModal);
+  const modalType = useSelector((state) => state.psychologists.modalType);
+  const showMessage = useSelector((state) => state.psychologists.showMessage);
+  const messageType = useSelector((state) => state.psychologists.messageType);
+  const message = useSelector((state) => state.psychologists.messageText);
+  const isLoading = useSelector((store) => store.psychologists.isLoading);
+  const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getPsychologists = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/psychologists`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPsychologists(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
 
   useEffect(() => {
-    getPsychologists();
-  }, []);
+    dispatch(getPsychologists());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/psychologists/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getPsychologists();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Psychologist deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting psychologist');
-      });
+    dispatch(deletePsychologist(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPsychologists());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('psychologists'));
     setIdActive(id);
-    setModalType('psychologists');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdatePsychologist = (psychologist) => {
-    fetch(`${process.env.REACT_APP_API}/psychologists/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(psychologist)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        getPsychologists();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Psychologist updated');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating psychologist');
-      });
+    dispatch(updatePsychologist(psychologist, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPsychologists());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setModalType('psychologists');
+    dispatch(setModalType('psychologists'));
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddPsychologist = (psychologist) => {
-    fetch(`${process.env.REACT_APP_API}/psychologists`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(psychologist)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        getPsychologists();
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Psychologist added');
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding psychologist');
-      });
+    dispatch(addPsychologist(psychologist)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPsychologists());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
@@ -188,7 +112,7 @@ function Psychologists() {
                   <td>{psychologist.enrollmentNumber}</td>
                   <td>{psychologist.timeStart + ' to ' + psychologist.timeEnd}</td>
                   <td>{psychologist.dayStart + ' to ' + psychologist.dayEnd}</td>
-                  <td>{String(psychologist.status)}</td>
+                  <td>{psychologist.status}</td>
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(psychologist._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(psychologist._id)} />

@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOnePsychologist } from '../../../redux/Psychologists/thunks';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(false);
+  const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,7 +20,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     timeEnd: '',
     dayStart: '',
     dayEnd: '',
-    status
+    status: ''
   });
   const [error, setIsError] = useState({
     name: false,
@@ -33,19 +36,11 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
 
   useEffect(() => {
     if (id) {
-      setLoadingForm(true);
-      fetch(`${process.env.REACT_APP_API}/psychologists/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOnePsychologist(id)).then((data) => {
+        setFormData(data);
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,7 +55,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
       username: event.target[2].value,
       phoneNumber: event.target[3].value,
       enrollmentNumber: event.target[4].value,
-      status: event.target.status.value === 'false' ? false : true,
+      status: event.target.status.value,
       password: event.target.password.value,
       timeStart: event.target.timeStart.value,
       timeEnd: event.target.timeEnd.value,
@@ -78,7 +73,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     }
 
     handleSubmit(newPsychologist);
-    handleShowModal();
+    handleShowModal(false);
   };
 
   return (
@@ -137,8 +132,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         <div>
           <label>Status</label>
           <select name="status" value={formData.status} onChange={handleChange}>
-            <option value={true}>AVAILABLE</option>
-            <option value={false}>UNAVAILABLE</option>
+            <option>AVAILABLE</option>
+            <option>UNAVAILABLE</option>
           </select>
           {error.status && <span className={styles.error}>*Status is missing</span>}
         </div>
