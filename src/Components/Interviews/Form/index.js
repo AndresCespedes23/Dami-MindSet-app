@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './form.module.css';
 import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
+import { getOneInterview } from '../../../redux/Interviews/thunks';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
-  const [isLoadingForm, setLoadingForm] = useState(true);
+  const dispatch = useDispatch();
+  const isLoadingForm = useSelector((store) => store.sessions.isLoadingForm);
   const [candidates, setCandidates] = useState([]);
   const [clients, setClients] = useState([]);
   const [positions, setPositions] = useState([]);
@@ -25,7 +28,6 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    setLoadingForm(true);
     fetch(`${process.env.REACT_APP_API}/candidates`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -34,8 +36,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setCandidates(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/clients`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -44,8 +45,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setClients(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     fetch(`${process.env.REACT_APP_API}/positions`)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
@@ -54,20 +54,11 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       .then((response) => {
         setPositions(response.data);
       })
-      .catch((err) => console.log(err))
-      .finally(() => setLoadingForm(false));
+      .catch((err) => console.log(err));
     if (id) {
-      fetch(`${process.env.REACT_APP_API}/interviews/${id}`)
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) return response.json();
-          throw new Error(`HTTP ${response.status}`);
-        })
-        .then((response) => {
-          response.data.dateTime = response.data.dateTime.split('T')[0];
-          setFormData(response.data);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setLoadingForm(false));
+      dispatch(getOneInterview(id)).then((data) => {
+        setFormData(data);
+      });
     }
   }, []);
 
@@ -149,11 +140,11 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         labelText="Date"
         name="dateTime"
         type="date"
-        value={formData.dateTime}
+        value={formData.dateTime.split('T')[0]}
         errorMessage="Date is missing"
         error={error.dateTime}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />

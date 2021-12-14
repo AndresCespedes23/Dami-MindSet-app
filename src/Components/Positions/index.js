@@ -1,4 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getPositions,
+  addPositions,
+  updatePositions,
+  deletePositions
+} from '../../redux/Positions/thunks';
+import { setShowModal, setShowMessage, setModalType } from '../../redux/Positions/actions';
 import styles from './positions.module.css';
 import Button from '../../Components/Shared/Button';
 import Modal from '../Shared/Modal';
@@ -6,149 +14,65 @@ import Message from '../Shared/Message';
 import Spinner from '../Shared/Spinner';
 
 function Positions() {
-  const [positions, setPositions] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const showModal = useSelector((state) => state.positions.showModal);
+  const modalType = useSelector((state) => state.positions.modalType);
   const [idActive, setIdActive] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
-  const [messageType, setMessageType] = useState('');
-  const [message, setMessage] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const getPositions = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/positions`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPositions(response.data);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setLoading(false));
-  };
-
-  const cleanMessage = () => {
-    setShowMessage(false);
-    setMessage('');
-  };
+  const showMessage = useSelector((state) => state.positions.showMessage);
+  const message = useSelector((state) => state.positions.messageText);
+  const messageType = useSelector((state) => state.positions.messageType);
+  const positions = useSelector((state) => state.positions.list);
+  const isLoading = useSelector((state) => state.positions.isLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getPositions();
-  }, []);
+    dispatch(getPositions());
+  }, [dispatch]);
 
   const handleClickDelete = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setShowModal(true));
     setIdActive(id);
-    setModalType('delete');
+    dispatch(setModalType('delete'));
   };
 
   const handleDelete = (id) => {
-    fetch(`${process.env.REACT_APP_API}/positions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Candidate deleted');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error deleting position');
-      });
+    dispatch(deletePositions(id)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPositions());
+    });
   };
 
   const handleClickUpdate = (id) => {
-    cleanMessage();
-    setShowModal(true);
+    dispatch(setModalType('positions'));
     setIdActive(id);
-    setModalType('positions');
+    dispatch(setShowModal(true));
   };
 
   const handleUpdatePosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions/${idActive}`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then(() => {
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Position updated');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error updating position');
-      });
+    dispatch(updatePositions(position, idActive)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPositions());
+    });
   };
 
   const handleClickAdd = () => {
-    cleanMessage();
-    setShowModal(true);
-    setModalType('positions');
+    dispatch(setModalType('positions'));
     setIdActive('');
+    dispatch(setShowModal(true));
   };
 
   const handleAddPosition = (position) => {
-    fetch(`${process.env.REACT_APP_API}/positions`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(position)
-    })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        if (response.errors || response.code) {
-          setShowMessage(true);
-          setMessageType('error');
-          setMessage('Error with parameters');
-          return;
-        }
-        setShowMessage(true);
-        setMessageType('success');
-        setMessage('Position added');
-        getPositions();
-      })
-      .catch((err) => {
-        console.log(err);
-        setShowMessage(true);
-        setMessageType('error');
-        setMessage('Error adding position');
-      });
+    dispatch(addPositions(position)).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPositions());
+    });
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
