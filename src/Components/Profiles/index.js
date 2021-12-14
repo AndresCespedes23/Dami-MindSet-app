@@ -32,6 +32,7 @@ function Profiles() {
     dispatch(setShowModal(true));
     setIdActive(id);
     dispatch(setModalType('delete'));
+    console.log(id);
   };
 
   const handleDelete = (id) => {
@@ -45,6 +46,7 @@ function Profiles() {
     dispatch(setModalType('profiles'));
     setIdActive(id);
     dispatch(setShowModal(true));
+    console.log(id);
   };
 
   const handleUpdateProfile = (profile) => {
@@ -68,11 +70,11 @@ function Profiles() {
   };
 
   const handleShowModal = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
   };
 
   const handleShowMessage = () => {
-    setShowMessage(false);
+    dispatch(setShowMessage(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;

@@ -25,9 +25,9 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  application: null,
   showModal: false,
-  showMessage: false
+  showMessage: false,
+  profile: null
 };
 
 const profilesReducer = (state = initialState, action) => {
@@ -128,7 +128,7 @@ const profilesReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoadingForm: false,
-        application: action.payload
+        profile: action.payload
       };
     case GET_ONE_PROFILE_REJECTED:
       return {
