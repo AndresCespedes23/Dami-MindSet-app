@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './footer.module.css';
 
-function Footer() {
+function Footer(props) {
   return (
     <footer className={styles.container}>
       <div className={styles.main}>
@@ -10,34 +10,12 @@ function Footer() {
             <span>M</span>IND<span>S</span>ET{' '}
           </Link>
         </div>
-        <ul className={styles.rutes}>
-          <li>
-            <Link to="/admins">admins</Link>
-          </li>
-          <li>
-            <Link to="/applications">applications</Link>
-          </li>
-          <li>
-            <Link to="/clients">clients</Link>
-          </li>
-          <li>
-            <Link to="/interviews">interviews</Link>
-          </li>
-          <li>
-            <Link to="/positions">positions</Link>
-          </li>
-          <li>
-            <Link to="/postulants">postulants</Link>
-          </li>
-          <li>
-            <Link to="/profiles">profiles</Link>
-          </li>
-          <li>
-            <Link to="/psychologists">psychologists</Link>
-          </li>
-          <li>
-            <Link to="/sessions">sessions</Link>
-          </li>
+        <ul className={styles.routes}>
+          {props.routes.map((route) => (
+            <li key={route.name}>
+              <a href={route.path}>{route.name}</a>
+            </li>
+          ))}
         </ul>
       </div>
       <div className={styles.license}>
