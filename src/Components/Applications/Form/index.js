@@ -85,7 +85,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       </div>
       <div>
         <label>ID Candidate</label>
-        <select name="idCandidate" value={formData.idCandidate_id} onChange={handleChange}>
+        <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
           {candidates.map((candidate) => {
             return (
               <option key={candidate._id} value={candidate._id}>

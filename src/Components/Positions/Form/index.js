@@ -99,7 +99,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         <label>Profile</label>
         <select
           name="idProfile"
-          value={formData.idProfile._id}
+          value={formData.idProfile.length ? formData.idProfile[0]._id : formData.idProfile}
           disabled={isLoadingForm}
           onChange={handleChange}
         >
