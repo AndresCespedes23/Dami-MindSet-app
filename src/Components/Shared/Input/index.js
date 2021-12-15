@@ -1,27 +1,14 @@
 import React from 'react';
 import styles from './input.module.css';
 
-function Input({
-  labelText,
-  name,
-  typeInput,
-  valueInput,
-  errorMessage,
-  error,
-  inputOnChange,
-  disabled
-}) {
+function Input(props) {
+  const hasError = !!(props.meta.touched && props.meta.error);
+
   return (
     <div>
-      <label>{labelText}</label>
-      <input
-        name={name}
-        type={typeInput}
-        value={valueInput}
-        onChange={inputOnChange}
-        disabled={disabled}
-      ></input>
-      {error && <span className={styles.error}>{errorMessage}</span>}
+      <label>{props.label}</label>
+      <input disabled={props.disabled} {...props.input} />
+      {hasError && <span className={styles.error}>{props.meta.touched && props.meta.error}</span>}
     </div>
   );
 }

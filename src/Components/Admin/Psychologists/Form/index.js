@@ -30,11 +30,6 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
     handleShowModal(false);
   };
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
-    formData[name] = value;
-  };
-
   const validate = (formValues) => {
     const errors = {};
     if (!formValues.username) {
@@ -58,29 +53,23 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
             <div>
               <Field
-                labelText="Name"
-                component={Input}
+                label="Name"
                 name="name"
-                typeInput="text"
-                valueInput={formData.name}
-                errorMessage="Name is missing"
-                error={error.name}
-                disabled={formProps.submitting}
+                disabled={isLoadingForm}
+                component={Input}
                 validate={required}
-                inputOnChange={handleChange}
               />
               <Field
-                labelText="Email"
-                component={Input}
+                label="Email"
                 name="email"
-                typeInput="email"
-                valueInput={formData.email}
+                type="email"
                 errorMessage="Email is missing"
                 error={error.email}
+                component={Input}
                 disabled={formProps.submitting}
               />
               <Field
-                labelText="Username"
+                label="Username"
                 component={Input}
                 name="username"
                 typeInput="text"
@@ -90,7 +79,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting}
               />
               <Field
-                labelText="Phone Number"
+                label="Phone Number"
                 component={Input}
                 name="phoneNumber"
                 typeInput="number"
@@ -100,7 +89,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting}
               />
               <Field
-                labelText="Enrollment Number"
+                label="Enrollment Number"
                 component={Input}
                 name="enrollmentNumber"
                 typeInput="number"
@@ -111,7 +100,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
               />
               <Field
                 options={['AVAILABLE', 'UNAVAILABLE']}
-                labelText="status"
+                label="status"
                 name="status"
                 component={Select}
                 valueInput={formData.status}
@@ -121,7 +110,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
             </div>
             <div>
               <Field
-                labelText="Time Range - From"
+                label="Time Range - From"
                 component={Input}
                 typeInput="time"
                 name="timeStart"
@@ -132,7 +121,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
               {error.timeRange && <span className={styles.error}>*Time Range is missing</span>}
               <Field
                 component={Input}
-                labelText="To"
+                label="To"
                 typeInput="time"
                 name="timeEnd"
                 valueInput={formData.timeEnd}
@@ -142,7 +131,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
               {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
               <Field
                 component={Input}
-                labelText="Day Range"
+                label="Day Range"
                 name="dayStart"
                 typeInput="date"
                 valueInput={formData.dayStart}
@@ -151,7 +140,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting}
               />
               <Field
-                labelText="To"
+                label="To"
                 component={Input}
                 name="dayEnd"
                 typeInput="date"
@@ -161,10 +150,9 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting}
               />
               <Field
-                labelText="Password"
+                label="Password"
                 name="password"
-                typeInput="password"
-                valueInput={formData.password}
+                type="password"
                 errorMessage="Password is missing"
                 error={error.password}
                 disabled={formProps.submitting}
