@@ -56,7 +56,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Profile is missing"
         error={error.name}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Description"
@@ -66,7 +66,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Description is missing"
         error={error.description}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />

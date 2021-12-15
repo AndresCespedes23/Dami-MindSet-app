@@ -95,7 +95,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Name is missing"
           error={error.name}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Email"
@@ -105,7 +105,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Email is missing"
           error={error.email}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Username"
@@ -115,7 +115,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Username is missing"
           error={error.username}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Password"
@@ -125,7 +125,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Password is missing"
           error={error.password}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <div>
           <label>Gender</label>
@@ -149,7 +149,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Address is missing"
           error={error.address}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Phone Number"
@@ -159,7 +159,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Phone Number is missing"
           error={error.phoneNumber}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
       </div>
       <div>
@@ -171,7 +171,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Date of Birth is missing"
           error={error.dateOfBirth}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Zip Code"
@@ -181,7 +181,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Zip Code is missing"
           error={error.zipCode}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="City"
@@ -191,7 +191,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="City is missing"
           error={error.city}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="State"
@@ -201,7 +201,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="State is missing"
           error={error.state}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Country"
@@ -211,7 +211,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Country is missing"
           error={error.country}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="DNI"
@@ -221,7 +221,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="DNI is missing"
           error={error.dni}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
       </div>
       {isLoadingForm === true ? (
