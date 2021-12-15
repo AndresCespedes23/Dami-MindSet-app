@@ -1,16 +1,16 @@
 import React from 'react';
 import styles from './modal.module.css';
-import Button from '../Button';
-import SessionsForm from '../../Sessions/Form';
-import AdminsForm from '../../Admins/Form';
+import Button from 'Components/Shared/Button';
+import SessionsForm from 'Components/Admin/Sessions/Form';
+import AdminsForm from 'Components/Admin/Admins/Form';
 import Confirmation from './Confirmation';
-import PsychologistsForm from '../../Psychologists/Form';
-import PositionsForm from '../../Positions/Form';
-import InterviewForm from '../../Interviews/Form';
-import PostulantsForm from '../../Postulants/Form';
-import ProfilesForm from '../../Profiles/Form';
-import ApplicationsForm from '../../Applications/Form';
-import ClientsForm from '../../Clients/Form';
+import PsychologistsForm from 'Components/Admin/Psychologists/Form';
+import PositionsForm from 'Components/Admin/Positions/Form';
+import InterviewForm from 'Components/Admin/Interviews/Form';
+import PostulantsForm from 'Components/Admin/Postulants/Form';
+import ProfilesForm from 'Components/Admin/Profiles/Form';
+import ApplicationsForm from 'Components/Admin/Applications/Form';
+import ClientsForm from 'Components/Admin/Clients/Form';
 function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
   let modalComponent;
   switch (modalType) {

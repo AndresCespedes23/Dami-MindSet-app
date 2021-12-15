@@ -14,7 +14,7 @@ import {
   GET_ONE_PROFILE_FETCHING,
   GET_ONE_PROFILE_FULFILLED,
   GET_ONE_PROFILE_REJECTED
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 
 const URL = `${process.env.REACT_APP_API}/profiles`;
 

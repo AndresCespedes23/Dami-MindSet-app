@@ -14,7 +14,7 @@ import {
   GET_ONE_INTERVIEW_FETCHING,
   GET_ONE_INTERVIEW_FULFILLED,
   GET_ONE_INTERVIEW_REJECTED
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/interviews`;
 

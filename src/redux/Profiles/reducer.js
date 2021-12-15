@@ -17,7 +17,7 @@ import {
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 const initialState = {
   isLoading: false,
   isLoadingForm: false,

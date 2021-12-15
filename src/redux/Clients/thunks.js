@@ -14,7 +14,7 @@ import {
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
   GET_ONE_CLIENTS_REJECTED
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/clients`;
 
