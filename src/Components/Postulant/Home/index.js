@@ -2,17 +2,21 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './home.module.css';
 import { getPositions } from 'redux/Positions/thunks.js';
+import { useHistory } from 'react-router-dom';
 
 function Home() {
   const positions = useSelector((state) => state.positions.list);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   useEffect(() => {
     dispatch(getPositions());
   }, [dispatch]);
 
   const handleApplyClick = (id) => {
+    //if isLogged go to position modal form by ID
+    //if not isLogged go to login
     console.log(id);
+    history.push('/postulants/sign');
   };
 
   return (
