@@ -16,7 +16,9 @@ import {
   GET_ONE_PSYCHOLOGIST_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
-  MODAL_TYPE
+  MODAL_TYPE,
+  CLEAN_ERROR,
+  CLEAN_SELECTED_PSYCHOLOGIST
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -147,6 +149,18 @@ const psychologistReducer = (state = initialState, action) => {
       return {
         ...state,
         modalType: action.modalType
+      };
+    }
+    case CLEAN_ERROR: {
+      return {
+        ...state,
+        error: initialState.error
+      };
+    }
+    case CLEAN_SELECTED_PSYCHOLOGIST: {
+      return {
+        ...state,
+        psychologist: initialState.psychologist
       };
     }
     default:
