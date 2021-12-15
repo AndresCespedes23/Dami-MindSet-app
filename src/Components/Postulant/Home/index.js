@@ -29,7 +29,12 @@ function Home() {
       </div>
       {console.log(positions)}
       <div className={styles.containerCard}>
-        <p>CONTAINER CARDS</p>
+        <div className={styles.card}>
+          <div className={styles.cardBody}>
+            <h4></h4>
+            <p>Architect & Engineer</p>
+          </div>
+        </div>
       </div>
     </section>
   );
