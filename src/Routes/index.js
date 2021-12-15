@@ -12,7 +12,7 @@ const Routes = () => {
         fallback={<Spinner type="TailSpin" color="#002147" height={80} width={80} text="MindSet" />}
       >
         <Switch>
-          <Route path="/postulants" exact component={PostulantRoutes} />
+          <Route path="/postulants" component={PostulantRoutes} />
           <Route path="/admin" component={AdminRoutes} />
           <Redirect to="/postulants" />
         </Switch>
