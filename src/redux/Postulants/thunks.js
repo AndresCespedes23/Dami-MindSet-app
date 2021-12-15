@@ -14,7 +14,7 @@ import {
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
   GET_ONE_POSTULANTS_REJETED
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/candidates`;
 

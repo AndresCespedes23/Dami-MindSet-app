@@ -8,7 +8,7 @@ import {
   GET_ONE_ADMIN_FETCHING,
   GET_ONE_ADMIN_FULFILLED,
   GET_ONE_ADMIN_REJECTED
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/admins`;
 

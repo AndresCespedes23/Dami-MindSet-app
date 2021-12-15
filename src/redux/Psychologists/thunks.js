@@ -14,7 +14,7 @@ import {
   ADD_PSYCHOLOGIST_FETCHING,
   ADD_PSYCHOLOGIST_FULFILLED,
   ADD_PSYCHOLOGIST_REJECTED
-} from '../../constants/actionTypes';
+} from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/psychologists`;
 

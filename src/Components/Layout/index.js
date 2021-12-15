@@ -1,16 +1,16 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Header from '../Shared/Header/index';
-import Footer from '../Shared/Footer/index';
-import Admins from '../Admins/index';
-import Applications from '../Applications/index';
-import Clients from '../Clients/index';
-import Interviews from '../Interviews/index';
-import Positions from '../Positions/index';
-import Postulants from '../Postulants/index';
-import Profiles from '../Profiles/index';
-import Psychologists from '../Psychologists/index';
-import Sessions from '../Sessions/index';
-import Home from '../Home/index';
+import Header from 'Components/Shared/Header/index';
+import Footer from 'Components/Shared/Footer/index';
+import Admins from 'Components/Admin/Admins/index';
+import Applications from 'Components/Admin/Applications/index';
+import Clients from 'Components/Admin/Clients/index';
+import Interviews from 'Components/Admin/Interviews/index';
+import Positions from 'Components/Admin/Positions/index';
+import Postulants from 'Components/Admin/Postulants/index';
+import Profiles from 'Components/Admin/Profiles/index';
+import Psychologists from 'Components/Admin/Psychologists/index';
+import Sessions from 'Components/Admin/Sessions/index';
+import Home from 'Components/Admin/Home/index';
 import styles from './layout.module.css';
 
 function Layout() {
