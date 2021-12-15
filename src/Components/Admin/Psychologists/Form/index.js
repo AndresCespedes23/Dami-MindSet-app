@@ -55,7 +55,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
               <Field
                 label="Name"
                 name="name"
-                disabled={isLoadingForm}
+                disabled={formProps.submitting || isLoadingForm}
                 component={Input}
                 validate={required}
               />
