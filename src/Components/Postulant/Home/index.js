@@ -11,7 +11,7 @@ function Home() {
     dispatch(getPositions());
   }, [dispatch]);
 
-  const handleApply = (id) => {
+  const handleApplyClick = (id) => {
     console.log(id);
   };
 
@@ -53,7 +53,7 @@ function Home() {
                 <button
                   type="button"
                   className={styles.btnApply}
-                  onClick={handleApply(position._id)}
+                  onClick={() => handleApplyClick(position._id)}
                 >
                   APPLY!
                 </button>
