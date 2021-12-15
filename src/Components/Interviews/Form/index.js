@@ -5,13 +5,16 @@ import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
 import { getOneInterview } from '../../../redux/Interviews/thunks';
+import { getPostulants } from '../../../redux/Postulants/thunks';
+import { getClients } from '../../../redux/Clients/thunks';
+import { getPositions } from '../../../redux/Positions/thunks';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.sessions.isLoadingForm);
-  const [candidates, setCandidates] = useState([]);
-  const [clients, setClients] = useState([]);
-  const [positions, setPositions] = useState([]);
+  const candidates = useSelector((state) => state.postulants.list);
+  const clients = useSelector((state) => state.clients.list);
+  const positions = useSelector((state) => state.positions.list);
   const [formData, setFormData] = useState({
     idCandidate: '',
     idPosition: '',
@@ -28,33 +31,9 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/candidates`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setCandidates(response.data);
-      })
-      .catch((err) => console.log(err));
-    fetch(`${process.env.REACT_APP_API}/clients`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setClients(response.data);
-      })
-      .catch((err) => console.log(err));
-    fetch(`${process.env.REACT_APP_API}/positions`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPositions(response.data);
-      })
-      .catch((err) => console.log(err));
+    dispatch(getPostulants());
+    dispatch(getClients());
+    dispatch(getPositions());
     if (id) {
       dispatch(getOneInterview(id)).then((data) => {
         setFormData(data);

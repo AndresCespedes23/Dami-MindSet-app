@@ -5,12 +5,14 @@ import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
 import { getOnePosition } from '../../../redux/Positions/thunks';
+import { getClients } from '../../../redux/Clients/thunks';
+import { getProfiles } from '../../../redux/Profiles/thunks';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.positions.isLoadingForm);
-  const [clients, setClients] = useState([]);
-  const [profiles, setProfiles] = useState([]);
+  const clients = useSelector((state) => state.clients.list);
+  const profiles = useSelector((state) => state.profiles.list);
   const [formData, setFormData] = useState({
     idClient: '',
     idProfile: '',
@@ -33,24 +35,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/clients`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setClients(response.data);
-      })
-      .catch((err) => console.log(err));
-    fetch(`${process.env.REACT_APP_API}/profiles`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setProfiles(response.data);
-      })
-      .catch((err) => console.log(err));
+    dispatch(getClients());
+    dispatch(getProfiles());
     if (id) {
       dispatch(getOnePosition(id)).then((data) => {
         setFormData(data);

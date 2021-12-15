@@ -5,12 +5,14 @@ import Spinner from '../../Shared/Spinner';
 import Input from '../../Shared/Input';
 import Button from '../../Shared/Button';
 import { getOneSession } from '../../../redux/Sessions/thunks';
+import { getPsychologists } from '../../../redux/Psychologists/thunks';
+import { getPostulants } from '../../../redux/Postulants/thunks';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.sessions.isLoadingForm);
-  const [psychologists, setPsychologists] = useState([]);
-  const [candidates, setCandidates] = useState([]);
+  const psychologists = useSelector((state) => state.psychologists.list);
+  const candidates = useSelector((state) => state.postulants.list);
   const [formData, setFormData] = useState({
     idPsychologist: '',
     idCandidate: '',
@@ -28,25 +30,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
   });
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/psychologists`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setPsychologists(response.data);
-      })
-      .catch((err) => console.log(err));
-    fetch(`${process.env.REACT_APP_API}/candidates`)
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        setCandidates(response.data);
-      })
-      .catch((err) => console.log(err));
-
+    dispatch(getPsychologists());
+    dispatch(getPostulants());
     if (id) {
       dispatch(getOneSession(id)).then((data) => {
         setFormData(data);

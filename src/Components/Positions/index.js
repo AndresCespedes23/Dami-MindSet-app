@@ -92,7 +92,6 @@ function Positions() {
             <tr>
               <th>Client</th>
               <th>Profile</th>
-              <th>Full Name</th>
               <th>Description</th>
               <th>Status</th>
               <th>Address</th>
