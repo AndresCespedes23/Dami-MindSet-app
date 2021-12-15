@@ -10,7 +10,7 @@ import Postulants from 'Components/Admin/Postulants/index';
 import Profiles from 'Components/Admin/Profiles/index';
 import Psychologists from 'Components/Admin/Psychologists/index';
 import Sessions from 'Components/Admin/Sessions/index';
-import Home from 'Components/Home/index';
+import Home from 'Components/Admin/Home/index';
 import styles from './layout.module.css';
 
 function Layout() {
