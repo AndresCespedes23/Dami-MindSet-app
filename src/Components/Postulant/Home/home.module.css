@@ -1,6 +1,57 @@
 .container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexRow {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}
+.containerButton{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+.containerDesc{
+  width: 50%;
+}
+.containerCard{
+  height: 300px;
+  width: 85%;
+  background-color: white;
+  margin: 20px;
+}
+.description{
+  font: normal normal normal 25px Century Gothic;
+  font-weight: bold;
+  color: #091F40;
+  background-color: white;
+}
+.title{
+  font: normal normal normal 40px Century Gothic;
+  font-weight: bold;
+  color: #091F40;
+  background-color: white;
+}
+.btnJoinUs {
+  font: normal normal normal 50px Century Gothic;
+  padding: 15px 25px;
+  background-color: #002147;
+  border-radius: 15px;
+  border: 2px solid #002147;
+  color: white;
+}
+.btnJoinUs:hover {
+  background-color: #680404;
+  border: 2px solid #680404;
+  color: #fff;
+  cursor: pointer;
+}
