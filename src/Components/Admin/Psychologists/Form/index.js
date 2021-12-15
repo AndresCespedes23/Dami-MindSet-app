@@ -87,7 +87,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Name is missing"
           error={error.name}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Email"
@@ -97,7 +97,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Email is missing"
           error={error.email}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Username"
@@ -107,7 +107,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Username is missing"
           error={error.username}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Phone Number"
@@ -117,7 +117,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Phone Number is missing"
           error={error.phoneNumber}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Enrollment Number"
@@ -127,7 +127,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Enrollment Number is missing"
           error={error.enrollmentNumber}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <div>
           <label>Status</label>
@@ -171,7 +171,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="To"
@@ -181,7 +181,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Day is missing"
           error={error.dayRange}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
         <Input
           labelText="Password"
@@ -191,7 +191,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           errorMessage="Password is missing"
           error={error.password}
           onChange={handleChange}
-          disbled={isLoadingForm}
+          disabled={isLoadingForm}
         />
       </div>
       {isLoadingForm === true ? (

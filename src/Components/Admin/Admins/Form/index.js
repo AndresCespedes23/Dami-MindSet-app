@@ -52,7 +52,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Name is missing"
         error={false}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Email"
@@ -62,7 +62,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Email is missing"
         error={false}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Username"
@@ -72,7 +72,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Username is missing"
         error={false}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       <Input
         labelText="Password"
@@ -82,7 +82,7 @@ function AdminsForm({ id, handleSubmit, handleShowModal }) {
         errorMessage="Password is missing"
         error={false}
         onChange={handleChange}
-        disbled={isLoadingForm}
+        disabled={isLoadingForm}
       />
       {isLoadingForm === true ? (
         <Spinner type="Oval" color="#002147" height={40} width={40} />
