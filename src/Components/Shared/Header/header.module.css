@@ -57,7 +57,7 @@
   border-bottom: 4px solid #680404;
 }
 
-.rutes {
+.routes {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -65,7 +65,7 @@
   margin-bottom: 15px;
 }
 
-.rutes > li > a {
+.routes > li > a {
   margin-left: 15px;
   padding: 10px;
   border-radius: 30px;
@@ -76,7 +76,7 @@
   text-decoration: none;
   text-transform: capitalize;
 }
-.rutes > li > a:hover {
+.routes > li > a:hover {
   box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
   background-color: #680404;
   color: #fff;
