@@ -32,7 +32,14 @@ function Home() {
           </p>
         </div>
         <div className={styles.containerButton}>
-          <button className={styles.btnJoinUs}>JOIN NOW!</button>
+          <button
+            className={styles.btnJoinUs}
+            onClick={() => {
+              history.push('/postulants/sign');
+            }}
+          >
+            JOIN NOW!
+          </button>
         </div>
       </div>
       <div className={styles.containerCard}>

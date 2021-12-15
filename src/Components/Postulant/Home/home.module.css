@@ -28,7 +28,6 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  height: 300px;
   width: 85%;
   margin: 20px;
 }
