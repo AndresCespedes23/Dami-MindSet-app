@@ -11,6 +11,10 @@ function Home() {
     dispatch(getPositions());
   }, [dispatch]);
 
+  const handleApply = (id) => {
+    console.log(id);
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.flexRow}>
@@ -27,14 +31,36 @@ function Home() {
           <button className={styles.btnJoinUs}>JOIN NOW!</button>
         </div>
       </div>
-      {console.log(positions)}
       <div className={styles.containerCard}>
-        <div className={styles.card}>
-          <div className={styles.cardBody}>
-            <h4></h4>
-            <p>Architect & Engineer</p>
-          </div>
-        </div>
+        {positions.map((position) => {
+          return (
+            <div className={styles.card} key={position._id}>
+              <div className={styles.cardHeader}>
+                <h2 className={styles.cardTitle}>{position.name}</h2>
+                <span className={styles.cardSubtitle}>{position.idProfile[0].name}</span>
+              </div>
+              <div className={styles.cardBody}>
+                <div className={styles.containerLocation}>
+                  <span className={styles.bodySubtitle}>Location: </span>
+                  <span className={styles.cardLocation}>{position.city}</span>
+                </div>
+                <div className={styles.containerDescription}>
+                  <span className={styles.bodySubtitle}>Description: </span>
+                  <span className={styles.cardDescription}>{position.description}</span>
+                </div>
+              </div>
+              <div className={styles.cardFooter}>
+                <button
+                  type="button"
+                  className={styles.btnApply}
+                  onClick={handleApply(position._id)}
+                >
+                  APPLY!
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
