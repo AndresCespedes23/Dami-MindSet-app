@@ -155,7 +155,32 @@ function Summary() {
                   </div>
                 );
               case 'OTHER-INFORMATION':
-                return <h1>OTHER-INFORMATION</h1>;
+                return (
+                  <div className={styles.containerPersonal}>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Nationality:</h3>
+                      <span className={styles.infoPersonal}>{postulant.nationality}</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>ID Number:</h3>
+                      <span className={styles.infoPersonal}>{postulant.dni}</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Marital Status:</h3>
+                      <span className={styles.infoPersonal}>{postulant.maritalStatus}</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Drivers license:</h3>
+                      <span className={styles.infoPersonal}>
+                        {postulant.driversLicense ? 'Yes' : 'No'}
+                      </span>
+                    </div>
+                    <div className={styles.itemPersonalColumn}>
+                      <h3 className={styles.titlePersonal}>Description</h3>
+                      <span className={styles.infoPersonal}>{postulant.description}</span>
+                    </div>
+                  </div>
+                );
               case 'AVAILABILITY':
                 return <h1>AVAILABILITY</h1>;
               default:
