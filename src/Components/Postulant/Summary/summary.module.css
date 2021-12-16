@@ -62,89 +62,104 @@
 .btnNav:hover {
   cursor: pointer;
 }
-.containerInfo{
-    width: 90%;
-    height: auto;
-    margin: 10px auto 10px auto;
+.containerInfo {
+  width: 90%;
+  height: auto;
+  margin: 10px auto 10px auto;
 }
-.containerPersonal{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex: auto;
+.containerPersonal {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: auto;
 }
-.itemPersonal{
-    display: flex;
-    flex-wrap: wrap;
-    width: 50%;
-    margin-bottom: 30px;
+.itemPersonal {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  margin-bottom: 30px;
 }
-.itemPersonalLong{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-bottom: 30px;
+.itemPersonalLong {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 30px;
 }
-.itemPersonalColumn{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    flex-flow: row wrap;
-    width: 100%;
-    margin-bottom: 30px;
+.itemPersonalColumn {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  width: 100%;
+  margin-bottom: 30px;
 }
-.titlePersonal{
-    font: normal normal bold 20px Century Gothic;
-    width: 45%;
+.titlePersonal {
+  font: normal normal bold 20px Century Gothic;
+  width: 45%;
 }
-.infoPersonal{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-right: 40px;
-    font: normal normal 20px Century Gothic;
+.infoPersonal {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 40px;
+  font: normal normal 20px Century Gothic;
 }
-.containerFooter{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 35px 20px 35px;
+.containerFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 35px 20px 35px;
 }
-.btnBack{
-    font: normal normal normal 20px Century Gothic;
-    padding: 5px 15px;
-    background-color: #002147;
-    border-radius: 15px;
-    border: 2px solid #002147;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
+.btnBack {
+  font: normal normal normal 20px Century Gothic;
+  padding: 5px 15px;
+  background-color: #002147;
+  border-radius: 15px;
+  border: 2px solid #002147;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
 }
-.btnBack:hover{
-    background-color: #ffffff;
-    border-radius: 15px;
-    border: 2px solid #002147;
-    color: #002147;
-    cursor: pointer;
+.btnBack:hover {
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 2px solid #002147;
+  color: #002147;
+  cursor: pointer;
 }
-.btnNext{
-    font: normal normal normal 20px Century Gothic;
-    padding: 5px 15px;
-    background-color: #002147;
-    border-radius: 15px;
-    border: 2px solid #002147;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
+.btnNext {
+  font: normal normal normal 20px Century Gothic;
+  padding: 5px 15px;
+  background-color: #002147;
+  border-radius: 15px;
+  border: 2px solid #002147;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
 }
-.btnNext:hover{
-    background-color: #ffffff;
-    border-radius: 15px;
-    border: 2px solid #002147;
-    color: #002147;
-    cursor: pointer;
+.btnNext:hover {
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 2px solid #002147;
+  color: #002147;
+  cursor: pointer;
 }
-.textLong{
-    overflow-wrap: break-word;
+
+table {
+  border-spacing: 0;
+  border: 1px solid black;
+  text-align: center;
+  flex: auto;
+}
+
+th,
+td {
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+tr {
+  line-height: 10px;
 }
