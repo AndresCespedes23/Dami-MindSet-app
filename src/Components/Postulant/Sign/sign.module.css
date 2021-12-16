@@ -1,0 +1,10 @@
+.container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .title{
+    background: rgba(9, 31, 64, 0.4) 
+  }  
