@@ -113,7 +113,47 @@ function Summary() {
               case 'EDUCATION':
                 return <h1>EDUCATION</h1>;
               case 'WORK-EXPERIENCE':
-                return <h1>WORK-EXPERIENCE</h1>;
+                return (
+                  <div>
+                    {postulant.workExperience.map((experience) => {
+                      console.log(experience);
+                      return (
+                        <div className={styles.containerPersonal} key={experience._id}>
+                          <div className={styles.itemPersonalLong}>
+                            <h3 className={styles.titlePersonal}>Company:</h3>
+                            <span className={styles.infoPersonal}>{experience.company}</span>
+                          </div>
+                          <div className={styles.itemPersonalLong}>
+                            <h3 className={styles.titlePersonal}>Role:</h3>
+                            <span className={styles.infoPersonal}>{experience.role}</span>
+                          </div>
+                          <div className={styles.itemPersonal}>
+                            <h3 className={styles.titlePersonal}>Start date:</h3>
+                            <span className={styles.infoPersonal}>
+                              {experience.startDate.split('T')[0]}
+                            </span>
+                          </div>
+                          <div className={styles.itemPersonal}>
+                            <h3 className={styles.titlePersonal}>End date:</h3>
+                            <span className={styles.infoPersonal}>
+                              {experience.finishDate.split('T')[0]}
+                            </span>
+                          </div>
+                          <div className={styles.itemPersonalColumn}>
+                            <h3 className={styles.titlePersonal}>What did you do?</h3>
+                            <span className={styles.infoPersonal}>{experience.description}</span>
+                          </div>
+                          <div className={styles.itemPersonalColumn}>
+                            <h3 className={styles.titlePersonal}>Biggest Accomplishments</h3>
+                            <span className={styles.infoPersonal}>
+                              {experience.accomplishments}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
               case 'OTHER-INFORMATION':
                 return <h1>OTHER-INFORMATION</h1>;
               case 'AVAILABILITY':

@@ -86,7 +86,13 @@
     width: 100%;
     margin-bottom: 30px;
 }
-
+.itemPersonalColumn{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 30px;
+}
 .titlePersonal{
     font: normal normal bold 20px Century Gothic;
     width: 45%;
