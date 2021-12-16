@@ -1,5 +1,5 @@
 import styles from './description.module.css';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import Button from 'Components/Shared/Button';
 
 function Description() {
   return (
@@ -15,8 +15,8 @@ function Description() {
           rows={10}
         ></textarea>
         <div className={styles.containerFooter}>
-          <button className={styles.btnBack}>{<FaAngleLeft size={40} />}Back</button>
-          <button className={styles.btnNext}>Next {<FaAngleRight size={40} />}</button>
+          <Button type={'back'} text={'Back'} />
+          <Button type={'next'} text={'Next'} />
         </div>
       </div>
     </section>
