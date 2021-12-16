@@ -111,12 +111,41 @@ function Summary() {
                   </div>
                 );
               case 'EDUCATION':
-                return <h1>EDUCATION</h1>;
+                return (
+                  <div>
+                    {postulant.education.map((education) => {
+                      return (
+                        <div className={styles.containerPersonal} key={education._id}>
+                          <h2 className={styles.titleEducation}>{education.level}</h2>
+                          <div className={styles.itemPersonalLong}>
+                            <h3 className={styles.titlePersonal}>Name of the institution:</h3>
+                            <span className={styles.infoPersonal}>{education.institution}</span>
+                          </div>
+                          <div className={styles.itemPersonalLong}>
+                            <h3 className={styles.titlePersonal}>Speciality:</h3>
+                            <span className={styles.infoPersonal}>{education.title}</span>
+                          </div>
+                          <div className={styles.itemPersonal}>
+                            <h3 className={styles.titlePersonal}>Start year:</h3>
+                            <span className={styles.infoPersonal}>
+                              {education.startDate.split('T')[0]}
+                            </span>
+                          </div>
+                          <div className={styles.itemPersonal}>
+                            <h3 className={styles.titlePersonal}>End year:</h3>
+                            <span className={styles.infoPersonal}>
+                              {education.finishDate.split('T')[0]}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
               case 'WORK-EXPERIENCE':
                 return (
                   <div>
                     {postulant.workExperience.map((experience) => {
-                      console.log(experience);
                       return (
                         <div className={styles.containerPersonal} key={experience._id}>
                           <div className={styles.itemPersonalLong}>

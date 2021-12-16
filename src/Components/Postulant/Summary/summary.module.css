@@ -163,3 +163,7 @@ td {
 tr {
   line-height: 10px;
 }
+.titleEducation{
+    text-decoration: underline;
+    font: normal normal bold 27px/32px Century Gothic;
+}
