@@ -15,8 +15,8 @@ function Description() {
           rows={10}
         ></textarea>
         <div className={styles.containerFooter}>
-          <Button type={'back'} text={'Back'} />
-          <Button type={'next'} text={'Next'} />
+          <Button type={'back'} text={'BACK'} />
+          <Button type={'next'} text={'NEXT'} />
         </div>
       </div>
     </section>
