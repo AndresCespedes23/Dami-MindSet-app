@@ -1,0 +1,63 @@
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #3a4c66;
+}
+.containerSummary {
+  background-color: #ffffff;
+  height: 500px;
+  width: 70%;
+  border-top: 8px solid #002147;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.containerButtons {
+  display: flex;
+  width: 100%;
+}
+
+.btnSection {
+  flex: auto;
+  border: 1px solid #002147;
+  color: #002147;
+  padding: 7px;
+  text-align: center;
+  font: normal normal normal 20px/25px Century Gothic;
+}
+.btnSection:hover {
+  border: 1px solid #002147;
+  color: #ffffff;
+  background-color: #002147;
+}
+.btnSectionActive {
+  flex: auto;
+  border: 1px solid #002147;
+  color: #ffffff;
+  background-color: #002147;
+  padding: 7px;
+  text-align: center;
+  font: normal normal normal 20px/25px Century Gothic;
+}
+.containerNav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.titleNav {
+  margin-left: 30px;
+  font: normal normal normal 35px/40px Century Gothic;
+  color: #002147;
+}
+.btnNav {
+  margin-right: 40px;
+  font: normal normal bold 15px/20px Century Gothic;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.btnNav:hover {
+  cursor: pointer;
+}
