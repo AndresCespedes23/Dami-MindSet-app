@@ -358,8 +358,8 @@ function Summary() {
           })()}
         </div>
         <div className={styles.containerFooter}>
-          <Button type={'back'} text={'Back'} />
-          <Button type={'next'} text={'Next'} />
+          <Button type={'back'} text={'BACK'} />
+          <Button type={'next'} text={'NEXT'} />
         </div>
       </div>
     </section>
