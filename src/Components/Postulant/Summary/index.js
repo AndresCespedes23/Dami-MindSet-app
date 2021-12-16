@@ -1,12 +1,27 @@
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOnePostulant } from 'redux/Postulants/thunks.js';
 import styles from './summary.module.css';
 import { FaPen, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import { useState } from 'react';
 
 function Summary() {
+  const postulant = useSelector((state) => state.postulants.postulant);
+  const dispatch = useDispatch();
   const [type, setType] = useState('PERSONAL-INFORMATION');
+
+  useEffect(() => {
+    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
+  }, [dispatch]);
 
   const handleButtonClick = (type) => {
     setType(type);
+    console.log(postulant);
+  };
+  const getAge = (date) => {
+    let today = new Date().getFullYear();
+    let year = date.split('-')[0];
+    return today - year;
   };
   return (
     <section className={styles.container}>
@@ -57,39 +72,41 @@ function Summary() {
                   <div className={styles.containerPersonal}>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Name:</h3>
-                      <span className={styles.infoPersonal}>Jhon</span>
+                      <span className={styles.infoPersonal}>{postulant.name}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Surname:</h3>
-                      <span className={styles.infoPersonal}>Doe</span>
+                      <span className={styles.infoPersonal}>{postulant.username}</span>
                     </div>
                     <div className={styles.itemPersonalLong}>
                       <h3 className={styles.titlePersonal}>Email:</h3>
-                      <span className={styles.infoPersonal}>johndoe@gmail.com</span>
+                      <span className={styles.infoPersonal}>{postulant.email}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Date of birth:</h3>
-                      <span className={styles.infoPersonal}>16/09/1982</span>
+                      <span className={styles.infoPersonal}>
+                        {postulant.dateOfBirth.split('T')[0]}
+                      </span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Age:</h3>
-                      <span className={styles.infoPersonal}>39</span>
+                      <span className={styles.infoPersonal}>{getAge(postulant.dateOfBirth)}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Phone number:</h3>
-                      <span className={styles.infoPersonal}>341435697</span>
+                      <span className={styles.infoPersonal}>{postulant.phoneNumber}</span>
                     </div>
                     <div className={styles.itemPersonalLong}>
                       <h3 className={styles.titlePersonal}>Address:</h3>
-                      <span className={styles.infoPersonal}>Cordoba 1764, 11th floor</span>
+                      <span className={styles.infoPersonal}>{postulant.address}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>City:</h3>
-                      <span className={styles.infoPersonal}>Rosario</span>
+                      <span className={styles.infoPersonal}>{postulant.city}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Postal Code:</h3>
-                      <span className={styles.infoPersonal}>2000</span>
+                      <span className={styles.infoPersonal}>{postulant.zipCode}</span>
                     </div>
                   </div>
                 );
