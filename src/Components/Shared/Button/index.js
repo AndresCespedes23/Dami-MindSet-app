@@ -23,12 +23,12 @@ function Button({ type, onClick, text }) {
       {type === 'back' && (
         <>
           <FaAngleLeft size={25} />
-          BACK
+          {text}
         </>
       )}
       {type === 'next' && (
         <>
-          NEXT
+          {text}
           <FaAngleRight size={25} />
         </>
       )}
