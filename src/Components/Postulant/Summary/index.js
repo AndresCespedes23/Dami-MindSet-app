@@ -85,12 +85,14 @@ function Summary() {
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Date of birth:</h3>
                       <span className={styles.infoPersonal}>
-                        {postulant.dateOfBirth.split('T')[0]}
+                        {postulant.dateOfBirth ? postulant.dateOfBirth.split('T')[0] : ''}
                       </span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Age:</h3>
-                      <span className={styles.infoPersonal}>{getAge(postulant.dateOfBirth)}</span>
+                      <span className={styles.infoPersonal}>
+                        {postulant.dateOfBirth ? getAge(postulant.dateOfBirth) : ''}
+                      </span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Phone number:</h3>
@@ -128,13 +130,13 @@ function Summary() {
                           <div className={styles.itemPersonal}>
                             <h3 className={styles.titlePersonal}>Start year:</h3>
                             <span className={styles.infoPersonal}>
-                              {education.startDate.split('T')[0]}
+                              {education.startDate ? education.startDate.split('T')[0] : ''}
                             </span>
                           </div>
                           <div className={styles.itemPersonal}>
                             <h3 className={styles.titlePersonal}>End year:</h3>
                             <span className={styles.infoPersonal}>
-                              {education.finishDate.split('T')[0]}
+                              {education.finishDate ? education.finishDate.split('T')[0] : ''}
                             </span>
                           </div>
                         </div>
