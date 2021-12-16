@@ -8,7 +8,7 @@
 }
 .containerSummary {
   background-color: #ffffff;
-  height: 500px;
+  height: auto;
   width: 70%;
   border-top: 8px solid #002147;
   border-radius: 15px;
@@ -45,6 +45,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
+  margin-bottom: 25px;
 }
 .titleNav {
   margin-left: 30px;
@@ -60,4 +61,80 @@
 }
 .btnNav:hover {
   cursor: pointer;
+}
+.containerInfo{
+    width: 90%;
+    height: auto;
+    margin: 10px auto 10px auto;
+}
+.containerPersonal{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: auto;
+}
+.itemPersonal{
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    margin-bottom: 30px;
+}
+.itemPersonalLong{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.titlePersonal{
+    font: normal normal bold 20px Century Gothic;
+    width: 45%;
+}
+.infoPersonal{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 40px;
+    font: normal normal 20px Century Gothic;
+}
+.containerFooter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 35px 20px 35px;
+}
+.btnBack{
+    font: normal normal normal 20px Century Gothic;
+    padding: 5px 15px;
+    background-color: #002147;
+    border-radius: 15px;
+    border: 2px solid #002147;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+.btnBack:hover{
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 2px solid #002147;
+    color: #002147;
+    cursor: pointer;
+}
+.btnNext{
+    font: normal normal normal 20px Century Gothic;
+    padding: 5px 15px;
+    background-color: #002147;
+    border-radius: 15px;
+    border: 2px solid #002147;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+.btnNext:hover{
+    background-color: #ffffff;
+    border-radius: 15px;
+    border: 2px solid #002147;
+    color: #002147;
+    cursor: pointer;
 }

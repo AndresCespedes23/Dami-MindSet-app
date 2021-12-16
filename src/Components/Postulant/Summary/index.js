@@ -1,5 +1,5 @@
 import styles from './summary.module.css';
-import { FaPen } from 'react-icons/fa';
+import { FaPen, FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useState } from 'react';
 
 function Summary() {
@@ -53,7 +53,46 @@ function Summary() {
           {(() => {
             switch (type) {
               case 'PERSONAL-INFORMATION':
-                return <h1>PERSONAL</h1>;
+                return (
+                  <div className={styles.containerPersonal}>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Name:</h3>
+                      <span className={styles.infoPersonal}>Jhon</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Surname:</h3>
+                      <span className={styles.infoPersonal}>Doe</span>
+                    </div>
+                    <div className={styles.itemPersonalLong}>
+                      <h3 className={styles.titlePersonal}>Email:</h3>
+                      <span className={styles.infoPersonal}>johndoe@gmail.com</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Date of birth:</h3>
+                      <span className={styles.infoPersonal}>16/09/1982</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Age:</h3>
+                      <span className={styles.infoPersonal}>39</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Phone number:</h3>
+                      <span className={styles.infoPersonal}>341435697</span>
+                    </div>
+                    <div className={styles.itemPersonalLong}>
+                      <h3 className={styles.titlePersonal}>Address:</h3>
+                      <span className={styles.infoPersonal}>Cordoba 1764, 11th floor</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>City:</h3>
+                      <span className={styles.infoPersonal}>Rosario</span>
+                    </div>
+                    <div className={styles.itemPersonal}>
+                      <h3 className={styles.titlePersonal}>Postal Code:</h3>
+                      <span className={styles.infoPersonal}>2000</span>
+                    </div>
+                  </div>
+                );
               case 'EDUCATION':
                 return <h1>EDUCATION</h1>;
               case 'WORK-EXPERIENCE':
@@ -66,6 +105,10 @@ function Summary() {
                 return null;
             }
           })()}
+        </div>
+        <div className={styles.containerFooter}>
+          <button className={styles.btnBack}>{<FaAngleLeft size={40} />}Back</button>
+          <button className={styles.btnNext}>Next {<FaAngleRight size={40} />}</button>
         </div>
       </div>
     </section>
