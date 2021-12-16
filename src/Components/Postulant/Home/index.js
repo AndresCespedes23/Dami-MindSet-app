@@ -50,7 +50,7 @@ function Home() {
                 <h2 className={styles.cardTitle}>{position.name}</h2>
                 <span className={styles.cardSubtitle}>{position.idProfile[0].name}</span>
               </div>
-              <div className={styles.cardBody}>
+              <div>
                 <div className={styles.containerLocation}>
                   <span className={styles.bodySubtitle}>Location: </span>
                   <span className={styles.cardLocation}>{position.city}</span>

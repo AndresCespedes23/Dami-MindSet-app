@@ -2,15 +2,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 130vh;
-}
-
-.container {
   position: relative;
-  height: 500px;
   background-image: url('./img/peopleworking.jpg');
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 150vh;
 }
