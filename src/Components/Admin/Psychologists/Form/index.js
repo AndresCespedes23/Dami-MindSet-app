@@ -89,7 +89,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 label="status"
                 name="status"
                 disabled={formProps.submitting || isLoadingForm}
-              ></Field>
+              />
             </div>
             <div>
               <Field
