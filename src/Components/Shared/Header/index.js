@@ -3,7 +3,6 @@ import styles from './header.module.css';
 
 function Header(props) {
   const { styleType } = props;
-  console.log(styleType);
   return (
     <header>
       <div className={styleType === 'postulant' ? styles.headerPostulant : styles.titlebar}>
