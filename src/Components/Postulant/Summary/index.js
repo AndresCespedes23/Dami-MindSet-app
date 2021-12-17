@@ -208,7 +208,9 @@ function Summary() {
                     </div>
                     <div className={styles.itemPersonalColumn}>
                       <h3 className={styles.titlePersonal}>Description</h3>
-                      <span className={styles.infoPersonal}>{postulant.description}</span>
+                      <span className={styles.infoPersonalDescription}>
+                        {postulant.description}
+                      </span>
                     </div>
                   </div>
                 );

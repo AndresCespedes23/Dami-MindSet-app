@@ -93,6 +93,7 @@
   flex-flow: row wrap;
   width: 100%;
   margin-bottom: 30px;
+  word-break: break-all;
 }
 .titlePersonal {
   font: normal normal bold 20px Century Gothic;
@@ -132,4 +133,12 @@ tr {
 .titleEducation{
     text-decoration: underline;
     font: normal normal bold 27px/32px Century Gothic;
+}
+.infoPersonalDescription {
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  overflow-wrap: break-word;
+  margin-right: 40px;
+  font: normal normal 20px Century Gothic;
 }
