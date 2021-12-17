@@ -6,7 +6,7 @@ import Sign from 'Components/Postulant/Sign';
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]}>
+    <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]} styleType="postulant">
       <Switch>
         <Route path={`${url}/sign`} component={Sign} />
         <Route path={`${url}/`} exact component={Home} />

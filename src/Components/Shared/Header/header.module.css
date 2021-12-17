@@ -8,15 +8,56 @@
   color: #680404;
 }
 
+.headerPostulant {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+  min-height: 70px;
+  width: 100%;
+  background-color: #091F40;
+}
+
+.appName{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarPostulant {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  min-height: 70px;
+  width: 100%;
+  background-color: #091F40;
+  color: #680404;
+}
+
 .titlebar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
 }
+
 .titleicon {
-  border-radius: 100%; 
+  border-radius: 100%;
 }
+
+.titleiconPostulant {
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 
 .appName a, .appName a:visited  {
   display: flex;
@@ -40,6 +81,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.loginsidePostulant {
+  display: none;
 }
 
 .loginuser {
