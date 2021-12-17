@@ -28,11 +28,9 @@
 .navbarPostulant {
   display: flex;
   align-items: center;
-  padding: 20px 30px;
-  min-height: 70px;
   width: 100%;
   background-color: #091F40;
-  color: #680404;
+  color: #fff;
 }
 
 .titlebar {
@@ -100,6 +98,32 @@
 
 .navbar {
   border-bottom: 4px solid #680404;
+}
+
+.routesPostulants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  margin-bottom: 15px;
+}
+
+.routesPostulants > li > a {
+  margin-left: 15px;
+  padding: 10px;
+  border-radius: 30px;
+  color: #fff;
+  line-height: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.routesPostulants > li > a:hover {
+  box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
+  background-color: #680404;
+  color: #fff;
 }
 
 .routes {

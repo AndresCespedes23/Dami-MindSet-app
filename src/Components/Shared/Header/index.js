@@ -40,7 +40,7 @@ function Header(props) {
         </div>
       </div>
       <nav className={styleType === 'postulant' ? styles.navbarPostulant : styles.navbar}>
-        <ul className={styles.routes}>
+        <ul className={styleType === 'postulant' ? styles.routesPostulants : styles.routes}>
           {props.routes.map((route) => (
             <li key={route.name}>
               <Link to={route.path}>{route.name}</Link>
