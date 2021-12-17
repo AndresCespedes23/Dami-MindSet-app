@@ -69,3 +69,20 @@
 .hide {
   display: none;
 }
+
+.editInfo {
+  border: none;
+  background-color: #00214700;
+  color: #002147;
+  font: 0.9rem Century Gothic;
+  font-weight: 900;
+}
+
+.fapen {
+  margin-left: 10px;
+  size: 5;
+}
+
+.editInfo:hover {
+  cursor: pointer;
+}
