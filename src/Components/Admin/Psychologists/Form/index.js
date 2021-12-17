@@ -10,11 +10,9 @@ import { getOnePsychologist } from 'redux/Psychologists/thunks';
 import { cleanSelectedPsychologist } from 'redux/Psychologists/actions';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
+  const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
   const formData = useSelector((store) => store.psychologists.psychologist);
-  const error = useSelector((store) => store.psychologists.error);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (id) {
@@ -64,36 +62,34 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 label="Email"
                 name="email"
                 type="email"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
               <Field
                 component={Input}
                 label="Username"
                 name="username"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
               <Field
                 component={Input}
                 label="Phone Number"
                 name="phoneNumber"
                 type="number"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
               <Field
                 component={Input}
                 label="Enrollment Number"
                 name="enrollmentNumber"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
               <Field
                 component={Select}
                 options={['AVAILABLE', 'UNAVAILABLE']}
                 label="status"
                 name="status"
-                valueInput={formData.status}
-              >
-                {error.status && <span className={styles.error}>*Status is missing</span>}
-              </Field>
+                disabled={formProps.submitting || isLoadingForm}
+              ></Field>
             </div>
             <div>
               <Field
@@ -103,8 +99,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="timeStart"
                 min="09:00"
                 max="18:00"
+                disabled={formProps.submitting || isLoadingForm}
               />
-              {error.timeRange && <span className={styles.error}>*Time Range is missing</span>}
               <Field
                 component={Input}
                 label="To"
@@ -112,28 +108,28 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="timeEnd"
                 min="09:00"
                 max="18:00"
+                disabled={formProps.submitting || isLoadingForm}
               />
-              {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
               <Field
                 component={Input}
                 label="Day Range"
                 name="dayStart"
                 type="date"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
               <Field
                 component={Input}
                 label="To"
                 name="dayEnd"
                 type="date"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
               <Field
                 component={Input}
                 label="Password"
                 name="password"
                 type="password"
-                disabled={formProps.submitting}
+                disabled={formProps.submitting || isLoadingForm}
               />
             </div>
             {isLoadingForm === true ? (
