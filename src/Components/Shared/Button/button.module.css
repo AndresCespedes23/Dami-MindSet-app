@@ -1,5 +1,4 @@
 * {
-  color: #002147;
   font-size: 14px;
   font-weight: 900;
 }
@@ -15,7 +14,7 @@
 }
 
 .add {
-  cursor: cell
+  cursor: cell;
 }
 
 .add:hover,
@@ -39,8 +38,8 @@
   font-weight: 900;
 }
 .submit {
-    font-size: 16px;
-    font-weight: 700;
+  font-size: 16px;
+  font-weight: 700;
 }
 .submit:hover,
 .search:hover,
@@ -70,6 +69,25 @@
   display: none;
 }
 
+.next,
+.back {
+  font: 1.1rem Century Gothic;
+  padding: 5px 15px;
+  background-color: #002147;
+  border-radius: 20px;
+  border: 2px solid #002147;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  margin: 1px;
+}
+
+.next:hover,
+.back:hover {
+  background-color: #ffffff;
+  color: #002147;
+}
+
 .editInfo {
   border: none;
   background-color: #00214700;
@@ -83,6 +101,6 @@
   size: 5;
 }
 
-.editInfo:hover {
-  cursor: pointer;
+.editInfo:hover {  
+cursor: pointer;
 }
