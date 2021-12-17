@@ -6,9 +6,53 @@
 .profile {
   display: flex;
   flex-direction: column;
+  width: 75%;
   margin: 30px;
-  padding: 20px 30px;
+  padding: 20px 20px;
   border-top: 10px solid #002147;
   border-radius: 10px;
   background-color: #fff;
 }
+
+.header, .subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 2rem;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtitle h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.boxinfo {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.boxinfo > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 40%;
+  margin: 5px 0px;
+  margin-right: 80px;
+  
+}
+
+.boxinfo p {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+

@@ -22,23 +22,24 @@ function Profile() {
   return (
     <section className={style.container}>
       <div className={style.profile}>
-        <div>
+        <div className={style.header}>
           <Button type={'back'} />
           <h2>Profile</h2>
+          <span></span>
         </div>
-        <div>
-          <div>
-            <p>About me</p>
+        <div className={style.box}>
+          <div className={style.subtitle}>
+            <h3>About me</h3>
             <Button type={'editInfo'} />
           </div>
           <div>DESCRIPCIÓN de dónde sacaba esto manolo</div>
         </div>
-        <div>
-          <div>
+        <div className={style.box}>
+          <div className={style.subtitle}>
             <h3>PERSONAL INFORMATION</h3>
             <Button type={'editInfo'} />
           </div>
-          <div>
+          <div className={style.boxinfo}>
             <div>
               <p>Name:</p>
               <span>{postulant.name}</span>
