@@ -1,7 +1,12 @@
 import styles from './description.module.css';
 import Button from 'Components/Shared/Button';
+import { Form, Field } from 'react-final-form';
 
 function Description() {
+  const onSubmit = (formValues) => {
+    console.log(formValues);
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.containerSummary}>
@@ -9,15 +14,25 @@ function Description() {
         <h3 className={styles.subtitle}>
           <span className={styles.bold}>Description</span>(Optional)
         </h3>
-        <textarea
-          className={styles.descriptionInput}
-          placeholder="Tell the world a little bit about yourself"
-          rows={10}
-        ></textarea>
-        <div className={styles.containerFooter}>
-          <Button type={'back'} text={'BACK'} />
-          <Button type={'next'} text={'NEXT'} />
-        </div>
+        <Form
+          onSubmit={onSubmit}
+          // initialValues={{ description: '' }}
+          render={(formProps) => (
+            <form onSubmit={formProps.handleSubmit}>
+              <Field
+                name="description"
+                component="textarea"
+                className={styles.descriptionInput}
+                rows={10}
+                placeholder="Tell the world a little bit about yourself"
+              />
+              <div className={styles.containerFooter}>
+                <Button type={'back'} text={'BACK'} />
+                <Button type={'next'} text={'NEXT'} />
+              </div>
+            </form>
+          )}
+        />
       </div>
     </section>
   );
