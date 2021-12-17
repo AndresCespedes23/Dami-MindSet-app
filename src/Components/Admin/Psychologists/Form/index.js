@@ -53,56 +53,43 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
             <div>
               <Field
+                component={Input}
                 label="Name"
                 name="name"
                 disabled={formProps.submitting || isLoadingForm}
-                component={Input}
                 validate={required}
               />
               <Field
+                component={Input}
                 label="Email"
                 name="email"
                 type="email"
-                errorMessage="Email is missing"
-                error={error.email}
-                component={Input}
                 disabled={formProps.submitting}
               />
               <Field
+                component={Input}
                 label="Username"
-                component={Input}
                 name="username"
-                typeInput="text"
-                valueInput={formData.username}
-                errorMessage="Username is missing"
-                error={error.username}
                 disabled={formProps.submitting}
               />
               <Field
+                component={Input}
                 label="Phone Number"
-                component={Input}
                 name="phoneNumber"
-                typeInput="number"
-                valueInput={formData.phoneNumber}
-                errorMessage="Phone Number is missing"
-                error={error.phoneNumber}
+                type="number"
                 disabled={formProps.submitting}
               />
               <Field
-                label="Enrollment Number"
                 component={Input}
+                label="Enrollment Number"
                 name="enrollmentNumber"
-                typeInput="number"
-                valueInput={formData.enrollmentNumber}
-                errorMessage="Enrollment Number is missing"
-                error={error.enrollmentNumber}
                 disabled={formProps.submitting}
               />
               <Field
+                component={Select}
                 options={['AVAILABLE', 'UNAVAILABLE']}
                 label="status"
                 name="status"
-                component={Select}
                 valueInput={formData.status}
               >
                 {error.status && <span className={styles.error}>*Status is missing</span>}
@@ -110,11 +97,10 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
             </div>
             <div>
               <Field
-                label="Time Range - From"
                 component={Input}
-                typeInput="time"
+                label="Time Range - From"
+                type="time"
                 name="timeStart"
-                valueInput={formData.timeStart}
                 min="09:00"
                 max="18:00"
               />
@@ -122,9 +108,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
               <Field
                 component={Input}
                 label="To"
-                typeInput="time"
+                type="time"
                 name="timeEnd"
-                valueInput={formData.timeEnd}
                 min="09:00"
                 max="18:00"
               />
@@ -133,30 +118,22 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 component={Input}
                 label="Day Range"
                 name="dayStart"
-                typeInput="date"
-                valueInput={formData.dayStart}
-                errorMessage="Day is missing"
-                error={error.dayRange}
+                type="date"
                 disabled={formProps.submitting}
               />
               <Field
-                label="To"
                 component={Input}
+                label="To"
                 name="dayEnd"
-                typeInput="date"
-                valueInput={formData.dayEnd}
-                errorMessage="Day is missing"
-                error={error.dayRange}
+                type="date"
                 disabled={formProps.submitting}
               />
               <Field
+                component={Input}
                 label="Password"
                 name="password"
                 type="password"
-                errorMessage="Password is missing"
-                error={error.password}
                 disabled={formProps.submitting}
-                component={Input}
               />
             </div>
             {isLoadingForm === true ? (
