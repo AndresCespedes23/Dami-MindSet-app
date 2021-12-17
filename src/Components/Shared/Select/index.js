@@ -1,18 +1,19 @@
 import React from 'react';
-import styles from './input.module.css';
+import styles from './select.module.css';
 
-function Select({ labelText, name, valueInput, errorMessage, error, onChange, disabled, options }) {
+function Select(props) {
+  const hasError = !!(props.meta.touched && props.meta.error);
+
   return (
     <div>
-      <label>{labelText}</label>
-      <select name={name} value={valueInput} onChange={onChange} disabled={disabled}>
-        {options.map((option) => {
-          return <option key={option}>{option}</option>;
-        })}
+      <label>{props.label}</label>
+      <select disabled={props.disabled} {...props.input}>
+        {props.options.map((option) => (
+          <option key={option}> {option} </option>
+        ))}
       </select>
-      {error && <span className={styles.error}>{errorMessage}</span>}
+      {hasError && <span className={styles.error}>{props.meta.touched && props.meta.error}</span>}
     </div>
   );
 }
-
 export default Select;
