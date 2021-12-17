@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks.js';
 import styles from './summary.module.css';
