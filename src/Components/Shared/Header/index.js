@@ -19,14 +19,6 @@ function Header(props) {
         <div className={styles.appName}>
           <Link to="/home">
             <div className={styles.logoContainer}>
-              <img
-                src={
-                  styleType === 'postulant'
-                    ? `${process.env.PUBLIC_URL}/assets/images/mindsetlogo-postulant.png`
-                    : ''
-                }
-                alt=""
-              />
               <span>M</span>IND<span>S</span>ET
             </div>
           </Link>
