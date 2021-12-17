@@ -41,6 +41,8 @@
 
 .titleicon {
   border-radius: 100%;
+  width: 100px;
+  height: auto;
 }
 
 .titleiconPostulant {
@@ -54,6 +56,8 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  align-items: baseline;
+  font-size: 3rem;
 }
 
 
@@ -63,7 +67,7 @@
   margin: 10px;
   padding: 5px 50px;
   border: none;
-  border-radius: 30px;
+  border-radius: 50px;
   background-color: #fff;
   color: #1c2e4d;
   font-weight: 100;
@@ -72,7 +76,7 @@
 }
 
 .appName a span {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
 }
 
 .loginside {
