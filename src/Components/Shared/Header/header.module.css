@@ -48,7 +48,7 @@
 .titleiconPostulant {
   border-radius: 100%;
   position: absolute;
-  top: 0;
+  top: 10px;
 }
 
 .logoContainer {
