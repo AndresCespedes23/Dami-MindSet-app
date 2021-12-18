@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import Input from 'Components/Shared/Input';
 import styles from './register.module.css';
-import Button from 'Components/Shared/Button';
 
 function Register() {
   const error = useSelector((store) => store.postulants.error);
@@ -85,7 +84,7 @@ function Register() {
                   <Field
                     component={Input}
                     name="repeatPassword"
-                    typeInput="text"
+                    type="password"
                     errorMessage="Repeat password is missing or invalid"
                     error={error.repeatPassword}
                     disabled={formProps.submitting}
@@ -93,11 +92,12 @@ function Register() {
                   />
                 </div>
                 <div className={styles.containerFooter}>
-                  <button className={styles.btnRegister}>REGISTER</button>
+                  <button className={styles.btnRegister} onClick={onSubmit}>
+                    REGISTER
+                  </button>
                   <span className={styles.messageSign}>
                     Already have an account? <a>Sign In!</a>
                   </span>
-                  <Button type="submit" />
                 </div>
               </form>
             )}

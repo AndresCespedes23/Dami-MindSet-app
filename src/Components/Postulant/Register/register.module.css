@@ -61,6 +61,9 @@ Input {
   border-radius: 20px;
   font-size: 14px;
 }
+input {
+  width: 100%;
+}
 .containerFooter {
   display: flex;
   width: 100%;
