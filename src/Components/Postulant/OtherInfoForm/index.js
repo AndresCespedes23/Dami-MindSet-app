@@ -10,7 +10,8 @@ const OtherInfoForm = () => {
     console.log(formValues);
   };
 
-  const isNumber = (value) => (isNaN(value) ? false : true);
+  const isNumber = (value) => (isNaN(value) ? 'Must be a number' : undefined);
+  const notNumber = (value) => (isNaN(value) ? undefined : 'Cannot be a number');
 
   return (
     <section className={styles.container}>
@@ -28,7 +29,7 @@ const OtherInfoForm = () => {
                     name="nationality"
                     placeholder="Enter your nationality"
                     disabled={formProps.submitting}
-                    validate={isNumber}
+                    validate={notNumber}
                   />
                 </div>
                 <div>
