@@ -1,10 +1,68 @@
 .container {
     flex: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 10%;
+  }
+  .containerTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 50px;
   }
   .title{
-    background: rgba(9, 31, 64, 0.4) 
-  }  
+    background: rgba(9, 31, 64, 0.4);
+    text-align: center;
+    font: normal normal normal 45px Century Gothic;
+    color: #ffffff;
+  }
+  .containerButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin-top: 20px;
+    background: #ffffff;
+    height: 200px;
+    border-top: 8px solid #002147;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+.btnLogin {
+  font: normal normal normal 20px Century Gothic;
+  padding: 10px 80px;
+  background-color: #fff;
+  border: 2px solid #002147;
+  border-radius: 20px;
+  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+  margin-bottom: 20px;
+}
+
+.btnLogin:hover {
+  background-color: #002147;
+  border: 2px solid #002147;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btnRegister {
+  font: normal normal normal 20px Century Gothic;
+  padding: 10px 80px;
+  background-color: #002147;
+  border: 2px solid #002147;
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+  margin-bottom: 20px;
+}
+
+.btnRegister:hover {
+  background-color: #ffffff;
+  border: 2px solid #002147;
+  color: #002147;
+  cursor: pointer;
+}
