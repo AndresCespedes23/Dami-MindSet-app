@@ -1,6 +1,7 @@
+import { Form, Field } from 'react-final-form';
 import styles from './personal-info.module.css';
 import Button from 'Components/Shared/Button';
-import { Form, Field } from 'react-final-form';
+import Input from 'Components/Shared/Input';
 
 function PersonalInfo() {
   const onSubmit = (formValues) => {
@@ -17,49 +18,44 @@ function PersonalInfo() {
           render={(formProps) => (
             <form onSubmit={formProps.handleSubmit}>
               <div className={styles.formContent}>
-                <label>Phone Number</label>
                 <Field
+                  label="Phone Number"
                   name="Phone Number"
-                  component="input"
+                  component={Input}
                   type="number"
-                  className={styles.personalInfoInput}
                   placeholder="Enter your phone number"
                   validate={required}
                 />
-                <label>Date of Birth</label>
                 <Field
+                  label="Date of Birth"
                   name="Date of Birth"
                   type="date"
-                  component="input"
-                  className={styles.personalInfoInput}
+                  component={Input}
                   validate={required}
                 />
-                <label>Address</label>
                 <Field
+                  label="Address"
                   name="Address"
-                  component="input"
-                  className={styles.personalInfoInput}
+                  component={Input}
                   placeholder="Enter your address"
                   validate={required}
                 />
                 <div className={styles.inputColumn}>
                   <div>
-                    <label>City</label>
                     <Field
+                      label="City"
                       name="City"
-                      component="input"
-                      className={styles.personalInfoInput}
+                      component={Input}
                       placeholder="Enter your city"
                       validate={required}
                     />
                   </div>
                   <div>
-                    <label>Postal Code</label>
                     <Field
+                      label="Postal Code"
                       name="Postal Code"
-                      component="input"
+                      component={Input}
                       type="number"
-                      className={styles.personalInfoInput}
                       placeholder="Enter your postal code"
                       validate={required}
                     />
