@@ -2,6 +2,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Home from 'Components/Postulant/Home';
 import Layout from 'Components/Layout';
 import Sign from 'Components/Postulant/Sign';
+import OtherInfoForm from 'Components/Postulant/OtherInfoForm';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
@@ -10,6 +11,7 @@ const PostulantRoutes = () => {
       <Switch>
         <Route path={`${url}/sign`} component={Sign} />
         <Route path={`${url}/`} exact component={Home} />
+        <Route path={`${url}/other-info-form`} component={OtherInfoForm} />
       </Switch>
     </Layout>
   );
