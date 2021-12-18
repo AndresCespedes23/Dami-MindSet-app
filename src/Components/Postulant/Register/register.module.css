@@ -100,3 +100,7 @@ a {
 a:hover {
   cursor: pointer;
 }
+::placeholder {
+  padding: 3px;
+  font: normal normal normal 1em Century Gothic;
+}

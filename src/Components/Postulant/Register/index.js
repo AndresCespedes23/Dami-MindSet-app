@@ -12,11 +12,8 @@ function Register() {
 
   const validate = (formValues) => {
     const errors = {};
-    if (!formValues.username) {
-      errors.username = 'Username is required';
-    }
-    if (formValues.name?.length < 3) {
-      errors.name = 'Name must be at least 3 characters';
+    if (formValues.password !== formValues.repeatPassword) {
+      errors.repeatPassword = 'Passwords have to be the same';
     }
     return errors;
   };
@@ -37,6 +34,7 @@ function Register() {
                     component={Input}
                     name="name"
                     typeInput="text"
+                    placeholder="Enter your name"
                     errorMessage="Name is missing"
                     error={error.name}
                     disabled={formProps.submitting}
@@ -50,6 +48,7 @@ function Register() {
                     name="username"
                     typeInput="text"
                     errorMessage="Username is missing"
+                    placeholder="Enter your username"
                     error={error.username}
                     disabled={formProps.submitting}
                     validate={required}
@@ -62,6 +61,7 @@ function Register() {
                     name="email"
                     typeInput="text"
                     errorMessage="Email is missing"
+                    placeholder="Enter your email"
                     error={error.email}
                     disabled={formProps.submitting}
                     validate={required}
@@ -73,7 +73,9 @@ function Register() {
                     component={Input}
                     name="password"
                     typeInput="password"
+                    type="password"
                     errorMessage="Password is missing"
+                    placeholder="Enter your password"
                     error={error.password}
                     disabled={formProps.submitting}
                     validate={required}
@@ -86,15 +88,14 @@ function Register() {
                     name="repeatPassword"
                     type="password"
                     errorMessage="Repeat password is missing or invalid"
+                    placeholder="Enter your password"
                     error={error.repeatPassword}
                     disabled={formProps.submitting}
                     validate={required}
                   />
                 </div>
                 <div className={styles.containerFooter}>
-                  <button className={styles.btnRegister} onClick={onSubmit}>
-                    REGISTER
-                  </button>
+                  <button className={styles.btnRegister}>REGISTER</button>
                   <span className={styles.messageSign}>
                     Already have an account? <a>Sign In!</a>
                   </span>
