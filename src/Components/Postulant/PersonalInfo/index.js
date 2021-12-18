@@ -6,6 +6,7 @@ function PersonalInfo() {
   const onSubmit = (formValues) => {
     console.log(formValues);
   };
+  const required = (value) => (value ? undefined : 'Required');
 
   return (
     <section className={styles.container}>
@@ -23,6 +24,7 @@ function PersonalInfo() {
                   type="number"
                   className={styles.personalInfoInput}
                   placeholder="Enter your phone number"
+                  validate={required}
                 />
                 <label>Date of Birth</label>
                 <Field
@@ -30,6 +32,7 @@ function PersonalInfo() {
                   type="date"
                   component="input"
                   className={styles.personalInfoInput}
+                  validate={required}
                 />
                 <label>Address</label>
                 <Field
@@ -37,6 +40,7 @@ function PersonalInfo() {
                   component="input"
                   className={styles.personalInfoInput}
                   placeholder="Enter your address"
+                  validate={required}
                 />
                 <div className={styles.inputColumn}>
                   <div>
@@ -46,6 +50,7 @@ function PersonalInfo() {
                       component="input"
                       className={styles.personalInfoInput}
                       placeholder="Enter your city"
+                      validate={required}
                     />
                   </div>
                   <div>
@@ -56,13 +61,14 @@ function PersonalInfo() {
                       type="number"
                       className={styles.personalInfoInput}
                       placeholder="Enter your postal code"
+                      validate={required}
                     />
                   </div>
                 </div>
               </div>
               <div className={styles.containerFooter}>
                 <Button type={'back'} text={'BACK'} />
-                <Button type={'next'} text={'NEXT'} />
+                <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
               </div>
             </form>
           )}
