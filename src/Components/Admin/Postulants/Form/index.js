@@ -63,12 +63,14 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="email"
                 type="email"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
                 label="Username"
                 name="username"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -76,6 +78,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="password"
                 type="password"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Select}
@@ -91,6 +94,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="address"
                 type="text"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -98,6 +102,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="phoneNumber"
                 type="number"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
             </div>
             <div>
@@ -107,6 +112,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="dateOfBirth"
                 type="date"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -114,6 +120,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="zipCode"
                 type="number"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -121,6 +128,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="city"
                 type="text"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -128,6 +136,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="state"
                 type="text"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -135,6 +144,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="country"
                 type="text"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -142,6 +152,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 name="dni"
                 type="text"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
             </div>
             {isLoadingForm === true ? (

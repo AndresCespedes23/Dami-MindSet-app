@@ -63,12 +63,14 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="email"
                 type="email"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
                 label="Username"
                 name="username"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -76,12 +78,14 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="phoneNumber"
                 type="number"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
                 label="Enrollment Number"
                 name="enrollmentNumber"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Select}
@@ -89,6 +93,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 label="status"
                 name="status"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
             </div>
             <div>
@@ -100,6 +105,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 min="09:00"
                 max="18:00"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -109,6 +115,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 min="09:00"
                 max="18:00"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -116,6 +123,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="dayStart"
                 type="date"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -123,6 +131,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="dayEnd"
                 type="date"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
               <Field
                 component={Input}
@@ -130,6 +139,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 name="password"
                 type="password"
                 disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
             </div>
             {isLoadingForm === true ? (
