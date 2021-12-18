@@ -2,7 +2,7 @@ import styles from './personal-info.module.css';
 import Button from 'Components/Shared/Button';
 import { Form, Field } from 'react-final-form';
 
-function Description() {
+function PersonalInfo() {
   const onSubmit = (formValues) => {
     console.log(formValues);
   };
@@ -16,44 +16,48 @@ function Description() {
           render={(formProps) => (
             <form onSubmit={formProps.handleSubmit}>
               <div className={styles.formContent}>
-                <div className={styles.column1}>
-                  <label>Phone Number</label>
-                  <Field
-                    name="description"
-                    component="input"
-                    className={styles.descriptionInput}
-                    placeholder="Enter your phone number"
-                  />
-                  <label>Date of Birth</label>
-                  <Field
-                    name="description"
-                    component="input"
-                    className={styles.descriptionInput}
-                    placeholder="DD/MM/YYYY"
-                  />
-                  <label>Address</label>
-                  <Field
-                    name="description"
-                    component="input"
-                    className={styles.descriptionInput}
-                    placeholder="Enter your address"
-                  />
-                </div>
-                <div className={styles.column2}>
-                  <label>City</label>
-                  <Field
-                    name="description"
-                    component="input"
-                    className={styles.descriptionInput}
-                    placeholder="Enter your city"
-                  />
-                  <label>Postal Code</label>
-                  <Field
-                    name="description"
-                    component="input"
-                    className={styles.descriptionInput}
-                    placeholder="Enter your postal code"
-                  />
+                <label>Phone Number</label>
+                <Field
+                  name="Phone Number"
+                  component="input"
+                  type="number"
+                  className={styles.personalInfoInput}
+                  placeholder="Enter your phone number"
+                />
+                <label>Date of Birth</label>
+                <Field
+                  name="Date of Birth"
+                  type="date"
+                  component="input"
+                  className={styles.personalInfoInput}
+                />
+                <label>Address</label>
+                <Field
+                  name="Address"
+                  component="input"
+                  className={styles.personalInfoInput}
+                  placeholder="Enter your address"
+                />
+                <div className={styles.inputColumn}>
+                  <div>
+                    <label>City</label>
+                    <Field
+                      name="City"
+                      component="input"
+                      className={styles.personalInfoInput}
+                      placeholder="Enter your city"
+                    />
+                  </div>
+                  <div>
+                    <label>Postal Code</label>
+                    <Field
+                      name="Postal Code"
+                      component="input"
+                      type="number"
+                      className={styles.personalInfoInput}
+                      placeholder="Enter your postal code"
+                    />
+                  </div>
                 </div>
               </div>
               <div className={styles.containerFooter}>
@@ -68,4 +72,4 @@ function Description() {
   );
 }
 
-export default Description;
+export default PersonalInfo;

@@ -20,28 +20,26 @@
     color: #002147;
   }
   .formContent {
-      padding: 0px 120px;
+      padding: 0px 150px;
   }
-  .column1 {
-      display: flex;
-      flex-direction: column;
-  }
-  .column2 {
+  .inputColumn {
       display: flex;
       justify-content: space-between;
+      width: 98%;
   }
-  label {
+    label {
+      margin-left: 10px;
       font-weight: 900;
   }
-  .descriptionInput {
-    margin-left: 30px;
-    margin-bottom: 30px;
-    border-radius: 15px;
-    border: 3px solid #002147;
-    width: 93%;
-    padding: 5px;
-    font: normal normal normal 1.3em Century Gothic;
-    color: #002147;
+    .personalInfoInput {
+      margin-top: 8px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      border: 3px solid #002147;
+      width: 95%;
+      padding: 5px;
+      font: normal normal normal 1.3em Century Gothic;
+      color: #002147;
   }
   ::placeholder {
     padding: 3px;
