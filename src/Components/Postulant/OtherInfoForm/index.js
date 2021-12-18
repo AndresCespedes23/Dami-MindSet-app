@@ -9,6 +9,9 @@ const OtherInfoForm = () => {
   const onSubmit = (formValues) => {
     console.log(formValues);
   };
+
+  const isNumber = (value) => (isNaN(value) ? false : true);
+
   return (
     <section className={styles.container}>
       <div className={styles.containerForm}>
@@ -25,6 +28,7 @@ const OtherInfoForm = () => {
                     name="nationality"
                     placeholder="Enter your nationality"
                     disabled={formProps.submitting}
+                    validate={isNumber}
                   />
                 </div>
                 <div>
@@ -32,8 +36,10 @@ const OtherInfoForm = () => {
                     component={Input}
                     label="ID Number"
                     name="idNumber"
+                    type="number"
                     placeholder="Enter your ID Number"
                     disabled={formProps.submitting}
+                    validate={isNumber}
                   />
                 </div>
                 <div>
