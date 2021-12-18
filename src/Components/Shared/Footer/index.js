@@ -2,15 +2,16 @@ import { Link } from 'react-router-dom';
 import styles from './footer.module.css';
 
 function Footer(props) {
+  const { styleType } = props;
   return (
-    <footer className={styles.container}>
+    <footer className={styleType === 'postulant' ? styles.containerPostulant : styles.container}>
       <div className={styles.main}>
         <div className={styles.appName}>
           <Link to="/home">
             <span>M</span>IND<span>S</span>ET{' '}
           </Link>
         </div>
-        <ul className={styles.routes}>
+        <ul className={styleType === 'postulant' ? styles.routesPostulants : styles.routes}>
           {props.routes.map((route) => (
             <li key={route.name}>
               <a href={route.path}>{route.name}</a>

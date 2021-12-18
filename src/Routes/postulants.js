@@ -7,7 +7,7 @@ import Description from 'Components/Postulant/Description';
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]}>
+    <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]} styleType="postulant">
       <Switch>
         <Route path={`${url}/description`} component={Description} />
         <Route path={`${url}/sign`} component={Sign} />

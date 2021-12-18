@@ -3,6 +3,10 @@
   background-color: #cdcdce;
 }
 
+.containerPostulant {
+  background-color: #091f40;
+}
+
 .main {
   display: flex;
   justify-content: space-between;
@@ -12,7 +16,8 @@
   height: 100px;
 }
 
-.appName a, .appName a:visited  {
+.appName a,
+.appName a:visited {
   display: flex;
   align-items: baseline;
   margin: 10px;
@@ -30,14 +35,20 @@
   font-size: 2.5rem;
 }
 
-.routes {
+.routes,
+.routesPostulants {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
   list-style-type: none;
 }
 
-.routes > li > a {
+.routesPostulants {
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.routes > li > a,
+.routesPostulants > li > a {
   margin: 15px 15px 15px 0px;
   padding: 10px;
   border-radius: 30px;
@@ -48,7 +59,13 @@
   text-decoration: none;
   text-transform: capitalize;
 }
-.routes > li > a:hover {
+
+.routesPostulants > li > a {
+  color: #fff;
+}
+
+.routes > li > a:hover,
+.routesPostulants > li > a:hover {
   box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
   background-color: #680404;
   color: #fff;
@@ -61,7 +78,7 @@
   height: 30px;
   width: 100%;
   padding: 0 20px;
-  background-color: #343436;
+  background-color: #091f40;
   color: #fff;
 }
 

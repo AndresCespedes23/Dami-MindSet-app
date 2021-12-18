@@ -5,7 +5,8 @@ import {
   FaEdit,
   FaRegWindowClose,
   FaAngleLeft,
-  FaAngleRight
+  FaAngleRight,
+  FaPen
 } from 'react-icons/fa';
 
 function Button({ type, onClick, text }) {
@@ -30,6 +31,12 @@ function Button({ type, onClick, text }) {
         <>
           {text}
           <FaAngleRight size={25} />
+        </>
+      )}
+      {type === 'editInfo' && (
+        <>
+          {'Edit Information'}
+          <FaPen className={styles.fapen} />
         </>
       )}
     </button>
