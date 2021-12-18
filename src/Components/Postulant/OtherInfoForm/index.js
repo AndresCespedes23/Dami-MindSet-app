@@ -10,8 +10,11 @@ const OtherInfoForm = () => {
     console.log(formValues);
   };
 
-  const isNumber = (value) => (isNaN(value) ? 'Must be a number' : undefined);
   const notNumber = (value) => (isNaN(value) ? undefined : 'Cannot be a number');
+
+  const isNumber = (value) => {
+    if (value) return isNaN(value) ? 'Must be a number' : undefined;
+  };
 
   return (
     <section className={styles.container}>
