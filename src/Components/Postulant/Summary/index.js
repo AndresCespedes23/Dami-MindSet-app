@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks.js';
 import styles from './summary.module.css';
-import { FaPen } from 'react-icons/fa';
 import Button from 'Components/Shared/Button';
 
 function Summary() {
@@ -62,7 +61,7 @@ function Summary() {
         </div>
         <div className={styles.containerNav}>
           <h2 className={styles.titleNav}>Summary</h2>
-          <button className={styles.btnNav}>Edit information {<FaPen />}</button>
+          <Button type={'editInfo'} />
         </div>
         <div className={styles.containerInfo}>
           {(() => {

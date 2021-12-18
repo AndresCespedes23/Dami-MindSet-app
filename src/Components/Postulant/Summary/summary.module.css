@@ -26,11 +26,13 @@
   padding: 7px;
   text-align: center;
   font: normal normal normal 20px/25px Century Gothic;
+  margin: 0;
 }
 .btnSection:hover {
   border: 1px solid #002147;
   color: #ffffff;
   background-color: #002147;
+  margin: 0;
 }
 .btnSectionActive {
   flex: auto;
@@ -40,6 +42,7 @@
   padding: 7px;
   text-align: center;
   font: normal normal normal 20px/25px Century Gothic;
+  margin: 0;
 }
 .containerNav {
   display: flex;
@@ -52,7 +55,7 @@
   font: normal normal normal 35px/40px Century Gothic;
   color: #002147;
 }
-.btnNav {
+.containerNav button {
   margin-right: 40px;
   font: normal normal bold 15px/20px Century Gothic;
   background: transparent;
