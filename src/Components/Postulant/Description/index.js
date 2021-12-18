@@ -1,12 +1,17 @@
 import styles from './description.module.css';
 import Button from 'Components/Shared/Button';
 import { Form, Field } from 'react-final-form';
+import { useHistory } from 'react-router-dom';
 
 function Description() {
+  const history = useHistory();
+
   const onSubmit = (formValues) => {
     console.log(formValues);
   };
-
+  const handleBackClick = () => {
+    history.push('/postulants/sign');
+  };
   return (
     <section className={styles.container}>
       <div className={styles.containerSummary}>
@@ -16,7 +21,6 @@ function Description() {
         </h3>
         <Form
           onSubmit={onSubmit}
-          // initialValues={{ description: '' }}
           render={(formProps) => (
             <form onSubmit={formProps.handleSubmit}>
               <Field
@@ -27,7 +31,7 @@ function Description() {
                 placeholder="Tell the world a little bit about yourself"
               />
               <div className={styles.containerFooter}>
-                <Button type={'back'} text={'BACK'} />
+                <Button type={'back'} text={'BACK'} onClick={handleBackClick} />
                 <Button type={'next'} text={'NEXT'} />
               </div>
             </form>
