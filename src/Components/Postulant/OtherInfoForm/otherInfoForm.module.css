@@ -1,5 +1,4 @@
 .container {
-  flex: 1;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -8,12 +7,12 @@
 
 .containerForm {
   background-color: #ffffff;
-  height: auto;
   width: 70%;
   border-top: 8px solid #002147;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .title {
@@ -22,42 +21,53 @@
   color: #002147;
 }
 
-.formContent {
-  padding: 0px 150px;
-}
-
-.inputColumn {
+.form div {
   display: flex;
-  justify-content: space-between;
-  width: 98%;
+  flex-direction: column;
+  align-items: center;
 }
 
-label {
-  margin-left: 10px;
+.form div div {
+  padding: 10px;
+  width: 80%;
+  color: #002147;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form label {
+  align-self: start;
+  font-size: 15px;
+  margin-left: 5px;
+  padding-bottom: 10px;
   font-weight: 900;
 }
 
-.personalInfoInput {
-  margin-top: 8px;
-  margin-bottom: 30px;
-  border-radius: 15px;
-  border: 3px solid #002147;
-  width: 95%;
-  padding: 5px;
-  font: normal normal normal 1.3em Century Gothic;
-  color: #002147;
+.form input,
+.form select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #002147;
+  border-radius: 18px;
+  background-color: #f0f4f9;
+  font-size: 14px;
 }
 
-::placeholder {
-  padding: 3px;
-  font: normal normal normal 1em Century Gothic;
+.form button {
+  display: flex;
+  justify-content: center;
+}
+
+.form select,
+.form button {
+  cursor: pointer;
 }
 
 .containerFooter {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: 0 35px 20px 35px;
+  align-items: stretch;
+  padding: 10px;
 }
-
-/* ESTILOS DE INPUTS */

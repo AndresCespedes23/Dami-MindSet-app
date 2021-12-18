@@ -16,39 +16,49 @@ const OtherInfoForm = () => {
         <Form
           onSubmit={onSubmit}
           render={(formProps) => (
-            <form onSubmit={formProps.handleSubmit}>
-              <Field
-                component={Input}
-                label="Nationality"
-                name="nationality"
-                placeholder="Enter your nationality"
-                disabled={formProps.submitting}
-              />
-              <Field
-                component={Input}
-                label="ID Number"
-                name="idNumber"
-                placeholder="Enter your ID Number"
-                disabled={formProps.submitting}
-              />
-              <Field
-                component={Select}
-                label="Marital Status"
-                name="maritalSattus"
-                options={['single', 'married', 'divorced', 'widowed']}
-                disabled={formProps.submitting}
-              />
-              <Field
-                component={Select}
-                label="Do you hace a driver license?"
-                name="driverLicense"
-                options={['yes', 'no']}
-                disabled={formProps.submitting}
-              />
-              <div className={styles.containerFooter}>
+            <form onSubmit={formProps.handleSubmit} className={styles.form}>
+              <div>
+                <div>
+                  <Field
+                    component={Input}
+                    label="Nationality"
+                    name="nationality"
+                    placeholder="Enter your nationality"
+                    disabled={formProps.submitting}
+                  />
+                </div>
+                <div>
+                  <Field
+                    component={Input}
+                    label="ID Number"
+                    name="idNumber"
+                    placeholder="Enter your ID Number"
+                    disabled={formProps.submitting}
+                  />
+                </div>
+                <div>
+                  <Field
+                    component={Select}
+                    label="Marital Status"
+                    name="maritalSattus"
+                    options={['single', 'married', 'divorced', 'widowed']}
+                    disabled={formProps.submitting}
+                  />
+                </div>
+                <div>
+                  <Field
+                    component={Select}
+                    label="Do you have a driver license?"
+                    name="driverLicense"
+                    options={['yes', 'no']}
+                    disabled={formProps.submitting}
+                  />
+                </div>
+              </div>
+              <section className={styles.containerFooter}>
                 <Button type={'back'} text={'BACK'} />
                 <Button type={'next'} text={'NEXT'} />
-              </div>
+              </section>
             </form>
           )}
         />
