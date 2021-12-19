@@ -11,6 +11,8 @@ function Profile() {
 
   useEffect(() => {
     dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
+    console.log(postulant);
+    console.log('education' + postulant.education);
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -32,7 +34,10 @@ function Profile() {
             <h3>About me</h3>
             <Button type={'editInfo'} />
           </div>
-          <div>DESCRIPCIÓN de dónde sacaba esto manolo</div>
+          <div>
+            <p>Desription</p>
+            <span>{postulant.description}</span>
+          </div>
         </div>
         <div className={style.box}>
           <div className={style.subtitle}>
@@ -76,6 +81,92 @@ function Profile() {
               <p>Postal Code:</p>
               <span>{postulant.zipCode}</span>
             </div>
+          </div>
+        </div>
+        {/* <div>
+          <h3>EDUCATION</h3>
+          {postulant.education.map((education) => console.log(education))}
+        </div>
+         // VER COMO SELECCIONO EL LEVEL EN LA LINEA 86
+            return (
+              <div key={education._id}>
+                <h4>{education.level}</h4>
+                <div>
+                  <p>Name of the institution:</p>
+                  <span>{education.institution}</span>
+                </div>
+                <div>
+                  <p>Speciality:</p>
+                  <span>{education.title}</span>
+                </div>
+                <div>
+                  <p>Start Year:</p>
+                  <span>
+                    {education.startDate ? education.startDate.split('T')[0] : 'not espicified'}
+                  </span>
+                </div>
+                <div>
+                  <p>End year:</p>
+                  <span>
+                    {education.finishDate ? education.finishDate.split('T')[0] : 'not espicified'}{' '}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <h3>WORK-EXPERIENCE</h3>
+          <div>
+            {postulant.workExperience.map((experience) => {
+              return (
+                <div key={experience._id}>
+                  <div>
+                    <p>Company:</p>
+                    <span>{experience.company}</span>
+                  </div>
+                  <div>
+                    <p>Role:</p>
+                    <span>{experience.role}</span>
+                  </div>
+                  <div>
+                    <p>Start date:</p>
+                    <span>{experience.startDate.split('T')[0]}</span>
+                  </div>
+                  <div>
+                    <p>End Date</p>
+                    <span>{experience.finishDate.split('T')[0]}</span>
+                  </div>
+                  <div>
+                    <p>What did you do?:</p>
+                    <span>{experience.description}</span>
+                  </div>
+                  <div>
+                    <p>Biggest Accomplishments:</p>
+                    <span>{experience.accomplishments}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>*/}
+        <div>
+          <h3>OTHER INFORMATION</h3>
+          <div>
+            <p>Nationality:</p>
+            <span>{postulant.nationality}</span>
+          </div>
+          <div>
+            <p>ID Number:</p>
+            <span>{postulant.dni}</span>
+          </div>
+          <div>
+            <p>Martial Status:</p>
+            <span>{postulant.maritalStatus}</span>
+          </div>
+          <div>
+            <p>Drivers license:</p>
+            <span>{postulant.driversLicense ? 'Yes' : 'No'}</span>
           </div>
         </div>
       </div>
