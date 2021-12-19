@@ -38,7 +38,13 @@ function Profile() {
             <h4>{postulant.name}</h4>
             <span>Status</span>
             <p
-              className={postulant.status === 'ACTIVE' ? style.statusActive : style.statusInactive}
+              className={
+                postulant.status === 'ACTIVE'
+                  ? style.statusActive
+                  : postulant.status === 'INACTIVE'
+                  ? style.statusInactive
+                  : style.statusPending
+              }
             >
               {postulant.status}
             </p>
@@ -98,68 +104,60 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div className={style.subtitle}>
-          <h3>EDUCATION</h3>
-          <Button type={'editInfo'} />
-        </div>
+        <h3>EDUCATION</h3>
         <div className={style.box}>
           {postulant.education?.map((data) => {
             return (
-              <div key={data._id}>
-                <h4>{`${postulant.education ? data.level : ''} Education`}</h4>
-                <div>
-                  <h4>Name of the institution:</h4>
-                  <span>{data.institution}</span>
+              <div key={data._id} className={style.box}>
+                <div className={style.subtitle}>
+                  <h5>{`${data.level} Education`}</h5>
+                  <Button type={'editInfo'} />
                 </div>
-                <div>
-                  <h4>Speciality:</h4>
-                  <span>{data.title}</span>
-                </div>
-                <div>
-                  <h4>Start year:</h4>
-                  <span>
-                    {postulant.education ? data.startDate.split('T')[0] : 'not espicified'}
-                  </span>
-                </div>
-                <div>
-                  <h4>End year:</h4>
-                  <span>
-                    {postulant.education ? data.finishDate.split('T')[0] : 'not espicified'}{' '}
-                  </span>
+                <div className={style.boxinfo}>
+                  <div>
+                    <h4>Name of the institution:</h4>
+                    <span>{data.institution}</span>
+                  </div>
+                  <div>
+                    <h4>Speciality:</h4>
+                    <span>{data.title}</span>
+                  </div>
+                  <div>
+                    <h4>Start year:</h4>
+                    <span>{data.startDate.split('T')[0]}</span>
+                  </div>
+                  <div>
+                    <h4>End year:</h4>
+                    <span>{data.finishDate.split('T')[0]}</span>
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
-        <div className={style.subtitle}>
-          <h3>WORK-EXPERIENCE</h3>
-          <Button type={'editInfo'} />
-        </div>
+        <h3>WORK-EXPERIENCE</h3>
         <div className={style.box}>
           {postulant.workExperience?.map((data) => {
             return (
-              <div key={data._id} className={style.subtitle}>
+              <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
-                  <h4>{`${data.role} in ${data.company}`}</h4>
+                  <h5>{`${data.role} in ${data.company}`}</h5>
                   <Button type={'editInfo'} />
                 </div>
-                <div className={style.boxinfo}>
+                <div className={style.workExperience}>
                   <div>
-                    <h4>Start date:</h4>
-                    <span>{data.startDate.split('T')[0]}</span>
+                    <span>
+                      {`Since ${data.startDate.split('T')[0]} to ${data.finishDate.split('T')[0]}`}
+                    </span>
                   </div>
                   <div>
-                    <h4>End Date</h4>
-                    <span>{data.finishDate.split('T')[0]}</span>
+                    <h4>What did you do?:</h4>
+                    <span>{data.description}</span>
                   </div>
-                </div>
-                <div>
-                  <h4>What did you do?:</h4>
-                  <span>{data.description}</span>
-                </div>
-                <div>
-                  <h4>Biggest Accomplishments:</h4>
-                  <span>{data.accomplishments}</span>
+                  <div>
+                    <h4>Biggest Accomplishments:</h4>
+                    <span>{data.accomplishments}</span>
+                  </div>
                 </div>
               </div>
             );

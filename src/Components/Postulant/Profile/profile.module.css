@@ -1,3 +1,6 @@
+* {
+  font-family: Century Gothic;
+}
 .container {
   flex: 1;
   display: flex;
@@ -6,11 +9,12 @@
 .profile {
   display: flex;
   flex-direction: column;
-  width: 75%;
-  margin: 30px;
-  padding: 20px 20px;
+  width: 70%;
+  margin: 40px;
+  padding: 20px 40px;
   border-top: 10px solid #002147;
   border-radius: 10px;
+  box-shadow: 5px 10px 20px #00000029;
   background-color: #fff;
 }
 
@@ -19,13 +23,13 @@
   font-size: 2rem;
 }
 .profile h3 {
-  margin: 15px 0px;
-  font-size: 1.5rem;
+  margin: 15px 0px 5px 0px;
+  font-size: 2rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.profile h4, .profile span {
+.profile h4, .profile span, .profile h5 {
   margin: 5px 0px;
   font-size: 1.2rem;
   font-weight: 700;
@@ -34,11 +38,24 @@
   font-weight: 100;
 }
 
+.profile h5 {
+  text-decoration: underline;
+  text-transform: capitalize;
+}
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.header Button {
+  box-shadow: 5px 10px 20px #00000029;
+}
+
+.header Button:hover {
+  cursor: pointer;
 }
 
 .header > div {
@@ -55,9 +72,11 @@
   height: 125px;
 }
 
-.statusActive, .statusInactive {
-  padding: 10px 15px;
-  border-radius: 25px;
+.statusActive, .statusInactive, .statusPending {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border-radius: 10px;
   background-color: rgb(23, 124, 10);
   color: #fff;
   font-size: 0.8rem;
@@ -66,6 +85,10 @@
 
 .statusInactive {
   background-color: rgb(124, 10, 10);
+}
+
+.statusPending {
+  background-color: rgb(210, 191, 14);
 }
 
 .box {
@@ -92,4 +115,7 @@
   width: 40%;
   margin: 5px 0px;
   margin-right: 80px;
+}
+.workExperience {
+  line-height: 25px;
 }
