@@ -34,12 +34,13 @@ function Courses() {
                   />
                   <div className={styles.timeDurationInputs}>
                     <div className={styles.dateInput}>
-                      <Field label="End Date" name="End Date" component={Input} type="date" />
+                      <Field label="End date" name="End Date" component={Input} type="date" />
                     </div>
                     <div>
                       <Field
                         label="Duration"
                         name="Duration"
+                        type="number"
                         component={Input}
                         placeholder="Duration in hs"
                       />
@@ -58,7 +59,7 @@ function Courses() {
               </div>
               <div className={styles.containerFooter}>
                 <Button type={'back'} text={'BACK'} />
-                <Button type="add" onClick={formProps.form.reset} />
+                <Button type="addNew" text={'COURSE'} onClick={formProps.form.reset} />
                 <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
               </div>
             </form>
