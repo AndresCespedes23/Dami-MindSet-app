@@ -12,6 +12,7 @@ function Profile() {
   useEffect(() => {
     dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
   }, [dispatch]);
+
   console.log(postulant);
 
   setTimeout(() => {
@@ -100,13 +101,16 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div>
+        <div className={style.subtitle}>
           <h3>EDUCATION</h3>
-          {setTimeout(() => {
-            postulant.education[0];
-          }, 1000)}
-          {/*<div>
-            <h4>{postulant.education.level}</h4>
+          <Button type={'editInfo'} />
+        </div>
+        {/*<div className={style.box}>
+          <div className={style.subtitle}>
+            <h4>{`${postulant.education.level} Education`}</h4>
+            <Button type={'editInfo'} />
+          </div>
+          <div className={style.boxinfo}>
             <div>
               <h4>Name of the institution:</h4>
               <span>{postulant.education.institution}</span>
@@ -133,58 +137,63 @@ function Profile() {
             </div>
           </div>
         </div>
-        <div>
+                */}
+        <div className={style.subtitle}>
           <h3>WORK-EXPERIENCE</h3>
-          <div>
-            {postulant.workExperience.map((experience) => {
-              return (
-                <div key={experience._id}>
-                  <div>
-                    <h4>Company:</h4>
-                    <span>{experience.company}</span>
-                  </div>
-                  <div>
-                    <h4>Role:</h4>
-                    <span>{experience.role}</span>
-                  </div>
-                  <div>
-                    <h4>Start date:</h4>
-                    <span>{experience.startDate.split('T')[0]}</span>
-                  </div>
-                  <div>
-                    <h4>End Date</h4>
-                    <span>{experience.finishDate.split('T')[0]}</span>
-                  </div>
-                  <div>
-                    <h4>What did you do?:</h4>
-                    <span>{experience.description}</span>
-                  </div>
-                  <div>
-                    <h4>Biggest Accomplishments:</h4>
-                    <span>{experience.accomplishments}</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>*/}
+          <Button type={'editInfo'} />
         </div>
-        <div>
-          <h3>OTHER INFORMATION</h3>
-          <div>
-            <h4>Nationality:</h4>
-            <span>{postulant.nationality}</span>
+        {/*<div className={style.box}>
+          {postulant.workExperience.map((experience) => {
+            return (
+            <div key={experience._id} className={style.subtitle}>
+              <div className={style.subtitle}>
+                <h4>`Role as ${experience.role} in ${experience.company}`</h4>
+                <Button type={'editInfo'} />
+              </div>
+              <div className={style.boxinfo}>
+                <div>
+                  <h4>Start date:</h4>
+                  <span>{experience.startDate.split('T')[0]}</span>
+                </div>
+                <div>
+                  <h4>End Date</h4>
+                  <span>{experience.finishDate.split('T')[0]}</span>
+                </div>
+              </div>
+              <div>
+                <h4>What did you do?:</h4>
+                <span>{experience.description}</span>
+              </div>
+              <div>
+                <h4>Biggest Accomplishments:</h4>
+                <span>{experience.accomplishments}</span>
+              </div>
+            </div>
+            );
+          })}
+        </div> */}
+        <div className={style.box}>
+          <div className={style.subtitle}>
+            <h3>OTHER INFORMATION</h3>
+            <Button type={'editInfo'} />
           </div>
-          <div>
-            <h4>ID Number:</h4>
-            <span>{postulant.dni}</span>
-          </div>
-          <div>
-            <h4>Martial Status:</h4>
-            <span>{postulant.maritalStatus}</span>
-          </div>
-          <div>
-            <h4>Drivers license:</h4>
-            <span>{postulant.driversLicense ? 'Yes' : 'No'}</span>
+          <div className={style.boxinfo}>
+            <div>
+              <h4>Nationality:</h4>
+              <span>{postulant.nationality}</span>
+            </div>
+            <div>
+              <h4>ID Number:</h4>
+              <span>{postulant.dni}</span>
+            </div>
+            <div>
+              <h4>Martial Status:</h4>
+              <span>{postulant.maritalStatus}</span>
+            </div>
+            <div>
+              <h4>Drivers license:</h4>
+              <span>{postulant.driversLicense ? 'Yes' : 'No'}</span>
+            </div>
           </div>
         </div>
       </div>
