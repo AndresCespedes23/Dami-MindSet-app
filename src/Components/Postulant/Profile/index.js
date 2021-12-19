@@ -7,17 +7,10 @@ import style from './profile.module.css';
 function Profile() {
   const postulant = useSelector((state) => state.postulants.postulant);
   const dispatch = useDispatch();
-  //personal information
 
   useEffect(() => {
     dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
   }, [dispatch]);
-
-  console.log(postulant);
-
-  setTimeout(() => {
-    console.log('dame' + postulant.education.length ? postulant.education : '');
-  }, 5000);
 
   const getAge = (date) => {
     let today = new Date().getFullYear();
@@ -105,7 +98,7 @@ function Profile() {
           <h3>EDUCATION</h3>
           <Button type={'editInfo'} />
         </div>
-        {/*<div className={style.box}>
+        <div className={style.box}>
           <div className={style.subtitle}>
             <h4>{`${postulant.education.level} Education`}</h4>
             <Button type={'editInfo'} />
@@ -137,7 +130,6 @@ function Profile() {
             </div>
           </div>
         </div>
-                */}
         <div className={style.subtitle}>
           <h3>WORK-EXPERIENCE</h3>
           <Button type={'editInfo'} />
