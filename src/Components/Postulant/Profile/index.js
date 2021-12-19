@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks';
 import Button from 'Components/Shared/Button';
 import style from './profile.module.css';
+import Spinner from 'Components/Shared/Spinner';
 
 function Profile() {
-  const postulant = useSelector((state) => state.postulants.postulant);
+  const postulant = useSelector((store) => store.postulants.postulant);
+  const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,6 +19,8 @@ function Profile() {
     let year = date.split('-')[0];
     return today - year;
   };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={style.container}>
@@ -99,71 +103,68 @@ function Profile() {
           <Button type={'editInfo'} />
         </div>
         <div className={style.box}>
-          <div className={style.subtitle}>
-            <h4>{`${postulant.education.level} Education`}</h4>
-            <Button type={'editInfo'} />
-          </div>
-          <div className={style.boxinfo}>
-            <div>
-              <h4>Name of the institution:</h4>
-              <span>{postulant.education.institution}</span>
-            </div>
-            <div>
-              <h4>Speciality:</h4>
-              <span>{postulant.education.title}</span>
-            </div>
-            <div>
-              <h4>Start Year:</h4>
-              <span>
-                {postulant.education.startDate
-                  ? postulant.education.startDate.split('T')[0]
-                  : 'not espicified'}
-              </span>
-            </div>
-            <div>
-              <h4>End year:</h4>
-              <span>
-                {postulant.education.finishDate
-                  ? postulant.education.finishDate.split('T')[0]
-                  : 'not espicified'}{' '}
-              </span>
-            </div>
-          </div>
+          {postulant.education?.map((data) => {
+            return (
+              <div key={data._id}>
+                <h4>{`${postulant.education ? data.level : ''} Education`}</h4>
+                <div>
+                  <h4>Name of the institution:</h4>
+                  <span>{data.institution}</span>
+                </div>
+                <div>
+                  <h4>Speciality:</h4>
+                  <span>{data.title}</span>
+                </div>
+                <div>
+                  <h4>Start year:</h4>
+                  <span>
+                    {postulant.education ? data.startDate.split('T')[0] : 'not espicified'}
+                  </span>
+                </div>
+                <div>
+                  <h4>End year:</h4>
+                  <span>
+                    {postulant.education ? data.finishDate.split('T')[0] : 'not espicified'}{' '}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className={style.subtitle}>
           <h3>WORK-EXPERIENCE</h3>
           <Button type={'editInfo'} />
         </div>
-        {/*<div className={style.box}>
-          {postulant.workExperience.map((experience) => {
+        <div className={style.box}>
+          {postulant.workExperience?.map((data) => {
             return (
-            <div key={experience._id} className={style.subtitle}>
-              <div className={style.subtitle}>
-                <h4>`Role as ${experience.role} in ${experience.company}`</h4>
-                <Button type={'editInfo'} />
-              </div>
-              <div className={style.boxinfo}>
-                <div>
-                  <h4>Start date:</h4>
-                  <span>{experience.startDate.split('T')[0]}</span>
+              <div key={data._id} className={style.subtitle}>
+                <div className={style.subtitle}>
+                  <h4>{`${data.role} in ${data.company}`}</h4>
+                  <Button type={'editInfo'} />
+                </div>
+                <div className={style.boxinfo}>
+                  <div>
+                    <h4>Start date:</h4>
+                    <span>{data.startDate.split('T')[0]}</span>
+                  </div>
+                  <div>
+                    <h4>End Date</h4>
+                    <span>{data.finishDate.split('T')[0]}</span>
+                  </div>
                 </div>
                 <div>
-                  <h4>End Date</h4>
-                  <span>{experience.finishDate.split('T')[0]}</span>
+                  <h4>What did you do?:</h4>
+                  <span>{data.description}</span>
+                </div>
+                <div>
+                  <h4>Biggest Accomplishments:</h4>
+                  <span>{data.accomplishments}</span>
                 </div>
               </div>
-              <div>
-                <h4>What did you do?:</h4>
-                <span>{experience.description}</span>
-              </div>
-              <div>
-                <h4>Biggest Accomplishments:</h4>
-                <span>{experience.accomplishments}</span>
-              </div>
-            </div>
             );
           })}
-        </div> */}
+        </div>
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>OTHER INFORMATION</h3>
