@@ -14,15 +14,58 @@
   background-color: #fff;
 }
 
-.header, .subtitle {
+.profile h2 {
+  margin: 10px 0px;
+  font-size: 2rem;
+}
+.profile h3 {
+  margin: 15px 0px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.profile h4, .profile span {
+  margin: 5px 0px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.profile span {
+  font-weight: 100;
+}
+
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-.header h2 {
-  font-size: 2rem;
+.header > div {
+  width: 20%;
+}
+
+.headercolumn {
+  display: block;
+  text-align: center;
+}
+
+.loginphoto {
+  margin: 15px 0px;
+  height: 125px;
+}
+
+.statusActive, .statusInactive {
+  padding: 10px 15px;
+  border-radius: 25px;
+  background-color: rgb(23, 124, 10);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.statusInactive {
+  background-color: rgb(124, 10, 10);
 }
 
 .box {
@@ -30,10 +73,11 @@
   flex-direction: column;
 }
 
-.subtitle h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
+.subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0px;
 }
 
 .boxinfo {
@@ -48,11 +92,4 @@
   width: 40%;
   margin: 5px 0px;
   margin-right: 80px;
-  
 }
-
-.boxinfo p {
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
