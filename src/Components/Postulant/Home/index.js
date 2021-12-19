@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './home.module.css';
 import { getPositions } from 'redux/Positions/thunks.js';
 import { useHistory } from 'react-router-dom';
+import Spinner from 'Components/Shared/Spinner';
 
 function Home() {
+  const isLoading = useSelector((state) => state.positions.isLoading);
   const positions = useSelector((state) => state.positions.list);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -18,7 +20,8 @@ function Home() {
     console.log(id);
     history.push('/postulants/sign');
   };
-
+  console.log(isLoading);
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
   return (
     <section className={styles.container}>
       <div className={styles.flexRow}>
