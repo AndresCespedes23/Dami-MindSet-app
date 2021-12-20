@@ -216,7 +216,7 @@ function Summary() {
               case 'AVAILABILITY':
                 return (
                   <div className={styles.containerPersonal}>
-                    <table border="1">
+                    <table border="1" className={styles.tableSummary}>
                       <thead>
                         <tr>
                           <td>Day</td>
