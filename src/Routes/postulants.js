@@ -10,6 +10,7 @@ import PersonalInfo from 'Components/Postulant/PersonalInfo';
 import OtherInfoForm from 'Components/Postulant/OtherInfoForm';
 import Profile from 'Components/Postulant/Profile';
 import Courses from 'Components/Postulant/Courses';
+import Education from 'Components/Postulant/Education';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
@@ -21,6 +22,7 @@ const PostulantRoutes = () => {
         <Route path={`${url}/register`} component={Register} />
         <Route path={`${url}/personal-info`} component={PersonalInfo} />
         <Route path={`${url}/work`} exact component={Work} />
+        <Route path={`${url}/education`} exact component={Education} />
         <Route path={`${url}/courses`} component={Courses} />
         <Route path={`${url}/description`} component={Description} />
         <Route path={`${url}/other-info-form`} component={OtherInfoForm} />
