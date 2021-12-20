@@ -8,7 +8,6 @@ function Work() {
   const onSubmit = (formValues) => {
     console.log(formValues);
   };
-  const required = (value) => (value ? undefined : 'Required');
   return (
     <div className={styles.container}>
       <div className={styles.workContainer}>
@@ -24,7 +23,6 @@ function Work() {
                   component={Input}
                   className={styles.input}
                   placeholder="Enter the Company"
-                  validate={required}
                 />
                 <Field
                   label="Start Date"
@@ -32,7 +30,6 @@ function Work() {
                   type="date"
                   component={Input}
                   className={styles.input}
-                  validate={required}
                 />
                 <Field
                   label="End Date"
@@ -40,7 +37,6 @@ function Work() {
                   type="date"
                   component={Input}
                   className={styles.input}
-                  validate={required}
                 />
               </div>
               <div>
@@ -50,32 +46,32 @@ function Work() {
                   component={Input}
                   className={styles.input}
                   placeholder="Enter your role"
-                  validate={required}
                 />
               </div>
-              <div>
+              <div className={styles.details}>
                 <Field
                   label="Biggest Accomplishments"
                   name="accomplishments"
+                  type="textarea"
                   component={Input}
                   className={styles.input}
-                  validate={required}
                 />
                 <Field
                   label="What did you do?"
                   name="description"
+                  type="textarea"
                   component={Input}
                   className={styles.input}
-                  validate={required}
                 />
+              </div>
+              <div className={styles.buttons}>
+                <Button type={'back'} text={'BACK'} />
+                <Button type={'addNew'} onClick={formProps.form.reset} />
+                <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
               </div>
             </form>
           )}
         />
-        <div className={styles.buttons}>
-          <Button type={'back'} text={'BACK'} />
-          <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
-        </div>
       </div>
     </div>
   );
