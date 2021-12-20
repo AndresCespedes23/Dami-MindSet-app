@@ -68,7 +68,9 @@ function Courses() {
                 <Link to="/postulants/work">
                   <Button type={'back'} text={'BACK'} />
                 </Link>
-                <Button type="addNew" text={'COURSE'} onClick={formProps.form.reset} />
+                <Link to="/postulants/courses">
+                  <Button type={'addNew'} onClick={formProps.form.reset} />
+                </Link>
                 <Button type={'next'} text={'NEXT'} />
               </div>
             </form>

@@ -76,7 +76,9 @@ function Work() {
                 <Link to="/postulants/education">
                   <Button type={'back'} text={'BACK'} />
                 </Link>
-                <Button type={'addNew'} onClick={formProps.form.reset} />
+                <Link to="/postulants/work">
+                  <Button type={'addNew'} onClick={formProps.form.reset} />
+                </Link>
                 <Button type={'next'} text={'NEXT'} />
               </div>
             </form>
