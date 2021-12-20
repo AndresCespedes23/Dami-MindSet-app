@@ -36,7 +36,7 @@ function Button({ type, onClick, text }) {
       {type === 'editInfo' && (
         <>
           {'Edit Information'}
-          <FaPen className={styles.fapen} />{' '}
+          <FaPen className={styles.fapen} />
         </>
       )}
     </button>
