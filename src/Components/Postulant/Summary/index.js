@@ -114,7 +114,7 @@ function Summary() {
               case 'EDUCATION':
                 return (
                   <div>
-                    {postulant.education.map((education) => {
+                    {postulant.education?.map((education) => {
                       return (
                         <div className={styles.containerPersonal} key={education._id}>
                           <h2 className={styles.titleEducation}>{education.level}</h2>
@@ -146,7 +146,7 @@ function Summary() {
               case 'WORK-EXPERIENCE':
                 return (
                   <div>
-                    {postulant.workExperience.map((experience) => {
+                    {postulant.workExperience?.map((experience) => {
                       return (
                         <div className={styles.containerPersonal} key={experience._id}>
                           <div className={styles.itemPersonalLong}>
