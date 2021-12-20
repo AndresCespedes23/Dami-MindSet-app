@@ -15,6 +15,8 @@
 }
 .tittle{
     margin: 30px;
+    font-size: 2em;
+    font-weight: 900;
     color: #002147;
 }
 .form{
@@ -67,7 +69,11 @@
 .form button {
     cursor: pointer;
 }
-  
+
+.details input{
+    text-align: left;
+    padding-bottom: 150px;
+}
 .buttons{
     display: flex;
     flex-direction: row;
