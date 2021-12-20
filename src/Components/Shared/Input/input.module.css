@@ -1,6 +1,7 @@
 .error {
   display: flex;
   justify-content: flex-end;
+  margin-right: 30px;
   color: #9b0000;
 }
 

@@ -1,5 +1,13 @@
 import styles from './button.module.css';
-import { FaPlus, FaTrashAlt, FaEdit, FaRegWindowClose } from 'react-icons/fa';
+import {
+  FaPlus,
+  FaTrashAlt,
+  FaEdit,
+  FaRegWindowClose,
+  FaAngleLeft,
+  FaAngleRight,
+  FaPen
+} from 'react-icons/fa';
 
 function Button({ type, onClick, text }) {
   return (
@@ -13,6 +21,24 @@ function Button({ type, onClick, text }) {
       {type === 'addNew' && `ADD NEW ${text ? text : ''}`}
       {type === 'confirm' && 'YES'}
       {type === 'cancel' && 'NO'}
+      {type === 'back' && (
+        <>
+          <FaAngleLeft size={25} />
+          {text}
+        </>
+      )}
+      {type === 'next' && (
+        <>
+          {text}
+          <FaAngleRight size={25} />
+        </>
+      )}
+      {type === 'editInfo' && (
+        <>
+          {'Edit Information'}
+          <FaPen className={styles.fapen} />
+        </>
+      )}
     </button>
   );
 }

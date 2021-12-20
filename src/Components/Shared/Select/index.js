@@ -7,9 +7,14 @@ function Select(props) {
   return (
     <div>
       <label>{props.label}</label>
-      <select disabled={props.disabled} {...props.input}>
+      <select disabled={props.disabled} value={props.value} {...props.input}>
+        <option value={''} disabled>
+          Select one
+        </option>
         {props.options.map((option) => (
-          <option key={option}> {option} </option>
+          <option value={option} key={option}>
+            {option}
+          </option>
         ))}
       </select>
       {hasError && <span className={styles.error}>{props.meta.touched && props.meta.error}</span>}

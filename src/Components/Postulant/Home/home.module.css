@@ -1,6 +1,138 @@
 .container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}
+
+.containerDesc {
+  margin-top: 100px;
+  width: 50%;
+  background: rgba(9, 31, 64, 0.4);
+}
+
+.title {
+  font: normal normal normal 40px Century Gothic;
+  color: #FFFFFF;
+}
+
+.description {
+  font: normal normal normal 25px Century Gothic;
+  color: #FFFFFF;
+}
+
+.containerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.btnJoinUs {
+  font: normal normal normal 50px Century Gothic;
+  padding: 15px 25px;
+  background-color: #002147;
+  border-radius: 15px;
+  border: 3px solid #002147;
+  color: #FFFFFF;
+}
+
+.containerCard {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 85%;
+  margin: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
+  border-top: 8px solid #002147;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  background: #FFFFFF;
+  margin: 10px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font: normal normal normal 35px Century Gothic;
+  text-align: center;
+}
+
+.cardSubtitle {
+  font: normal normal normal 25px Century Gothic;
+  text-align: center;
+}
+
+.containerLocation {
+  display: flex;
+  margin-top: 5px;
+}
+
+.bodySubtitle {
+  font: normal normal bold 20px Century Gothic;
+}
+
+.cardLocation {
+  margin-left: 10px;
+  font: normal normal 20px Century Gothic;
+}
+
+.containerDescription {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDescription {
+  margin-top: 5px;
+  font: normal normal 20px Century Gothic;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnApply {
+  font: normal normal normal 20px Century Gothic;
+  padding: 10px 25px;
+  background-color: #002147;
+  border-radius: 15px;
+  border: 3px solid #002147;
+  color: #FFFFFF;
+}
+.btnJoinUs:hover,
+.btnApply:hover {
+  background-color: #ffffff;
+  border: 3px solid #002147;
+  color: #002147;
+  cursor: pointer;
+}

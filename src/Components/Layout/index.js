@@ -4,11 +4,12 @@ import styles from './layout.module.css';
 
 function Layout(props) {
   const { routes = [] } = props;
+  const { styleType = 'postulant' } = props;
   return (
     <div className={styles.container}>
-      <Header routes={routes} />
+      <Header routes={routes} styleType={styleType} />
       {props.children}
-      <Footer routes={routes} />
+      <Footer routes={routes} styleType={styleType} />
     </div>
   );
 }
