@@ -7,7 +7,6 @@
 .hide {
   visibility: hidden;
 }
-
 input[type='date'] {
   cursor: pointer;
 }
