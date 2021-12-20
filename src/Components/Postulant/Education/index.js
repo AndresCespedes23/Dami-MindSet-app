@@ -67,7 +67,7 @@ function Education() {
               </div>
               <div className={styles.containerFooter}>
                 <Button type={'back'} text={'BACK'} />
-                <Button type="addNew" text={'COURSE'} onClick={formProps.form.reset} />
+                <Button type="addNew" onClick={formProps.form.reset} />
                 <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
               </div>
             </form>
