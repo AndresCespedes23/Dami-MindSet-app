@@ -42,14 +42,8 @@
   padding: 15px 25px;
   background-color: #002147;
   border-radius: 15px;
-  border: 2px solid #002147;
+  border: 3px solid #002147;
   color: #FFFFFF;
-}
-.btnJoinUs:hover {
-  background-color: #680404;
-  border: 2px solid #680404;
-  color: #fff;
-  cursor: pointer;
 }
 
 .containerCard {
@@ -132,12 +126,13 @@
   padding: 10px 25px;
   background-color: #002147;
   border-radius: 15px;
-  border: 2px solid #002147;
+  border: 3px solid #002147;
   color: #FFFFFF;
 }
+.btnJoinUs:hover,
 .btnApply:hover {
-  background-color: #680404;
-  border: 2px solid #680404;
-  color: #fff;
+  background-color: #ffffff;
+  border: 3px solid #002147;
+  color: #002147;
   cursor: pointer;
 }
