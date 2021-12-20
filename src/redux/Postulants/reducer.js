@@ -16,7 +16,9 @@ import {
   GET_ONE_POSTULANTS_REJETED,
   SHOW_MODAL,
   SHOW_MESSAGE,
-  MODAL_TYPE
+  MODAL_TYPE,
+  CLEAN_ERROR,
+  CLEAN_SELECTED_POSTULANT
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -156,6 +158,18 @@ const postulantsReducer = (state = initialState, action) => {
       return {
         ...state,
         modalType: action.modalType
+      };
+    }
+    case CLEAN_ERROR: {
+      return {
+        ...state,
+        error: initialState.error
+      };
+    }
+    case CLEAN_SELECTED_POSTULANT: {
+      return {
+        ...state,
+        postulant: initialState.postulant
       };
     }
     default:

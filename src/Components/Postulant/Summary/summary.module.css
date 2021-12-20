@@ -1,0 +1,147 @@
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #3a4c66;
+}
+.containerSummary {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 8px solid #002147;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+}
+.containerButtons {
+  display: flex;
+  width: 100%;
+}
+
+.btnSection {
+  flex: auto;
+  border: 1px solid #002147;
+  color: #002147;
+  padding: 7px;
+  text-align: center;
+  font: normal normal normal 20px/25px Century Gothic;
+  margin: 0;
+}
+.btnSection:hover {
+  border: 1px solid #002147;
+  color: #ffffff;
+  background-color: #002147;
+  margin: 0;
+}
+.btnSectionActive {
+  flex: auto;
+  border: 1px solid #002147;
+  color: #ffffff;
+  background-color: #002147;
+  padding: 7px;
+  text-align: center;
+  font: normal normal normal 20px/25px Century Gothic;
+  margin: 0;
+}
+.containerNav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.titleNav {
+  margin-left: 30px;
+  font: normal normal normal 35px/40px Century Gothic;
+  color: #002147;
+}
+.containerNav button {
+  margin-right: 40px;
+  font: normal normal bold 15px/20px Century Gothic;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.btnNav:hover {
+  cursor: pointer;
+}
+.containerInfo {
+  width: 90%;
+  height: auto;
+  margin: 10px auto 10px auto;
+}
+.containerPersonal {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: auto;
+}
+.itemPersonal {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  margin-bottom: 30px;
+}
+.itemPersonalLong {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.itemPersonalColumn {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  width: 100%;
+  margin-bottom: 30px;
+  word-break: break-all;
+}
+.titlePersonal {
+  font: normal normal bold 20px Century Gothic;
+  width: 45%;
+}
+.infoPersonal {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 40px;
+  font: normal normal 20px Century Gothic;
+}
+.containerFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 35px 20px 35px;
+}
+
+.tableSummary {
+  border-spacing: 0;
+  border: 1px solid black;
+  text-align: center;
+  flex: auto;
+}
+
+th,
+td {
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+tr {
+  line-height: 10px;
+}
+.titleEducation{
+    text-decoration: underline;
+    font: normal normal bold 27px/32px Century Gothic;
+}
+.infoPersonalDescription {
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  overflow-wrap: break-word;
+  margin-right: 40px;
+  font: normal normal 20px Century Gothic;
+}
