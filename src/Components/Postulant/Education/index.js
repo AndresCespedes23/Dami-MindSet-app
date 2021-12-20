@@ -23,7 +23,12 @@ function Education() {
                   component={Select}
                   label="Level"
                   name="level"
-                  options={['primary', 'secondary', 'tertiary', 'university']}
+                  options={[
+                    { value: 'primary', text: 'primary' },
+                    { value: 'secondary', text: 'secondary' },
+                    { value: 'tertiary', text: 'tertiary' },
+                    { value: 'university', text: 'university' }
+                  ]}
                   disabled={formProps.submitting}
                   validate={required}
                 />

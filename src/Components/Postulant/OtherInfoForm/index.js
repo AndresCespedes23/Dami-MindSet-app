@@ -51,7 +51,12 @@ const OtherInfoForm = () => {
                     component={Select}
                     label="Marital Status"
                     name="maritalSattus"
-                    options={['single', 'married', 'divorced', 'widowed']}
+                    options={[
+                      { value: 'single', text: 'single' },
+                      { value: 'married', text: 'married' },
+                      { value: 'divorced', text: 'divorced' },
+                      { value: 'widowed', text: 'widowed' }
+                    ]}
                     disabled={formProps.submitting}
                   />
                 </div>
@@ -60,7 +65,10 @@ const OtherInfoForm = () => {
                     component={Select}
                     label="Do you have a driver license?"
                     name="driverLicense"
-                    options={['yes', 'no']}
+                    options={[
+                      { value: 'yes', text: 'yes' },
+                      { value: 'no', text: 'no' }
+                    ]}
                     disabled={formProps.submitting}
                   />
                 </div>
