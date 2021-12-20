@@ -3,7 +3,6 @@ import styles from './input.module.css';
 
 function Input(props) {
   const hasError = !!(props.meta.touched && props.meta.error);
-
   return (
     <div>
       <label>{props.label}</label>
@@ -12,5 +11,4 @@ function Input(props) {
     </div>
   );
 }
-
 export default Input;
