@@ -8,15 +8,58 @@
   color: #680404;
 }
 
+.headerPostulant {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+  min-height: 70px;
+  width: 100%;
+  background-color: #091F40;
+}
+
+.appName{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarPostulant {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #091F40;
+  color: #fff;
+}
+
 .titlebar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
 }
+
 .titleicon {
-  border-radius: 100%; 
+  border-radius: 100%;
+  width: 100px;
+  height: auto;
 }
+
+.titleiconPostulant {
+  border-radius: 100%;
+  position: absolute;
+  top: 10px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  align-items: baseline;
+  font-size: 3rem;
+}
+
 
 .appName a, .appName a:visited  {
   display: flex;
@@ -24,7 +67,7 @@
   margin: 10px;
   padding: 5px 50px;
   border: none;
-  border-radius: 30px;
+  border-radius: 50px;
   background-color: #fff;
   color: #1c2e4d;
   font-weight: 100;
@@ -33,13 +76,17 @@
 }
 
 .appName a span {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
 }
 
 .loginside {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.loginsidePostulant {
+  display: none;
 }
 
 .loginuser {
@@ -55,6 +102,32 @@
 
 .navbar {
   border-bottom: 4px solid #680404;
+}
+
+/* .routesPostulants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  margin-bottom: 15px;
+}
+
+.routesPostulants > li > a {
+  margin-left: 15px;
+  padding: 10px;
+  border-radius: 30px;
+  color: #fff;
+  line-height: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.routesPostulants > li > a:hover {
+  box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
+  background-color: #680404;
+  color: #fff;
 }
 
 .routes {
@@ -77,6 +150,40 @@
   text-transform: capitalize;
 }
 .routes > li > a:hover {
+  box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
+  background-color: #680404;
+  color: #fff;
+} */
+
+.routes,
+.routesPostulants {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+
+.routes > li > a,
+.routesPostulants > li > a {
+  margin: 15px 15px 15px 15px;
+  padding: 10px;
+  border-radius: 30px;
+  color: #1c2e4d;
+  line-height: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.routesPostulants > li > a {
+  color: #fff;
+}
+
+.routes > li > a:hover,
+.routesPostulants > li > a:hover {
   box-shadow: 5px 5px rgba(10, 9, 9, 0.03);
   background-color: #680404;
   color: #fff;

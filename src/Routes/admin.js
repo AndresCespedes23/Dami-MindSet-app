@@ -25,7 +25,7 @@ const adminsRoutes = [
 const AdminRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout routes={adminsRoutes}>
+    <Layout routes={adminsRoutes} styleType="admin">
       <Switch>
         <Route path={`${url}/admins`} component={Admins} />
         <Route path={`${url}/applications`} component={Applications} />
