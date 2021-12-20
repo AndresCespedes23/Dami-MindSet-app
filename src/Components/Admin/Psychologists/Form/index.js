@@ -1,205 +1,156 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Form, Field } from 'react-final-form';
 import styles from './form.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Input from 'Components/Shared/Input';
+import Select from 'Components/Shared/Select';
 import Button from 'Components/Shared/Button';
 import { getOnePsychologist } from 'redux/Psychologists/thunks';
+import { cleanSelectedPsychologist } from 'redux/Psychologists/actions';
 
 function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
-  const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    username: '',
-    password: '',
-    phoneNumber: '',
-    enrollmentNumber: '',
-    timeStart: '',
-    timeEnd: '',
-    dayStart: '',
-    dayEnd: '',
-    status: ''
-  });
-  const [error, setIsError] = useState({
-    name: false,
-    email: false,
-    username: false,
-    password: false,
-    phoneNumber: false,
-    enrollmentNumber: false,
-    status: false,
-    timeRange: false,
-    dayRange: false
-  });
+  const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
+  const formData = useSelector((store) => store.psychologists.psychologist);
 
   useEffect(() => {
     if (id) {
-      dispatch(getOnePsychologist(id)).then((data) => {
-        setFormData(data);
-      });
+      dispatch(getOnePsychologist(id));
     }
+    return () => {
+      dispatch(cleanSelectedPsychologist());
+    };
   }, [dispatch]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const newPsychologist = {
-      name: event.target[0].value,
-      email: event.target[1].value,
-      username: event.target[2].value,
-      phoneNumber: event.target[3].value,
-      enrollmentNumber: event.target[4].value,
-      status: event.target.status.value,
-      password: event.target.password.value,
-      timeStart: event.target.timeStart.value,
-      timeEnd: event.target.timeEnd.value,
-      dayStart: event.target.dayStart.value,
-      dayEnd: event.target.dayEnd.value
-    };
-
-    for (let key in newPsychologist) {
-      if (newPsychologist[key] === '') {
-        setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: false });
-      }
-    }
-
-    handleSubmit(newPsychologist);
+  const onSubmit = (formValues) => {
+    handleSubmit(formValues);
     handleShowModal(false);
   };
 
+  const validate = (formValues) => {
+    const errors = {};
+    if (!formValues.username) {
+      errors.username = 'Username is required';
+    }
+    if (formValues.name?.length < 3) {
+      errors.name = 'Name must be at least 3 characters';
+    }
+    return errors;
+  };
+
+  const required = (value) => (value ? undefined : 'Required');
+
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div>
-        <Input
-          labelText="Name"
-          name="name"
-          type="text"
-          value={formData.name}
-          errorMessage="Name is missing"
-          error={error.name}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <Input
-          labelText="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          errorMessage="Email is missing"
-          error={error.email}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <Input
-          labelText="Username"
-          name="username"
-          type="text"
-          value={formData.username}
-          errorMessage="Username is missing"
-          error={error.username}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <Input
-          labelText="Phone Number"
-          name="phoneNumber"
-          type="number"
-          value={formData.phoneNumber}
-          errorMessage="Phone Number is missing"
-          error={error.phoneNumber}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <Input
-          labelText="Enrollment Number"
-          name="enrollmentNumber"
-          type="number"
-          value={formData.enrollmentNumber}
-          errorMessage="Enrollment Number is missing"
-          error={error.enrollmentNumber}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <div>
-          <label>Status</label>
-          <select name="status" value={formData.status} onChange={handleChange}>
-            <option>AVAILABLE</option>
-            <option>UNAVAILABLE</option>
-          </select>
-          {error.status && <span className={styles.error}>*Status is missing</span>}
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>Time Range - From</label>
-          <input
-            type="time"
-            name="timeStart"
-            value={formData.timeStart}
-            min="09:00"
-            max="18:00"
-            onChange={handleChange}
-          />
-          {error.timeRange && <span className={styles.error}>*Time Range is missing</span>}
-        </div>
-        <div>
-          <label>To</label>
-          <input
-            type="time"
-            name="timeEnd"
-            value={formData.timeEnd}
-            min="09:00"
-            max="18:00"
-            onChange={handleChange}
-          />
-          {error.timeRange && <span className={styles.error}>Time Range is missing</span>}
-        </div>
-        <Input
-          labelText="Day Range"
-          name="dayStart"
-          type="date"
-          value={formData.dayStart}
-          errorMessage="Day is missing"
-          error={error.dayRange}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <Input
-          labelText="To"
-          name="dayEnd"
-          type="date"
-          value={formData.dayEnd}
-          errorMessage="Day is missing"
-          error={error.dayRange}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-        <Input
-          labelText="Password"
-          name="password"
-          type="password"
-          value={formData.password}
-          errorMessage="Password is missing"
-          error={error.password}
-          onChange={handleChange}
-          disabled={isLoadingForm}
-        />
-      </div>
-      {isLoadingForm === true ? (
-        <Spinner type="Oval" color="#002147" height={40} width={40} />
-      ) : (
-        <Button type="submit" />
-      )}
-    </form>
+    <>
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        initialValues={formData}
+        render={(formProps) => (
+          <form className={styles.form} onSubmit={formProps.handleSubmit}>
+            <div>
+              <Field
+                component={Input}
+                label="Name"
+                name="name"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Email"
+                name="email"
+                type="email"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Username"
+                name="username"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Phone Number"
+                name="phoneNumber"
+                type="number"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Enrollment Number"
+                name="enrollmentNumber"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Select}
+                options={['AVAILABLE', 'UNAVAILABLE']}
+                label="status"
+                name="status"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+            </div>
+            <div>
+              <Field
+                component={Input}
+                label="Time Range - From"
+                type="time"
+                name="timeStart"
+                min="09:00"
+                max="18:00"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="To"
+                type="time"
+                name="timeEnd"
+                min="09:00"
+                max="18:00"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Day Range"
+                name="dayStart"
+                type="date"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="To"
+                name="dayEnd"
+                type="date"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Password"
+                name="password"
+                type="password"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+            </div>
+            {isLoadingForm === true ? (
+              <Spinner type="Oval" color="#002147" height={40} width={40} />
+            ) : (
+              <Button type="submit" />
+            )}
+          </form>
+        )}
+      />
+    </>
   );
 }
 
