@@ -4,6 +4,7 @@ import Layout from 'Components/Layout';
 import Sign from 'Components/Postulant/Sign';
 import OtherInfoForm from 'Components/Postulant/OtherInfoForm';
 import Profile from 'Components/Postulant/Profile';
+import Courses from 'Components/Postulant/Courses';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
