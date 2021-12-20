@@ -4,10 +4,17 @@ import Input from 'Components/Shared/Input';
 import Select from 'Components/Shared/Select';
 import { Form, Field } from 'react-final-form';
 import styles from './otherInfoForm.module.css';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const OtherInfoForm = () => {
+  const history = useHistory();
+
   const onSubmit = (formValues) => {
     console.log(formValues);
+    if (formValues) {
+      history.push('/postulants/summary');
+    }
   };
 
   const notNumber = (value) => (isNaN(value) ? undefined : 'Cannot be a number');
@@ -66,7 +73,9 @@ const OtherInfoForm = () => {
                 </div>
               </div>
               <section className={styles.containerFooter}>
-                <Button type={'back'} text={'BACK'} />
+                <Link to="/postulants/description">
+                  <Button type={'back'} text={'BACK'} />
+                </Link>
                 <Button type={'next'} text={'NEXT'} />
               </section>
             </form>

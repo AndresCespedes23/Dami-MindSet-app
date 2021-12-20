@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks.js';
 import styles from './summary.module.css';
 import Button from 'Components/Shared/Button';
+import { Link } from 'react-router-dom';
 
 function Summary() {
   const postulant = useSelector((state) => state.postulants.postulant);
@@ -358,8 +359,12 @@ function Summary() {
           })()}
         </div>
         <div className={styles.containerFooter}>
-          <Button type={'back'} text={'BACK'} />
-          <Button type={'next'} text={'NEXT'} />
+          <Link to="/postulants/other-info">
+            <Button type={'back'} text={'BACK'} />
+          </Link>
+          <Link to="/postulants/profile">
+            <Button type={'next'} text={'FINISH'} />
+          </Link>
         </div>
       </div>
     </section>

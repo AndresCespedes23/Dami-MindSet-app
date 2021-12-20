@@ -2,26 +2,20 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './home.module.css';
 import { getPositions } from 'redux/Positions/thunks.js';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Spinner from 'Components/Shared/Spinner';
 
 function Home() {
   const isLoading = useSelector((state) => state.positions.isLoading);
   const positions = useSelector((state) => state.positions.list);
   const dispatch = useDispatch();
-  const history = useHistory();
+
   useEffect(() => {
     dispatch(getPositions());
   }, [dispatch]);
 
-  const handleApplyClick = (id) => {
-    //if isLogged go to position modal form by ID
-    //if not isLogged go to login
-    console.log(id);
-    history.push('/postulants/sign');
-  };
-  console.log(isLoading);
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <div className={styles.flexRow}>
@@ -35,14 +29,9 @@ function Home() {
           </p>
         </div>
         <div className={styles.containerButton}>
-          <button
-            className={styles.btnJoinUs}
-            onClick={() => {
-              history.push('/postulants/sign');
-            }}
-          >
-            JOIN NOW!
-          </button>
+          <Link to="/postulants/sign" className={styles.button}>
+            <button className={styles.btnJoinUs}>JOIN NOW!</button>
+          </Link>
         </div>
       </div>
       <div className={styles.containerCard}>
@@ -64,13 +53,11 @@ function Home() {
                 </div>
               </div>
               <div className={styles.cardFooter}>
-                <button
-                  type="button"
-                  className={styles.btnApply}
-                  onClick={() => handleApplyClick(position._id)}
-                >
-                  APPLY!
-                </button>
+                <Link to="/postulants/sign">
+                  <button type="button" className={styles.btnApply}>
+                    APPLY!
+                  </button>
+                </Link>
               </div>
             </div>
           );
