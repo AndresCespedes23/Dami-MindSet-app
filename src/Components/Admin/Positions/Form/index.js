@@ -1,187 +1,158 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form, Field } from 'react-final-form';
 import styles from './form.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Input from 'Components/Shared/Input';
 import Button from 'Components/Shared/Button';
+import Select from 'Components/Shared/Select';
 import { getOnePosition } from 'redux/Positions/thunks';
 import { getClients } from 'redux/Clients/thunks';
 import { getProfiles } from 'redux/Profiles/thunks';
+import { cleanSelectedPositions } from 'redux/Positions/actions';
+import { cleanSelectedClients } from 'redux/Clients/actions';
+import { cleanSelectedProfiles } from 'redux/Profiles/actions';
 
 function PositionsForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.positions.isLoadingForm);
-  const clients = useSelector((state) => state.clients.list);
-  const profiles = useSelector((state) => state.profiles.list);
-  const [formData, setFormData] = useState({
-    idClient: '',
-    idProfile: '',
-    name: '',
-    description: '',
-    status: '',
-    address: '',
-    city: '',
-    postalCode: ''
-  });
-  const [error, setIsError] = useState({
-    idClient: false,
-    idProfile: false,
-    name: false,
-    description: false,
-    status: false,
-    address: false,
-    city: false,
-    postalCode: false
-  });
+  const clients = useSelector((store) => store.clients.list);
+  const profiles = useSelector((store) => store.profiles.list);
+  const formData = useSelector((store) => store.positions.position);
 
   useEffect(() => {
     dispatch(getClients());
     dispatch(getProfiles());
     if (id) {
-      dispatch(getOnePosition(id)).then((data) => {
-        setFormData(data);
-      });
+      dispatch(getOnePosition(id));
     }
+    return () => {
+      dispatch(cleanSelectedPositions());
+      dispatch(cleanSelectedClients());
+      dispatch(cleanSelectedProfiles());
+    };
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const onSubmit = (formValues) => {
+    console.log(formValues);
+    handleSubmit(formValues);
+    handleShowModal(false);
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const newPosition = {
-      idClient: event.target.idClient.value,
-      idProfile: event.target.idProfile.value,
-      name: event.target.name.value,
-      description: event.target.description.value,
-      status: event.target.status.value,
-      address: event.target.address.value,
-      city: event.target.city.value,
-      postalCode: event.target.postalCode.value
-    };
-
-    for (let key in newPosition) {
-      if (newPosition[key] === '') {
-        setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: false });
-      }
+  const validate = (formValues) => {
+    const errors = {};
+    if (formValues.name?.length < 3) {
+      errors.name = 'Name must be at least 3 characters';
     }
-
-    handleSubmit(newPosition);
-    handleShowModal();
+    if (!formValues.status) {
+      errors.email = 'Status is required';
+    }
+    return errors;
   };
 
+  const required = (value) => (value ? undefined : 'Required');
+  const getCombo = (type) => {
+    let options = [];
+    switch (type) {
+      case 'client':
+        clients.map((client) => {
+          options.push({ value: client._id, text: client.name });
+        });
+        break;
+      case 'profile':
+        profiles.map((profile) => {
+          options.push({ value: profile._id, text: profile.name });
+        });
+        break;
+      default:
+        break;
+    }
+    console.log(options);
+    return options;
+  };
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div>
-        <label>Client</label>
-        <select
-          name="idClient"
-          value={formData.idClient._id}
-          disabled={isLoadingForm}
-          onChange={handleChange}
-        >
-          {clients.map((client) => {
-            return [
-              <option key={client._id} value={client._id}>
-                {client.name}
-              </option>
-            ];
-          })}
-        </select>
-        {error.idClient && <span className={styles.error}>Client is missing</span>}
-      </div>
-      <div>
-        <label>Profile</label>
-        <select
-          name="idProfile"
-          value={formData.idProfile.length ? formData.idProfile[0]._id : formData.idProfile}
-          disabled={isLoadingForm}
-          onChange={handleChange}
-        >
-          {profiles.map((profile) => {
-            return [
-              <option key={profile._id} value={profile._id}>
-                {profile.name}
-              </option>
-            ];
-          })}
-        </select>
-        {error.idProfile && <span className={styles.error}>Profile is missing</span>}
-      </div>
-      <Input
-        labelText="Full Name"
-        name="name"
-        type="text"
-        value={formData.name}
-        errorMessage="Name is missing"
-        error={error.name}
-        onChange={handleChange}
-        disabled={isLoadingForm}
+    <>
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        initialValues={formData}
+        render={(formProps) => (
+          <form className={styles.form} onSubmit={formProps.handleSubmit}>
+            <div>
+              <Field
+                component={Select}
+                label="Client"
+                name="idClient"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('client')}
+              />
+              <Field
+                component={Select}
+                label="Profile"
+                name="idProfile"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('profile')}
+              />
+              <Field
+                component={Input}
+                label="Name"
+                name="name"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Description"
+                name="description"
+                type="text"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Select}
+                label="Status"
+                name="status"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={[
+                  { value: 'DONE', text: 'DONE' },
+                  { value: 'PENDING', text: 'PENDING' }
+                ]}
+              />
+              <Field
+                component={Input}
+                label="Address"
+                name="address"
+                type="text"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="City"
+                name="city"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Zip code"
+                name="postalCode"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+            </div>
+            {isLoadingForm === true ? (
+              <Spinner type="Oval" color="#002147" height={40} width={40} />
+            ) : (
+              <Button type="submit" />
+            )}
+          </form>
+        )}
       />
-      <Input
-        labelText="Description"
-        name="description"
-        type="text"
-        value={formData.description}
-        errorMessage="Description is missing"
-        error={error.description}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      <div>
-        <label>Status</label>
-        <select
-          name="status"
-          value={formData.status}
-          disabled={isLoadingForm}
-          onChange={handleChange}
-        >
-          <option>DONE</option>
-          <option>PENDING</option>
-        </select>
-        {error.status && <span className={styles.error}>Status is missing</span>}
-      </div>
-      <Input
-        labelText="Address"
-        name="address"
-        type="text"
-        value={formData.address}
-        errorMessage="Address is missing"
-        error={error.address}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      <Input
-        labelText="City"
-        name="city"
-        type="text"
-        value={formData.city}
-        errorMessage="City is missing"
-        error={error.city}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      <Input
-        labelText="ZIP Code"
-        name="postalCode"
-        type="number"
-        value={formData.postalCode}
-        errorMessage="Zip Code is missing"
-        error={error.postalCode}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      {isLoadingForm === true ? (
-        <Spinner type="Oval" color="#002147" height={40} width={40} />
-      ) : (
-        <Button type="submit" />
-      )}
-    </form>
+    </>
   );
 }
 

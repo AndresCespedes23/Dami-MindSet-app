@@ -16,7 +16,9 @@ import {
   GET_ONE_POSITION_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
-  MODAL_TYPE
+  MODAL_TYPE,
+  CLEAN_ERROR,
+  CLEAN_SELECTED_POSITION
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -154,6 +156,18 @@ const positionsReducer = (state = initialState, action) => {
       return {
         ...state,
         modalType: action.modalType
+      };
+    }
+    case CLEAN_ERROR: {
+      return {
+        ...state,
+        error: initialState.error
+      };
+    }
+    case CLEAN_SELECTED_POSITION: {
+      return {
+        ...state,
+        position: initialState.position
       };
     }
     default:
