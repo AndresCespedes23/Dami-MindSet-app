@@ -3,6 +3,7 @@ import Home from 'Components/Postulant/Home';
 import Work from 'Components/Postulant/Work';
 import Layout from 'Components/Layout';
 import Sign from 'Components/Postulant/Sign';
+import Register from 'Components/Postulant/Register';
 import Summary from 'Components/Postulant/Summary';
 import Description from 'Components/Postulant/Description';
 import PersonalInfo from 'Components/Postulant/PersonalInfo';
@@ -17,6 +18,7 @@ const PostulantRoutes = () => {
       <Switch>
         <Route path={`${url}/`} exact component={Home} />
         <Route path={`${url}/sign`} component={Sign} />
+        <Route path={`${url}/register`} component={Register} />
         <Route path={`${url}/personal-info`} component={PersonalInfo} />
         <Route path={`${url}/work`} exact component={Work} />
         <Route path={`${url}/courses`} component={Courses} />

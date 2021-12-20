@@ -1,0 +1,87 @@
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #3a4c66;
+}
+.containerSummary {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 8px solid #002147;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+}
+.title {
+  margin: 30px;
+  font: normal normal normal 45px/50px Century Gothic;
+  color: #002147;
+}
+.formContent {
+    padding: 0px 150px;
+}
+.inputColumn {
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+}
+label {
+  margin-left: 10px;
+  font-weight: 900;
+}
+input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border: 3px solid #002147;
+  width: 95%;
+  padding: 5px;
+  font: normal normal normal 1.3em Century Gothic;
+  color: #002147;
+}
+::placeholder {
+  padding: 3px;
+  font: normal normal normal 1em Century Gothic;
+}
+.containerFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 35px 20px 35px;
+}
+.btnRegister{
+    font: normal normal normal 25px/30px Century Gothic;
+    padding: 12px 16px;
+    border: 2px solid #002147;
+    background-color: #ffffff;
+    border-radius: 25px;
+    width: 50%;
+    margin-bottom: 10px;
+}
+.btnRegister:hover{
+    font: normal normal normal 25px/30px Century Gothic;
+    padding: 12px 16px;
+    border: 2px solid #002147;
+    background-color: #002147;
+    color: #ffffff;
+    border-radius: 25px;
+    width: 50%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.messageSign {
+  font: normal normal normal 18px/20px Century Gothic;
+}
+a {
+  font-weight: bold;
+}
+a:hover {
+  cursor: pointer;
+}
+::placeholder {
+  padding: 3px;
+  font: normal normal normal 1em Century Gothic;
+}
