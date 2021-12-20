@@ -116,7 +116,7 @@
   margin: 0 35px 20px 35px;
 }
 
-table {
+.tableSummary {
   border-spacing: 0;
   border: 1px solid black;
   text-align: center;
