@@ -18,7 +18,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const postulants = useSelector((store) => store.postulants.list);
   const positions = useSelector((store) => store.positions.list);
   const interviews = useSelector((store) => store.interviews.list);
-  const formData = useSelector((store) => store.interviews.interview);
+  const formData = useSelector((store) => store.applications.application);
 
   useEffect(() => {
     dispatch(getPostulants());
@@ -77,7 +77,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         break;
       case 'idInterview':
         interviews.map((interview) => {
-          options.push({ value: interview._id, text: interview.name });
+          options.push({ value: interview._id, text: interview.dateTime.split('T')[0] });
         });
         break;
       default:
@@ -103,9 +103,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
                 options={getCombo('idPosition')}
                 selectedValue={
-                  formProps.values.idPosition
-                    ? formProps.values.idPosition._id
-                    : formData.idPosition?._id
+                  formProps.values ? formProps.values.idPosition?._id : formData.idPosition?._id
                 }
               />
               <Field
@@ -116,9 +114,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
                 options={getCombo('idCandidate')}
                 selectedValue={
-                  formProps.values.idCandidate
-                    ? formProps.values.idCandidate._id
-                    : formData.idCandidate?._id
+                  formProps.values ? formProps.values.idCandidate?._id : formData.idCandidate?._id
                 }
               />
               <Field
@@ -129,9 +125,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
                 options={getCombo('idInterview')}
                 selectedValue={
-                  formProps.values.idInterview
-                    ? formProps.values.idInterview._id
-                    : formData.idInterview?._id
+                  formProps.values ? formProps.values.idInterview?._id : formData.idInterview?._id
                 }
               />
             </div>
@@ -151,6 +145,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 type="date"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
+                initialValue={String(formProps.values.dateTime).split('T')[0]}
               />
               <Field
                 component={Select}

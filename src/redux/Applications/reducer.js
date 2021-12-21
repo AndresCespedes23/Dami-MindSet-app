@@ -28,7 +28,7 @@ const initialState = {
   error: false,
   messageType: '',
   messageText: '',
-  application: null,
+  application: {},
   showModal: false,
   showMessage: false
 };
