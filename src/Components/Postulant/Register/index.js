@@ -41,8 +41,8 @@ function Register() {
                   <div>
                     <Field
                       component={Input}
-                      label="Name"
-                      name="name"
+                      label="Full Name"
+                      name="fullName"
                       typeInput="text"
                       placeholder="Enter your name"
                       errorMessage="Name is missing"
