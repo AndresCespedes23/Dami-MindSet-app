@@ -2,10 +2,17 @@ import { Form, Field } from 'react-final-form';
 import styles from './courses.module.css';
 import Button from 'Components/Shared/Button';
 import Input from 'Components/Shared/Input';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 
 function Courses() {
+  const history = useHistory();
+
   const onSubmit = (formValues) => {
     console.log(formValues);
+    if (formValues) {
+      history.push('/postulants/description');
+    }
   };
 
   return (
@@ -58,9 +65,13 @@ function Courses() {
                 </div>
               </div>
               <div className={styles.containerFooter}>
-                <Button type={'back'} text={'BACK'} />
-                <Button type="addNew" text={'COURSE'} onClick={formProps.form.reset} />
-                <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
+                <Link to="/postulants/work">
+                  <Button type={'back'} text={'BACK'} />
+                </Link>
+                <Link to="/postulants/courses">
+                  <Button type={'addNew'} onClick={formProps.form.reset} />
+                </Link>
+                <Button type={'next'} text={'NEXT'} />
               </div>
             </form>
           )}

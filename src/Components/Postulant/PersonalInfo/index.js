@@ -2,11 +2,19 @@ import { Form, Field } from 'react-final-form';
 import styles from './personal-info.module.css';
 import Button from 'Components/Shared/Button';
 import Input from 'Components/Shared/Input';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function PersonalInfo() {
+  const history = useHistory();
+
   const onSubmit = (formValues) => {
     console.log(formValues);
+    if (formValues) {
+      history.push('/postulants/education');
+    }
   };
+
   const required = (value) => (value ? undefined : 'Required');
 
   return (
@@ -63,8 +71,10 @@ function PersonalInfo() {
                 </div>
               </div>
               <div className={styles.containerFooter}>
-                <Button type={'back'} text={'BACK'} />
-                <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
+                <Link to="/postulants/register">
+                  <Button type={'back'} text={'BACK'} />
+                </Link>
+                <Button type={'next'} text={'NEXT'} />
               </div>
             </form>
           )}
