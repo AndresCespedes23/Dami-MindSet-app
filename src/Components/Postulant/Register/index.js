@@ -1,13 +1,18 @@
 import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
+import { useHistory } from 'react-router-dom';
 import Input from 'Components/Shared/Input';
 import styles from './register.module.css';
 
 function Register() {
   const error = useSelector((store) => store.postulants.error);
+  const history = useHistory();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
+    if (formValues) {
+      history.push('/postulants/personal-info');
+    }
   };
 
   const validate = (formValues) => {
@@ -22,7 +27,6 @@ function Register() {
   return (
     <section className={styles.container}>
       <div className={styles.containerSummary}>
-        <h2 className={styles.title}>Personal Information</h2>
         <Form
           onSubmit={onSubmit}
           validate={validate}

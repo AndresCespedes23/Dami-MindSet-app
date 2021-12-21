@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import styles from './sign.module.css';
 
 function Sign() {
@@ -8,7 +9,9 @@ function Sign() {
       </div>
       <div className={styles.containerButton}>
         <button className={styles.btnLogin}>SIGN IN</button>
-        <button className={styles.btnRegister}>SIGN UP</button>
+        <Link to="/postulants/register">
+          <button className={styles.btnRegister}>SIGN UP</button>
+        </Link>
       </div>
     </section>
   );

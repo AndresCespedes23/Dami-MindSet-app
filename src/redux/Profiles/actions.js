@@ -33,7 +33,7 @@ export const cleanError = () => {
   };
 };
 
-export const cleanSelectedProfile = () => {
+export const cleanSelectedProfiles = () => {
   return {
     type: CLEAN_SELECTED_PROFILE
   };
