@@ -3,14 +3,18 @@ import { Form, Field } from 'react-final-form';
 import { useHistory } from 'react-router-dom';
 import Input from 'Components/Shared/Input';
 import styles from './register.module.css';
+import { setRegisterInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function Register() {
   const error = useSelector((store) => store.postulants.error);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
     if (formValues) {
+      dispatch(setRegisterInfo(formValues));
       history.push('/postulants/personal-info');
     }
   };

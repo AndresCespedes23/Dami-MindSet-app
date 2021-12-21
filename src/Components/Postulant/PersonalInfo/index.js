@@ -4,13 +4,17 @@ import Button from 'Components/Shared/Button';
 import Input from 'Components/Shared/Input';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { setPersonalInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function PersonalInfo() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
     if (formValues) {
+      dispatch(setPersonalInfo(formValues));
       history.push('/postulants/education');
     }
   };

@@ -5,15 +5,24 @@ import Input from 'Components/Shared/Input';
 import Select from 'Components/Shared/Select';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useHistory } from 'react-router-dom';
+import { setEducationInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function Education() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
     if (formValues) {
+      dispatch(setEducationInfo(formValues));
       history.push('/postulants/work');
     }
+  };
+
+  const handleAdd = (formProps) => {
+    dispatch(setEducationInfo(formProps.values));
+    formProps.form.reset();
   };
 
   const required = (value) => (value ? undefined : 'Required');
@@ -82,7 +91,7 @@ function Education() {
                 <Link to="/postulants/personal-info">
                   <Button type={'back'} text={'BACK'} />
                 </Link>
-                <Button type="addNew" onClick={formProps.form.reset} />
+                <Button type="addNew" onClick={() => handleAdd(formProps)} />
                 <Button type={'next'} text={'NEXT'} />
               </div>
             </form>
