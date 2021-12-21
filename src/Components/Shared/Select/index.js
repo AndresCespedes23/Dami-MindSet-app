@@ -6,7 +6,7 @@ function Select(props) {
   return (
     <div>
       <label>{props.label}</label>
-      <select disabled={props.disabled} {...props.input} value={props.svalue}>
+      <select disabled={props.disabled} {...props.input} value={props.selectedValue}>
         <option value={''} disabled>
           Select one
         </option>

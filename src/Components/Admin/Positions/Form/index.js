@@ -84,7 +84,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('client')}
-                svalue={
+                selectedValue={
                   formProps.values.idClient ? formProps.values.idClient._id : formData.idClient?._id
                 }
               />
@@ -95,7 +95,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('profile')}
-                svalue={
+                selectedValue={
                   formProps.values.idProfile
                     ? formProps.values.idProfile[0]._id
                     : formData.idProfile
