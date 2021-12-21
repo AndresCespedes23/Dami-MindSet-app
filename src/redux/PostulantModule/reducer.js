@@ -6,10 +6,7 @@ import {
 } from 'constants/actionTypes';
 
 const initialState = {
-  registerInfo: {},
-  personalInfo: {},
-  educationInfo: [{}],
-  worlExperienceInfo: [{}]
+  postulantData: { education: [], workExperience: [], courses: [] }
 };
 
 const postulantsModuleReducer = (state = initialState, action) => {
@@ -17,22 +14,28 @@ const postulantsModuleReducer = (state = initialState, action) => {
     case SET_REGISTER_INFO:
       return {
         ...state,
-        registerInfo: action.payload
+        postulantData: { ...state.postulantData, ...action.payload }
       };
     case SET_PERSONAL_INFO:
       return {
         ...state,
-        personalInfo: action.payload
+        postulantData: { ...state.postulantData, ...action.payload }
       };
     case SET_EDUCATION_INFO:
       return {
         ...state,
-        educationInfo: [...state.educationInfo, action.payload]
+        postulantData: {
+          ...state.postulantData,
+          education: [...state.postulantData.education, action.payload]
+        }
       };
     case SET_WORK_EXPERIENCE_INFO:
       return {
         ...state,
-        worlExperienceInfo: [...state.worlExperienceInfo, action.payload]
+        postulantData: {
+          ...state.postulantData,
+          workExperience: [...state.postulantData.workExperience, action.payload]
+        }
       };
     default:
       return state;
