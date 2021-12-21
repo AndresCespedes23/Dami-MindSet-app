@@ -116,6 +116,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
                 options={getCombo('interview')}
               />
+            </div>
+            <div>
               <Field
                 component={Input}
                 label="Result"

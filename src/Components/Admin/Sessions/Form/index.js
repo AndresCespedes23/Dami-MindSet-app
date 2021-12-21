@@ -36,11 +36,11 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
 
   const validate = (formValues) => {
     const errors = {};
-    if (!formValues.psychologist) {
-      errors.psychologist = 'Psychologist is missing';
+    if (!formValues.idPsychologist) {
+      errors.idPsychologist = 'Psychologist is missing';
     }
-    if (!formValues.postulant) {
-      errors.postulant = 'Postulant is missing';
+    if (!formValues.idCandidate) {
+      errors.idCandidate = 'Postulant is missing';
     }
     if (!formValues.date) {
       errors.date = 'Date is missing';
@@ -50,6 +50,9 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
     }
     if (!formValues.status) {
       errors.status = 'Status is missing';
+    }
+    if (!formValues.result) {
+      errors.result = 'Result is missing';
     }
     return errors;
   };
@@ -72,7 +75,6 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
       default:
         break;
     }
-    console.log(options);
     return options;
   };
 
@@ -96,28 +98,30 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
               <Field
                 component={Select}
                 label="Postulant"
-                name="idPostulant"
+                name="idCandidate"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('postulant')}
               />
               <Field
                 component={Input}
-                label="Date Time"
+                label="Date"
                 name="date"
                 type="date"
                 placeholder="Insert a date"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
+                initialValue={String(formProps.values.dateTime).split('T')[0]}
               />
               <Field
                 component={Input}
-                label="Date Time"
+                label="Time"
                 name="time"
-                type="date"
+                type="time"
                 placeholder="Insert a time"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
+                initialValue={formProps.values.time}
               />
               <Field
                 component={Select}
@@ -129,6 +133,14 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                   { value: 'DONE', text: 'DONE' },
                   { value: 'PENDING', text: 'PENDING' }
                 ]}
+                selectedValue={formProps.values.status || formData.status}
+              />
+              <Field
+                component={Input}
+                label="Result"
+                name="result"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
               />
             </div>
             {isLoadingForm === true ? (

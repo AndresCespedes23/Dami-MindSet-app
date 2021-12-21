@@ -116,6 +116,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
                   formProps.values.idClient ? formProps.values.idClient._id : formData.idClient?._id
                 }
               />
+            </div>
+            <div>
               <Field
                 component={Select}
                 label="Status"
@@ -148,6 +150,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
                 type="date"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
+                initialValue={String(formProps.values.dateTime).split('T')[0]}
               />
             </div>
             {isLoadingForm === true ? (
