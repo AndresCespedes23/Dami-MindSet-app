@@ -16,8 +16,11 @@ import {
   GET_ONE_APPLICATION_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
-  MODAL_TYPE
+  MODAL_TYPE,
+  CLEAN_ERROR,
+  CLEAN_SELECTED_APPLICATION
 } from 'constants/actionTypes';
+
 const initialState = {
   isLoading: false,
   isLoadingForm: false,
@@ -154,6 +157,18 @@ const applicationsReducer = (state = initialState, action) => {
       return {
         ...state,
         modalType: action.modalType
+      };
+    }
+    case CLEAN_ERROR: {
+      return {
+        ...state,
+        error: initialState.error
+      };
+    }
+    case CLEAN_SELECTED_APPLICATION: {
+      return {
+        ...state,
+        application: initialState.application
       };
     }
     default:
