@@ -16,7 +16,9 @@ import {
   GET_ONE_INTERVIEW_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
-  MODAL_TYPE
+  MODAL_TYPE,
+  CLEAN_ERROR,
+  CLEAN_SELECTED_INTERVIEW
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -157,7 +159,18 @@ const interviewsReducer = (state = initialState, action) => {
         modalType: action.modalType
       };
     }
-
+    case CLEAN_ERROR: {
+      return {
+        ...state,
+        error: initialState.error
+      };
+    }
+    case CLEAN_SELECTED_INTERVIEW: {
+      return {
+        ...state,
+        interview: initialState.interview
+      };
+    }
     default:
       return state;
   }

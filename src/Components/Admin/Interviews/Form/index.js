@@ -1,138 +1,151 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Form, Field } from 'react-final-form';
 import styles from './form.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Input from 'Components/Shared/Input';
+import Select from 'Components/Shared/Select';
 import Button from 'Components/Shared/Button';
 import { getOneInterview } from 'redux/Interviews/thunks';
+import { cleanSelectedInterview } from 'redux/Interviews/actions';
 import { getPostulants } from 'redux/Postulants/thunks';
 import { getClients } from 'redux/Clients/thunks';
 import { getPositions } from 'redux/Positions/thunks';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
-  const isLoadingForm = useSelector((store) => store.sessions.isLoadingForm);
-  const candidates = useSelector((state) => state.postulants.list);
-  const clients = useSelector((state) => state.clients.list);
-  const positions = useSelector((state) => state.positions.list);
-  const [formData, setFormData] = useState({
-    idCandidate: '',
-    idPosition: '',
-    idClient: '',
-    status: '',
-    dateTime: ''
-  });
-  const [error, setIsError] = useState({
-    idCandidate: false,
-    idPosition: false,
-    idClient: false,
-    status: false,
-    dateTime: false
-  });
+  const isLoadingForm = useSelector((store) => store.interview.isLoadingForm);
+  const clients = useSelector((store) => store.clients.list);
+  const postulants = useSelector((store) => store.postulants.list);
+  const positions = useSelector((store) => store.positions.list);
+  const formData = useSelector((store) => store.interviews.interview);
 
   useEffect(() => {
-    dispatch(getPostulants());
     dispatch(getClients());
+    dispatch(getPostulants());
     dispatch(getPositions());
     if (id) {
-      dispatch(getOneInterview(id)).then((data) => {
-        setFormData(data);
-      });
+      dispatch(getOneInterview(id));
     }
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const newInterview = {
-      idCandidate: event.target.idCandidate.value,
-      idPosition: event.target.idPosition.value,
-      idClient: event.target.idClient.value,
-      status: event.target.status.value,
-      dateTime: event.target.dateTime.value
+    return () => {
+      dispatch(cleanSelectedInterview());
     };
-    for (let key in newInterview) {
-      if (newInterview[key] === '') {
-        setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: false });
-      }
-    }
-    handleSubmit(newInterview);
-    handleShowModal();
+  }, [dispatch]);
+
+  const onSubmit = (formValues) => {
+    handleSubmit(formValues);
+    handleShowModal(false);
   };
+
+  const validate = (formValues) => {
+    const errors = {};
+    if (!formValues.postulant) {
+      errors.postulant = 'Postulant is missing';
+    }
+    if (!formValues.client) {
+      errors.client = 'Client is missing';
+    }
+    if (!formValues.status) {
+      errors.status = 'Status is missing';
+    }
+    if (!formValues.position) {
+      errors.position = 'Position is missing';
+    }
+    if (!formValues.date) {
+      errors.date = 'Date is missing';
+    }
+    return errors;
+  };
+
+  const required = (value) => (value ? undefined : 'Required');
+
+  const getCombo = (type) => {
+    let options = [];
+    switch (type) {
+      case 'postulant':
+        postulants.map((postulant) => {
+          options.push({ value: postulant._id, text: postulant.name });
+        });
+        break;
+      case 'clients':
+        clients.map((clients) => {
+          options.push({ value: clients._id, text: clients.name });
+        });
+        break;
+      case 'positions':
+        positions.map((positions) => {
+          options.push({ value: positions._id, text: positions.name });
+        });
+        break;
+      default:
+        break;
+    }
+    console.log(options);
+    return options;
+  };
+
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div>
-        <label>Candidate</label>
-        <select name="idCandidate" value={formData.idCandidate._id} onChange={handleChange}>
-          {candidates.map((candidate) => {
-            return (
-              <option key={candidate._id} value={candidate._id}>
-                {candidate.name}
-              </option>
-            );
-          })}
-        </select>
-        {error.idCandidate && <span className={styles.error}>*Candidate is missing</span>}
-      </div>
-      <div>
-        <label>Client</label>
-        <select name="idClient" value={formData.idClient._id} onChange={handleChange}>
-          {clients.map((client) => {
-            return (
-              <option key={client._id} value={client._id}>
-                {client.name}
-              </option>
-            );
-          })}
-        </select>
-        {error.idClient && <span className={styles.error}>*Client is missing</span>}
-      </div>
-      <div>
-        <label>Status</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
-          <option>DONE</option>
-          <option>PENDING</option>
-        </select>
-        {error.status && <span className={styles.error}>*Status is missing</span>}
-      </div>
-      <div>
-        <label>Position</label>
-        <select name="idPosition" value={formData.idPosition._id} onChange={handleChange}>
-          {positions.map((position) => {
-            return [
-              <option key={position._id} value={position._id}>
-                {position.name}
-              </option>
-            ];
-          })}
-        </select>
-        {error.idPosition && <span className={styles.error}>*Position is missing</span>}
-      </div>
-      <Input
-        labelText="Date"
-        name="dateTime"
-        type="date"
-        value={formData.dateTime.split('T')[0]}
-        errorMessage="Date is missing"
-        error={error.dateTime}
-        onChange={handleChange}
-        disabled={isLoadingForm}
+    <>
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        initialValues={formData}
+        render={(formProps) => (
+          <form className={styles.form} onSubmit={formProps.handleSubmit}>
+            <div>
+              <Field
+                component={Select}
+                label="Postulant"
+                name="idPostulant"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('postulant')}
+              />
+              <Field
+                component={Select}
+                label="Client"
+                name="idClient"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('client')}
+              />
+              <Field
+                component={Select}
+                label="Status"
+                name="status"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={[
+                  { value: 'DONE', text: 'DONE' },
+                  { value: 'PENDING', text: 'PENDING' }
+                ]}
+              />
+              <Field
+                component={Select}
+                label="Positions"
+                name="idPositions"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('positions')}
+              />
+              <Field
+                component={Input}
+                label="Date Time"
+                name="dateTime"
+                type="date"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+            </div>
+            {isLoadingForm === true ? (
+              <Spinner type="Oval" color="#002147" height={40} width={40} />
+            ) : (
+              <Button type="submit" />
+            )}
+          </form>
+        )}
       />
-      {isLoadingForm === true ? (
-        <Spinner type="Oval" color="#002147" height={40} width={40} />
-      ) : (
-        <div>
-          <Button type="submit" />
-        </div>
-      )}
-    </form>
+    </>
   );
 }
 
