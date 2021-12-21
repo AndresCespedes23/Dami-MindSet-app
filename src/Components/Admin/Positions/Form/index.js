@@ -68,7 +68,6 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
     }
     return options;
   };
-  console.log(formData);
   return (
     <>
       <Form
@@ -85,7 +84,9 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('client')}
-                value={formData.idClient?._id}
+                svalue={
+                  formProps.values.idClient ? formProps.values.idClient._id : formData.idClient?._id
+                }
               />
               <Field
                 component={Select}
@@ -94,7 +95,13 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('profile')}
-                value={formData.idProfile ? formData.idProfile[0]._id : formData.idProfile}
+                svalue={
+                  formProps.values.idProfile
+                    ? formProps.values.idProfile[0]._id
+                    : formData.idProfile
+                    ? formData.idProfile[0]._id
+                    : formData.idProfile
+                }
               />
               <Field
                 component={Input}

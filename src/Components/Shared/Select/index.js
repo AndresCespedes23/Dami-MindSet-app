@@ -3,11 +3,10 @@ import styles from './select.module.css';
 
 function Select(props) {
   const hasError = !!(props.meta.touched && props.meta.error);
-  console.log(props.input);
   return (
     <div>
       <label>{props.label}</label>
-      <select disabled={props.disabled} value={props.value} {...props.input}>
+      <select disabled={props.disabled} {...props.input} value={props.svalue}>
         <option value={''} disabled>
           Select one
         </option>
