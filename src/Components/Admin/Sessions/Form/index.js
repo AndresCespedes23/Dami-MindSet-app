@@ -101,7 +101,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
                 options={getCombo('postulant')}
               />
-               <Field
+              <Field
                 component={Input}
                 label="Date Time"
                 name="date"
@@ -110,7 +110,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
-               <Field
+              <Field
                 component={Input}
                 label="Date Time"
                 name="time"
