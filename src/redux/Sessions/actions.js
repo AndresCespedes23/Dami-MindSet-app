@@ -1,4 +1,10 @@
-import { SHOW_MESSAGE, SHOW_MODAL, MODAL_TYPE } from 'constants/actionTypes';
+import {
+  MODAL_TYPE,
+  SHOW_MODAL,
+  SHOW_MESSAGE,
+  CLEAN_ERROR,
+  CLEAN_SELECTED_SESSION
+} from 'constants/actionTypes';
 
 export const setShowModal = (showModal) => {
   return {
@@ -18,5 +24,17 @@ export const setModalType = (modalType) => {
   return {
     type: MODAL_TYPE,
     modalType
+  };
+};
+
+export const cleanError = () => {
+  return {
+    type: CLEAN_ERROR
+  };
+};
+
+export const cleanSelectedSession = () => {
+  return {
+    type: CLEAN_SELECTED_SESSION
   };
 };
