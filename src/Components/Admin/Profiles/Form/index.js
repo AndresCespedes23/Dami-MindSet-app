@@ -6,7 +6,7 @@ import Spinner from 'Components/Shared/Spinner';
 import Input from 'Components/Shared/Input';
 import Button from 'Components/Shared/Button';
 import { getOneProfile } from 'redux/Profiles/thunks';
-import { cleanSelectedProfile } from 'redux/Profiles/actions';
+import { cleanSelectedProfiles } from 'redux/Profiles/actions';
 
 function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
       dispatch(getOneProfile(id));
     }
     return () => {
-      dispatch(cleanSelectedProfile());
+      dispatch(cleanSelectedProfiles());
     };
   }, [dispatch]);
 

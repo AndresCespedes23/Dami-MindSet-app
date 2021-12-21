@@ -39,20 +39,20 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
 
   const validate = (formValues) => {
     const errors = {};
-    if (!formValues.postulant) {
-      errors.postulant = 'Postulant is missing';
+    if (!formValues.idCandidate) {
+      errors.idCandidate = 'Postulant is missing';
     }
-    if (!formValues.client) {
-      errors.client = 'Client is missing';
+    if (!formValues.idClient) {
+      errors.idClient = 'Client is missing';
     }
     if (!formValues.status) {
       errors.status = 'Status is missing';
     }
-    if (!formValues.position) {
-      errors.position = 'Position is missing';
+    if (!formValues.idPosition) {
+      errors.idPosition = 'Position is missing';
     }
-    if (!formValues.date) {
-      errors.date = 'Date is missing';
+    if (!formValues.dateTime) {
+      errors.dateTime = 'Date is missing';
     }
     return errors;
   };
@@ -68,8 +68,8 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         });
         break;
       case 'clients':
-        clients.map((clients) => {
-          options.push({ value: clients._id, text: clients.name });
+        clients.map((client) => {
+          options.push({ value: client._id, text: client.name });
         });
         break;
       case 'positions':
@@ -80,7 +80,6 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
       default:
         break;
     }
-    console.log(options);
     return options;
   };
 
@@ -96,10 +95,15 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
               <Field
                 component={Select}
                 label="Postulant"
-                name="idPostulant"
+                name="idCandidate"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('postulant')}
+                selectedValue={
+                  formProps.values.idCandidate
+                    ? formProps.values.idCandidate._id
+                    : formData.idCandidate?._id
+                }
               />
               <Field
                 component={Select}
@@ -107,7 +111,10 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
                 name="idClient"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
-                options={getCombo('client')}
+                options={getCombo('clients')}
+                selectedValue={
+                  formProps.values.idClient ? formProps.values.idClient._id : formData.idClient?._id
+                }
               />
               <Field
                 component={Select}
@@ -119,14 +126,20 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
                   { value: 'DONE', text: 'DONE' },
                   { value: 'PENDING', text: 'PENDING' }
                 ]}
+                selectedValue={formProps.values.status || formData.status}
               />
               <Field
                 component={Select}
                 label="Positions"
-                name="idPositions"
+                name="idPosition"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('positions')}
+                selectedValue={
+                  formProps.values.idPosition
+                    ? formProps.values.idPosition._id
+                    : formData.idPosition?._id
+                }
               />
               <Field
                 component={Input}
