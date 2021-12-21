@@ -31,10 +31,9 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       dispatch(cleanSelectedClients());
       dispatch(cleanSelectedProfiles());
     };
-  }, []);
+  }, [dispatch]);
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     handleSubmit(formValues);
     handleShowModal(false);
   };
@@ -67,9 +66,9 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
       default:
         break;
     }
-    console.log(options);
     return options;
   };
+  console.log(formData);
   return (
     <>
       <Form
@@ -86,6 +85,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('client')}
+                value={formData.idClient?._id}
               />
               <Field
                 component={Select}
@@ -94,6 +94,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('profile')}
+                value={formData.idProfile ? formData.idProfile[0]._id : formData.idProfile}
               />
               <Field
                 component={Input}
@@ -120,6 +121,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                   { value: 'DONE', text: 'DONE' },
                   { value: 'PENDING', text: 'PENDING' }
                 ]}
+                value={formData.status}
               />
               <Field
                 component={Input}

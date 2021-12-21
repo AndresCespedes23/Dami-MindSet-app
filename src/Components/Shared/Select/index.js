@@ -3,7 +3,7 @@ import styles from './select.module.css';
 
 function Select(props) {
   const hasError = !!(props.meta.touched && props.meta.error);
-
+  console.log(props.input);
   return (
     <div>
       <label>{props.label}</label>

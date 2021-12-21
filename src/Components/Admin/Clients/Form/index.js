@@ -11,7 +11,7 @@ import { cleanSelectedClients } from 'redux/Clients/actions';
 function ClientsForm({ id, handleSubmit, handleShowModal }) {
   const isLoadingForm = useSelector((store) => store.clients.isLoadingForm);
   const dispatch = useDispatch();
-  const formData = useSelector((store) => store.postulants.postulant);
+  const formData = useSelector((store) => store.clients.client);
 
   useEffect(() => {
     if (id) {

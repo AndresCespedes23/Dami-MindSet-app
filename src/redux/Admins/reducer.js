@@ -82,7 +82,7 @@ const adminsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoadingForm: false,
-        position: action.payload
+        admin: action.payload
       };
     case GET_ONE_ADMIN_REJECTED:
       return {
