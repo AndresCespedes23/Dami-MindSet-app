@@ -1,7 +1,8 @@
 const initialState = {
   registerInfo: {},
   personalInfo: {},
-  educationInfo: [{}]
+  educationInfo: [{}],
+  worlExperienceInfo: [{}]
 };
 
 const postulantsModuleReducer = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const postulantsModuleReducer = (state = initialState, action) => {
       return {
         ...state,
         educationInfo: [...state.educationInfo, action.payload]
+      };
+    case 'SET_WORK_EXPERIENCE_INFO':
+      return {
+        ...state,
+        worlExperienceInfo: [...state.worlExperienceInfo, action.payload]
       };
     default:
       return state;
