@@ -15,7 +15,7 @@ import { getInterviews } from 'redux/Interviews/thunks';
 function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.applications.isLoadingForm);
-  const candidates = useSelector((store) => store.postulants.list);
+  const postulants = useSelector((store) => store.postulants.list);
   const positions = useSelector((store) => store.positions.list);
   const interviews = useSelector((store) => store.interviews.list);
   const formData = useSelector((store) => store.interviews.interview);
@@ -31,11 +31,6 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
       dispatch(cleanSelectedApplication());
     };
   }, [dispatch]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const onSubmit = (formValues) => {
     handleSubmit(formValues);
@@ -97,7 +92,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
             <div>
-            <Field
+              <Field
                 component={Select}
                 label="Position"
                 name="idPosition"
