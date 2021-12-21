@@ -39,17 +39,20 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
 
   const validate = (formValues) => {
     const errors = {};
-    if (!formValues.position) {
-      errors.position = 'Position is missing';
+    if (!formValues.idPosition) {
+      errors.idPosition = 'Position is missing';
     }
-    if (!formValues.postulant) {
-      errors.postulant = 'Postulant is missing';
+    if (!formValues.idCandidate) {
+      errors.idCandidate = 'Postulant is missing';
     }
-    if (!formValues.interview) {
-      errors.interview = 'Interview is missing';
+    if (!formValues.idInterview) {
+      errors.idInterview = 'Interview is missing';
     }
     if (!formValues.result) {
       errors.result = 'Result is missing';
+    }
+    if (!formValues.dateTime) {
+      errors.dateTime = 'Date is missing';
     }
     if (!formValues.status) {
       errors.status = 'Status is missing';
@@ -62,17 +65,17 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
   const getCombo = (type) => {
     let options = [];
     switch (type) {
-      case 'positions':
-        positions.map((positions) => {
-          options.push({ value: positions._id, text: positions.name });
+      case 'idPosition':
+        positions.map((position) => {
+          options.push({ value: position._id, text: position.name });
         });
         break;
-      case 'postulants':
+      case 'idCandidate':
         postulants.map((postulant) => {
           options.push({ value: postulant._id, text: postulant.name });
         });
         break;
-      case 'interviews':
+      case 'idInterview':
         interviews.map((interview) => {
           options.push({ value: interview._id, text: interview.name });
         });
@@ -98,15 +101,25 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 name="idPosition"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
-                options={getCombo('position')}
+                options={getCombo('idPosition')}
+                selectedValue={
+                  formProps.values.idPosition
+                    ? formProps.values.idPosition._id
+                    : formData.idPosition?._id
+                }
               />
               <Field
                 component={Select}
                 label="Postulant"
-                name="idPostulant"
+                name="idCandidate"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
-                options={getCombo('postulant')}
+                options={getCombo('idCandidate')}
+                selectedValue={
+                  formProps.values.idCandidate
+                    ? formProps.values.idCandidate._id
+                    : formData.idCandidate?._id
+                }
               />
               <Field
                 component={Select}
@@ -114,7 +127,12 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 name="idInterview"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
-                options={getCombo('interview')}
+                options={getCombo('idInterview')}
+                selectedValue={
+                  formProps.values.idInterview
+                    ? formProps.values.idInterview._id
+                    : formData.idInterview?._id
+                }
               />
             </div>
             <div>
@@ -146,6 +164,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                   { value: 'HIRED', text: 'HIRED' },
                   { value: 'REJECTED', text: 'REJECTED' }
                 ]}
+                selectedValue={formProps.values.status || formData.status}
               />
             </div>
             {isLoadingForm === true ? (
