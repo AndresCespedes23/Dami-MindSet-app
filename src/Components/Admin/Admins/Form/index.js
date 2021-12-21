@@ -1,95 +1,100 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form, Field } from 'react-final-form';
 import styles from './form.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Input from 'Components/Shared/Input';
 import Button from 'Components/Shared/Button';
 import { getOneAdmin } from 'redux/Admins/thunks';
+import { cleanSelectedAdmins } from 'redux/Admins/actions';
 
 function AdminsForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
-  const isLoadingForm = useSelector((store) => store.positions.isLoadingForm);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    username: '',
-    password: ''
-  });
+  const isLoadingForm = useSelector((store) => store.admins.isLoadingForm);
+  const formData = useSelector((store) => store.admins.admin);
 
   useEffect(() => {
     if (id) {
-      dispatch(getOneAdmin(id)).then((data) => {
-        setFormData(data);
-      });
+      dispatch(getOneAdmin(id));
     }
+    return () => {
+      dispatch(cleanSelectedAdmins());
+    };
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const onSubmit = (formValues) => {
+    handleSubmit(formValues);
+    handleShowModal(false);
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const UpdateAdmin = {
-      name: event.target.name.value,
-      email: event.target.email.value,
-      username: event.target.username.value,
-      password: event.target.password.value
-    };
-
-    handleSubmit(UpdateAdmin);
-    handleShowModal();
+  const validate = (formValues) => {
+    const errors = {};
+    if (!formValues.username) {
+      errors.username = 'Username is required';
+    }
+    if (formValues.name?.length < 3) {
+      errors.name = 'Name must be at least 3 characters';
+    }
+    if (!formValues.email?.includes('@')) {
+      errors.email = 'Email must have correct format';
+    }
+    if (!formValues.password) {
+      errors.password = 'Password is required';
+    }
+    return errors;
   };
+
+  const required = (value) => (value ? undefined : 'Required');
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <Input
-        labelText="Name"
-        name="name"
-        type="text"
-        value={formData.name}
-        errorMessage="Name is missing"
-        error={false}
-        onChange={handleChange}
-        disabled={isLoadingForm}
+    <>
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        initialValues={formData}
+        render={(formProps) => (
+          <form className={styles.form} onSubmit={formProps.handleSubmit}>
+            <div>
+              <Field
+                component={Input}
+                label="Name"
+                name="name"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Email"
+                name="email"
+                type="email"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Username"
+                name="username"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+              <Field
+                component={Input}
+                label="Password"
+                name="password"
+                type="password"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+            </div>
+            {isLoadingForm === true ? (
+              <Spinner type="Oval" color="#002147" height={40} width={40} />
+            ) : (
+              <Button type="submit" />
+            )}
+          </form>
+        )}
       />
-      <Input
-        labelText="Email"
-        name="email"
-        type="email"
-        value={formData.email}
-        errorMessage="Email is missing"
-        error={false}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      <Input
-        labelText="Username"
-        name="username"
-        type="text"
-        value={formData.username}
-        errorMessage="Username is missing"
-        error={false}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      <Input
-        labelText="Password"
-        name="password"
-        type="password"
-        value={formData.password}
-        errorMessage="Password is missing"
-        error={false}
-        onChange={handleChange}
-        disabled={isLoadingForm}
-      />
-      {isLoadingForm === true ? (
-        <Spinner type="Oval" color="#002147" height={40} width={40} />
-      ) : (
-        <Button type="submit" />
-      )}
-    </form>
+    </>
   );
 }
 
