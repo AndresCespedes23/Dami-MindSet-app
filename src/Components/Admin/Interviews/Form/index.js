@@ -14,7 +14,7 @@ import { getPositions } from 'redux/Positions/thunks';
 
 function InterviewForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
-  const isLoadingForm = useSelector((store) => store.interview.isLoadingForm);
+  const isLoadingForm = useSelector((store) => store.interviews.isLoadingForm);
   const clients = useSelector((store) => store.clients.list);
   const postulants = useSelector((store) => store.postulants.list);
   const positions = useSelector((store) => store.positions.list);

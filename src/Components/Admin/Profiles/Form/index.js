@@ -25,12 +25,13 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   const onSubmit = (formValues) => {
     handleSubmit(formValues);
     handleShowModal(false);
+    console.log(formValues);
   };
 
   const validate = (formValues) => {
     const errors = {};
-    if (!formValues.profile) {
-      errors.profile = 'Profile is missing';
+    if (!formValues.name) {
+      errors.name = 'Profile is missing';
     }
     if (!formValues.description) {
       errors.description = 'Description is missing';
@@ -52,7 +53,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
               <Field
                 component={Input}
                 label="Type of Profile"
-                name="typeOfProfile"
+                name="name"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />

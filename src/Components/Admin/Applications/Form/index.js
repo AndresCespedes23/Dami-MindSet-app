@@ -7,7 +7,7 @@ import Select from 'Components/Shared/Select';
 import Input from 'Components/Shared/Input';
 import Button from 'Components/Shared/Button';
 import { getOneApplication } from 'redux/Applications/thunks';
-import { cleanSelectedApplication } from 'redux/Appplications/actions';
+import { cleanSelectedApplication } from 'redux/Applications/actions';
 import { getPostulants } from 'redux/Postulants/thunks';
 import { getPositions } from 'redux/Positions/thunks';
 import { getInterviews } from 'redux/Interviews/thunks';

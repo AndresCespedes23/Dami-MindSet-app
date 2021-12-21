@@ -18,7 +18,7 @@ import {
   SHOW_MESSAGE,
   MODAL_TYPE,
   CLEAN_ERROR,
-  CLEAN_SELECTED_ADMIN
+  CLEAN_SELECTED_SESSION
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -165,10 +165,10 @@ const sessionsReducer = (state = initialState, action) => {
         error: initialState.error
       };
     }
-    case CLEAN_SELECTED_ADMIN: {
+    case CLEAN_SELECTED_SESSION: {
       return {
         ...state,
-        admin: initialState.admin
+        session: initialState.session
       };
     }
     default:
