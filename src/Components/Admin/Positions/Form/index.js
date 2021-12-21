@@ -128,7 +128,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                   { value: 'DONE', text: 'DONE' },
                   { value: 'PENDING', text: 'PENDING' }
                 ]}
-                value={formData.status}
+                selectedValue={formProps.values.status || formData.status}
               />
               <Field
                 component={Input}
