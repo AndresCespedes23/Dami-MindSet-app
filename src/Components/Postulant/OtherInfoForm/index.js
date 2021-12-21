@@ -6,13 +6,17 @@ import { Form, Field } from 'react-final-form';
 import styles from './otherInfoForm.module.css';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { setOtherInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 const OtherInfoForm = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
     if (formValues) {
+      dispatch(setOtherInfo(formValues));
       history.push('/postulants/summary');
     }
   };
@@ -46,7 +50,7 @@ const OtherInfoForm = () => {
                   <Field
                     component={Input}
                     label="ID Number"
-                    name="idNumber"
+                    name="dni"
                     type="number"
                     placeholder="Enter your ID Number"
                     disabled={formProps.submitting}
@@ -57,7 +61,7 @@ const OtherInfoForm = () => {
                   <Field
                     component={Select}
                     label="Marital Status"
-                    name="maritalSattus"
+                    name="maritalStatus"
                     options={[
                       { value: 'single', text: 'single' },
                       { value: 'married', text: 'married' },
@@ -71,7 +75,7 @@ const OtherInfoForm = () => {
                   <Field
                     component={Select}
                     label="Do you have a driver license?"
-                    name="driverLicense"
+                    name="driversLicense"
                     options={[
                       { value: 'yes', text: 'yes' },
                       { value: 'no', text: 'no' }

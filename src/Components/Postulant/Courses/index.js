@@ -15,7 +15,7 @@ function Courses() {
     console.log(formValues);
     if (formValues) {
       dispatch(setCoursesInfo(formValues));
-      history.push('/postulants/work');
+      history.push('/postulants/description');
     }
   };
 

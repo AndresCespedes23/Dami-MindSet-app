@@ -32,7 +32,7 @@ function PersonalInfo() {
               <div className={styles.formContent}>
                 <Field
                   label="Phone Number"
-                  name="Phone Number"
+                  name="phoneNumberr"
                   component={Input}
                   type="number"
                   placeholder="Enter your phone number"
@@ -40,14 +40,14 @@ function PersonalInfo() {
                 />
                 <Field
                   label="Date of Birth"
-                  name="Date of Birth"
+                  name="dateOfBirth"
                   type="date"
                   component={Input}
                   validate={required}
                 />
                 <Field
                   label="Address"
-                  name="Address"
+                  name="address"
                   component={Input}
                   placeholder="Enter your address"
                   validate={required}
@@ -56,7 +56,7 @@ function PersonalInfo() {
                   <div>
                     <Field
                       label="City"
-                      name="City"
+                      name="city"
                       component={Input}
                       placeholder="Enter your city"
                       validate={required}
@@ -65,7 +65,7 @@ function PersonalInfo() {
                   <div>
                     <Field
                       label="Postal Code"
-                      name="Postal Code"
+                      name="zipCode"
                       component={Input}
                       type="number"
                       placeholder="Enter your postal code"

@@ -3,13 +3,17 @@ import Button from 'Components/Shared/Button';
 import { Form, Field } from 'react-final-form';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { setDescriptionInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function Description() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
     if (formValues) {
+      dispatch(setDescriptionInfo(formValues));
       history.push('/postulants/other-info');
     }
   };
