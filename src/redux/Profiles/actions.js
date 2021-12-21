@@ -2,6 +2,7 @@ import {
   MODAL_TYPE,
   SHOW_MODAL,
   SHOW_MESSAGE,
+  CLEAN_ERROR,
   CLEAN_SELECTED_PROFILE
 } from 'constants/actionTypes';
 
@@ -23,6 +24,12 @@ export const setModalType = (modalType) => {
   return {
     type: MODAL_TYPE,
     modalType
+  };
+};
+
+export const cleanError = () => {
+  return {
+    type: CLEAN_ERROR
   };
 };
 

@@ -14,6 +14,7 @@ import {
   GET_ONE_PROFILE_FETCHING,
   GET_ONE_PROFILE_FULFILLED,
   GET_ONE_PROFILE_REJECTED,
+  CLEAN_ERROR,
   CLEAN_SELECTED_PROFILE,
   SHOW_MODAL,
   SHOW_MESSAGE,
@@ -157,10 +158,16 @@ const profilesReducer = (state = initialState, action) => {
         modalType: action.modalType
       };
     }
+    case CLEAN_ERROR: {
+      return {
+        ...state,
+        error: initialState.error
+      };
+    }
     case CLEAN_SELECTED_PROFILE: {
       return {
         ...state,
-        modalType: action.modalType
+        profile: initialState.profile
       };
     }
     default:

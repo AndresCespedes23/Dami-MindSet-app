@@ -1,171 +1,157 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Form, Field } from 'react-final-form';
 import styles from './form.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Input from 'Components/Shared/Input';
+import Select from 'Components/Shared/Select';
 import Button from 'Components/Shared/Button';
 import { getOneSession } from 'redux/Sessions/thunks';
+import { cleanSelectedSession } from 'redux/Sessions/actions';
 import { getPsychologists } from 'redux/Psychologists/thunks';
 import { getPostulants } from 'redux/Postulants/thunks';
 
 function SessionsForm({ id, handleSubmit, handleShowModal }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.sessions.isLoadingForm);
-  const psychologists = useSelector((state) => state.psychologists.list);
-  const candidates = useSelector((state) => state.postulants.list);
-  const [formData, setFormData] = useState({
-    idPsychologist: '',
-    idCandidate: '',
-    date: '',
-    time: '',
-    status: '',
-    result: ''
-  });
-  const [error, setIsError] = useState({
-    idPsychologist: false,
-    idCandidate: false,
-    dateTime: false,
-    status: false,
-    result: false
-  });
+  const formData = useSelector((store) => store.sessions.session);
+  const psychologists = useSelector((store) => store.psychologists.list);
+  const postulants = useSelector((store) => store.postulants.list);
 
   useEffect(() => {
     dispatch(getPsychologists());
     dispatch(getPostulants());
     if (id) {
-      dispatch(getOneSession(id)).then((data) => {
-        setFormData(data);
-      });
+      dispatch(getOneSession(id));
     }
-  }, []);
+    return () => {
+      dispatch(cleanSelectedSession());
+    };
+  }, [dispatch]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const onSubmit = (formValues) => {
+    handleSubmit(formValues);
+    handleShowModal(false);
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    const newSession = {
-      idPsychologist: event.target.idPsychologist.value,
-      idCandidate: event.target.idCandidate.value,
-      date: event.target.date.value,
-      time: event.target.time.value,
-      status: event.target.status.value,
-      result: event.target.result.value
-    };
-
-    for (let key in newSession) {
-      if (newSession[key] === '') {
-        setIsError({ ...error, [key]: true });
-        return;
-      } else {
-        setIsError({ ...error, [key]: false });
-      }
+  const validate = (formValues) => {
+    const errors = {};
+    if (!formValues.idPsychologist) {
+      errors.idPsychologist = 'Psychologist is missing';
     }
+    if (!formValues.idCandidate) {
+      errors.idCandidate = 'Postulant is missing';
+    }
+    if (!formValues.date) {
+      errors.date = 'Date is missing';
+    }
+    if (!formValues.time) {
+      errors.time = 'Time is missing';
+    }
+    if (!formValues.status) {
+      errors.status = 'Status is missing';
+    }
+    if (!formValues.result) {
+      errors.result = 'Result is missing';
+    }
+    return errors;
+  };
 
-    handleSubmit(newSession);
-    handleShowModal();
+  const required = (value) => (value ? undefined : 'Required');
+
+  const getCombo = (type) => {
+    let options = [];
+    switch (type) {
+      case 'psychologist':
+        psychologists.map((psychologist) => {
+          options.push({ value: psychologist._id, text: psychologist.name });
+        });
+        break;
+      case 'postulant':
+        postulants.map((postulant) => {
+          options.push({ value: postulant._id, text: postulant.name });
+        });
+        break;
+      default:
+        break;
+    }
+    return options;
   };
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
-      <div>
-        <div>
-          <label>Psychologist</label>
-          <select
-            name="idPsychologist"
-            value={formData.idPsychologist._id}
-            disabled={isLoadingForm}
-            onChange={handleChange}
-          >
-            {psychologists.map((psychologist) => {
-              return [
-                <option key={psychologist._id} value={psychologist._id}>
-                  {psychologist.name}
-                </option>
-              ];
-            })}
-          </select>
-          {error.idPsychologist && <span className={styles.error}>Psychologist is missing</span>}
-        </div>
-        <div>
-          <label>Candidate</label>
-          <select
-            name="idCandidate"
-            value={formData.idCandidate._id}
-            disabled={isLoadingForm}
-            onChange={handleChange}
-          >
-            {candidates.map((candidate) => {
-              return [
-                <option key={candidate._id} value={candidate._id}>
-                  {candidate.name}
-                </option>
-              ];
-            })}
-          </select>
-          {error.idCandidate && <span className={styles.error}>Candidate is missing</span>}
-        </div>
-        <div>
-          <label>Date</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            placeholder="Insert a date"
-            required
-            disabled={isLoadingForm}
-            onChange={handleChange}
-          />
-          {error.dateTime && <span className={styles.error}>Date time is missing</span>}
-        </div>
-        <div>
-          <label>Time</label>
-          <input
-            type="time"
-            name="time"
-            value={formData.time}
-            placeholder="Insert a time"
-            required
-            disabled={isLoadingForm}
-            onChange={handleChange}
-          />
-          {error.dateTime && <span className={styles.error}>Date time is missing</span>}
-        </div>
-      </div>
-      <div>
-        <div>
-          <label>Status</label>
-          <select
-            name="status"
-            value={formData.status}
-            required
-            disabled={isLoadingForm}
-            onChange={handleChange}
-          >
-            <option value="PENDING">PENDING</option>
-            <option value="DONE">DONE</option>
-          </select>
-          {error.status && <span className={styles.error}>Status time is missing</span>}
-        </div>
-        <Input
-          labelText="Result"
-          name="result"
-          type="text"
-          value={formData.result}
-          errorMessage="Result is missing"
-          error={error.result}
-          onChange={handleChange}
-          disbled={isLoadingForm}
-        />
-      </div>
-      {isLoadingForm === true ? (
-        <Spinner type="Oval" color="#002147" height={40} width={40} />
-      ) : (
-        <Button type="submit" />
-      )}
-    </form>
+    <>
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        initialValues={formData}
+        render={(formProps) => (
+          <form className={styles.form} onSubmit={formProps.handleSubmit}>
+            <div>
+              <Field
+                component={Select}
+                label="Psychologist"
+                name="idPsychologist"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('psychologist')}
+              />
+              <Field
+                component={Select}
+                label="Postulant"
+                name="idCandidate"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={getCombo('postulant')}
+              />
+              <Field
+                component={Input}
+                label="Date"
+                name="date"
+                type="date"
+                placeholder="Insert a date"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                initialValue={String(formProps.values.dateTime).split('T')[0]}
+              />
+              <Field
+                component={Input}
+                label="Time"
+                name="time"
+                type="time"
+                placeholder="Insert a time"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                initialValue={formProps.values.time}
+              />
+              <Field
+                component={Select}
+                label="Status"
+                name="status"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+                options={[
+                  { value: 'DONE', text: 'DONE' },
+                  { value: 'PENDING', text: 'PENDING' }
+                ]}
+                selectedValue={formProps.values.status || formData.status}
+              />
+              <Field
+                component={Input}
+                label="Result"
+                name="result"
+                disabled={formProps.submitting || isLoadingForm}
+                validate={required}
+              />
+            </div>
+            {isLoadingForm === true ? (
+              <Spinner type="Oval" color="#002147" height={40} width={40} />
+            ) : (
+              <Button type="submit" />
+            )}
+          </form>
+        )}
+      />
+    </>
   );
 }
 
