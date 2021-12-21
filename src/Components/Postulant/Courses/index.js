@@ -4,15 +4,24 @@ import Button from 'Components/Shared/Button';
 import Input from 'Components/Shared/Input';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useHistory } from 'react-router-dom';
+import { setCoursesInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function Courses() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
     console.log(formValues);
     if (formValues) {
-      history.push('/postulants/description');
+      dispatch(setCoursesInfo(formValues));
+      history.push('/postulants/work');
     }
+  };
+
+  const handleAdd = (formProps) => {
+    dispatch(setCoursesInfo(formProps.values));
+    formProps.form.reset();
   };
 
   return (
@@ -26,7 +35,7 @@ function Courses() {
               <div className={styles.formContent}>
                 <Field
                   label="Name of the course or training"
-                  name="Name of the course or training"
+                  name="name"
                   component={Input}
                   type="text"
                   placeholder="Enter the name of the course or training"
@@ -34,19 +43,19 @@ function Courses() {
                 <div className={styles.inputColumn}>
                   <Field
                     label="Organization / Institution"
-                    name="Organization / Institution"
+                    name="organization"
                     type="text"
                     placeholder="Enter the name of the institution"
                     component={Input}
                   />
                   <div className={styles.timeDurationInputs}>
                     <div className={styles.dateInput}>
-                      <Field label="End date" name="End Date" component={Input} type="date" />
+                      <Field label="End date" name="endData" component={Input} type="date" />
                     </div>
                     <div>
                       <Field
                         label="Duration"
-                        name="Duration"
+                        name="duration"
                         type="number"
                         component={Input}
                         placeholder="Duration in hs"
@@ -57,7 +66,7 @@ function Courses() {
                 <div className={styles.descriptionInput}>
                   <Field
                     label="Description"
-                    name="Description"
+                    name="description"
                     component={Input}
                     type="textarea"
                     placeholder="Describe briefly what the course or training was about and what was the main knowledge you gained from it"
@@ -69,7 +78,7 @@ function Courses() {
                   <Button type={'back'} text={'BACK'} />
                 </Link>
                 <Link to="/postulants/courses">
-                  <Button type={'addNew'} onClick={formProps.form.reset} />
+                  <Button type="addNew" onClick={() => handleAdd(formProps)} />
                 </Link>
                 <Button type={'next'} text={'NEXT'} />
               </div>

@@ -2,7 +2,8 @@ import {
   SET_REGISTER_INFO,
   SET_PERSONAL_INFO,
   SET_EDUCATION_INFO,
-  SET_WORK_EXPERIENCE_INFO
+  SET_WORK_EXPERIENCE_INFO,
+  SET_COURSES_INFO
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -35,6 +36,14 @@ const postulantsModuleReducer = (state = initialState, action) => {
         postulantData: {
           ...state.postulantData,
           workExperience: [...state.postulantData.workExperience, action.payload]
+        }
+      };
+    case SET_COURSES_INFO:
+      return {
+        ...state,
+        postulantData: {
+          ...state.postulantData,
+          courses: [...state.postulantData.courses, action.payload]
         }
       };
     default:
