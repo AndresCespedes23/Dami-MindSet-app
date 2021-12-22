@@ -32,7 +32,7 @@ function PersonalInfo() {
               <div className={styles.formContent}>
                 <Field
                   label="Phone Number"
-                  name="phoneNumberr"
+                  name="phoneNumber"
                   component={Input}
                   type="number"
                   placeholder="Enter your phone number"

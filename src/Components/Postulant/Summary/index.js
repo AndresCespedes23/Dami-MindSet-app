@@ -4,25 +4,32 @@ import { getOnePostulant } from 'redux/Postulants/thunks.js';
 import styles from './summary.module.css';
 import Button from 'Components/Shared/Button';
 import { Link } from 'react-router-dom';
+import { registerPostulant } from 'redux/PostulantModule/thunks.js';
 
 function Summary() {
   const postulant = useSelector((state) => state.postulants.postulant);
+  const postulantData = useSelector((state) => state.postulantModule.postulantData);
   const dispatch = useDispatch();
   const [type, setType] = useState('PERSONAL-INFORMATION');
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
+    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
   }, [dispatch]);
 
   const handleButtonClick = (type) => {
     setType(type);
-    console.log(postulant);
   };
+
+  const handleRegister = () => {
+    dispatch(registerPostulant(postulantData));
+  };
+
   const getAge = (date) => {
     let today = new Date().getFullYear();
     let year = date.split('-')[0];
     return today - year;
   };
+
   return (
     <section className={styles.container}>
       <div className={styles.containerSummary}>
@@ -75,7 +82,7 @@ function Summary() {
                       <span className={styles.infoPersonal}>{postulant.name}</span>
                     </div>
                     <div className={styles.itemPersonal}>
-                      <h3 className={styles.titlePersonal}>Surname:</h3>
+                      <h3 className={styles.titlePersonal}>Username:</h3>
                       <span className={styles.infoPersonal}>{postulant.username}</span>
                     </div>
                     <div className={styles.itemPersonalLong}>
@@ -363,7 +370,7 @@ function Summary() {
             <Button type={'back'} text={'BACK'} />
           </Link>
           <Link to="/postulants/profile">
-            <Button type={'next'} text={'FINISH'} />
+            <Button type={'next'} text={'FINISH'} onClick={handleRegister} />
           </Link>
         </div>
       </div>

@@ -5,11 +5,15 @@ import {
   SET_WORK_EXPERIENCE_INFO,
   SET_COURSES_INFO,
   SET_DESCRIPTION_INFO,
-  SET_OTHER_INFO
+  SET_OTHER_INFO,
+  REGISTER_NEW_POSTULANT_ACCOUNT_FETCHING,
+  REGISTER_NEW_POSTULANT_ACCOUNT_FULFILLED,
+  REGISTER_NEW_POSTULANT_ACCOUNT_REJECTED
 } from 'constants/actionTypes';
 
 const initialState = {
-  postulantData: { education: [], workExperience: [], courses: [] }
+  postulantData: { education: [], workExperience: [], courses: [] },
+  isLoading: false
 };
 
 const postulantsModuleReducer = (state = initialState, action) => {
@@ -57,6 +61,21 @@ const postulantsModuleReducer = (state = initialState, action) => {
       return {
         ...state,
         postulantData: { ...state.postulantData, ...action.payload }
+      };
+    case REGISTER_NEW_POSTULANT_ACCOUNT_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case REGISTER_NEW_POSTULANT_ACCOUNT_FULFILLED:
+      return {
+        ...state,
+        isLoading: false
+      };
+    case REGISTER_NEW_POSTULANT_ACCOUNT_REJECTED:
+      return {
+        ...state,
+        isLoading: false
       };
 
     default:
