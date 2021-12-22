@@ -46,7 +46,7 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Name"
@@ -62,6 +62,8 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Address"
@@ -77,9 +79,11 @@ function ClientsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
-                label="cuit"
+                label="CUIT"
                 name="cuit"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}

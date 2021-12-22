@@ -49,7 +49,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Name"
@@ -65,6 +65,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Username"
@@ -80,6 +82,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Enrollment Number"
@@ -96,7 +100,7 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
               />
             </div>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Time Range - From"
@@ -117,6 +121,8 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Day Range"
@@ -133,15 +139,15 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
-              <Field
-                component={Input}
-                label="Password"
-                name="password"
-                type="password"
-                disabled={formProps.submitting || isLoadingForm}
-                validate={required}
-              />
             </div>
+            <Field
+              component={Input}
+              label="Password"
+              name="password"
+              type="password"
+              disabled={formProps.submitting || isLoadingForm}
+              validate={required}
+            />
             {isLoadingForm === true ? (
               <Spinner type="Oval" color="#002147" height={40} width={40} />
             ) : (

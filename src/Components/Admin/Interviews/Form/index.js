@@ -91,7 +91,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Postulant"
@@ -117,7 +117,7 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
                 }
               />
             </div>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Status"
@@ -143,16 +143,16 @@ function InterviewForm({ id, handleSubmit, handleShowModal }) {
                     : formData.idPosition?._id
                 }
               />
-              <Field
-                component={Input}
-                label="Date Time"
-                name="dateTime"
-                type="date"
-                disabled={formProps.submitting || isLoadingForm}
-                validate={required}
-                initialValue={String(formProps.values.dateTime).split('T')[0]}
-              />
             </div>
+            <Field
+              component={Input}
+              label="Date Time"
+              name="dateTime"
+              type="date"
+              disabled={formProps.submitting || isLoadingForm}
+              validate={required}
+              initialValue={String(formProps.values.dateTime).split('T')[0]}
+            />
             {isLoadingForm === true ? (
               <Spinner type="Oval" color="#002147" height={40} width={40} />
             ) : (

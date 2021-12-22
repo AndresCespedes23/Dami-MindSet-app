@@ -49,7 +49,7 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Name"
@@ -65,6 +65,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Username"
@@ -80,6 +82,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 options={['MALE', 'FEMALE', 'OTHER']}
@@ -96,6 +100,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Phone Number"
@@ -104,8 +110,6 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
-            </div>
-            <div>
               <Field
                 component={Input}
                 label="Date of Birth"
@@ -114,6 +118,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Zip Code"
@@ -130,6 +136,8 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="State"
@@ -146,15 +154,15 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
-              <Field
-                component={Input}
-                label="DNI"
-                name="dni"
-                type="text"
-                disabled={formProps.submitting || isLoadingForm}
-                validate={required}
-              />
             </div>
+            <Field
+              component={Input}
+              label="DNI"
+              name="dni"
+              type="text"
+              disabled={formProps.submitting || isLoadingForm}
+              validate={required}
+            />
             {isLoadingForm === true ? (
               <Spinner type="Oval" color="#002147" height={40} width={40} />
             ) : (

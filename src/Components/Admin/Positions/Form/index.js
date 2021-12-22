@@ -76,7 +76,7 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Client"
@@ -103,6 +103,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                     : formData.idProfile
                 }
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Name"
@@ -118,6 +120,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Status"
@@ -138,6 +142,8 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="City"
