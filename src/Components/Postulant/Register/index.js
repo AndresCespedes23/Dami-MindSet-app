@@ -12,7 +12,6 @@ function Register() {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
       dispatch(setRegisterInfo(formValues));
       history.push('/postulants/personal-info');

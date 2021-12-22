@@ -13,7 +13,6 @@ function Education() {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
       dispatch(setEducationInfo(formValues));
       history.push('/postulants/work');

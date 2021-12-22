@@ -12,7 +12,6 @@ function Courses() {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
       dispatch(setCoursesInfo(formValues));
       history.push('/postulants/description');

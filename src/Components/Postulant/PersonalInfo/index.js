@@ -12,7 +12,6 @@ function PersonalInfo() {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
       dispatch(setPersonalInfo(formValues));
       history.push('/postulants/education');

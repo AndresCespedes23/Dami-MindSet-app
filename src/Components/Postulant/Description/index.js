@@ -11,7 +11,6 @@ function Description() {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
       dispatch(setDescriptionInfo(formValues));
       history.push('/postulants/other-info');

@@ -96,7 +96,6 @@ function Sessions() {
           </thead>
           <tbody>
             {sessions.map((session) => {
-              console.log(session);
               return (
                 <tr key={session._id}>
                   <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>

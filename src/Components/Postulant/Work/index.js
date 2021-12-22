@@ -13,7 +13,6 @@ function Work() {
   const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
       dispatch(setExperienceInfo(formValues));
       history.push('/postulants/courses');
