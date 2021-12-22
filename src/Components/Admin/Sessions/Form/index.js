@@ -94,6 +94,11 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('psychologist')}
+                selectedValue={
+                  formProps.values.idPsychologist
+                    ? formProps.values.idPsychologist._id
+                    : formData.idPsychologist?._id
+                }
               />
               <Field
                 component={Select}
@@ -102,6 +107,11 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('postulant')}
+                selectedValue={
+                  formProps.values.idCandidate
+                    ? formProps.values.idCandidate._id
+                    : formData.idCandidate?._id
+                }
               />
             </div>
             <div className={styles.flexRow}>

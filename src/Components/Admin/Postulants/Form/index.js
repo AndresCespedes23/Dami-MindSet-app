@@ -86,11 +86,16 @@ function PostulantsForm({ id, handleSubmit, handleShowModal }) {
             <div className={styles.flexRow}>
               <Field
                 component={Select}
-                options={['MALE', 'FEMALE', 'OTHER']}
                 label="Gender"
                 name="gender"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
+                options={[
+                  { value: 'MALE', text: 'MALE' },
+                  { value: 'FEMALE', text: 'FEMALE' },
+                  { value: 'OTHER', text: 'OTHER' }
+                ]}
+                selectedValue={formProps.values.gender || formData.gender}
               />
               <Field
                 component={Input}

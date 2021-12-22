@@ -93,11 +93,15 @@ function PsychologistsForm({ id, handleSubmit, handleShowModal }) {
               />
               <Field
                 component={Select}
-                options={['AVAILABLE', 'UNAVAILABLE']}
                 label="status"
                 name="status"
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
+                options={[
+                  { value: 'AVAILABLE', text: 'AVAILABLE' },
+                  { value: 'UNAVAILABLE', text: 'UNAVAILABLE' }
+                ]}
+                selectedValue={formProps.values.status || formData.status}
               />
             </div>
             <div className={styles.flexRow}>
