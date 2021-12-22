@@ -29,8 +29,10 @@
 .table th {
   padding: 10px;
   box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
-  background-color: #fff;
+  background-color: #002147;
   text-align: center;
+  color: #ffffff;
+  border: 1px solid #ffffff;
 }
 
 .table td {
