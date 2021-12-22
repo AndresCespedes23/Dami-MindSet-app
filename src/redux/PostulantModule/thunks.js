@@ -7,11 +7,6 @@ import {
 
 const BASE_URL = `${process.env.REACT_APP_API}/candidates`;
 
-/* export const registerNewPostulantAccount = (payload) => ({
-  type: REGISTER_NEW_POSTULANT_ACCOUNT,
-  payload
-}); */
-
 const registerPostulantsFetching = () => ({ type: REGISTER_NEW_POSTULANT_ACCOUNT_FETCHING });
 
 const registerPostulantsFulfilled = (payload) => ({
