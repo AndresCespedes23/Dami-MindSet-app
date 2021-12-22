@@ -63,7 +63,7 @@ const profilesReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         messageType: 'success',
-        messageText: 'Profile successfully added',
+        messageText: 'Profile Added',
         list: [...state.list, action.payload]
       };
     case ADD_PROFILES_REJECTED:
@@ -84,7 +84,7 @@ const profilesReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         messageType: 'success',
-        messageText: 'Profile deleted successfully',
+        messageText: 'Profile Deleted',
         list: state.list.filter((profile) => profile.id !== action.payload)
       };
     case DELETE_PROFILES_REJECTED:
@@ -111,7 +111,7 @@ const profilesReducer = (state = initialState, action) => {
           return profile;
         }),
         messageType: 'success',
-        messageText: 'Profile updated successfully'
+        messageText: 'Profile Updated'
       };
     case UPDATE_PROFILES_REJECTED:
       return {

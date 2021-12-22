@@ -106,7 +106,7 @@ const sessionsReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         messageType: 'success',
-        messageText: 'Updated Client',
+        messageText: 'Updated Session',
         list: state.list.map((session) => {
           if (session._id === action.payload.id) {
             return action.payload;
