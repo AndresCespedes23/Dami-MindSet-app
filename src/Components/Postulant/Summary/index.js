@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { registerPostulant } from 'redux/PostulantModule/thunks.js';
 
 function Summary() {
-  const postulant = useSelector((state) => state.postulants.postulant);
   const postulantData = useSelector((state) => state.postulantModule.postulantData);
   const dispatch = useDispatch();
   const [type, setType] = useState('PERSONAL-INFORMATION');
@@ -79,50 +78,50 @@ function Summary() {
                   <div className={styles.containerPersonal}>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Name:</h3>
-                      <span className={styles.infoPersonal}>{postulant.name}</span>
+                      <span className={styles.infoPersonal}>{postulantData.name}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Username:</h3>
-                      <span className={styles.infoPersonal}>{postulant.username}</span>
+                      <span className={styles.infoPersonal}>{postulantData.username}</span>
                     </div>
                     <div className={styles.itemPersonalLong}>
                       <h3 className={styles.titlePersonal}>Email:</h3>
-                      <span className={styles.infoPersonal}>{postulant.email}</span>
+                      <span className={styles.infoPersonal}>{postulantData.email}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Date of birth:</h3>
                       <span className={styles.infoPersonal}>
-                        {postulant.dateOfBirth ? postulant.dateOfBirth.split('T')[0] : ''}
+                        {postulantData.dateOfBirth ? postulantData.dateOfBirth.split('T')[0] : ''}
                       </span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Age:</h3>
                       <span className={styles.infoPersonal}>
-                        {postulant.dateOfBirth ? getAge(postulant.dateOfBirth) : ''}
+                        {postulantData.dateOfBirth ? getAge(postulantData.dateOfBirth) : ''}
                       </span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Phone number:</h3>
-                      <span className={styles.infoPersonal}>{postulant.phoneNumber}</span>
+                      <span className={styles.infoPersonal}>{postulantData.phoneNumber}</span>
                     </div>
                     <div className={styles.itemPersonalLong}>
                       <h3 className={styles.titlePersonal}>Address:</h3>
-                      <span className={styles.infoPersonal}>{postulant.address}</span>
+                      <span className={styles.infoPersonal}>{postulantData.address}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>City:</h3>
-                      <span className={styles.infoPersonal}>{postulant.city}</span>
+                      <span className={styles.infoPersonal}>{postulantData.city}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Postal Code:</h3>
-                      <span className={styles.infoPersonal}>{postulant.zipCode}</span>
+                      <span className={styles.infoPersonal}>{postulantData.zipCode}</span>
                     </div>
                   </div>
                 );
               case 'EDUCATION':
                 return (
                   <div>
-                    {postulant.education?.map((education) => {
+                    {postulantData.education?.map((education) => {
                       return (
                         <div className={styles.containerPersonal} key={education._id}>
                           <h2 className={styles.titleEducation}>{education.level}</h2>
@@ -154,7 +153,7 @@ function Summary() {
               case 'WORK-EXPERIENCE':
                 return (
                   <div>
-                    {postulant.workExperience?.map((experience) => {
+                    {postulantData.workExperience?.map((experience) => {
                       return (
                         <div className={styles.containerPersonal} key={experience._id}>
                           <div className={styles.itemPersonalLong}>
@@ -168,13 +167,13 @@ function Summary() {
                           <div className={styles.itemPersonal}>
                             <h3 className={styles.titlePersonal}>Start date:</h3>
                             <span className={styles.infoPersonal}>
-                              {experience.startDate.split('T')[0]}
+                              {experience.startDate?.split('T')[0]}
                             </span>
                           </div>
                           <div className={styles.itemPersonal}>
                             <h3 className={styles.titlePersonal}>End date:</h3>
                             <span className={styles.infoPersonal}>
-                              {experience.finishDate.split('T')[0]}
+                              {experience.finishDate?.split('T')[0]}
                             </span>
                           </div>
                           <div className={styles.itemPersonalColumn}>
@@ -197,26 +196,26 @@ function Summary() {
                   <div className={styles.containerPersonal}>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Nationality:</h3>
-                      <span className={styles.infoPersonal}>{postulant.nationality}</span>
+                      <span className={styles.infoPersonal}>{postulantData.nationality}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>ID Number:</h3>
-                      <span className={styles.infoPersonal}>{postulant.dni}</span>
+                      <span className={styles.infoPersonal}>{postulantData.dni}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Marital Status:</h3>
-                      <span className={styles.infoPersonal}>{postulant.maritalStatus}</span>
+                      <span className={styles.infoPersonal}>{postulantData.maritalStatus}</span>
                     </div>
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Drivers license:</h3>
                       <span className={styles.infoPersonal}>
-                        {postulant.driversLicense ? 'Yes' : 'No'}
+                        {postulantData.driversLicense ? 'Yes' : 'No'}
                       </span>
                     </div>
                     <div className={styles.itemPersonalColumn}>
                       <h3 className={styles.titlePersonal}>Description</h3>
                       <span className={styles.infoPersonalDescription}>
-                        {postulant.description}
+                        {postulantData.description}
                       </span>
                     </div>
                   </div>
