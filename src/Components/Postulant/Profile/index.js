@@ -11,7 +11,7 @@ function Profile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
+    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -71,8 +71,8 @@ function Profile() {
               <span>{postulant.name}</span>
             </div>
             <div>
-              <h4>Surname:</h4>
-              <span>{postulant.surname}</span>
+              <h4>Username:</h4>
+              <span>{postulant.username}</span>
             </div>
             <div>
               <h4>Email</h4>

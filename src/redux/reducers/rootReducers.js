@@ -8,6 +8,7 @@ import positionsReducer from 'redux/Positions/reducer';
 import interviewsReducer from 'redux/Interviews/reducer';
 import profilesReducer from 'redux/Profiles/reducer';
 import postulantsReducer from 'redux/Postulants/reducer';
+import postulantsModuleReducer from 'redux/PostulantModule/reducer';
 
 const rootReducer = combineReducers({
   admins: adminsReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   interviews: interviewsReducer,
   profiles: profilesReducer,
   postulants: postulantsReducer,
-  psychologists: psychologistReducer
+  psychologists: psychologistReducer,
+  postulantModule: postulantsModuleReducer
 });
 
 export default rootReducer;

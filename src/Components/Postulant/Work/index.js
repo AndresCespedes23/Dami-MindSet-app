@@ -5,15 +5,23 @@ import Input from 'Components/Shared/Input';
 import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useHistory } from 'react-router-dom';
+import { setExperienceInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function Work() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
+      dispatch(setExperienceInfo(formValues));
       history.push('/postulants/courses');
     }
+  };
+
+  const handleAdd = (formProps) => {
+    dispatch(setExperienceInfo(formProps.values));
+    formProps.form.reset();
   };
 
   return (
@@ -77,7 +85,7 @@ function Work() {
                   <Button type={'back'} text={'BACK'} />
                 </Link>
                 <Link to="/postulants/work">
-                  <Button type={'addNew'} onClick={formProps.form.reset} />
+                  <Button type="addNew" onClick={() => handleAdd(formProps)} />
                 </Link>
                 <Button type={'next'} text={'NEXT'} />
               </div>

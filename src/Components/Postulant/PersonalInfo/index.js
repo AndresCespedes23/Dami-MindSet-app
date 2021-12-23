@@ -4,13 +4,16 @@ import Button from 'Components/Shared/Button';
 import Input from 'Components/Shared/Input';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { setPersonalInfo } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
 function PersonalInfo() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onSubmit = (formValues) => {
-    console.log(formValues);
     if (formValues) {
+      dispatch(setPersonalInfo(formValues));
       history.push('/postulants/education');
     }
   };
@@ -28,7 +31,7 @@ function PersonalInfo() {
               <div className={styles.formContent}>
                 <Field
                   label="Phone Number"
-                  name="Phone Number"
+                  name="phoneNumber"
                   component={Input}
                   type="number"
                   placeholder="Enter your phone number"
@@ -36,14 +39,14 @@ function PersonalInfo() {
                 />
                 <Field
                   label="Date of Birth"
-                  name="Date of Birth"
+                  name="dateOfBirth"
                   type="date"
                   component={Input}
                   validate={required}
                 />
                 <Field
                   label="Address"
-                  name="Address"
+                  name="address"
                   component={Input}
                   placeholder="Enter your address"
                   validate={required}
@@ -52,7 +55,7 @@ function PersonalInfo() {
                   <div>
                     <Field
                       label="City"
-                      name="City"
+                      name="city"
                       component={Input}
                       placeholder="Enter your city"
                       validate={required}
@@ -61,7 +64,7 @@ function PersonalInfo() {
                   <div>
                     <Field
                       label="Postal Code"
-                      name="Postal Code"
+                      name="zipCode"
                       component={Input}
                       type="number"
                       placeholder="Enter your postal code"

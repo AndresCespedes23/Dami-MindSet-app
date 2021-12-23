@@ -134,6 +134,7 @@ tr {
   line-height: 10px;
 }
 .titleEducation{
+    text-transform: capitalize;
     text-decoration: underline;
     font: normal normal bold 27px/32px Century Gothic;
 }
