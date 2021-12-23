@@ -49,10 +49,13 @@ function Admins() {
   return (
     <section className={styles.container}>
       <div className={styles.list}>
-        <h2>Admins</h2>
-        {showMessage && (
-          <Message type={messageType} message={message} showMessage={handleShowMessage} />
-        )}
+        <div>
+          <h2>Admins</h2>
+          {showMessage && (
+            <Message type={messageType} message={message} showMessage={handleShowMessage} />
+          )}
+          <div></div>
+        </div>
         <table className={styles.table}>
           <thead>
             <tr>

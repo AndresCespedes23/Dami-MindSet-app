@@ -49,7 +49,7 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Type of Profile"

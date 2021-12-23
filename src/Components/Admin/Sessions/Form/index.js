@@ -86,7 +86,7 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Psychologist"
@@ -94,6 +94,11 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('psychologist')}
+                selectedValue={
+                  formProps.values.idPsychologist
+                    ? formProps.values.idPsychologist._id
+                    : formData.idPsychologist?._id
+                }
               />
               <Field
                 component={Select}
@@ -102,7 +107,14 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
                 options={getCombo('postulant')}
+                selectedValue={
+                  formProps.values.idCandidate
+                    ? formProps.values.idCandidate._id
+                    : formData.idCandidate?._id
+                }
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Date"
@@ -123,6 +135,8 @@ function SessionsForm({ id, handleSubmit, handleShowModal }) {
                 validate={required}
                 initialValue={formProps.values.time}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Status"

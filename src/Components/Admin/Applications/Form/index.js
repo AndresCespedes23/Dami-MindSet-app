@@ -94,7 +94,7 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
         initialValues={formData}
         render={(formProps) => (
           <form className={styles.form} onSubmit={formProps.handleSubmit}>
-            <div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Position"
@@ -117,6 +117,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                   formProps.values ? formProps.values.idCandidate?._id : formData.idCandidate?._id
                 }
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Select}
                 label="Interview"
@@ -128,8 +130,6 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                   formProps.values ? formProps.values.idInterview?._id : formData.idInterview?._id
                 }
               />
-            </div>
-            <div>
               <Field
                 component={Input}
                 label="Result"
@@ -138,6 +138,8 @@ function ApplicationsForm({ id, handleSubmit, handleShowModal }) {
                 disabled={formProps.submitting || isLoadingForm}
                 validate={required}
               />
+            </div>
+            <div className={styles.flexRow}>
               <Field
                 component={Input}
                 label="Date Time"

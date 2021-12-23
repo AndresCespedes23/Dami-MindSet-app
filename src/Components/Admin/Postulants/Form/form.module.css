@@ -5,11 +5,18 @@
 .form {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.flexRow{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
 }
 
 .form div {
-  width: 300px;
+  flex: 1 1 0px;
   padding: 10px;
   text-align: left;
   color: #002147;
