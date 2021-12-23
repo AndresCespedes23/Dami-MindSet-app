@@ -64,7 +64,7 @@ const applicationsReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         messageType: 'success',
-        messageText: 'Application successfully added',
+        messageText: 'Application Added',
         list: [...state.list, action.payload]
       };
     case ADD_APPLICATIONS_REJECTED:
@@ -85,7 +85,7 @@ const applicationsReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         messageType: 'success',
-        messageText: 'Application deleted successfully',
+        messageText: 'Application Deleted',
         list: state.list.filter((application) => application.id !== action.payload)
       };
     case DELETE_APPLICATIONS_REJECTED:
@@ -112,7 +112,7 @@ const applicationsReducer = (state = initialState, action) => {
           return application;
         }),
         messageType: 'success',
-        messageText: 'Application updated successfully'
+        messageText: 'Application Updated'
       };
     case UPDATE_APPLICATIONS_REJECTED:
       return {
