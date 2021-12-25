@@ -5,7 +5,15 @@ function Header(props) {
   const { styleType } = props;
   return (
     <header>
-      <div className={styleType === 'postulant' ? styles.headerPostulant : styles.titlebar}>
+      <div
+        className={
+          styleType === 'postulant'
+            ? styles.headerPostulant
+            : styleType === 'psychologist'
+            ? styles.headerPsychologist
+            : styles.titlebar
+        }
+      >
         <div>
           <img
             className={styleType === 'postulant' ? styles.titleiconPostulant : styles.titleicon}
@@ -31,7 +39,15 @@ function Header(props) {
           />
         </div>
       </div>
-      <nav className={styleType === 'postulant' ? styles.navbarPostulant : styles.navbar}>
+      <nav
+        className={
+          styleType === 'postulant'
+            ? styles.navbarPostulant
+            : styleType === 'psychologist'
+            ? styles.navbarPsychologist
+            : styles.navbar
+        }
+      >
         <ul className={styleType === 'postulant' ? styles.routesPostulants : styles.routes}>
           {props.routes.map((route) => (
             <li key={route.name}>

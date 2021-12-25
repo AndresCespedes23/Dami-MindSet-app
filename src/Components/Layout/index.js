@@ -4,7 +4,7 @@ import styles from './layout.module.css';
 
 function Layout(props) {
   const { routes = [] } = props;
-  const { styleType = 'postulant' } = props;
+  const { styleType = ['admin', 'postulant', 'psychologist'] } = props;
   return (
     <div className={styles.container}>
       <Header routes={routes} styleType={styleType} />

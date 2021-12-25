@@ -4,6 +4,7 @@ import Spinner from 'Components/Shared/Spinner';
 
 const AdminRoutes = lazy(() => import('Routes/admin'));
 const PostulantRoutes = lazy(() => import('Routes/postulants'));
+const PsychologistRoutes = lazy(() => import('Routes/psychologist'));
 
 const Routes = () => {
   return (
@@ -14,6 +15,7 @@ const Routes = () => {
         <Switch>
           <Route path="/postulants" component={PostulantRoutes} />
           <Route path="/admin" component={AdminRoutes} />
+          <Route path="/psychologist" component={PsychologistRoutes} />
           <Redirect to="/postulants" />
         </Switch>
       </Suspense>

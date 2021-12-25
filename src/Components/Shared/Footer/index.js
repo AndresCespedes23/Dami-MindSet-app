@@ -4,7 +4,15 @@ import styles from './footer.module.css';
 function Footer(props) {
   const { styleType } = props;
   return (
-    <footer className={styleType === 'postulant' ? styles.containerPostulant : styles.container}>
+    <footer
+      className={
+        styleType === 'postulant'
+          ? styles.containerPostulant
+          : styleType === 'psychologist'
+          ? styles.containerPsychologist
+          : styles.container
+      }
+    >
       <div className={styles.main}>
         <div className={styles.appName}>
           <Link to="/home">
@@ -19,7 +27,7 @@ function Footer(props) {
           ))}
         </ul>
       </div>
-      <div className={styles.license}>
+      <div className={styleType === 'psychologist' ? styles.licensePsychologist : styles.license}>
         <div className={styles.copyright}>Copyright © 2021 Radium Rocket</div>
         <div>
           <a href={'https://www.facebook.com/radiumrocket'} target={'_blank'} rel="noreferrer">
