@@ -20,6 +20,8 @@ function Header(props) {
             src={
               styleType === 'admin'
                 ? `${process.env.PUBLIC_URL}/assets/images/mindseticon.png`
+                : styleType === 'psychologist'
+                ? `${process.env.PUBLIC_URL}/assets/images/mindseticon-psychologist.png`
                 : `${process.env.PUBLIC_URL}/assets/images/mindseticon-postulant.png`
             }
           />
