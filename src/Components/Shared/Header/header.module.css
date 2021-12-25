@@ -103,6 +103,13 @@
   justify-content: space-between;
 }
 
+.loginsidePsychologist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color:#fff;
+}
+
 .loginsidePostulant {
   display: none;
 }

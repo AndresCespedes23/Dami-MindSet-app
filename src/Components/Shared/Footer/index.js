@@ -19,7 +19,15 @@ function Footer(props) {
             <span>M</span>IND<span>S</span>ET{' '}
           </Link>
         </div>
-        <ul className={styleType === 'postulant' ? styles.routesPostulants : styles.routes}>
+        <ul
+          className={
+            styleType === 'postulant'
+              ? styles.routesPostulants
+              : styleType === 'psychologist'
+              ? styles.routesPostulants
+              : styles.routes
+          }
+        >
           {props.routes.map((route) => (
             <li key={route.name}>
               <a href={route.path}>{route.name}</a>
