@@ -11,7 +11,7 @@ function LoginForm() {
 
   const onSubmit = (formValues) => {
     return dispatch(login(formValues)).then((response) => {
-      if (response) {
+      if (response.type === 'LOGIN_FULFILLED') {
         console.log(response);
         history.push('/admin');
       }
