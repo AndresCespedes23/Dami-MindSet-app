@@ -7,6 +7,10 @@
   background-color: #091f40;
 }
 
+.containerPsychologist {
+  background-color: #065500;
+}
+
 .main {
   display: flex;
   justify-content: space-between;
@@ -79,6 +83,17 @@
   width: 100%;
   padding: 0 20px;
   background-color: #091f40;
+  color: #fff;
+}
+
+.licensePsychologist {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  padding: 0 20px;
+  background-color: #065500;
   color: #fff;
 }
 
