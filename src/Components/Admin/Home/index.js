@@ -7,7 +7,7 @@ function Home() {
       <div className={styles.containerrutes}>
         <ul className={styles.rutes}>
           <li>
-            <Link to="/admins">admins</Link>
+            <Link to="/admin/admins">admins</Link>
           </li>
           <li>
             <Link to="/applications">applications</Link>

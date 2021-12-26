@@ -4,7 +4,7 @@ import Layout from 'Components/Layout';
 
 const authRoutes = [
   { name: 'Login', path: '/auth/login' },
-  { name: 'sign up', path: '/auth/sign-up' }
+  { name: 'Sign up', path: '/auth/sign-up' }
 ];
 
 const AuthRoutes = () => {
