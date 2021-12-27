@@ -15,6 +15,7 @@ import {
   GET_ONE_CLIENTS_FULFILLED,
   GET_ONE_CLIENTS_REJECTED
 } from 'constants/actionTypes';
+import toast from 'react-hot-toast';
 
 const BASE_URL = `${process.env.REACT_APP_API}/clients`;
 
@@ -142,6 +143,9 @@ export const updateClient = (client, id) => (dispatch) => {
     })
     .catch(() => {
       dispatch(updateClientsRejected());
+      toast.error('Error updating client', {
+        duration: 3000
+      });
     });
 };
 

@@ -9,6 +9,7 @@ import {
   GET_ONE_ADMIN_FULFILLED,
   GET_ONE_ADMIN_REJECTED
 } from 'constants/actionTypes';
+import toast from 'react-hot-toast';
 
 const BASE_URL = `${process.env.REACT_APP_API}/admins`;
 
@@ -69,6 +70,12 @@ export const updateAdmins = (admins, id) => (dispatch) => {
     })
     .then(() => {
       dispatch(updateAdminsFullfiled(id));
+      toast.success('Admin updated successfully', {
+        duration: 3000,
+        style: {
+          background: '#00b894'
+        }
+      });
     })
     .catch(() => {
       dispatch(updateAdminsRejected());
