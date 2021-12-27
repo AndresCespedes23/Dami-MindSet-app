@@ -1,0 +1,53 @@
+.container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .containerInterviews {
+    background-color: #ffffff;
+    height: auto;
+    width: 70%;
+    border-top: 16px solid #065500;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+  }
+  .backBtn {
+      background-color: #065500;
+  }
+  .unassigned {
+    margin: 30px;
+    font: normal normal normal 45px/50px Century Gothic;
+    color: #002147;
+  }
+  .subtitle {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font: normal normal normal 25px/30px Century Gothic;
+    color: #002147;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .descriptionInput {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    border: 3px solid #002147;
+    width: 93%;
+    padding: 5px;
+    font: normal normal normal 1.3em Century Gothic;
+    color: #002147;
+  }
+  ::placeholder {
+    padding: 3px;
+    font: normal normal normal 1em Century Gothic;
+  }
+  .containerFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 35px 20px 35px;
+  }
+  
