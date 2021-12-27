@@ -3,7 +3,10 @@ import {
   LOGIN_FULFILLED,
   LOGIN_REJECTED,
   CLEAN_ERROR,
-  SET_AUTHENTICATION
+  SET_AUTHENTICATION,
+  LOG_OUT_PENDING,
+  LOG_OUT_FULFILLED,
+  LOG_OUT_REJECTED
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -17,21 +20,21 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_PENDING: {
       return {
         ...state,
-        isFetching: true,
+        isLoading: true,
         error: initialState.error
       };
     }
     case LOGIN_FULFILLED: {
       return {
         ...state,
-        isFetching: false,
+        isLoading: false,
         authenticated: true
       };
     }
     case LOGIN_REJECTED: {
       return {
         ...state,
-        isFetching: false,
+        isLoading: false,
         error: action.payload
       };
     }
@@ -45,6 +48,27 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         authenticated: true
+      };
+    }
+    case LOG_OUT_PENDING: {
+      return {
+        ...state,
+        isLoading: true,
+        error: initialState.error
+      };
+    }
+    case LOG_OUT_FULFILLED: {
+      return {
+        ...state,
+        isLoading: false,
+        authenticated: false
+      };
+    }
+    case LOG_OUT_REJECTED: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
       };
     }
     default: {

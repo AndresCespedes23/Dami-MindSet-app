@@ -3,7 +3,10 @@ import {
   LOGIN_FULFILLED,
   LOGIN_REJECTED,
   CLEAN_ERROR,
-  SET_AUTHENTICATION
+  SET_AUTHENTICATION,
+  LOG_OUT_PENDING,
+  LOG_OUT_FULFILLED,
+  LOG_OUT_REJECTED
 } from 'constants/actionTypes';
 
 export const loginPending = () => {
@@ -35,5 +38,24 @@ export const cleanError = () => {
 export const setAuthentication = () => {
   return {
     type: SET_AUTHENTICATION
+  };
+};
+
+export const logoutPending = () => {
+  return {
+    type: LOG_OUT_PENDING
+  };
+};
+
+export const logoutSuccess = () => {
+  return {
+    type: LOG_OUT_FULFILLED
+  };
+};
+
+export const logoutError = (error) => {
+  return {
+    type: LOG_OUT_REJECTED,
+    payload: error
   };
 };

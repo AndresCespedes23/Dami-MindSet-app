@@ -1,20 +1,17 @@
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase/compat/app';
 import { Link } from 'react-router-dom';
 import styles from './header.module.css';
+import { logout } from 'redux/Auth/thunks';
+import { useDispatch } from 'react-redux';
 
 function Header(props) {
   const { styleType } = props;
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleLogOut = async () => {
-    try {
-      await firebase.auth().signOut();
-      sessionStorage.removeItem('token');
-      history.push('/auth');
-    } catch (e) {
-      console.log(e);
-    }
+    await dispatch(logout());
+    history.push('/');
   };
 
   return (
