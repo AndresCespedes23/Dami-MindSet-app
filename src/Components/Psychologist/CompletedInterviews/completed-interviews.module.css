@@ -12,6 +12,7 @@
     border-radius: 15px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin-top: 40px;
+    margin-bottom: 40px;
   }
   .interviewsContent {
     margin-bottom: 40px;
@@ -37,7 +38,7 @@
     margin: 0px 30px 10px 30px;
     padding: 10px;
     border: 3px solid #002147;
-    border-radius: 20px;
+    border-radius: 30px;
     box-shadow: 5px 9px 10px #68686842;
   }
   .user {
@@ -45,10 +46,12 @@
     justify-content: space-between;
   }
   .userName {
-    padding-right: 35vw;
-    font-weight: bold;
+    padding-left: 1vw;
+    padding-right: 24vw;
+    font: bold 20px Century Gothic;
   }
   .assignBtn {
+    margin-left: 5vw;
     padding: 5px 40px;
     border-radius: 15px; 
     background: #bdb10a;
@@ -56,30 +59,11 @@
     font-weight:lighter;
   }
   .detailsBtn {
+    margin-left: 9vw;
     padding: 5px 40px;
     border-radius: 15px; 
     background: #002147;
     color: #ffffff;
     font-weight:lighter;
-  }
-  .descriptionInput {
-    margin-left: 30px;
-    margin-bottom: 30px;
-    border-radius: 15px;
-    border: 3px solid #002147;
-    width: 93%;
-    padding: 5px;
-    font: normal normal normal 1.3em Century Gothic;
-    color: #002147;
-  }
-  ::placeholder {
-    padding: 3px;
-    font: normal normal normal 1em Century Gothic;
-  }
-  .containerFooter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 35px 20px 35px;
   }
   
