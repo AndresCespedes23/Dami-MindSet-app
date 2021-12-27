@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getInterviews } from 'redux/Interviews/thunks';
 import styles from './completed-interviews.module.css';
-import Button from 'Components/Shared/Button';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 
 function CompletedInterviews() {
@@ -15,7 +14,7 @@ function CompletedInterviews() {
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
-        <Button type={'back'} />
+        <button className={styles.backBtn}>BACK</button>
         <div className={styles.interviewsContent}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Unassigned users:</span>
