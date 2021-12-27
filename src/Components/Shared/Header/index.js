@@ -1,8 +1,22 @@
+import { useHistory } from 'react-router-dom';
+import firebase from 'firebase/compat/app';
 import { Link } from 'react-router-dom';
 import styles from './header.module.css';
 
 function Header(props) {
   const { styleType } = props;
+  const history = useHistory();
+
+  const handleLogOut = async () => {
+    try {
+      await firebase.auth().signOut();
+      sessionStorage.removeItem('token');
+      history.push('/auth');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <header>
       <div
@@ -47,6 +61,7 @@ function Header(props) {
             className={styles.loginphoto}
             src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
           />
+          <button onClick={handleLogOut}>LOG OUT</button>
         </div>
       </div>
       <nav
@@ -67,10 +82,8 @@ function Header(props) {
               : styles.routes
           }
         >
-          {props.routes.map((route) => (
-            <li key={route.name}>
-              <Link to={route.path}>{route.name}</Link>
-            </li>
+          {props.routes.map((route, index) => (
+            <li key={index}>{route.path && <Link to={route.path}>{route.name}</Link>}</li>
           ))}
         </ul>
       </nav>

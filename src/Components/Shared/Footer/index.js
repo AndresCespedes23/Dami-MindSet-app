@@ -28,8 +28,8 @@ function Footer(props) {
               : styles.routes
           }
         >
-          {props.routes.map((route) => (
-            <li key={route.name}>
+          {props.routes.map((route, index) => (
+            <li key={index}>
               <a href={route.path}>{route.name}</a>
             </li>
           ))}
