@@ -144,7 +144,11 @@ export const updateClient = (client, id) => (dispatch) => {
     .catch(() => {
       dispatch(updateClientsRejected());
       toast.error('Error updating client', {
-        duration: 3000
+        duration: 3000,
+        style: {
+          color: 'white',
+          backgroundColor: '#f44336'
+        }
       });
     });
 };
