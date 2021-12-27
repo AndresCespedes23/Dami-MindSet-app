@@ -23,7 +23,7 @@ function CompletedInterviews() {
           <table>
             <tbody>
               {interviews.map((interview) => {
-                if (interview.idCandidate && interview.idClient && interview.idPosition) {
+                if (interview.status === 'PENDING') {
                   return [
                     <tr key={interview._id} className={styles.interviewsInfo}>
                       <td className={styles.userName}>{interview.idCandidate.name}</td>
@@ -32,7 +32,7 @@ function CompletedInterviews() {
                         {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
                       </td>
                       <td>
-                        <button className={styles.assignBtn}>ASSING PROFILE</button>
+                        <button className={styles.assignBtn}>ASSIGN PROFILE</button>
                       </td>
                     </tr>
                   ];
@@ -41,14 +41,14 @@ function CompletedInterviews() {
             </tbody>
           </table>
         </div>
-        <div>
+        <div className={styles.interviewsContent}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Completed Interviews:</span>
           </h3>
           <table>
             <tbody>
               {interviews.map((interview) => {
-                if (interview.idCandidate && interview.idClient && interview.idPosition) {
+                if (interview.status === 'DONE') {
                   return [
                     <tr key={interview._id} className={styles.interviewsInfo}>
                       <td className={styles.userName}>{interview.idCandidate.name}</td>
