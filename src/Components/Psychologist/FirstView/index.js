@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getInterviews } from 'redux/Interviews/thunks';
+import { getSessions } from 'redux/Sessions/thunks';
 import { getPostulants } from 'redux/Postulants/thunks';
 import styles from './first-view.module.css';
 
 function FirstView() {
   const postulants = useSelector((state) => state.postulants.list);
-  const interviews = useSelector((state) => state.interviews.list);
+  const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getInterviews());
+    dispatch(getSessions());
     dispatch(getPostulants());
   }, [dispatch]);
   return (
@@ -48,12 +48,15 @@ function FirstView() {
           </h3>
           <table>
             <tbody>
-              {interviews.map((interview) => {
-                if (interview.status === 'PENDING') {
+              {sessions.map((session) => {
+                if (session.status === 'PENDING') {
                   return [
-                    <tr key={interview._id} className={styles.Info}>
-                      <td className={styles.userName}>{interview.idCandidate.name}</td>
-                      <td className={styles.dates}>{interview.dateTime.split('T')[0]}</td>
+                    <tr key={session._id} className={styles.Info}>
+                      <td className={styles.userName}>{session.idCandidate.name}</td>
+                      <span>
+                        <td className={styles.dates}>{session.date.split('T')[0]}</td>
+                        <td className={styles.dates}>{session.time}</td>
+                      </span>
                       <td>
                         <button className={styles.rescheduleBtn}>RESCHEDULE</button>
                       </td>
