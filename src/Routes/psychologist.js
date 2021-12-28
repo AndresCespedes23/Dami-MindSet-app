@@ -1,5 +1,6 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Home from 'Components/Psychologist/Home';
+import FirstView from 'Components/Psychologist/FirstView';
 import Layout from 'Components/Layout';
 
 const PsychologistRoutes = () => {
@@ -8,6 +9,7 @@ const PsychologistRoutes = () => {
     <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]} styleType="psychologist">
       <Switch>
         <Route path={`${url}/`} exact component={Home} />
+        <Route path={`${url}/first-view`} component={FirstView} />
       </Switch>
     </Layout>
   );
