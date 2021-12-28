@@ -57,13 +57,11 @@
     border-radius: 30px;
     box-shadow: 5px 9px 10px #68686842;
   }
-  .user {
-    display: flex;
-    justify-content: space-between;
+  .dates {
+    padding-left: 25vw;
   }
   .userName {
     padding-left: 1vw;
-    padding-right: 20vw;
     font: bold 20px Century Gothic;
   }
   .assignBtn {

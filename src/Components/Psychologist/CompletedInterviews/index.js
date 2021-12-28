@@ -26,7 +26,7 @@ function CompletedInterviews() {
                   return [
                     <tr key={interview._id} className={styles.interviewsInfo}>
                       <td className={styles.userName}>{interview.idCandidate.name}</td>
-                      <td>{interview.dateTime.split('T')[0]}</td>
+                      <td className={styles.dates}>{interview.dateTime.split('T')[0]}</td>
                       <td className={styles[interview.status.toLowerCase()]}>
                         {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
                       </td>
@@ -51,8 +51,8 @@ function CompletedInterviews() {
                   return [
                     <tr key={interview._id} className={styles.interviewsInfo}>
                       <td className={styles.userName}>{interview.idCandidate.name}</td>
-                      <td>{interview.dateTime.split('T')[0]}</td>
-                      <td className={styles[interview.status.toLowerCase()]}>
+                      <td className={styles.dates}>{interview.dateTime.split('T')[0]}</td>
+                      <td className={styles.interviewStatus}>
                         {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
                       </td>
                       <td>
