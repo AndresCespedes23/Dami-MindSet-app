@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSessions } from 'redux/Sessions/thunks';
 import { getPostulants } from 'redux/Postulants/thunks';
@@ -29,9 +28,6 @@ function FirstView() {
                   return [
                     <tr key={postulant._id} className={styles.Info}>
                       <td className={styles.userName}>{postulant.name}</td>
-                      <td className={styles[postulant.status.toLowerCase()]}>
-                        {postulant.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                      </td>
                       <td>
                         <button className={styles.assignBtn}>ASSIGN PROFILE</button>
                       </td>
