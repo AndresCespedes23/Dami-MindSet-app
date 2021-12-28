@@ -70,12 +70,7 @@ export const updateAdmins = (admins, id) => (dispatch) => {
     })
     .then(() => {
       dispatch(updateAdminsFullfiled(id));
-      toast.success('Admin updated successfully', {
-        duration: 3000,
-        style: {
-          background: '#00b894'
-        }
-      });
+      toast.success('Admin updated successfully');
     })
     .catch(() => {
       dispatch(updateAdminsRejected());
