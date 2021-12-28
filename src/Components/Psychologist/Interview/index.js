@@ -12,14 +12,11 @@ function Interview() {
   const { id } = useParams();
   const interview = useSelector((state) => state.interviews.interview);
   const isLoadingForm = useSelector((state) => state.interviews.isLoadingForm);
-  // const profiles = useSelector((state) => state.profiles.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProfiles());
-    dispatch(getOneInterview(id)).then(() => {
-      //Aca puedo poner que redirija a otra pagina si no encuentra una interview con ese id, o puedo hacer como vengo haciendo ahora de mostrar el cartel.
-    });
+    dispatch(getOneInterview(id));
   }, [dispatch]);
 
   if (isLoadingForm) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
@@ -48,21 +45,6 @@ function Interview() {
               <h3 className={styles.titlePersonal}>Status:</h3>
               <span className={styles[interview.status?.toLowerCase()]}>{interview.status}</span>
             </div>
-            {/* <div className={styles.itemPersonalColumn}>
-              <h3 className={styles.titlePersonal}>Result:</h3>
-              <table>
-                <tbody>
-                  {profiles.map((profile) => {
-                    return (
-                      <tr key={profile._id} className={styles.profileItem}>
-                        <td className={styles.profileName}>{profile.name}</td>
-                        <td>check</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div> */}
           </div>
         </div>
       </section>
@@ -75,7 +57,7 @@ function Interview() {
             <button className={styles.backBtn}>BACK</button>
             <h2 className={styles.title}>Interview details</h2>
           </div>
-          <h3 className={styles.titlePersonal}>Interview not found</h3>
+          <h3 className={styles.notFoundMessage}>Interview not found</h3>
         </div>
       </section>
     );

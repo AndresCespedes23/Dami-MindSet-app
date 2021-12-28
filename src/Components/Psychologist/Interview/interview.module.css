@@ -94,3 +94,9 @@
 tr > td {
   padding-bottom: 1em;
 }
+.notFoundMessage{
+  font: normal normal bold 20px Century Gothic;
+  width: 45%;
+  color: #9b0000;
+  margin: 20px
+}
