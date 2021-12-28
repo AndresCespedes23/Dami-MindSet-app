@@ -19,7 +19,10 @@ table {
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.backBtn {
+.backBtn,
+.availabilityBtn,
+.searchBtn,
+.completedInterviewsBtn {
   font: 1.1rem Century Gothic;
   margin: 30px;
   padding: 5px 15px;
@@ -93,4 +96,27 @@ table {
 .rescheduleBtn:hover {
   background-color: #550000;
   color: #ffffff;
+}
+
+.bottomBtns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bottomBtns > .availabilityBtn {
+  background-color: #af8e0b;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
+}
+.bottomBtns > .searchBtn {
+  background-color: #091f40;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
+}
+
+.bottomBtns > .completedInterviewsBtn {
+  background-color: #0c7700;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
 }

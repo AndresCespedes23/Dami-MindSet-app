@@ -64,6 +64,11 @@ function FirstView() {
             </tbody>
           </table>
         </div>
+        <div className={styles.bottomBtns}>
+          <button className={styles.availabilityBtn}>CHANGE AVAILABILITY</button>
+          <button className={styles.searchBtn}>SEARCH USER</button>
+          <button className={styles.backBtn}>SEE COMPLETED INTERVIEWS</button>
+        </div>
       </div>
     </section>
   );
