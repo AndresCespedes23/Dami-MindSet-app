@@ -1,0 +1,84 @@
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.containerInterviews {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 16px solid #065500;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.containerNav {
+  display: flex;
+  align-items: center;
+}
+.backBtn {
+  font: 1.1rem Century Gothic;
+  margin: 30px;
+  padding: 5px 15px;
+  background-color: #065500;
+  border-radius: 20px;
+  border: 2px solid #065500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.backBtn:hover {
+  background-color: #002147;
+  color: #ffffff;
+  cursor: pointer;
+}
+.backContainer {
+  width: 25%;
+}
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+.itemPersonalColumn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.searchTitle {
+  font: normal normal bold 20px/25px Century Gothic;
+  color: #091f40;
+}
+input {
+  width: 90%;
+  padding: 12px 16px;
+  border: 3px solid #002147;
+  border-radius: 20px;
+  background-color: #f0f4f9;
+  font-size: 14px;
+}
+::placeholder {
+  font: normal normal normal 20px/25px Century Gothic;
+  color: #091f4080;
+}
+.searchBtn {
+    font: 1.1rem Century Gothic;
+    padding: 10px 15px;
+    background-color: #065500;
+    border-radius: 20px;
+    border: 2px solid #065500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 9px 10px #68686842;
+  }
+  .searchBtn:hover {
+    background-color: #002147;
+    color: #ffffff;
+    cursor: pointer;
+  }
