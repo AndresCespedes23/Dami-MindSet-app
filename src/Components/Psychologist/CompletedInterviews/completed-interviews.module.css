@@ -48,6 +48,7 @@
     font-weight: bold;
   }
   .interviewsInfo {
+    flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,8 +65,11 @@
     padding-left: 1vw;
     font: bold 20px Century Gothic;
   }
+  .time {
+    padding-left: 1vw;
+  }
   .assignBtn {
-    margin-left: 5vw;
+    margin-left: 7vw;
     padding: 5px 40px;
     border-radius: 15px; 
     border: none;
@@ -74,7 +78,7 @@
     font-weight:lighter;
   }
   .detailsBtn {
-    margin-left: 9vw;
+    margin-left: 12vw;
     padding: 5px 40px;
     border-radius: 15px; 
     border: none;

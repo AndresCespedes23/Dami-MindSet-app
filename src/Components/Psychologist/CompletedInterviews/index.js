@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getInterviews } from 'redux/Interviews/thunks';
+import { getSessions } from 'redux/Sessions/thunks';
 import styles from './completed-interviews.module.css';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 
 function CompletedInterviews() {
-  const interviews = useSelector((state) => state.interviews.list);
+  const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getInterviews());
+    dispatch(getSessions());
   }, [dispatch]);
   return (
     <section className={styles.container}>
@@ -21,14 +21,15 @@ function CompletedInterviews() {
           </h3>
           <table>
             <tbody>
-              {interviews.map((interview) => {
-                if (interview.status === 'PENDING') {
+              {sessions.map((session) => {
+                if (session.status === 'PENDING') {
                   return [
-                    <tr key={interview._id} className={styles.interviewsInfo}>
-                      <td className={styles.userName}>{interview.idCandidate.name}</td>
-                      <td className={styles.dates}>{interview.dateTime.split('T')[0]}</td>
-                      <td className={styles[interview.status.toLowerCase()]}>
-                        {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                    <tr key={session._id} className={styles.interviewsInfo}>
+                      <td className={styles.userName}>{session.idCandidate.name}</td>
+                      <td className={styles.dates}>{session.date}</td>
+                      <td className={styles.time}>
+                        {session.time}
+                        {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
                       </td>
                       <td>
                         <button className={styles.assignBtn}>ASSIGN PROFILE</button>
@@ -46,14 +47,15 @@ function CompletedInterviews() {
           </h3>
           <table>
             <tbody>
-              {interviews.map((interview) => {
-                if (interview.status === 'DONE') {
+              {sessions.map((session) => {
+                if (session.status === 'DONE') {
                   return [
-                    <tr key={interview._id} className={styles.interviewsInfo}>
-                      <td className={styles.userName}>{interview.idCandidate.name}</td>
-                      <td className={styles.dates}>{interview.dateTime.split('T')[0]}</td>
-                      <td className={styles.interviewStatus}>
-                        {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                    <tr key={session._id} className={styles.interviewsInfo}>
+                      <td className={styles.userName}>{session.idCandidate.name}</td>
+                      <td className={styles.dates}>{session.date}</td>
+                      <td className={styles.time}>
+                        {session.time}
+                        {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
                       </td>
                       <td>
                         <button className={styles.detailsBtn}>DETAILS</button>
