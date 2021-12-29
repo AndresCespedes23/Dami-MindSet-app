@@ -163,7 +163,6 @@ export const searchPostulants = (text) => {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response);
         dispatch(searchPostulantsFulfilled(response.data));
       })
       .catch(() => {

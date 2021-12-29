@@ -82,3 +82,59 @@ input {
     color: #ffffff;
     cursor: pointer;
   }
+  .notFoundMessage{
+    font: normal normal bold 20px Century Gothic;
+    width: 45%;
+    color: #9b0000;
+    margin: 20px
+  }
+  .table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    width: 100%;
+  }
+  
+  .table th {
+    padding: 10px;
+    box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+    background-color: #002147;
+    text-align: center;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    line-height: 17px;
+  }
+  
+  .table td {
+    padding: 10px;
+    box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+    background-color: #fff;
+    text-align: center;
+    line-height: 17px;
+  }
+  /* this is for the blue border, it has to be piece by piece*/
+.table th,
+.table tbody td {
+  border-top: 2px solid #002147;
+  border-bottom: 2px solid #002147;
+}
+
+.table td:first-child,
+.table th:first-child {
+  border-radius: 20px 0 0 20px;
+  border-left: 2px solid #002147;
+}
+
+.table td:last-child,
+.table th:last-child {
+  border-radius: 0 20px 20px 0;
+  border-right: 2px solid #002147;
+}
+  .postulantContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+  }

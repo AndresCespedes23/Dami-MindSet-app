@@ -1,3 +1,4 @@
+import Spinner from 'Components/Shared/Spinner';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchPostulants } from 'redux/Postulants/thunks';
@@ -8,6 +9,7 @@ function Search() {
   const isLoading = useSelector((state) => state.postulants.isLoading);
   const dispatch = useDispatch();
   const [inputSearch, setInputSearch] = useState('');
+  const [isSearch, setIsSearch] = useState(false);
 
   const handleChange = (e) => {
     setInputSearch(e.target.value);
@@ -15,13 +17,15 @@ function Search() {
   const handleEnter = (e) => {
     if (e.code === 'Enter') {
       dispatch(searchPostulants(inputSearch));
+      setIsSearch(true);
     }
   };
   const handleSubmit = () => {
     dispatch(searchPostulants(inputSearch));
+    setIsSearch(true);
   };
-  console.log(postulants);
-  console.log(isLoading);
+  // if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
@@ -47,7 +51,40 @@ function Search() {
             </div>
           </div>
         </div>
-        <div className={styles.interviewsContent}>{postulants.length && <div>Hola</div>}</div>
+        <div className={styles.postulantContent}>
+          {!isSearch ? (
+            <></>
+          ) : isLoading ? (
+            <Spinner type="ThreeDots" color="#002147" height={80} width={80} />
+          ) : postulants.length ? (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Country</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {postulants.map((postulant) => {
+                  return (
+                    <tr key={postulant._id}>
+                      <td>{postulant.name}</td>
+                      <td>{postulant.email}</td>
+                      <td>{postulant.phoneNumber}</td>
+                      <td>{postulant.country}</td>
+                      <td>{postulant.status}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <h3 className={styles.notFoundMessage}>Postulants not found</h3>
+          )}
+        </div>
       </div>
     </section>
   );
