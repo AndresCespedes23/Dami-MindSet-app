@@ -120,3 +120,19 @@ cursor: pointer;
 .editInfo:hover {
   cursor: pointer;
 }
+.backBtnPsycho{
+  font: 1.1rem Century Gothic;
+  margin: 30px;
+  padding: 5px 15px;
+  background-color: #065500;
+  border-radius: 20px;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+  cursor: pointer;
+}
+.backBtnPsycho:hover {
+  background-color:#002147;
+}
