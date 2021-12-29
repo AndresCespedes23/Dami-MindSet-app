@@ -15,12 +15,9 @@ function PostulantProfile() {
 
   useEffect(() => {
     dispatch(getOnePostulant(id)).then((response) => {
-      console.log(postulant);
-      console.log(response);
-      if (response) {
+      if (response === undefined) {
         history.push('/psychologist/postulants/search');
       }
-      //   if(Object.keys(postulant).length !== 0 && !isLoadingForm) REDIRECT to search postulant?
     });
   }, [dispatch]);
 
