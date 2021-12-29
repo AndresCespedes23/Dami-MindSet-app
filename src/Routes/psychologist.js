@@ -9,7 +9,7 @@ const PsychologistRoutes = () => {
     <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]} styleType="psychologist">
       <Switch>
         <Route path={`${url}/`} exact component={Home} />
-        <Route path={`${url}/interviews/search`} component={Search} />
+        <Route path={`${url}/postulants/search`} component={Search} />
       </Switch>
     </Layout>
   );
