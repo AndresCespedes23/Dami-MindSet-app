@@ -25,14 +25,14 @@ function FirstView() {
             <tbody>
               {postulants.map((postulant) => {
                 if (postulant.status === 'PENDING INTERVIEW') {
-                  return [
+                  return (
                     <tr key={postulant._id} className={styles.Info}>
                       <td className={styles.userName}>{postulant.name}</td>
                       <td>
                         <button className={styles.assignBtn}>ASSIGN PROFILE</button>
                       </td>
                     </tr>
-                  ];
+                  );
                 }
               })}
             </tbody>
@@ -46,7 +46,7 @@ function FirstView() {
             <tbody>
               {sessions.map((session) => {
                 if (session.status === 'PENDING') {
-                  return [
+                  return (
                     <tr key={session._id} className={styles.Info}>
                       <td className={styles.userName}>{session.idCandidate.name}</td>
                       <span>
@@ -57,7 +57,7 @@ function FirstView() {
                         <button className={styles.rescheduleBtn}>RESCHEDULE</button>
                       </td>
                     </tr>
-                  ];
+                  );
                 }
               })}
             </tbody>
