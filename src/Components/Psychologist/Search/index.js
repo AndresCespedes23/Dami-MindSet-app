@@ -1,3 +1,4 @@
+import Button from 'Components/Shared/Button';
 import Spinner from 'Components/Shared/Spinner';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +32,7 @@ function Search() {
       <div className={styles.containerInterviews}>
         <div className={styles.containerNav}>
           <div className={styles.backContainer}>
-            <button className={styles.backBtn}>BACK</button>
+            <Button type={'backBtnPsycho'} />
           </div>
           <div className={styles.searchContainer}>
             <div className={styles.itemPersonalColumn}>

@@ -39,6 +39,12 @@ function Button({ type, onClick, text }) {
           <FaPen className={styles.fapen} />
         </>
       )}
+      {type === 'backBtnPsycho' && (
+        <>
+          <FaAngleLeft size={25} />
+          {text}
+        </>
+      )}
     </button>
   );
 }
