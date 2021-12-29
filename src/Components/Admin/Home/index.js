@@ -10,28 +10,28 @@ function Home() {
             <Link to="/admin/admins">admins</Link>
           </li>
           <li>
-            <Link to="/applications">applications</Link>
+            <Link to="/admin/applications">applications</Link>
           </li>
           <li>
-            <Link to="/clients">clients</Link>
+            <Link to="/admin/clients">clients</Link>
           </li>
           <li>
-            <Link to="/interviews">interviews</Link>
+            <Link to="/admin/interviews">interviews</Link>
           </li>
           <li>
-            <Link to="/positions">positions</Link>
+            <Link to="/admin/positions">positions</Link>
           </li>
           <li>
-            <Link to="/postulants">postulants</Link>
+            <Link to="/admin/postulants">postulants</Link>
           </li>
           <li>
-            <Link to="/profiles">profiles</Link>
+            <Link to="/admin/profiles">profiles</Link>
           </li>
           <li>
-            <Link to="/psychologists">psychologists</Link>
+            <Link to="/admin/psychologists">psychologists</Link>
           </li>
           <li>
-            <Link to="/sessions">sessions</Link>
+            <Link to="/admin/sessions">sessions</Link>
           </li>
         </ul>
       </div>
