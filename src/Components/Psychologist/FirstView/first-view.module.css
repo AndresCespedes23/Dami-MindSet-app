@@ -37,6 +37,7 @@ table {
 .backBtn:hover {
   background-color: #002147;
   color: #ffffff;
+  cursor: pointer;
 }
 .content {
   margin-bottom: 40px;
@@ -96,6 +97,7 @@ table {
 .rescheduleBtn:hover {
   background-color: #550000;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .bottomBtns {
@@ -119,4 +121,11 @@ table {
   background-color: #0c7700;
   box-shadow: 5px 10px 20px #00000029;
   border-radius: 10px;
+}
+
+.availabilityBtn:hover,
+.searchBtn:hover,
+.completedInterviewsBtn:hover {
+  background-color: #2b4274;
+  cursor: pointer;
 }
