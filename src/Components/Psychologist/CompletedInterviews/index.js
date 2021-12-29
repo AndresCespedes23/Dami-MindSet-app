@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getSessions } from 'redux/Sessions/thunks';
 import styles from './completed-interviews.module.css';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
+import Button from 'Components/Shared/Button';
 
 function CompletedInterviews() {
   const sessions = useSelector((state) => state.sessions.list);
@@ -14,7 +15,7 @@ function CompletedInterviews() {
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
-        <button className={styles.backBtn}>BACK</button>
+        <Button type={'backBtnPsycho'} />
         <div className={styles.interviewsContent}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Unassigned users:</span>
