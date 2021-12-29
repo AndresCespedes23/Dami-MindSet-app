@@ -34,7 +34,11 @@ const getProfilesRejected = () => ({
 export const getProfiles = () => {
   return (dispatch) => {
     dispatch(getProfilesFetching());
-    fetch(URL)
+    fetch(URL, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
