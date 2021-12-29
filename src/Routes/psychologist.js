@@ -2,6 +2,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Home from 'Components/Psychologist/Home';
 import CompletedInterviews from 'Components/Psychologist/CompletedInterviews';
 import Layout from 'Components/Layout';
+import PostulantProfile from 'Components/Psychologist/PostulantProfile';
 
 const PsychologistRoutes = () => {
   const { url } = useRouteMatch();
@@ -10,6 +11,7 @@ const PsychologistRoutes = () => {
       <Switch>
         <Route path={`${url}/`} exact component={Home} />
         <Route path={`${url}/completed-interviews`} component={CompletedInterviews} />
+        <Route path={`${url}/postulant/:id`} component={PostulantProfile} />
       </Switch>
     </Layout>
   );
