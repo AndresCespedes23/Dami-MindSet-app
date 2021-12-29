@@ -1,3 +1,4 @@
+import Button from 'Components/Shared/Button';
 import Spinner from 'Components/Shared/Spinner';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,7 +27,7 @@ function Interview() {
       <section className={styles.container}>
         <div className={styles.containerInterviews}>
           <div className={styles.containerNav}>
-            <button className={styles.backBtn}>BACK</button>
+            <Button type={'backBtnPsycho'} />
             <h2 className={styles.title}>Interview details</h2>
           </div>
           <div className={styles.interviewsContent}>
@@ -54,7 +55,7 @@ function Interview() {
       <section className={styles.container}>
         <div className={styles.containerInterviews}>
           <div className={styles.containerNav}>
-            <button className={styles.backBtn}>BACK</button>
+            <Button type={'backBtnPsycho'} />
             <h2 className={styles.title}>Interview details</h2>
           </div>
           <h3 className={styles.notFoundMessage}>Interview not found</h3>
