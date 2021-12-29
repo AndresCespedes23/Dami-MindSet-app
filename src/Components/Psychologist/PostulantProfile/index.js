@@ -4,18 +4,23 @@ import { getOnePostulant } from 'redux/Postulants/thunks';
 import Button from 'Components/Shared/Button';
 import style from './postulantProfile.module.css';
 import Spinner from 'Components/Shared/Spinner';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 function PostulantProfile() {
   const postulant = useSelector((store) => store.postulants.postulant);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getOnePostulant(id)).then(() => {
+    dispatch(getOnePostulant(id)).then((response) => {
       console.log(postulant);
-      //   if(Object.keys(postulant).length !== 0 && !isLoadingForm) REDIRECT
+      console.log(response);
+      if (response) {
+        history.push('/psychologist/postulants/search');
+      }
+      //   if(Object.keys(postulant).length !== 0 && !isLoadingForm) REDIRECT to search postulant?
     });
   }, [dispatch]);
 
@@ -59,7 +64,6 @@ function PostulantProfile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h4>About</h4>
-            <Button type={'editInfo'} />
           </div>
           <div>
             <span>{postulant.description}</span>
@@ -68,7 +72,6 @@ function PostulantProfile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>PERSONAL INFORMATION</h3>
-            <Button type={'editInfo'} />
           </div>
           <div className={style.boxinfo}>
             <div>
@@ -116,7 +119,6 @@ function PostulantProfile() {
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
                   <h5>{`${data.level} Education`}</h5>
-                  <Button type={'editInfo'} />
                 </div>
                 <div className={style.boxinfo}>
                   <div>
@@ -147,7 +149,6 @@ function PostulantProfile() {
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
                   <h5>{`${data.role} in ${data.company}`}</h5>
-                  <Button type={'editInfo'} />
                 </div>
                 <div className={style.workExperience}>
                   <div>
@@ -171,7 +172,6 @@ function PostulantProfile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>OTHER INFORMATION</h3>
-            <Button type={'editInfo'} />
           </div>
           <div className={style.boxinfo}>
             <div>

@@ -129,11 +129,9 @@ const getOnePostulantsRejected = () => ({ type: GET_ONE_POSTULANTS_REJETED });
 
 export const getOnePostulant = (id) => {
   return (dispatch) => {
-    console.log('hola');
     dispatch(getOnePostulantsFetching());
     return fetch(`${BASE_URL}/${id}`)
       .then((response) => {
-        console.log(response);
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
       })
