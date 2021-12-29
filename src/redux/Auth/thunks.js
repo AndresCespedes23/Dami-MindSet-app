@@ -4,7 +4,10 @@ import {
   loginError,
   logoutPending,
   logoutSuccess,
-  logoutError
+  logoutError,
+  registerNewUserFetching,
+  registerNewUserFulfilled,
+  registerNewUserRejected
 } from './actions';
 import firebase from 'helpers/firebase';
 
@@ -37,6 +40,30 @@ export const logout = () => {
       })
       .catch((error) => {
         return dispatch(logoutError(error.toString()));
+      });
+  };
+};
+
+export const registerNewUser = (credentials) => {
+  return (dispatch) => {
+    dispatch(registerNewUserFetching());
+    return fetch(`${process.env.REACT_APP_API}/auth/register`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(registerNewUserFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(registerNewUserRejected());
       });
   };
 };

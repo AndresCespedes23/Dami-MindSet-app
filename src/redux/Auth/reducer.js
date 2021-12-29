@@ -6,7 +6,10 @@ import {
   SET_AUTHENTICATION,
   LOG_OUT_PENDING,
   LOG_OUT_FULFILLED,
-  LOG_OUT_REJECTED
+  LOG_OUT_REJECTED,
+  REGISTER_NEW_USER_FETCHING,
+  REGISTER_NEW_USER_FULFILLED,
+  REGISTER_NEW_USER_REJECTED
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -65,6 +68,27 @@ const authReducer = (state = initialState, action) => {
       };
     }
     case LOG_OUT_REJECTED: {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
+    }
+    case REGISTER_NEW_USER_FETCHING: {
+      return {
+        ...state,
+        isLoading: true,
+        error: initialState.error
+      };
+    }
+    case REGISTER_NEW_USER_FULFILLED: {
+      return {
+        ...state,
+        isLoading: false,
+        authenticated: true
+      };
+    }
+    case REGISTER_NEW_USER_REJECTED: {
       return {
         ...state,
         isLoading: false,

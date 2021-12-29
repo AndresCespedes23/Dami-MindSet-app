@@ -6,7 +6,10 @@ import {
   SET_AUTHENTICATION,
   LOG_OUT_PENDING,
   LOG_OUT_FULFILLED,
-  LOG_OUT_REJECTED
+  LOG_OUT_REJECTED,
+  REGISTER_NEW_USER_FETCHING,
+  REGISTER_NEW_USER_FULFILLED,
+  REGISTER_NEW_USER_REJECTED
 } from 'constants/actionTypes';
 
 export const loginPending = () => {
@@ -56,6 +59,26 @@ export const logoutSuccess = () => {
 export const logoutError = (error) => {
   return {
     type: LOG_OUT_REJECTED,
+    payload: error
+  };
+};
+
+export const registerNewUserFetching = () => {
+  return {
+    type: REGISTER_NEW_USER_FETCHING
+  };
+};
+
+export const registerNewUserFulfilled = (data) => {
+  return {
+    type: REGISTER_NEW_USER_FULFILLED,
+    payload: data
+  };
+};
+
+export const registerNewUserRejected = (error) => {
+  return {
+    type: REGISTER_NEW_USER_REJECTED,
     payload: error
   };
 };
