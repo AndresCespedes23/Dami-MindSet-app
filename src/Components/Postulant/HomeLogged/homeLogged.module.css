@@ -1,0 +1,21 @@
+.container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #3a4c66;
+  }
+  .containerSummary {
+    background-color: #ffffff;
+    height: auto;
+    width: 70%;
+    border-top: 8px solid #002147;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+  }
+  .title {
+    margin: 30px;
+    font: normal normal normal 45px/50px Century Gothic;
+    color: #002147;
+  }

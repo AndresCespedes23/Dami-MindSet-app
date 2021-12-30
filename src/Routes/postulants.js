@@ -11,6 +11,7 @@ import OtherInfoForm from 'Components/Postulant/OtherInfoForm';
 import Profile from 'Components/Postulant/Profile';
 import Courses from 'Components/Postulant/Courses';
 import Education from 'Components/Postulant/Education';
+import HomeLogged from 'Components/Postulant/HomeLogged';
 import PrivateRoute from './PrivateRoute';
 
 const PostulantRoutes = () => {
@@ -29,6 +30,7 @@ const PostulantRoutes = () => {
         <PrivateRoute path={`${url}/other-info`} component={OtherInfoForm} />
         <PrivateRoute path={`${url}/summary`} component={Summary} />
         <PrivateRoute path={`${url}/profile`} component={Profile} />
+        <PrivateRoute path={`${url}/home`} component={HomeLogged} />
         <Redirect to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
