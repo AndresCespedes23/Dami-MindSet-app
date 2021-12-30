@@ -45,6 +45,12 @@ function Button({ type, onClick, text }) {
           {text}
         </>
       )}
+      {type === 'backBtnAdmin' && (
+        <>
+          <FaAngleLeft size={25} />
+          {text}
+        </>
+      )}
     </button>
   );
 }

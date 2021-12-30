@@ -7,7 +7,7 @@ function AdminProfile() {
       <div className={styles.profile}>
         <div className={styles.header}>
           <div>
-            <Button type={'back'} />
+            <Button type={'backBtnAdmin'} />
           </div>
           <div className={styles.headercolumn}>
             <h2 className={styles.profileTitle}>Profile</h2>
