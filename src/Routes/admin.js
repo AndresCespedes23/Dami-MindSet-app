@@ -39,7 +39,7 @@ const AdminRoutes = () => {
         <PrivateRoute path={`${url}/profiles`} component={Profiles} />
         <PrivateRoute path={`${url}/psychologists`} component={Psychologists} />
         <PrivateRoute path={`${url}/sessions`} component={Sessions} />
-        <PrivateRoute path={`${url}/profile/postulant`} component={PsychologistsProfile} />
+        <PrivateRoute path={`${url}/profile/psychologist`} component={PsychologistsProfile} />
         <PrivateRoute to={`${url}/`} component={Home} />
       </Switch>
     </Layout>

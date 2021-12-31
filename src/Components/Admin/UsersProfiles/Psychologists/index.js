@@ -75,10 +75,6 @@ function PsychologistsProfile() {
               <span className={styles.bold}>Last Interviews:</span>
             </h3>
             <div className={styles.interviewsInfo}>
-              <div className={styles.user}>
-                <p className={styles.userName}>Manuel</p>
-                <p className={styles.dates}>Sabado 9 de Julio</p>
-              </div>
               <div>
                 <button className={styles.detailsBtn}>DETAILS</button>
               </div>
