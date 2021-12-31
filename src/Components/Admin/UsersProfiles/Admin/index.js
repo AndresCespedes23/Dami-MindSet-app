@@ -1,7 +1,15 @@
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getOneAdmin } from 'redux/Admins/thunks';
 import styles from './admin.module.css';
 import Button from 'Components/Shared/Button';
 
 function AdminProfile() {
+  const admin = useSelector((store) => store.admins.list);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOneAdmin('61af7bfaddca344defd8a091'));
+  }, [dispatch]);
   return (
     <section className={styles.container}>
       <div className={styles.profile}>
@@ -17,18 +25,19 @@ function AdminProfile() {
         <div className={styles.info}>
           <div className={styles.rowInfo}>
             <div className={styles.adminInfo}>
-              Name:<span>roberto</span>
+              Name:<span>{admin.name}</span>
             </div>
             <div className={styles.adminInfo}>
-              Username:<span>sandro</span>
+              Username:<span>{admin.username}</span>
             </div>
           </div>
           <div className={styles.columnInfo}>
             <div className={styles.adminInfo}>
-              Email:<span>sandroRosa@gmail.com</span>
+              <p>Email:</p>
+              <span>{admin.email}</span>
             </div>
             <div className={styles.adminInfo}>
-              Phone Number:<span>12314325424</span>
+              Phone Number:<span>{admin.phoneNumber}</span>
             </div>
           </div>
           <div className={styles.editBtn}>

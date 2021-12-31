@@ -45,7 +45,7 @@
     flex-direction: row;
   }
   .columnInfo {
-    margin-right: 16vw;
+    margin-right: 15.6vw;
     display:flex;
     align-items: center;
     flex-direction: column;
@@ -54,6 +54,9 @@
     margin-bottom: 4vh;
     margin-left: 4vw;
     font-weight: 900;
+  }
+  .adminInfo p {
+    margin-right: 16.9vw;
   }
   .adminInfo span {
     margin-left: 10vw;
