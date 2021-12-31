@@ -1,18 +1,18 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOnePostulant } from 'redux/Postulants/thunks';
+import { getOnePsychologist } from 'redux/Psychologists/thunks';
 import Button from 'Components/Shared/Button';
 import styles from './psychologists.module.css';
 import { getSessions } from 'redux/Sessions/thunks';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 
 function PsychologistsProfile() {
-  const postulant = useSelector((store) => store.postulants.postulant);
+  const psychologist = useSelector((state) => state.psychologists.psychologist);
   const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
+    dispatch(getOnePsychologist('61afbc5bfc13ae06eb0005dc'));
     dispatch(getSessions());
   }, [dispatch]);
 
@@ -29,18 +29,18 @@ function PsychologistsProfile() {
           </div>
         </div>
         <div className={styles.statusBox}>
-          <h4>{postulant.name}</h4>
+          <h4>{psychologist.name}</h4>
           <span>Status</span>
           <p
             className={
-              postulant.status === 'ACTIVE'
+              psychologist.status === 'ACTIVE'
                 ? styles.statusActive
-                : postulant.status === 'INACTIVE'
+                : psychologist.status === 'INACTIVE'
                 ? styles.statusInactive
                 : styles.statusPending
             }
           >
-            {postulant.status}
+            {psychologist.status}
           </p>
         </div>
         <div className={styles.box}>
@@ -48,25 +48,25 @@ function PsychologistsProfile() {
             <div className={styles.infoColumn}>
               <div>
                 <h4 className={styles.infoType}>Name:</h4>
-                <span>{postulant.name}</span>
+                <span>{psychologist.name}</span>
               </div>
               <div>
                 <h4 className={styles.infoType}>Username:</h4>
-                <span>{postulant.username}</span>
+                <span>{psychologist.username}</span>
               </div>
               <div>
                 <h4 className={styles.infoType}>Email:</h4>
-                <span>{postulant.email}</span>
+                <span>{psychologist.email}</span>
               </div>
             </div>
             <div className={styles.infoColumn}>
               <div>
                 <h4 className={styles.infoType}>Phone number:</h4>
-                <span>{postulant.phoneNumber}</span>
+                <span>{psychologist.phoneNumber}</span>
               </div>
               <div>
                 <h4 className={styles.infoType}>Enrollment:</h4>
-                <span>{postulant.address}</span>
+                <span>{psychologist.enrollmentNumber}</span>
               </div>
             </div>
           </div>
@@ -74,11 +74,6 @@ function PsychologistsProfile() {
             <h3 className={styles.title}>
               <span className={styles.bold}>Last Interviews:</span>
             </h3>
-            <div className={styles.interviewsInfo}>
-              <div>
-                <button className={styles.detailsBtn}>DETAILS</button>
-              </div>
-            </div>
             <table>
               <tbody>
                 {sessions.map((session) => {
