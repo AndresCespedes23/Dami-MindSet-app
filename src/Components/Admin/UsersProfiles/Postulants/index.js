@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks';
+import { getOneInterview } from 'redux/Interviews/thunks';
 import Button from 'Components/Shared/Button';
 import style from './postulants.module.css';
 import Spinner from 'Components/Shared/Spinner';
 
 function Profile() {
   const postulant = useSelector((store) => store.postulants.postulant);
+  const interview = useSelector((store) => store.interviews.interview);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
+    getOneInterview();
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -106,7 +109,7 @@ function Profile() {
         </div>
         <h3>Interview</h3>
         <div className={style.box}>
-          {postulant.education?.map((data) => {
+          {interview.education?.map((data) => {
             return (
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
@@ -115,7 +118,7 @@ function Profile() {
                 </div>
                 <div className={style.boxinfo}>
                   <div>
-                    <span>Interviewed on {data.institution}</span>
+                    <span>Interviewed on {data.dateTime}</span>
                   </div>
                 </div>
               </div>
