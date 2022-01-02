@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks';
-import { getOneInterview } from 'redux/Interviews/thunks';
+import { getOneSession } from 'redux/Sessions/thunks';
 import Button from 'Components/Shared/Button';
 import style from './postulants.module.css';
 import Spinner from 'Components/Shared/Spinner';
 
 function Profile() {
   const postulant = useSelector((store) => store.postulants.postulant);
-  const interview = useSelector((store) => store.interviews.interview);
+  const session = useSelector((store) => store.sessions.session);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
-    getOneInterview();
+    dispatch(getOneSession('61c27fcfc10d309ebaeb9efc')); //it isn't the correct session, this is an example
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -109,21 +109,18 @@ function Profile() {
         </div>
         <h3>Interview</h3>
         <div className={style.box}>
-          {interview.education?.map((data) => {
-            return (
-              <div key={data._id} className={style.box}>
-                <div className={style.subtitle}>
-                  <h5>{`${data.level} Interview`}</h5>
-                  <Button type={'editInfo'} />
-                </div>
-                <div className={style.boxinfo}>
-                  <div>
-                    <span>Interviewed on {data.dateTime}</span>
-                  </div>
-                </div>
+          <div className={style.box}>
+            <div className={style.subtitle}>
+              <Button type={'editInfo'} />
+            </div>
+            <div className={style.boxinfo}>
+              <div>
+                <span>
+                  Interviewed on {session.date} {session.time}
+                </span>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
