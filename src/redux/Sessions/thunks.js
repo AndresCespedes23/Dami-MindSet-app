@@ -164,7 +164,11 @@ const getOneSessionRejected = () => ({
 export const getOneSession = (id) => {
   return (dispatch) => {
     dispatch(getOneSessionFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
