@@ -39,29 +39,20 @@
     margin-top: 17vh;
     font-size: 1.3rem;
   }
-  .rowInfo {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-  }
   .columnInfo {
-    margin-right: 15.6vw;
     display:flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
   }
   .adminInfo {
     margin-bottom: 4vh;
-    margin-left: 4vw;
     font-weight: 900;
   }
-  .adminInfo p {
-    margin-right: 16.9vw;
-  }
   .adminInfo span {
-    margin-left: 10vw;
+    margin-left: 2vw;
     font-weight: 100;
-}
+  }
   .editBtn {
     margin-right: 5vw;
     display: flex;

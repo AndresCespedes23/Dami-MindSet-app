@@ -5,7 +5,7 @@ import styles from './admin.module.css';
 import Button from 'Components/Shared/Button';
 
 function AdminProfile() {
-  const admin = useSelector((store) => store.admins.list);
+  const admin = useSelector((store) => store.admins.admin);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOneAdmin('61af7bfaddca344defd8a091'));
@@ -23,21 +23,16 @@ function AdminProfile() {
           </div>
         </div>
         <div className={styles.info}>
-          <div className={styles.rowInfo}>
+          <div className={styles.columnInfo}>
             <div className={styles.adminInfo}>
               Name:<span>{admin.name}</span>
             </div>
             <div className={styles.adminInfo}>
               Username:<span>{admin.username}</span>
             </div>
-          </div>
-          <div className={styles.columnInfo}>
             <div className={styles.adminInfo}>
-              <p>Email:</p>
+              Email:
               <span>{admin.email}</span>
-            </div>
-            <div className={styles.adminInfo}>
-              Phone Number:<span>{admin.phoneNumber}</span>
             </div>
           </div>
           <div className={styles.editBtn}>
