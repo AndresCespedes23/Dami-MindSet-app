@@ -134,7 +134,11 @@ const getOnePostulantsRejected = () => ({ type: GET_ONE_POSTULANTS_REJETED });
 export const getOnePostulant = (id) => {
   return (dispatch) => {
     dispatch(getOnePostulantsFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
