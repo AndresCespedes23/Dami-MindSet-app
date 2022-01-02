@@ -12,7 +12,7 @@ function PsychologistsProfile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOnePsychologist('61afbc5bfc13ae06eb0005dc'));
+    dispatch(getOnePsychologist('61af8e2ffc13ae5ecc000514'));
     dispatch(getSessions());
   }, [dispatch]);
 
@@ -29,7 +29,6 @@ function PsychologistsProfile() {
           </div>
         </div>
         <div className={styles.statusBox}>
-          <h4>{psychologist.name}</h4>
           <span>Status</span>
           <p
             className={
