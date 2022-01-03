@@ -1,4 +1,4 @@
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import Home from 'Components/Postulant/Home';
 import Work from 'Components/Postulant/Work';
 import Layout from 'Components/Layout';
@@ -11,6 +11,7 @@ import OtherInfoForm from 'Components/Postulant/OtherInfoForm';
 import Profile from 'Components/Postulant/Profile';
 import Courses from 'Components/Postulant/Courses';
 import Education from 'Components/Postulant/Education';
+import PrivateRoute from './PrivateRoute';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
@@ -20,14 +21,15 @@ const PostulantRoutes = () => {
         <Route path={`${url}/`} exact component={Home} />
         <Route path={`${url}/sign`} component={Sign} />
         <Route path={`${url}/register`} component={Register} />
-        <Route path={`${url}/personal-info`} component={PersonalInfo} />
-        <Route path={`${url}/education`} exact component={Education} />
-        <Route path={`${url}/work`} exact component={Work} />
-        <Route path={`${url}/courses`} component={Courses} />
-        <Route path={`${url}/description`} component={Description} />
-        <Route path={`${url}/other-info`} component={OtherInfoForm} />
-        <Route path={`${url}/summary`} component={Summary} />
-        <Route path={`${url}/profile`} component={Profile} />
+        <PrivateRoute path={`${url}/personal-info`} component={PersonalInfo} />
+        <PrivateRoute path={`${url}/education`} exact component={Education} />
+        <PrivateRoute path={`${url}/work`} exact component={Work} />
+        <PrivateRoute path={`${url}/courses`} component={Courses} />
+        <PrivateRoute path={`${url}/description`} component={Description} />
+        <PrivateRoute path={`${url}/other-info`} component={OtherInfoForm} />
+        <PrivateRoute path={`${url}/summary`} component={Summary} />
+        <PrivateRoute path={`${url}/profile`} component={Profile} />
+        <Redirect to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
   );

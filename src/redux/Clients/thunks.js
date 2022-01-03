@@ -34,7 +34,11 @@ const getClientsRejected = () => ({
 export const getClients = () => {
   return (dispatch) => {
     dispatch(getClientsFetching());
-    fetch(BASE_URL)
+    fetch(BASE_URL, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
