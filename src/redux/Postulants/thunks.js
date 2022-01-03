@@ -161,7 +161,11 @@ const searchPostulantsRejected = () => ({ type: SEARCH_POSTULANTS_REJETED });
 export const searchPostulants = (text) => {
   return (dispatch) => {
     dispatch(searchPostulantsFetching());
-    fetch(`${BASE_URL}/search?name=${text}`)
+    fetch(`${BASE_URL}/search?name=${text}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
