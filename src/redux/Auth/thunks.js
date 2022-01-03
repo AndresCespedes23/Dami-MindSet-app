@@ -19,7 +19,10 @@ export const login = (credentials) => {
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(async (response) => {
         const token = await response.user.getIdToken();
+        const tokenResult = await response.user.getIdTokenResult();
         sessionStorage.setItem('token', token);
+        sessionStorage.setItem('userType', tokenResult.claims.userType);
+        // sessionStorage.setItem('uid', tokenResult.claims.userType);
         return dispatch(loginSuccess());
       })
       .catch((error) => {
@@ -44,7 +47,8 @@ export const logout = () => {
   };
 };
 
-export const registerNewUser = (credentials) => {
+export const registerNewUser = (credentials, userType) => {
+  credentials.userType = userType;
   return (dispatch) => {
     dispatch(registerNewUserFetching());
     return fetch(`${process.env.REACT_APP_API}/auth/register`, {

@@ -61,7 +61,7 @@ function Psychologists() {
   };
 
   const handleAddPsychologist = (psychologist) => {
-    dispatch(addPsychologist(psychologist)).then(() => {
+    dispatch(addPsychologist(psychologist, 'PSYCHOLOGIST')).then(() => {
       dispatch(setShowMessage(true));
       dispatch(getPsychologists());
     });
