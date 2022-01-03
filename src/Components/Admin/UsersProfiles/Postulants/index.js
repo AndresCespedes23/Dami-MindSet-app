@@ -4,17 +4,15 @@ import { getOnePostulant } from 'redux/Postulants/thunks';
 import { getOneSession } from 'redux/Sessions/thunks';
 import Button from 'Components/Shared/Button';
 import style from './postulants.module.css';
-import Spinner from 'Components/Shared/Spinner';
 
 function Profile() {
   const postulant = useSelector((store) => store.postulants.postulant);
-  const session = useSelector((store) => store.sessions.session);
-  const isLoading = useSelector((store) => store.postulants.isLoading);
+  const sessions = useSelector((store) => store.sessions.session);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
-    dispatch(getOneSession('61c27fcfc10d309ebaeb9efc')); //it isn't the correct session, this is an example
+    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
+    dispatch(getOneSession('61c27fcfc10d309ebaeb9efc'));
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -22,8 +20,6 @@ function Profile() {
     let year = date.split('-')[0];
     return today - year;
   };
-
-  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={style.container}>
@@ -116,7 +112,7 @@ function Profile() {
             <div className={style.boxinfo}>
               <div>
                 <span>
-                  Interviewed on {session.date} {session.time}
+                  Interviewed on {sessions.date} {sessions.time}
                 </span>
               </div>
             </div>
