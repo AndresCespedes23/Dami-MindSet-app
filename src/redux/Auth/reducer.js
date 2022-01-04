@@ -15,7 +15,10 @@ import {
 const initialState = {
   isLoading: false,
   authenticated: false,
-  error: ''
+  error: false,
+  showMessage: false,
+  messageType: '',
+  messageText: ''
 };
 
 const authReducer = (state = initialState, action) => {
@@ -85,14 +88,18 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        authenticated: true
+        authenticated: true,
+        messageType: 'success',
+        messageText: 'Added'
       };
     }
     case REGISTER_NEW_USER_REJECTED: {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot Add'
       };
     }
     default: {

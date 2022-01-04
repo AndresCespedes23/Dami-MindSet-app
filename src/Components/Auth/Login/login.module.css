@@ -1,13 +1,53 @@
-.container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-  }
+* {
+  box-sizing: border-box;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 80%;
+  margin: auto
+}
+.flexRow{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+.form div {
+  padding: 10px;
+  color: #002147;
+  flex: 1 1 0px
+}
+
+.form label {
+  padding-left: 15px;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #002147;
+  border-radius: 20px;
+  background-color: #f0f4f9;
+  font-size: 14px;
+}
+
+.form button {
+  display: flex;
+  justify-content: center;
+}
+
+.form select,
+.form button { 
+  cursor: pointer;
+}
   .mainTitle {
     width: 100%;
     margin-bottom: 20px;
@@ -15,12 +55,7 @@
     border-bottom: 2px rgb(191, 191, 191) solid;
     font-size: 30px;
   }
-  .form {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 0px 40px 40px 40px;
-  }
+
   .btnContainer {
     display: flex;
     justify-content: space-between;

@@ -12,7 +12,19 @@ function LoginForm() {
   const onSubmit = (formValues) => {
     return dispatch(login(formValues)).then((response) => {
       if (response.type === 'LOGIN_FULFILLED') {
-        history.push('/postulants/home');
+        switch (sessionStorage.getItem('userType')) {
+          case 'CANDIDATE':
+            history.push('/postulants/home');
+            break;
+          case 'ADMIN':
+            history.push('/admin');
+            break;
+          case 'PSYCHOLOGIST':
+            history.push('/psychologist');
+            break;
+          default:
+            break;
+        }
       }
     });
   };
@@ -23,23 +35,25 @@ function LoginForm() {
         <Form
           onSubmit={onSubmit}
           render={({ handleSubmit, submitting, pristine }) => (
-            <form onSubmit={handleSubmit} className={styles.container}>
+            <form onSubmit={handleSubmit} className={styles.form}>
               <h2 className={styles.mainTitle}>Login</h2>
-              <Field
-                name="email"
-                label="Email"
-                element="input"
-                disabled={submitting}
-                component={Input}
-              />
-              <Field
-                name="password"
-                label="Password"
-                type="password"
-                element="input"
-                disabled={submitting}
-                component={Input}
-              />
+              <div className={styles.flexRow}>
+                <Field
+                  name="email"
+                  label="Email"
+                  element="input"
+                  disabled={submitting}
+                  component={Input}
+                />
+                <Field
+                  name="password"
+                  label="Password"
+                  type="password"
+                  element="input"
+                  disabled={submitting}
+                  component={Input}
+                />
+              </div>
               <div className={styles.buttonContainer}>
                 <button
                   className={`${styles.buttonGreen} ${(submitting || pristine) && styles.disabled}`}

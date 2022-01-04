@@ -7,6 +7,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { registerNewUser } from 'redux/Auth/thunks';
 
 function Admins() {
   const [idActive, setIdActive] = useState('');
@@ -43,7 +44,17 @@ function Admins() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
-
+  const handleClickAdd = () => {
+    dispatch(setModalType('admins'));
+    setIdActive('');
+    dispatch(setShowModal(true));
+  };
+  const handleAddAdmin = (admin) => {
+    dispatch(registerNewUser(admin, 'ADMIN')).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getAdmins());
+    });
+  };
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
@@ -54,7 +65,7 @@ function Admins() {
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
-          <div></div>
+          <Button type="addNew" text={'ADMIN'} onClick={handleClickAdd} />
         </div>
         <table className={styles.table}>
           <thead>
@@ -85,7 +96,7 @@ function Admins() {
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={handleUpdateAdmin}
+          handleSubmit={modalType === 'admins' && !idActive ? handleAddAdmin : handleUpdateAdmin}
           meta={idActive}
         />
       )}
