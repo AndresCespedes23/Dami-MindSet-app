@@ -19,13 +19,14 @@ function PsychologistsStates() {
 
   const handleDissabled = (id, psychologist) => {
     setIdActive(id);
-
     dispatch(updatePsychologist(psychologist, idActive)).then(() => {
-      psychologists.map((psychologist) => {
-        psychologist.status === 'AVAILABLE'
-          ? { ...psychologist, status: 'UNAVAILABLE' }
-          : psychologist;
-      });
+      dispatch(getPsychologists());
+    });
+  };
+
+  const handleEnable = (id, psychologist) => {
+    setIdActive(id);
+    dispatch(updatePsychologist(psychologist, idActive)).then(() => {
       dispatch(getPsychologists());
     });
   };
@@ -69,7 +70,12 @@ function PsychologistsStates() {
                       <td>
                         <button
                           className={styles.redBtn}
-                          onClick={() => handleDissabled(psychologist._id)}
+                          onClick={() =>
+                            handleDissabled(psychologist._id, {
+                              ...psychologist,
+                              status: 'UNAVAILABLE'
+                            })
+                          }
                         >
                           DISSABLED
                         </button>
@@ -100,7 +106,17 @@ function PsychologistsStates() {
                         >
                           DELETE
                         </button>
-                        <button className={styles.greenBtn}>ENABLE</button>
+                        <button
+                          className={styles.greenBtn}
+                          onClick={() =>
+                            handleEnable(psychologist._id, {
+                              ...psychologist,
+                              status: 'AVAILABLE'
+                            })
+                          }
+                        >
+                          ENABLE
+                        </button>
                       </td>
                     </tr>
                   ];
