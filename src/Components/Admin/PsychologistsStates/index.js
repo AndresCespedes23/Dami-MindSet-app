@@ -1,16 +1,41 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPsychologists } from 'redux/Psychologists/thunks';
+import {
+  getPsychologists,
+  updatePsychologist,
+  deletePsychologist
+} from 'redux/Psychologists/thunks';
 import styles from './psychologists-states.module.css';
 import Button from 'Components/Shared/Button';
 
 function PsychologistsStates() {
   const psychologists = useSelector((state) => state.psychologists.list);
   const dispatch = useDispatch();
+  const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
     dispatch(getPsychologists());
   }, [dispatch]);
+
+  const handleDissabled = (id, psychologist) => {
+    setIdActive(id);
+
+    psychologists.map((psychologist) => {
+      return psychologist.status === 'UNAVAILABLE';
+    });
+
+    dispatch(updatePsychologist(psychologist, idActive)).then(() => {
+      dispatch(getPsychologists());
+    });
+  };
+
+  const handleDelete = (id, psychologist) => {
+    setIdActive(id);
+    dispatch(deletePsychologist(psychologist, idActive)).then(() => {
+      dispatch(getPsychologists());
+    });
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.containerPsychologists}>
@@ -41,7 +66,12 @@ function PsychologistsStates() {
                       <td className={styles.userName}>{psychologist.name}</td>
                       <td>E.N°: {psychologist.enrollmentNumber}</td>
                       <td>
-                        <button className={styles.redBtn}>DISSABLED</button>
+                        <button
+                          className={styles.redBtn}
+                          onClick={() => handleDissabled(psychologist._id)}
+                        >
+                          DISSABLED
+                        </button>
                       </td>
                     </tr>
                   ];
@@ -63,7 +93,12 @@ function PsychologistsStates() {
                       <td className={styles.userName}>{psychologist.name}</td>
                       <td>E.N°: {psychologist.enrollmentNumber}</td>
                       <td>
-                        <button className={styles.redBtn}>DELETE</button>
+                        <button
+                          className={styles.redBtn}
+                          onClick={() => handleDelete(psychologist)}
+                        >
+                          DELETE
+                        </button>
                         <button className={styles.greenBtn}>ENABLE</button>
                       </td>
                     </tr>
