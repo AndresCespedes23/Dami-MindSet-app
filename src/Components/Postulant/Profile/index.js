@@ -11,7 +11,7 @@ function Profile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
+    dispatch(getOnePostulant(sessionStorage.getItem('id')));
   }, [dispatch]);
 
   const getAge = (date) => {

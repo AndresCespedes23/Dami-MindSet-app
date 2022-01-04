@@ -22,7 +22,7 @@ export const login = (credentials) => {
         const tokenResult = await response.user.getIdTokenResult();
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('userType', tokenResult.claims.userType);
-        // sessionStorage.setItem('uid', tokenResult.claims.userType);
+        sessionStorage.setItem('id', tokenResult.claims.id);
         return dispatch(loginSuccess());
       })
       .catch((error) => {

@@ -198,7 +198,11 @@ const getPendingInterviewRejected = () => ({
 export const getPendingInterview = (id) => {
   return (dispatch) => {
     dispatch(getPendingInterviewFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/pending/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
