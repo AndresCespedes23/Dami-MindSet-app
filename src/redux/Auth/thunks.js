@@ -39,6 +39,8 @@ export const logout = () => {
       .signOut()
       .then(() => {
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userType');
+        sessionStorage.removeItem('id');
         return dispatch(logoutSuccess());
       })
       .catch((error) => {

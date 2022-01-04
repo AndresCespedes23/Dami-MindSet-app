@@ -9,7 +9,7 @@ import Profiles from 'Components/Admin/Profiles';
 import Psychologists from 'Components/Admin/Psychologists';
 import Sessions from 'Components/Admin/Sessions';
 import Layout from 'Components/Layout';
-import PrivateRoute from 'Routes/PrivateRoute';
+import PrivateRouteAdmin from 'Routes/PrivateRouteAdmin';
 import Home from 'Components/Admin/Home';
 
 const adminsRoutes = [
@@ -29,16 +29,16 @@ const AdminRoutes = () => {
   return (
     <Layout routes={adminsRoutes} styleType="admin">
       <Switch>
-        <PrivateRoute path={`${url}/admins`} component={Admins} />
-        <PrivateRoute path={`${url}/applications`} component={Applications} />
-        <PrivateRoute path={`${url}/clients`} component={Clients} />
-        <PrivateRoute path={`${url}/interviews`} component={Interviews} />
-        <PrivateRoute path={`${url}/positions`} component={Positions} />
-        <PrivateRoute path={`${url}/postulants`} component={Postulants} />
-        <PrivateRoute path={`${url}/profiles`} component={Profiles} />
-        <PrivateRoute path={`${url}/psychologists`} component={Psychologists} />
-        <PrivateRoute path={`${url}/sessions`} component={Sessions} />
-        <PrivateRoute to={`${url}/`} component={Home} />
+        <PrivateRouteAdmin path={`${url}/admins`} component={Admins} />
+        <PrivateRouteAdmin path={`${url}/applications`} component={Applications} />
+        <PrivateRouteAdmin path={`${url}/clients`} component={Clients} />
+        <PrivateRouteAdmin path={`${url}/interviews`} component={Interviews} />
+        <PrivateRouteAdmin path={`${url}/positions`} component={Positions} />
+        <PrivateRouteAdmin path={`${url}/postulants`} component={Postulants} />
+        <PrivateRouteAdmin path={`${url}/profiles`} component={Profiles} />
+        <PrivateRouteAdmin path={`${url}/psychologists`} component={Psychologists} />
+        <PrivateRouteAdmin path={`${url}/sessions`} component={Sessions} />
+        <PrivateRouteAdmin to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
   );
