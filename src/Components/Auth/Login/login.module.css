@@ -1,16 +1,18 @@
-* {
-  box-sizing: border-box;
-}
-
-.form {
+.container {
+  flex: 1;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: white;
-  width: 80%;
-  margin: auto
+  flex-direction: column;
+  background-color: #3a4c66;
+}
+.containerSummary {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 8px solid #002147;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
 }
 .flexRow{
   display: flex;
@@ -20,13 +22,14 @@
 .form div {
   padding: 10px;
   color: #002147;
-  flex: 1 1 0px
+  flex: 1 1 0px;
+  width: 80%;
+  margin: auto;
 }
 
 .form label {
-  padding-left: 15px;
   font-size: 15px;
-  font-weight: 900;
+  font: normal normal bold 20px/35px Century Gothic;
 }
 
 .form input,
@@ -48,14 +51,6 @@
 .form button { 
   cursor: pointer;
 }
-  .mainTitle {
-    width: 100%;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px rgb(191, 191, 191) solid;
-    font-size: 30px;
-  }
-
   .btnContainer {
     display: flex;
     justify-content: space-between;
@@ -102,7 +97,28 @@
   .form select {
     width: 100%;
     padding: 10px 20px;
-    border: 1px solid rgb(167, 167, 167);
+    border: 2px solid #091F40;
     border-radius: 30px;
     box-sizing: border-box;
+  }
+  .buttonContainer{
+    display: flex;
+    justify-content: center;
+  }
+  .btnLogin {
+    font: normal normal normal 20px Century Gothic;
+    padding: 10px 80px;
+    background-color: #fff;
+    border: 2px solid #002147;
+    border-radius: 20px;
+    box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+    margin-bottom: 20px;
+    color: #091F40;
+  }
+  
+  .btnLogin:hover {
+    background-color: #002147;
+    border: 2px solid #002147;
+    color: #fff;
+    cursor: pointer;
   }

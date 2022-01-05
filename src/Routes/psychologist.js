@@ -19,10 +19,6 @@ const PsychologistRoutes = () => {
           component={CompletedInterviews}
         />
         <PrivateRoutePsychologist path={`${url}/postulants/search`} component={Search} />
-        <PrivateRoutePsychologist
-          path={`${url}/completed-interviews`}
-          component={CompletedInterviews}
-        />
         <PrivateRoutePsychologist path={`${url}/postulant/:id`} component={PostulantProfile} />
       </Switch>
     </Layout>

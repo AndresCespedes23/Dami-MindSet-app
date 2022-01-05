@@ -30,18 +30,18 @@ function LoginForm() {
   };
 
   return (
-    <>
-      <section className={styles.container}>
+    <section className={styles.container}>
+      <div className={styles.containerSummary}>
         <Form
           onSubmit={onSubmit}
           render={({ handleSubmit, submitting, pristine }) => (
             <form onSubmit={handleSubmit} className={styles.form}>
-              <h2 className={styles.mainTitle}>Login</h2>
-              <div className={styles.flexRow}>
+              <div>
                 <Field
                   name="email"
                   label="Email"
                   element="input"
+                  placeholder="Enter your email"
                   disabled={submitting}
                   component={Input}
                 />
@@ -50,24 +50,25 @@ function LoginForm() {
                   label="Password"
                   type="password"
                   element="input"
+                  placeholder="Enter your password"
                   disabled={submitting}
                   component={Input}
                 />
               </div>
               <div className={styles.buttonContainer}>
                 <button
-                  className={`${styles.buttonGreen} ${(submitting || pristine) && styles.disabled}`}
+                  className={`${styles.btnLogin} ${(submitting || pristine) && styles.disabled}`}
                   type="submit"
                   disabled={submitting || pristine}
                 >
-                  LOGIN
+                  SIGN IN
                 </button>
               </div>
             </form>
           )}
         />
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
