@@ -3,26 +3,22 @@ import Spinner from 'Components/Shared/Spinner';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getOneInterview } from 'redux/Interviews/thunks';
-import { getProfiles } from 'redux/Profiles/thunks';
+import { getOneSession } from 'redux/Sessions/thunks';
 import styles from './interview.module.css';
 
 function Interview() {
-  //id: pending = 61afbb52fc13ae682c0004ba
-  //id done = 61afbb52fc13ae682c0004c0
   const { id } = useParams();
-  const interview = useSelector((state) => state.interviews.interview);
-  const isLoadingForm = useSelector((state) => state.interviews.isLoadingForm);
+  const session = useSelector((state) => state.sessions.session);
+  const isLoadingForm = useSelector((state) => state.sessions.isLoadingForm);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProfiles());
-    dispatch(getOneInterview(id));
+    dispatch(getOneSession(id));
   }, [dispatch]);
 
   if (isLoadingForm) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
-  if (Object.keys(interview).length !== 0 && !isLoadingForm) {
+  if (Object.keys(session).length !== 0 && !isLoadingForm) {
     return (
       <section className={styles.container}>
         <div className={styles.containerInterviews}>
@@ -34,17 +30,16 @@ function Interview() {
             <div className={styles.itemPersonalLong}>
               <h3 className={styles.titlePersonal}>Date:</h3>
               <span className={styles.infoPersonal}>
-                {interview.dateTime.split('T')[0]} -{' '}
-                {interview.dateTime.split('T')[1].split('.')[0]}
+                {session.date} - {session.time}hs
               </span>
             </div>
             <div className={styles.itemPersonalLong}>
               <h3 className={styles.titlePersonal}>Interviewee:</h3>
-              <span className={styles.infoPersonal}>{interview.idCandidate.name}</span>
+              <span className={styles.infoPersonal}>{session.idCandidate.name}</span>
             </div>
             <div className={styles.itemPersonalLong}>
               <h3 className={styles.titlePersonal}>Status:</h3>
-              <span className={styles[interview.status?.toLowerCase()]}>{interview.status}</span>
+              <span className={styles[session.status?.toLowerCase()]}>{session.status}</span>
             </div>
           </div>
         </div>
