@@ -106,7 +106,11 @@ export const getPsychologists = () => {
 
 export const getOnePsychologist = (id) => (dispatch) => {
   dispatch(getOnePsychologistFetching());
-  return fetch(`${BASE_URL}/${id}`)
+  return fetch(`${BASE_URL}/${id}`, {
+    headers: {
+      token: sessionStorage.getItem('token')
+    }
+  })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -122,7 +126,12 @@ export const getOnePsychologist = (id) => (dispatch) => {
 
 export const deletePsychologist = (id) => (dispatch) => {
   dispatch(deletePsychologistFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      token: sessionStorage.getItem('token')
+    }
+  })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -162,7 +171,8 @@ export const updatePsychologist = (psychologist, id) => (dispatch) => {
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
-      'Content-type': 'application/json; charset=UTF-8'
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(psychologist)
   })
