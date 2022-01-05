@@ -61,7 +61,6 @@ function Admins() {
 
   if (isLoading || isLoadingForm)
     return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-  console.log(loggedUser);
   return (
     <section className={styles.container}>
       <div className={styles.list}>
