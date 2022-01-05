@@ -4,6 +4,8 @@ import FirstView from 'Components/Psychologist/FirstView';
 import CompletedInterviews from 'Components/Psychologist/CompletedInterviews';
 import Layout from 'Components/Layout';
 import PrivateRoutePsychologist from './PrivateRoutePsychologist';
+import PostulantProfile from 'Components/Psychologist/PostulantProfile';
+import Search from 'Components/Psychologist/Search';
 
 const PsychologistRoutes = () => {
   const { url } = useRouteMatch();
@@ -16,6 +18,12 @@ const PsychologistRoutes = () => {
           path={`${url}/completed-interviews`}
           component={CompletedInterviews}
         />
+        <PrivateRoutePsychologist path={`${url}/postulants/search`} component={Search} />
+        <PrivateRoutePsychologist
+          path={`${url}/completed-interviews`}
+          component={CompletedInterviews}
+        />
+        <PrivateRoutePsychologist path={`${url}/postulant/:id`} component={PostulantProfile} />
       </Switch>
     </Layout>
   );

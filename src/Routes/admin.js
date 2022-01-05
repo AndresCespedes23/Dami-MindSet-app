@@ -8,6 +8,10 @@ import Postulants from 'Components/Admin/Postulants';
 import Profiles from 'Components/Admin/Profiles';
 import Psychologists from 'Components/Admin/Psychologists';
 import Sessions from 'Components/Admin/Sessions';
+import PostulantProfile from 'Components/Admin/UsersProfiles/Postulants';
+import PsychologistsProfile from 'Components/Admin/UsersProfiles/Psychologists';
+import PsychologistsStates from 'Components/Admin/PsychologistsStates';
+import AdminProfile from 'Components/Admin/UsersProfiles/Admin';
 import Layout from 'Components/Layout';
 import PrivateRouteAdmin from 'Routes/PrivateRouteAdmin';
 import Home from 'Components/Admin/Home';
@@ -38,6 +42,11 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/profiles`} component={Profiles} />
         <PrivateRouteAdmin path={`${url}/psychologists`} component={Psychologists} />
         <PrivateRouteAdmin path={`${url}/sessions`} component={Sessions} />
+        <PrivateRouteAdmin path={`${url}/profile/postulant`} component={PostulantProfile} />
+        <PrivateRouteAdmin path={`${url}/profile/psychologist`} component={PsychologistsProfile} />
+        <PrivateRouteAdmin path={`${url}/psychologists-states`} component={PsychologistsStates} />
+        <PrivateRouteAdmin path={`${url}/profile/administrator`} component={AdminProfile} />
+        <PrivateRouteAdmin to={`${url}/`} component={Home} />
         <PrivateRouteAdmin to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
