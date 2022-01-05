@@ -14,6 +14,9 @@ import {
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
   GET_ONE_POSTULANTS_REJETED,
+  SEARCH_POSTULANTS_FETCHING,
+  SEARCH_POSTULANTS_FULFILLED,
+  SEARCH_POSTULANTS_REJETED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -172,6 +175,18 @@ const postulantsReducer = (state = initialState, action) => {
         postulant: initialState.postulant
       };
     }
+    case SEARCH_POSTULANTS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case SEARCH_POSTULANTS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case SEARCH_POSTULANTS_REJETED:
     default:
       return state;
   }
