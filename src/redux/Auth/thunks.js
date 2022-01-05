@@ -9,6 +9,11 @@ import {
   registerNewUserFulfilled,
   registerNewUserRejected
 } from './actions';
+import {
+  GET_LOGGED_USER_FETCHING,
+  GET_LOGGED_USER_FULFILLED,
+  GET_LOGGED_USER_REJECTED
+} from 'constants/actionTypes';
 import firebase from 'helpers/firebase';
 
 export const login = (credentials) => {
@@ -70,6 +75,55 @@ export const registerNewUser = (credentials, userType) => {
       })
       .catch(() => {
         dispatch(registerNewUserRejected());
+      });
+  };
+};
+
+const getLoggedUserFetching = () => ({
+  type: GET_LOGGED_USER_FETCHING
+});
+
+const getLoggedUserFulfilled = (payload) => ({
+  type: GET_LOGGED_USER_FULFILLED,
+  payload
+});
+
+const getLoggedUserRejected = () => ({
+  type: GET_LOGGED_USER_REJECTED
+});
+
+export const getLoggedUser = (id, userType) => {
+  return (dispatch) => {
+    dispatch(getLoggedUserFetching());
+    let BASE_URL;
+    switch (userType) {
+      case 'CANDIDATE':
+        BASE_URL = `${process.env.REACT_APP_API}/candidates`;
+        break;
+      case 'ADMIN':
+        BASE_URL = `${process.env.REACT_APP_API}/admins`;
+        break;
+      case 'PSYCHOLOGIST':
+        BASE_URL = `${process.env.REACT_APP_API}/psychologists`;
+        break;
+      default:
+        break;
+    }
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getLoggedUserFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getLoggedUserRejected());
       });
   };
 };
