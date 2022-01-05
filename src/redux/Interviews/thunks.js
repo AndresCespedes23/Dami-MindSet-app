@@ -34,7 +34,11 @@ const getInterviewsRejected = () => ({
 export const getInterviews = () => {
   return (dispatch) => {
     dispatch(getInterviewsFetching());
-    fetch(BASE_URL)
+    fetch(BASE_URL, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -160,7 +164,11 @@ const getOneInterviewRejected = () => ({
 export const getOneInterview = (id) => {
   return (dispatch) => {
     dispatch(getOneInterviewFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);

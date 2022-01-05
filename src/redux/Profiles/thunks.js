@@ -34,7 +34,11 @@ const getProfilesRejected = () => ({
 export const getProfiles = () => {
   return (dispatch) => {
     dispatch(getProfilesFetching());
-    fetch(URL)
+    fetch(URL, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -160,7 +164,11 @@ const getProfileRejected = () => ({
 export const getOneProfile = (id) => {
   return (dispatch) => {
     dispatch(getProfileFetching());
-    return fetch(`${URL}/${id}`)
+    return fetch(`${URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
