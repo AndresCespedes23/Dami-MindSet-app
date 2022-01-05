@@ -71,7 +71,8 @@ export const addProfile = (profile) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
+      'Content-Type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(profile)
   })
@@ -102,7 +103,15 @@ const deleteProfilesRejected = () => ({
 
 export const deleteProfile = (id) => (dispatch) => {
   dispatch(deleteProfilesFetching());
-  return fetch(`${URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -132,7 +141,7 @@ export const updateProfile = (profiles, id) => (dispatch) => {
   dispatch(updateProfilesFetching());
   return fetch(`${URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', token: sessionStorage.getItem('token') },
     body: JSON.stringify(profiles)
   })
     .then((response) => {
@@ -164,7 +173,11 @@ const getProfileRejected = () => ({
 export const getOneProfile = (id) => {
   return (dispatch) => {
     dispatch(getProfileFetching());
-    return fetch(`${URL}/${id}`)
+    return fetch(`${URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);

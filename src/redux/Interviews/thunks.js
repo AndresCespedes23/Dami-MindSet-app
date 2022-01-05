@@ -74,7 +74,8 @@ export const addInterview = (interview) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(interview)
   })
@@ -105,7 +106,15 @@ const deleteInterviewRejected = () => ({
 
 export const deleteInterview = (id) => (dispatch) => {
   dispatch(deleteInterviewFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${BASE_URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -136,7 +145,7 @@ export const updateInterview = (interviews, id) => (dispatch) => {
   dispatch(updateInterviewFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', token: sessionStorage.getItem('token') },
     body: JSON.stringify(interviews)
   })
     .then((data) => {
@@ -167,7 +176,11 @@ const getOneInterviewRejected = () => ({
 export const getOneInterview = (id) => {
   return (dispatch) => {
     dispatch(getOneInterviewFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);

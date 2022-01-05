@@ -71,7 +71,8 @@ export const addSessions = (client) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(client)
   })
@@ -102,7 +103,15 @@ const deleteSessionsRejected = () => ({
 
 export const deleteSessions = (id) => (dispatch) => {
   dispatch(deleteSessionsFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${BASE_URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -133,7 +142,7 @@ export const updateSessions = (sessions, id) => (dispatch) => {
   dispatch(updateSessionsFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', token: sessionStorage.getItem('token') },
     body: JSON.stringify(sessions)
   })
     .then((data) => {
@@ -164,7 +173,11 @@ const getOneSessionRejected = () => ({
 export const getOneSession = (id) => {
   return (dispatch) => {
     dispatch(getOneSessionFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
