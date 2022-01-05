@@ -167,3 +167,20 @@ cursor: pointer;
 .backBtnAdmin:hover {
   background-color: #002147;
 }
+.backBtnAdmin {
+  background-color:#002147;	  font: 1.1rem Century Gothic;
+  margin: 30px;
+  padding: 5px 15px;
+  background-color: #680404;
+  border-radius: 20px;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+  cursor: pointer;
+}
+.backBtnPsycho:hover,
+.backBtnAdmin:hover {
+  background-color: #002147;
+}
