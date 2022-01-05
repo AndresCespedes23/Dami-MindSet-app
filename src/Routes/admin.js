@@ -8,6 +8,7 @@ import Postulants from 'Components/Admin/Postulants';
 import Profiles from 'Components/Admin/Profiles';
 import Psychologists from 'Components/Admin/Psychologists';
 import Sessions from 'Components/Admin/Sessions';
+import PsychologistsProfile from 'Components/Admin/UsersProfiles/Psychologists';
 import PsychologistsStates from 'Components/Admin/PsychologistsStates';
 import AdminProfile from 'Components/Admin/UsersProfiles/Admin';
 import Layout from 'Components/Layout';
@@ -40,6 +41,7 @@ const AdminRoutes = () => {
         <PrivateRoute path={`${url}/profiles`} component={Profiles} />
         <PrivateRoute path={`${url}/psychologists`} component={Psychologists} />
         <PrivateRoute path={`${url}/sessions`} component={Sessions} />
+        <PrivateRoute path={`${url}/profile/psychologist`} component={PsychologistsProfile} />
         <PrivateRoute path={`${url}/psychologists-states`} component={PsychologistsStates} />
         <PrivateRoute path={`${url}/profile/administrator`} component={AdminProfile} />
         <PrivateRoute to={`${url}/`} component={Home} />
