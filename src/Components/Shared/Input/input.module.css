@@ -7,6 +7,7 @@
 
 .hide{
   visibility: hidden;
+  height: 0;
 }
 
 input[type=date] {

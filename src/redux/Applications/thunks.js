@@ -34,7 +34,11 @@ const getApplicationsRejected = () => ({
 export const getApplications = () => {
   return (dispatch) => {
     dispatch(getApplicationsFetching());
-    fetch(URL)
+    fetch(URL, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -160,7 +164,11 @@ const getApplicationRejected = () => ({
 export const getOneApplication = (id) => {
   return (dispatch) => {
     dispatch(getApplicationFetching());
-    return fetch(`${URL}/${id}`)
+    return fetch(`${URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);

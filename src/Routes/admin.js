@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
+import { Switch, useRouteMatch } from 'react-router-dom';
 import Admins from 'Components/Admin/Admins';
 import Applications from 'Components/Admin/Applications';
 import Clients from 'Components/Admin/Clients';
@@ -8,7 +8,13 @@ import Postulants from 'Components/Admin/Postulants';
 import Profiles from 'Components/Admin/Profiles';
 import Psychologists from 'Components/Admin/Psychologists';
 import Sessions from 'Components/Admin/Sessions';
+import PostulantProfile from 'Components/Admin/UsersProfiles/Postulants';
+import PsychologistsProfile from 'Components/Admin/UsersProfiles/Psychologists';
+import PsychologistsStates from 'Components/Admin/PsychologistsStates';
+import AdminProfile from 'Components/Admin/UsersProfiles/Admin';
 import Layout from 'Components/Layout';
+import PrivateRoute from 'Routes/PrivateRoute';
+import Home from 'Components/Admin/Home';
 
 const adminsRoutes = [
   { name: 'Admins', path: '/admin/admins/' },
@@ -27,16 +33,20 @@ const AdminRoutes = () => {
   return (
     <Layout routes={adminsRoutes} styleType="admin">
       <Switch>
-        <Route path={`${url}/admins`} component={Admins} />
-        <Route path={`${url}/applications`} component={Applications} />
-        <Route path={`${url}/clients`} component={Clients} />
-        <Route path={`${url}/interviews`} component={Interviews} />
-        <Route path={`${url}/positions`} component={Positions} />
-        <Route path={`${url}/postulants`} component={Postulants} />
-        <Route path={`${url}/profiles`} component={Profiles} />
-        <Route path={`${url}/psychologists`} component={Psychologists} />
-        <Route path={`${url}/sessions`} component={Sessions} />
-        <Redirect to={`${url}/admins`} />
+        <PrivateRoute path={`${url}/admins`} component={Admins} />
+        <PrivateRoute path={`${url}/applications`} component={Applications} />
+        <PrivateRoute path={`${url}/clients`} component={Clients} />
+        <PrivateRoute path={`${url}/interviews`} component={Interviews} />
+        <PrivateRoute path={`${url}/positions`} component={Positions} />
+        <PrivateRoute path={`${url}/postulants`} component={Postulants} />
+        <PrivateRoute path={`${url}/profiles`} component={Profiles} />
+        <PrivateRoute path={`${url}/psychologists`} component={Psychologists} />
+        <PrivateRoute path={`${url}/sessions`} component={Sessions} />
+        <PrivateRoute path={`${url}/profile/postulant`} component={PostulantProfile} />
+        <PrivateRoute path={`${url}/profile/psychologist`} component={PsychologistsProfile} />
+        <PrivateRoute path={`${url}/psychologists-states`} component={PsychologistsStates} />
+        <PrivateRoute path={`${url}/profile/administrator`} component={AdminProfile} />
+        <PrivateRoute to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
   );

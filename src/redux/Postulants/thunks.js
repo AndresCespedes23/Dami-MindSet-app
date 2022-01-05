@@ -13,7 +13,10 @@ import {
   UPDATE_POSTULANTS_REJETED,
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
-  GET_ONE_POSTULANTS_REJETED
+  GET_ONE_POSTULANTS_REJETED,
+  SEARCH_POSTULANTS_FETCHING,
+  SEARCH_POSTULANTS_FULFILLED,
+  SEARCH_POSTULANTS_REJETED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/candidates`;
@@ -27,7 +30,11 @@ const getPostulantsRejected = () => ({ type: GET_POSTULANTS_REJETED });
 export const getPostulants = () => {
   return (dispatch) => {
     dispatch(getPostulantsFetching());
-    fetch(BASE_URL)
+    fetch(BASE_URL, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -130,7 +137,11 @@ const getOnePostulantsRejected = () => ({ type: GET_ONE_POSTULANTS_REJETED });
 export const getOnePostulant = (id) => {
   return (dispatch) => {
     dispatch(getOnePostulantsFetching());
-    return fetch(`${BASE_URL}/${id}`)
+    return fetch(`${BASE_URL}/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -141,6 +152,33 @@ export const getOnePostulant = (id) => {
       })
       .catch(() => {
         dispatch(getOnePostulantsRejected());
+      });
+  };
+};
+
+const searchPostulantsFetching = () => ({ type: SEARCH_POSTULANTS_FETCHING });
+
+const searchPostulantsFulfilled = (payload) => ({ type: SEARCH_POSTULANTS_FULFILLED, payload });
+
+const searchPostulantsRejected = () => ({ type: SEARCH_POSTULANTS_REJETED });
+
+export const searchPostulants = (text) => {
+  return (dispatch) => {
+    dispatch(searchPostulantsFetching());
+    fetch(`${BASE_URL}/search?name=${text}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(searchPostulantsFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(searchPostulantsRejected());
       });
   };
 };

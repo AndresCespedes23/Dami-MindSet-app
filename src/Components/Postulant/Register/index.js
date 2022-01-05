@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import Input from 'Components/Shared/Input';
 import styles from './register.module.css';
 import { setRegisterInfo } from 'redux/PostulantModule/actions';
+import { registerNewUser } from 'redux/Auth/thunks';
+import { login } from 'redux/Auth/thunks';
 import { useDispatch } from 'react-redux';
 
 function Register() {
@@ -14,7 +16,11 @@ function Register() {
   const onSubmit = (formValues) => {
     if (formValues) {
       dispatch(setRegisterInfo(formValues));
-      history.push('/postulants/personal-info');
+      dispatch(registerNewUser(formValues)).then(() => {
+        dispatch(login(formValues)).then(() => {
+          history.push('/postulants/personal-info');
+        });
+      });
     }
   };
 
@@ -101,6 +107,12 @@ function Register() {
                       error={error.repeatPassword}
                       disabled={formProps.submitting}
                       validate={required}
+                    />
+                    <Field
+                      component={Input}
+                      name="userType"
+                      hiddenInput={true}
+                      initialValue="CANDIDATE"
                     />
                   </div>
                 </div>
