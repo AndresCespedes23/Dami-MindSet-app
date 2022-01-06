@@ -5,13 +5,11 @@ import {
 } from 'constants/actionTypes';
 
 const initialState = {
-  isLoading: false,
   list: [],
+  isLoading: false,
   error: false,
   messageType: '',
-  messageText: '',
-  showModal: false,
-  showMessage: false
+  messageText: ''
 };
 
 const statisticsReducer = (state = initialState, action) => {
@@ -35,6 +33,8 @@ const statisticsReducer = (state = initialState, action) => {
         messageType: 'error',
         messageText: 'Cannot get sessions'
       };
+    default:
+      return state;
   }
 };
 

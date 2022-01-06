@@ -11,7 +11,7 @@ function Profile() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
+    dispatch(getOnePostulant(sessionStorage.getItem('id')));
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -141,22 +141,55 @@ function Profile() {
             return (
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
-                  <h5>{`${data.role} in ${data.company}`}</h5>
+                  <h5>{`${data?.role} in ${data?.company}`}</h5>
                   <Button type={'editInfo'} />
                 </div>
                 <div className={style.workExperience}>
                   <div>
                     <span>
-                      {`Since ${data.startDate.split('T')[0]} to ${data.finishDate.split('T')[0]}`}
+                      {`Since ${data?.startDate.split('T')[0]} to ${
+                        data?.finishDate.split('T')[0]
+                      }`}
                     </span>
                   </div>
                   <div>
                     <h4>What did you do?:</h4>
-                    <span>{data.description}</span>
+                    <span>{data?.description}</span>
                   </div>
                   <div>
                     <h4>Biggest Accomplishments:</h4>
-                    <span>{data.accomplishments}</span>
+                    <span>{data?.accomplishments}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <h3>COURSES</h3>
+        <div className={style.box}>
+          {postulant.courses?.map((data) => {
+            return (
+              <div key={data._id} className={style.box}>
+                <div className={style.subtitle}>
+                  <div></div>
+                  <Button type={'editInfo'} />
+                </div>
+                <div className={style.workExperience}>
+                  <div>
+                    <h4>Name:</h4>
+                    <span>{data?.name}</span>
+                  </div>
+                  <div>
+                    <h4>Organization:</h4>
+                    <span>{data?.organization}</span>
+                  </div>
+                  <div>
+                    <h4>Duration:</h4>
+                    <span>{data?.duration}</span>
+                  </div>
+                  <div>
+                    <h4>Description:</h4>
+                    <span>{data?.description}</span>
                   </div>
                 </div>
               </div>

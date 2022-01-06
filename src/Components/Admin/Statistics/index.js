@@ -7,7 +7,7 @@ import { getProfileStatistics } from 'redux/Statistics/thunks';
 
 function Admins() {
   const isLoading = useSelector((state) => state.admins.isLoading);
-  const profileStatistics = useSelector((store) => store.Statistics.list);
+  const profileStatistics = [];
 
   const dispatch = useDispatch();
 
