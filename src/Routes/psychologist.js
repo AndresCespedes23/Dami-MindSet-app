@@ -13,7 +13,7 @@ const PsychologistRoutes = () => {
         <Route path={`${url}/`} exact component={Home} />
         <Route path={`${url}/first-view`} component={FirstView} />
         <Route path={`${url}/completed-interviews/:id`} component={CompletedInterviews} />
-        <Route path={`${url}/change-interviewed`} component={ChangeInterviewed} />
+        <Route path={`${url}/change-interviewed/:id`} component={ChangeInterviewed} />
       </Switch>
     </Layout>
   );
