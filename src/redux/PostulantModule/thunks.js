@@ -15,13 +15,13 @@ const registerPostulantsFulfilled = (payload) => ({
 
 const registerPostulantsRejected = () => ({ type: REGISTER_NEW_POSTULANT_ACCOUNT_REJECTED });
 
-export const registerPostulant = (postulant) => (dispatch) => {
+export const registerPostulant = (postulant, id) => (dispatch) => {
   dispatch(registerPostulantsFetching());
-  return fetch(BASE_URL, {
-    method: 'POST',
-    mode: 'cors',
+  return fetch(`${BASE_URL}/${id}`, {
+    method: 'PUT',
     headers: {
-      'Content-type': 'application/json'
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(postulant)
   })

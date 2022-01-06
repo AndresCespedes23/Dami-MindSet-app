@@ -71,7 +71,8 @@ export const addClient = (client) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(client)
   })
@@ -102,7 +103,15 @@ const deleteClientsRejected = () => ({
 
 export const deleteClient = (id) => (dispatch) => {
   dispatch(deleteClientsFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${BASE_URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -133,7 +142,8 @@ export const updateClient = (client, id) => (dispatch) => {
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
-      'Content-type': 'application/json; charset=UTF-8'
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(client)
   })

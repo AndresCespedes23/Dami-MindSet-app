@@ -9,13 +9,20 @@ import {
   LOG_OUT_REJECTED,
   REGISTER_NEW_USER_FETCHING,
   REGISTER_NEW_USER_FULFILLED,
-  REGISTER_NEW_USER_REJECTED
+  REGISTER_NEW_USER_REJECTED,
+  GET_LOGGED_USER_FETCHING,
+  GET_LOGGED_USER_FULFILLED,
+  GET_LOGGED_USER_REJECTED
 } from 'constants/actionTypes';
 
 const initialState = {
   isLoading: false,
   authenticated: false,
-  error: ''
+  error: false,
+  showMessage: false,
+  messageType: '',
+  messageText: '',
+  loggedUser: {}
 };
 
 const authReducer = (state = initialState, action) => {
@@ -85,16 +92,39 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        authenticated: true
+        authenticated: true,
+        messageType: 'success',
+        messageText: 'Added'
       };
     }
     case REGISTER_NEW_USER_REJECTED: {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot Add'
       };
     }
+    case GET_LOGGED_USER_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_LOGGED_USER_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        loggedUser: action.payload
+      };
+    case GET_LOGGED_USER_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get logged user'
+      };
     default: {
       return state;
     }

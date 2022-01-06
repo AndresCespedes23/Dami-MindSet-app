@@ -11,7 +11,8 @@ import OtherInfoForm from 'Components/Postulant/OtherInfoForm';
 import Profile from 'Components/Postulant/Profile';
 import Courses from 'Components/Postulant/Courses';
 import Education from 'Components/Postulant/Education';
-import PrivateRoute from './PrivateRoute';
+import HomeLogged from 'Components/Postulant/HomeLogged';
+import PrivateRoutePostulant from './PrivateRoutePostulant';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
@@ -21,14 +22,15 @@ const PostulantRoutes = () => {
         <Route path={`${url}/`} exact component={Home} />
         <Route path={`${url}/sign`} component={Sign} />
         <Route path={`${url}/register`} component={Register} />
-        <PrivateRoute path={`${url}/personal-info`} component={PersonalInfo} />
-        <PrivateRoute path={`${url}/education`} exact component={Education} />
-        <PrivateRoute path={`${url}/work`} exact component={Work} />
-        <PrivateRoute path={`${url}/courses`} component={Courses} />
-        <PrivateRoute path={`${url}/description`} component={Description} />
-        <PrivateRoute path={`${url}/other-info`} component={OtherInfoForm} />
-        <PrivateRoute path={`${url}/summary`} component={Summary} />
-        <PrivateRoute path={`${url}/profile`} component={Profile} />
+        <PrivateRoutePostulant path={`${url}/personal-info`} component={PersonalInfo} />
+        <PrivateRoutePostulant path={`${url}/education`} exact component={Education} />
+        <PrivateRoutePostulant path={`${url}/work`} exact component={Work} />
+        <PrivateRoutePostulant path={`${url}/courses`} component={Courses} />
+        <PrivateRoutePostulant path={`${url}/description`} component={Description} />
+        <PrivateRoutePostulant path={`${url}/other-info`} component={OtherInfoForm} />
+        <PrivateRoutePostulant path={`${url}/summary`} component={Summary} />
+        <PrivateRoutePostulant path={`${url}/profile`} component={Profile} />
+        <PrivateRoutePostulant path={`${url}/home`} component={HomeLogged} />
         <Redirect to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
