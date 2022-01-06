@@ -18,13 +18,8 @@ const PrivateRoutePsychologist = ({ component: RouteComponent, ...rest }) => {
       render={(routeProps) =>
         sessionStorage.getItem('token') && sessionStorage.getItem('userType') === 'PSYCHOLOGIST' ? (
           <RouteComponent {...routeProps} />
-        ) : sessionStorage.getItem('token') &&
-          sessionStorage.getItem('userType') === 'CANDIDATE' ? (
-          <Redirect to={'/postulants/home'} />
-        ) : sessionStorage.getItem('token') && sessionStorage.getItem('userType') === 'ADMIN' ? (
-          <Redirect to={'/admin'} />
         ) : (
-          <Redirect to={'/auth/sign'} />
+          <Redirect to={'/forbidden'} />
         )
       }
     />

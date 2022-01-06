@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 import Spinner from 'Components/Shared/Spinner';
 import { tokenListener } from 'helpers/firebase';
+import Forbidden from 'Components/Shared/Forbidden';
 
 const AdminRoutes = lazy(() => import('Routes/admin'));
 const PostulantRoutes = lazy(() => import('Routes/postulants'));
@@ -23,6 +24,7 @@ const Routes = () => {
           <Route path="/admin" component={AdminRoutes} />
           <Route path="/psychologist" component={PsychologistRoutes} />
           <Route path="/auth" component={AuthRoutes} />
+          <Route path="/forbidden" component={Forbidden} />
           <Redirect to="/postulants" />
         </Switch>
       </Suspense>

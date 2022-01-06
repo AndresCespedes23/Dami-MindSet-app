@@ -18,13 +18,8 @@ const PrivateRoutePostulant = ({ component: RouteComponent, ...rest }) => {
       render={(routeProps) =>
         sessionStorage.getItem('token') && sessionStorage.getItem('userType') === 'CANDIDATE' ? (
           <RouteComponent {...routeProps} />
-        ) : sessionStorage.getItem('token') && sessionStorage.getItem('userType') === 'ADMIN' ? (
-          <Redirect to={'/admin'} />
-        ) : sessionStorage.getItem('token') &&
-          sessionStorage.getItem('userType') === 'PSYCHOLOGIST' ? (
-          <Redirect to={'/psychologist'} />
         ) : (
-          <Redirect to={'/auth/sign'} />
+          <Redirect to={'/forbidden'} />
         )
       }
     />
