@@ -1,9 +1,10 @@
-import { Switch, useRouteMatch } from 'react-router-dom';
+import { Redirect, Switch, useRouteMatch } from 'react-router-dom';
 import Home from 'Components/Psychologist/Home';
 import FirstView from 'Components/Psychologist/FirstView';
 import CompletedInterviews from 'Components/Psychologist/CompletedInterviews';
 import Layout from 'Components/Layout';
 import PrivateRoutePsychologist from './PrivateRoutePsychologist';
+import Interview from 'Components/Psychologist/Interview';
 import PostulantProfile from 'Components/Psychologist/PostulantProfile';
 import Search from 'Components/Psychologist/Search';
 
@@ -20,6 +21,8 @@ const PsychologistRoutes = () => {
         />
         <PrivateRoutePsychologist path={`${url}/postulants/search`} component={Search} />
         <PrivateRoutePsychologist path={`${url}/postulant/:id`} component={PostulantProfile} />
+        <PrivateRoutePsychologist path={`${url}/interview/:id`} component={Interview} />
+        <Redirect to={`${url}/`} />
       </Switch>
     </Layout>
   );
