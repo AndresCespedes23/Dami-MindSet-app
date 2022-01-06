@@ -10,6 +10,7 @@ import profilesReducer from 'redux/Profiles/reducer';
 import postulantsReducer from 'redux/Postulants/reducer';
 import postulantsModuleReducer from 'redux/PostulantModule/reducer';
 import authReducer from 'redux/Auth/reducer';
+import statisticsReducer from 'redux/Statistics/reducer';
 
 const rootReducer = combineReducers({
   admins: adminsReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   postulants: postulantsReducer,
   psychologists: psychologistReducer,
   postulantModule: postulantsModuleReducer,
-  auth: authReducer
+  auth: authReducer,
+  statistics: statisticsReducer
 });
 
 export default rootReducer;

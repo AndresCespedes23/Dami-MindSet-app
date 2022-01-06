@@ -15,6 +15,7 @@ import AdminProfile from 'Components/Admin/UsersProfiles/Admin';
 import Layout from 'Components/Layout';
 import PrivateRoute from 'Routes/PrivateRoute';
 import Home from 'Components/Admin/Home';
+import Statistics from 'Components/Admin/Statistics';
 
 const adminsRoutes = [
   { name: 'Admins', path: '/admin/admins/' },
@@ -46,6 +47,7 @@ const AdminRoutes = () => {
         <PrivateRoute path={`${url}/profile/psychologist`} component={PsychologistsProfile} />
         <PrivateRoute path={`${url}/psychologists-states`} component={PsychologistsStates} />
         <PrivateRoute path={`${url}/profile/administrator`} component={AdminProfile} />
+        <PrivateRoute path={`${url}/statistics`} component={Statistics} />
         <PrivateRoute to={`${url}/`} component={Home} />
       </Switch>
     </Layout>
