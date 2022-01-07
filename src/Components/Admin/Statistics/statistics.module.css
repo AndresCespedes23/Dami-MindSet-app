@@ -75,3 +75,6 @@ table {
       .greenBtn:hover {
           background-color: #002147;
       }
+      button:hover{
+        cursor: pointer;
+      }

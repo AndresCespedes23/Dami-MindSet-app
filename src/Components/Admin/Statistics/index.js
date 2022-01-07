@@ -14,11 +14,13 @@ import {
   Legend
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { useHistory } from 'react-router-dom';
 
 function Admins() {
   const isLoading = useSelector((state) => state.statistics.isLoading);
   const quantities = useSelector((state) => state.statistics.data);
   const dispatch = useDispatch();
+  const history = useHistory();
   ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
   const options = {
     responsive: true,
@@ -78,13 +80,15 @@ function Admins() {
   useEffect(() => {
     dispatch(getQuantityStatistics());
   }, [dispatch]);
-
+  const handleBackClick = () => {
+    history.push('/admin/home');
+  };
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
   return (
     <section className={styles.container}>
       <div className={styles.containerPsychologists}>
         <div className={styles.header}>
-          <Button type={'backBtnAdmin'} />
+          <Button type={'backBtnAdmin'} onClick={handleBackClick} />
           <h2>Statistics</h2>
         </div>
         <div className={styles.contentPsychologists}>
