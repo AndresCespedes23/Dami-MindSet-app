@@ -95,7 +95,7 @@ function ChangeInterviewed() {
         </div>
         <div>
           <h4>Interview:</h4>
-          <span></span>
+          <span>{session.result}</span>
         </div>
         <div></div>
       </div>
