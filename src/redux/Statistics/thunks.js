@@ -1,28 +1,28 @@
 import {
-  GET_PROFILE_STATISTICS_FETCHING,
-  GET_PROFILE_STATISTICS_FULFILLED,
-  GET_PROFILE_STATISTICS_REJECTED
+  GET_QUANTITY_STATISTICS_FETCHING,
+  GET_QUANTITY_STATISTICS_FULFILLED,
+  GET_QUANTITY_STATISTICS_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/statistics`;
 
-const getProfileStatisticsFetching = () => ({
-  type: GET_PROFILE_STATISTICS_FETCHING
+const getQuantityStatisticsFetching = () => ({
+  type: GET_QUANTITY_STATISTICS_FETCHING
 });
 
-const getProfileStatisticsFulfilled = (payload) => ({
-  type: GET_PROFILE_STATISTICS_FULFILLED,
+const getQuantityStatisticsFulfilled = (payload) => ({
+  type: GET_QUANTITY_STATISTICS_FULFILLED,
   payload
 });
 
-const getProfileStatisticsRejected = () => ({
-  type: GET_PROFILE_STATISTICS_REJECTED
+const getQuantityStatisticsRejected = () => ({
+  type: GET_QUANTITY_STATISTICS_REJECTED
 });
 
-export const getProfileStatistics = () => {
+export const getQuantityStatistics = () => {
   return (dispatch) => {
-    dispatch(getProfileStatisticsFetching());
-    fetch(`${BASE_URL}/profile`, {
+    dispatch(getQuantityStatisticsFetching());
+    fetch(`${BASE_URL}/quantity`, {
       headers: {
         token: sessionStorage.getItem('token')
       }
@@ -32,10 +32,11 @@ export const getProfileStatistics = () => {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        dispatch(getProfileStatisticsFulfilled(response.data));
+        console.log(response.data);
+        dispatch(getQuantityStatisticsFulfilled(response.data));
       })
       .catch(() => {
-        dispatch(getProfileStatisticsRejected());
+        dispatch(getQuantityStatisticsRejected());
       });
   };
 };

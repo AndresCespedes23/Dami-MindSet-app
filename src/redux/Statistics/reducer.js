@@ -1,11 +1,11 @@
 import {
-  GET_PROFILE_STATISTICS_FETCHING,
-  GET_PROFILE_STATISTICS_FULFILLED,
-  GET_PROFILE_STATISTICS_REJECTED
+  GET_QUANTITY_STATISTICS_FETCHING,
+  GET_QUANTITY_STATISTICS_FULFILLED,
+  GET_QUANTITY_STATISTICS_REJECTED
 } from 'constants/actionTypes';
 
 const initialState = {
-  list: [],
+  data: {},
   isLoading: false,
   error: false,
   messageType: '',
@@ -14,18 +14,18 @@ const initialState = {
 
 const statisticsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PROFILE_STATISTICS_FETCHING:
+    case GET_QUANTITY_STATISTICS_FETCHING:
       return {
         ...state,
         isLoading: true
       };
-    case GET_PROFILE_STATISTICS_FULFILLED:
+    case GET_QUANTITY_STATISTICS_FULFILLED:
       return {
         ...state,
         isLoading: false,
-        list: action.payload
+        data: action.payload
       };
-    case GET_PROFILE_STATISTICS_REJECTED:
+    case GET_QUANTITY_STATISTICS_REJECTED:
       return {
         ...state,
         isLoading: false,
