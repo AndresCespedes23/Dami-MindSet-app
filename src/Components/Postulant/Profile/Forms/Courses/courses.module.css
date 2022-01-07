@@ -1,0 +1,51 @@
+.title {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font: normal normal normal 25px/30px Century Gothic;
+    color: #002147;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .formContent {
+    padding: 0px 50px;
+}
+.inputColumn {
+    display: flex;
+    justify-content: space-between;
+}
+label {
+  margin-left: 10px;
+  font-weight: 900;
+}
+input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border: 3px solid #002147;
+  width: 100%;
+  padding: 5px;
+  font: normal normal normal 1.3em Century Gothic;
+  color: #002147;
+}
+.timeDurationInputs {
+  display: flex;
+  padding-left: 10px;
+  width: 70%;
+}
+.dateInput {
+  padding: 0px 25px;
+}
+.descriptionInput input {
+  padding-bottom: 150px;
+}
+::placeholder {
+  padding: 3px;
+  font: normal normal normal 1em Century Gothic;
+}
+  .containerFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 35px 20px 35px;
+  }

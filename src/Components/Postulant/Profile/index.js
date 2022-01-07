@@ -1,23 +1,74 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOnePostulant } from 'redux/Postulants/thunks';
+import { getOnePostulant, updatePostulant } from 'redux/Postulants/thunks';
+import { setShowModal, setModalType } from 'redux/Postulants/actions';
 import Button from 'Components/Shared/Button';
 import style from './profile.module.css';
 import Spinner from 'Components/Shared/Spinner';
+import Modal from 'Components/Postulant/Profile/Modal';
 
 function Profile() {
+  const [idActive, setIdActive] = useState('');
   const postulant = useSelector((store) => store.postulants.postulant);
+  const showModal = useSelector((state) => state.postulants.showModal);
+  const modalType = useSelector((state) => state.postulants.modalType);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
-
+  //'61cdb8aacb6158d321969398'
   useEffect(() => {
-    dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    dispatch(getOnePostulant('61cdb8aacb6158d321969398' /*sessionStorage.getItem('id')*/));
   }, [dispatch]);
 
   const getAge = (date) => {
     let today = new Date().getFullYear();
     let year = date.split('-')[0];
     return today - year;
+  };
+
+  const handleUpdatePostulants = (postulant) => {
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant('61cdb8aacb6158d321969398' /*sessionStorage.getItem('id')*/));
+    });
+  };
+
+  const handleClickUpdateAboutMe = (id) => {
+    dispatch(setModalType('about'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleClickUpdatePersonalInfo = (id) => {
+    dispatch(setModalType('personal info'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleClickUpdateEducation = (id) => {
+    dispatch(setModalType('education'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleClickUpdateWork = (id) => {
+    dispatch(setModalType('work'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleClickUpdateCourses = (id) => {
+    dispatch(setModalType('courses'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleClickUpdateOtherInfo = (id) => {
+    dispatch(setModalType('other info'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleShowModal = () => {
+    dispatch(setShowModal(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
@@ -54,7 +105,7 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h4>About me</h4>
-            <Button type={'editInfo'} />
+            <Button type={'editInfo'} onClick={() => handleClickUpdateAboutMe(postulant._id)} />
           </div>
           <div>
             <span>{postulant.description}</span>
@@ -63,7 +114,10 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>PERSONAL INFORMATION</h3>
-            <Button type={'editInfo'} />
+            <Button
+              type={'editInfo'}
+              onClick={() => handleClickUpdatePersonalInfo(postulant._id)}
+            />
           </div>
           <div className={style.boxinfo}>
             <div>
@@ -111,7 +165,10 @@ function Profile() {
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
                   <h5>{`${data.level} Education`}</h5>
-                  <Button type={'editInfo'} />
+                  <Button
+                    type={'editInfo'}
+                    onClick={() => handleClickUpdateEducation(postulant._id)}
+                  />
                 </div>
                 <div className={style.boxinfo}>
                   <div>
@@ -142,7 +199,7 @@ function Profile() {
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
                   <h5>{`${data?.role} in ${data?.company}`}</h5>
-                  <Button type={'editInfo'} />
+                  <Button type={'editInfo'} onClick={() => handleClickUpdateWork(postulant._id)} />
                 </div>
                 <div className={style.workExperience}>
                   <div>
@@ -172,7 +229,10 @@ function Profile() {
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
                   <div></div>
-                  <Button type={'editInfo'} />
+                  <Button
+                    type={'editInfo'}
+                    onClick={() => handleClickUpdateCourses(postulant._id)}
+                  />
                 </div>
                 <div className={style.workExperience}>
                   <div>
@@ -199,7 +259,7 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>OTHER INFORMATION</h3>
-            <Button type={'editInfo'} />
+            <Button type={'editInfo'} onClick={() => handleClickUpdateOtherInfo(postulant._id)} />
           </div>
           <div className={style.boxinfo}>
             <div>
@@ -221,6 +281,13 @@ function Profile() {
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={handleUpdatePostulants}
+        />
+      )}
     </section>
   );
 }
