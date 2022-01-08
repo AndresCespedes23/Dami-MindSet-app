@@ -14,9 +14,9 @@ function Profile() {
   const modalType = useSelector((state) => state.postulants.modalType);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
-  //'61cdb8aacb6158d321969398'
+  //'61c331fdb1a4e56772c1fdd0'
   useEffect(() => {
-    dispatch(getOnePostulant('61cdb8aacb6158d321969398' /*sessionStorage.getItem('id')*/));
+    dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
   }, [dispatch]);
 
   const getAge = (date) => {
