@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOnePostulant, updatePostulant, updateEducation } from 'redux/Postulants/thunks';
+import { getOnePostulant, updatePostulant } from 'redux/Postulants/thunks';
 import { setShowModal, setModalType } from 'redux/Postulants/actions';
 import Button from 'Components/Shared/Button';
 import style from './profile.module.css';
@@ -27,12 +27,6 @@ function Profile() {
 
   const handleUpdatePostulants = (postulant) => {
     dispatch(updatePostulant(postulant, idActive)).then(() => {
-      dispatch(getOnePostulant('61cdb8aacb6158d321969398' /*sessionStorage.getItem('id')*/));
-    });
-  };
-
-  const handleUpdateEducation = (postulant) => {
-    dispatch(updateEducation(postulant, idActive)).then(() => {
       dispatch(getOnePostulant('61cdb8aacb6158d321969398' /*sessionStorage.getItem('id')*/));
     });
   };
@@ -291,11 +285,7 @@ function Profile() {
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={
-            modalType === 'education' && !idActive
-              ? () => handleUpdateEducation
-              : handleUpdatePostulants
-          }
+          handleSubmit={handleUpdatePostulants}
         />
       )}
     </section>

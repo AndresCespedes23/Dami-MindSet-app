@@ -17,9 +17,6 @@ import {
   SEARCH_POSTULANTS_FETCHING,
   SEARCH_POSTULANTS_FULFILLED,
   SEARCH_POSTULANTS_REJETED,
-  UPDATE_EDUCATION_FETCHING,
-  UPDATE_EDUCATION_FULFILLED,
-  UPDATE_EDUCATION_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -35,7 +32,6 @@ const initialState = {
   messageType: '',
   messageText: '',
   postulant: {},
-  educationData: [],
   showModal: false,
   showMessage: false
 };
@@ -191,32 +187,6 @@ const postulantsReducer = (state = initialState, action) => {
         list: action.payload
       };
     case SEARCH_POSTULANTS_REJETED:
-    case UPDATE_EDUCATION_FETCHING:
-      return {
-        ...state,
-        isLoading: true
-      };
-    case UPDATE_EDUCATION_FULFILLED:
-      return {
-        ...state,
-        isLoading: false,
-        messageType: 'success',
-        messageText: 'Updated Postulant',
-        educationData: state.educationData?.map((education) => {
-          if (education._id === action.payload.id) {
-            return action.payload;
-          }
-          return education;
-        })
-      };
-    case UPDATE_EDUCATION_REJECTED:
-      return {
-        ...state,
-        isLoading: false,
-        error: true,
-        messageType: 'error',
-        messageText: 'Cannot update Postulant'
-      };
     default:
       return state;
   }

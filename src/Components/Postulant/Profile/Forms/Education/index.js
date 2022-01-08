@@ -29,7 +29,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
                     <Field
                       component={Select}
                       label="Level"
-                      name="level"
+                      name="education[0]level"
                       options={[
                         { value: 'primary', text: 'primary' },
                         { value: 'secondary', text: 'secondary' },
@@ -41,7 +41,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
                     />
                     <Field
                       label="Name of the institution"
-                      name="institution"
+                      name="education[0]institution"
                       component={Input}
                       type="text"
                       placeholder="Enter the name of the institution"
@@ -49,7 +49,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
                     />
                     <Field
                       label="Title"
-                      name="title"
+                      name="education[0]title"
                       component={Input}
                       type="text"
                       placeholder="Enter the title/specialty"
@@ -59,7 +59,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
                       <div>
                         <Field
                           label="Start Date"
-                          name="startDate"
+                          name="education[0]startDate"
                           component={Input}
                           type="date"
                           placeholder="YYYY"
@@ -69,7 +69,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
                       <div>
                         <Field
                           label="Finish Date"
-                          name="finishDate"
+                          name="education[0]finishDate"
                           type="date"
                           component={Input}
                           placeholder="YYYY"
