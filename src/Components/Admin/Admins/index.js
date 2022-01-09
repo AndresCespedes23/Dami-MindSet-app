@@ -43,6 +43,12 @@ function Admins() {
   const handleShowModal = () => {
     dispatch(setShowModal(false));
   };
+  const handleDissabled = (id, admin) => {
+    setIdActive(id);
+    dispatch(updateAdmins(admin, idActive)).then(() => {
+      dispatch(getAdmins());
+    });
+  };
 
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
@@ -84,22 +90,73 @@ function Admins() {
               <th>Action</th>
             </tr>
           </thead>
+          <h3 className={styles.title}>
+            <span className={styles.bold}>Active Admins</span>
+          </h3>
           <tbody>
             {admins.map((admin) => {
-              return (
-                <tr key={admin._id}>
-                  <td>{admin.name}</td>
-                  <td>{admin.email}</td>
-                  <td>{admin.username}</td>
-                  <td>
-                    {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
-                      <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
-                    ) : (
-                      <> </>
-                    )}
-                  </td>
-                </tr>
-              );
+              if (admin.isDeleted === false) {
+                return (
+                  <tr key={admin._id}>
+                    <td>{admin.name}</td>
+                    <td>{admin.email}</td>
+                    <td>{admin.username}</td>
+                    <td>
+                      {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
+                        <>
+                          <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
+                          <button
+                            className={styles.redBtn}
+                            onClick={() =>
+                              handleDissabled(admin._id, {
+                                ...admin,
+                                isDeleted: true
+                              })
+                            }
+                          >
+                            DISSABLE
+                          </button>
+                        </>
+                      ) : (
+                        <> </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              }
+            })}
+          </tbody>
+          <h3 className={styles.title}>
+            <span className={styles.bold}>Disabled Admins</span>
+          </h3>
+          <tbody>
+            {admins.map((admin) => {
+              if (admin.isDeleted === true) {
+                return (
+                  <tr key={admin._id}>
+                    <td>{admin.name}</td>
+                    <td>{admin.email}</td>
+                    <td>{admin.username}</td>
+                    <td>
+                      {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
+                        <button
+                          className={styles.redBtn}
+                          onClick={() =>
+                            handleDissabled(admin._id, {
+                              ...admin,
+                              isDeleted: false
+                            })
+                          }
+                        >
+                          ENABLE
+                        </button>
+                      ) : (
+                        <> </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              }
             })}
           </tbody>
         </table>
