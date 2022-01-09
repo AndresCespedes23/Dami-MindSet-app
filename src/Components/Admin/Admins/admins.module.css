@@ -45,6 +45,15 @@
   background-color: #fff;
   text-align: center;
 }
+.redBtn {
+  margin-left: 6vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #680404;
+  color: #ffffff;
+  font-weight: lighter;
+}
 
 /* this is for the blue border, it has to be piece by piece*/
 .table th,
