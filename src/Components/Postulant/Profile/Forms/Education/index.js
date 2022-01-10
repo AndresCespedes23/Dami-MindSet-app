@@ -7,7 +7,12 @@ import Button from 'Components/Shared/Button';
 
 function EducationForm({ handleSubmit, handleShowModal }) {
   const formData = useSelector((store) => store.postulants.postulant);
-  const education = formData?.education;
+  const educations = formData?.education;
+
+  for (var i = 0; i < educations.length; i += 1) {
+    console.log(educations[i]._id);
+  }
+
   const onSubmit = (formValues) => {
     handleSubmit(formValues);
     handleShowModal(false);
@@ -18,7 +23,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
         <h2 className={styles.title}>
           <span className={styles.bold}>Education</span>
         </h2>
-        {education?.map((data) => {
+        {educations?.map((data) => {
           return (
             <Form
               key={data._id}
