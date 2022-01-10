@@ -9,6 +9,7 @@ import interviewsReducer from 'redux/Interviews/reducer';
 import profilesReducer from 'redux/Profiles/reducer';
 import postulantsReducer from 'redux/Postulants/reducer';
 import postulantsModuleReducer from 'redux/PostulantModule/reducer';
+import educationModuleReducer from 'redux/PostulantModule/Education/reducer';
 import authReducer from 'redux/Auth/reducer';
 
 const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   postulants: postulantsReducer,
   psychologists: psychologistReducer,
   postulantModule: postulantsModuleReducer,
+  education: educationModuleReducer,
   auth: authReducer
 });
 

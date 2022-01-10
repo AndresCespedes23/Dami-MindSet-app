@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant, updatePostulant } from 'redux/Postulants/thunks';
+import { updateEducation } from 'redux/PostulantModule/Education/thunks';
 import { setShowModal, setModalType } from 'redux/Postulants/actions';
 import Button from 'Components/Shared/Button';
 import style from './profile.module.css';
@@ -14,6 +15,7 @@ function Profile() {
   const modalType = useSelector((state) => state.postulants.modalType);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
+
   //'61c331fdb1a4e56772c1fdd0'
   useEffect(() => {
     dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
@@ -27,7 +29,13 @@ function Profile() {
 
   const handleUpdatePostulants = (postulant) => {
     dispatch(updatePostulant(postulant, idActive)).then(() => {
-      dispatch(getOnePostulant('61cdb8aacb6158d321969398' /*sessionStorage.getItem('id')*/));
+      dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
+    });
+  };
+
+  const handleUpdateEducation = (education) => {
+    dispatch(updateEducation(education, idActive)).then(() => {
+      dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
     });
   };
 
@@ -285,7 +293,8 @@ function Profile() {
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={handleUpdatePostulants}
+          handleSubmit={modalType === 'education' ? handleUpdateEducation : handleUpdatePostulants}
+          meta={idActive}
         />
       )}
     </section>

@@ -7,40 +7,42 @@ import WorkForm from 'Components/Postulant/Profile/Forms/Work';
 import CoursesForm from 'Components/Postulant/Profile/Forms/Courses';
 import OtherInfoForm from 'Components/Postulant/Profile/Forms/OtherInfo';
 
-function ProfileModal({ handleShowModal, modalType, handleSubmit }) {
+function ProfileModal({ id, handleShowModal, modalType, handleSubmit }) {
   let modalComponent;
   switch (modalType) {
     case 'about':
       modalComponent = (
-        <AboutMeForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <AboutMeForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
 
     case 'personal info':
       modalComponent = (
-        <PersonalInfoForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <PersonalInfoForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
 
     case 'education':
       modalComponent = (
-        <EducationForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <EducationForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
 
     case 'work':
-      modalComponent = <WorkForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />;
+      modalComponent = (
+        <WorkForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
       break;
 
     case 'courses':
       modalComponent = (
-        <CoursesForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <CoursesForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
 
     case 'other info':
       modalComponent = (
-        <OtherInfoForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <OtherInfoForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
   }
