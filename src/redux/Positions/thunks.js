@@ -34,11 +34,7 @@ const getPositionsRejected = () => ({
 export const getPositions = () => {
   return (dispatch) => {
     dispatch(getPositionsFetching());
-    fetch(BASE_URL, {
-      headers: {
-        token: sessionStorage.getItem('token')
-      }
-    })
+    fetch(BASE_URL)
       .then((response) => {
         if (response.status === 200 || response.status === 201) return response.json();
         throw new Error(`HTTP ${response.status}`);
@@ -71,7 +67,8 @@ export const addPositions = (position) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(position)
   })
@@ -102,7 +99,15 @@ const deletePositionsRejected = () => ({
 
 export const deletePositions = (id) => (dispatch) => {
   dispatch(deletePositionsFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${BASE_URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -133,7 +138,7 @@ export const updatePositions = (positions, id) => (dispatch) => {
   dispatch(updatePositionsFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', token: sessionStorage.getItem('token') },
     body: JSON.stringify(positions)
   })
     .then((data) => {

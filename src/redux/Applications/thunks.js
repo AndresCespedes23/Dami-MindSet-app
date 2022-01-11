@@ -71,7 +71,8 @@ export const addApplication = (application) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
+      'Content-Type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(application)
   })
@@ -102,7 +103,15 @@ const deleteApplicationRejected = () => ({
 
 export const deleteApplication = (id) => (dispatch) => {
   dispatch(deleteApplicationFetching());
-  return fetch(`${URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -132,7 +141,10 @@ export const updateApplication = (applications, id) => (dispatch) => {
   dispatch(updateApplicationFetching());
   return fetch(`${URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      token: sessionStorage.getItem('token')
+    },
     body: JSON.stringify(applications)
   })
     .then((response) => {

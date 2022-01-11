@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getPsychologists,
   deletePsychologist,
-  updatePsychologist,
-  addPsychologist
+  updatePsychologist
 } from 'redux/Psychologists/thunks';
 import { setShowModal, setShowMessage, setModalType } from 'redux/Psychologists/actions';
 import Button from 'Components/Shared/Button';
@@ -12,6 +11,7 @@ import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import styles from './psychologists.module.css';
 import Spinner from 'Components/Shared/Spinner';
+import { registerNewUser } from 'redux/Auth/thunks';
 
 function Psychologists() {
   const psychologists = useSelector((store) => store.psychologists.list);
@@ -61,12 +61,11 @@ function Psychologists() {
   };
 
   const handleAddPsychologist = (psychologist) => {
-    dispatch(addPsychologist(psychologist)).then(() => {
+    dispatch(registerNewUser(psychologist, 'PSYCHOLOGIST')).then(() => {
       dispatch(setShowMessage(true));
       dispatch(getPsychologists());
     });
   };
-
   const handleShowModal = () => {
     dispatch(setShowModal(false));
   };

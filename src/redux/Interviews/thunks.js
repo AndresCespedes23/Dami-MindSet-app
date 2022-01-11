@@ -13,7 +13,10 @@ import {
   UPDATE_INTERVIEW_REJECTED,
   GET_ONE_INTERVIEW_FETCHING,
   GET_ONE_INTERVIEW_FULFILLED,
-  GET_ONE_INTERVIEW_REJECTED
+  GET_ONE_INTERVIEW_REJECTED,
+  GET_PENDING_INTERVIEW_FETCHING,
+  GET_PENDING_INTERVIEW_FULFILLED,
+  GET_PENDING_INTERVIEW_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/interviews`;
@@ -71,7 +74,8 @@ export const addInterview = (interview) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(interview)
   })
@@ -102,7 +106,15 @@ const deleteInterviewRejected = () => ({
 
 export const deleteInterview = (id) => (dispatch) => {
   dispatch(deleteInterviewFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${BASE_URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -133,7 +145,7 @@ export const updateInterview = (interviews, id) => (dispatch) => {
   dispatch(updateInterviewFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', token: sessionStorage.getItem('token') },
     body: JSON.stringify(interviews)
   })
     .then((data) => {
@@ -179,6 +191,41 @@ export const getOneInterview = (id) => {
       })
       .catch(() => {
         dispatch(getOneInterviewRejected());
+      });
+  };
+};
+
+const getPendingInterviewFetching = () => ({
+  type: GET_PENDING_INTERVIEW_FETCHING
+});
+
+const getPendingInterviewFulfilled = (payload) => ({
+  type: GET_PENDING_INTERVIEW_FULFILLED,
+  payload
+});
+
+const getPendingInterviewRejected = () => ({
+  type: GET_PENDING_INTERVIEW_REJECTED
+});
+
+export const getPendingInterview = (id) => {
+  return (dispatch) => {
+    dispatch(getPendingInterviewFetching());
+    return fetch(`${BASE_URL}/pending/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getPendingInterviewFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getPendingInterviewRejected());
       });
   };
 };

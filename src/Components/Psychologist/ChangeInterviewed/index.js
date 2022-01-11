@@ -2,18 +2,21 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneSession } from 'redux/Sessions/thunks';
+import { getProfiles } from 'redux/Profiles/thunks';
 import styles from './change-interviewed.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Button from 'Components/Shared/Button';
 
 function ChangeInterviewed() {
   const session = useSelector((store) => store.sessions.session);
+  const profiles = useSelector((store) => store.profiles.list);
   const isLoading = useSelector((store) => store.sessions.isLoading);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOneSession(id));
+    dispatch(getProfiles());
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -23,7 +26,7 @@ function ChangeInterviewed() {
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-
+  console.log(session);
   return (
     <section className={styles.container}>
       <div className={styles.containerProfile}>
@@ -97,7 +100,23 @@ function ChangeInterviewed() {
           <h4>Interview:</h4>
           <span>{session.result}</span>
         </div>
-        <div></div>
+        <div>
+          <h4>Profiles</h4>
+          <table>
+            <tbody>
+              {profiles.map((profile) => {
+                return [
+                  <tr key={profile._id}>
+                    <td>{profile.name}</td>
+                    <td>
+                      <Button type={'check'} />
+                    </td>
+                  </tr>
+                ];
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   );

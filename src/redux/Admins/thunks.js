@@ -64,7 +64,7 @@ export const updateAdmins = (admins, id) => (dispatch) => {
   dispatch(updateAdminsFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', token: sessionStorage.getItem('token') },
     body: JSON.stringify(admins)
   })
     .then((data) => {

@@ -12,49 +12,63 @@ function LoginForm() {
   const onSubmit = (formValues) => {
     return dispatch(login(formValues)).then((response) => {
       if (response.type === 'LOGIN_FULFILLED') {
-        console.log(response);
-        history.push('/postulants/profile');
+        switch (sessionStorage.getItem('userType')) {
+          case 'CANDIDATE':
+            history.push('/postulants/home');
+            break;
+          case 'ADMIN':
+            history.push('/admin');
+            break;
+          case 'PSYCHOLOGIST':
+            history.push('/psychologist');
+            break;
+          default:
+            break;
+        }
       }
     });
   };
 
   return (
-    <>
-      <section className={styles.container}>
+    <section className={styles.container}>
+      <div className={styles.containerSummary}>
         <Form
           onSubmit={onSubmit}
           render={({ handleSubmit, submitting, pristine }) => (
-            <form onSubmit={handleSubmit} className={styles.container}>
-              <h2 className={styles.mainTitle}>Login</h2>
-              <Field
-                name="email"
-                label="Email"
-                element="input"
-                disabled={submitting}
-                component={Input}
-              />
-              <Field
-                name="password"
-                label="Password"
-                type="password"
-                element="input"
-                disabled={submitting}
-                component={Input}
-              />
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <div>
+                <Field
+                  name="email"
+                  label="Email"
+                  element="input"
+                  placeholder="Enter your email"
+                  disabled={submitting}
+                  component={Input}
+                />
+                <Field
+                  name="password"
+                  label="Password"
+                  type="password"
+                  element="input"
+                  placeholder="Enter your password"
+                  disabled={submitting}
+                  component={Input}
+                />
+              </div>
               <div className={styles.buttonContainer}>
                 <button
-                  className={`${styles.buttonGreen} ${(submitting || pristine) && styles.disabled}`}
+                  className={`${styles.btnLogin} ${(submitting || pristine) && styles.disabled}`}
                   type="submit"
                   disabled={submitting || pristine}
                 >
-                  LOGIN
+                  SIGN IN
                 </button>
               </div>
             </form>
           )}
         />
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

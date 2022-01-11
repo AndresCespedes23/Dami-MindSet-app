@@ -12,7 +12,7 @@ function Summary() {
   const [type, setType] = useState('PERSONAL-INFORMATION');
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dc'));
+    dispatch(getOnePostulant(sessionStorage.getItem('id')));
   }, [dispatch]);
 
   const handleButtonClick = (type) => {
@@ -20,7 +20,7 @@ function Summary() {
   };
 
   const handleRegister = () => {
-    dispatch(registerPostulant(postulantData));
+    dispatch(registerPostulant(postulantData, sessionStorage.getItem('id')));
   };
 
   const getAge = (date) => {

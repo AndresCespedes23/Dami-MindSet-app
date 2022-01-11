@@ -1,0 +1,140 @@
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.containerInterviews {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 16px solid #065500;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.containerNav {
+  display: flex;
+  align-items: center;
+}
+.backBtn {
+  font: 1.1rem Century Gothic;
+  margin: 30px;
+  padding: 5px 15px;
+  background-color: #065500;
+  border-radius: 20px;
+  border: 2px solid #065500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.backBtn:hover {
+  background-color: #002147;
+  color: #ffffff;
+  cursor: pointer;
+}
+.backContainer {
+  width: 25%;
+}
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+}
+.itemPersonalColumn {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.searchTitle {
+  font: normal normal bold 20px/25px Century Gothic;
+  color: #091f40;
+}
+input {
+  width: 90%;
+  padding: 12px 16px;
+  border: 3px solid #002147;
+  border-radius: 20px;
+  background-color: #f0f4f9;
+  font-size: 14px;
+}
+::placeholder {
+  font: normal normal normal 20px/25px Century Gothic;
+  color: #091f4080;
+}
+.searchBtn {
+    font: 1.1rem Century Gothic;
+    padding: 10px 15px;
+    background-color: #065500;
+    border-radius: 20px;
+    border: 2px solid #065500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 9px 10px #68686842;
+  }
+  .searchBtn:hover {
+    background-color: #002147;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .notFoundMessage{
+    font: normal normal bold 20px Century Gothic;
+    width: 45%;
+    color: #9b0000;
+    margin: 20px
+  }
+  .table {
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    width: 100%;
+  }
+  
+  .table th {
+    padding: 10px;
+    box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+    background-color: #002147;
+    text-align: center;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    line-height: 17px;
+  }
+  
+  .table td {
+    padding: 10px;
+    box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+    background-color: #fff;
+    text-align: center;
+    line-height: 17px;
+  }
+  /* this is for the blue border, it has to be piece by piece*/
+.table th,
+.table tbody td {
+  border-top: 2px solid #002147;
+  border-bottom: 2px solid #002147;
+}
+
+.table td:first-child,
+.table th:first-child {
+  border-radius: 20px 0 0 20px;
+  border-left: 2px solid #002147;
+}
+
+.table td:last-child,
+.table th:last-child {
+  border-radius: 0 20px 20px 0;
+  border-right: 2px solid #002147;
+}
+  .postulantContent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+  }

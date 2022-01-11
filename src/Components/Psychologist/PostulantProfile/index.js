@@ -2,16 +2,23 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks';
 import Button from 'Components/Shared/Button';
-import style from './profile.module.css';
+import style from './postulantProfile.module.css';
 import Spinner from 'Components/Shared/Spinner';
+import { useHistory, useParams } from 'react-router-dom';
 
-function Profile() {
+function PostulantProfile() {
   const postulant = useSelector((store) => store.postulants.postulant);
   const isLoading = useSelector((store) => store.postulants.isLoading);
+  const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    dispatch(getOnePostulant(id)).then((response) => {
+      if (response === undefined) {
+        history.push('/psychologist/postulants/search');
+      }
+    });
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -27,7 +34,7 @@ function Profile() {
       <div className={style.profile}>
         <div className={style.header}>
           <div>
-            <Button type={'back'} />
+            <Button type={'backBtnPsycho'} />
           </div>
           <div className={style.headercolumn}>
             <h2>Profile</h2>
@@ -53,8 +60,7 @@ function Profile() {
         </div>
         <div className={style.box}>
           <div className={style.subtitle}>
-            <h4>About me</h4>
-            <Button type={'editInfo'} />
+            <h4>About</h4>
           </div>
           <div>
             <span>{postulant.description}</span>
@@ -63,7 +69,6 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>PERSONAL INFORMATION</h3>
-            <Button type={'editInfo'} />
           </div>
           <div className={style.boxinfo}>
             <div>
@@ -111,7 +116,6 @@ function Profile() {
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
                   <h5>{`${data.level} Education`}</h5>
-                  <Button type={'editInfo'} />
                 </div>
                 <div className={style.boxinfo}>
                   <div>
@@ -141,55 +145,21 @@ function Profile() {
             return (
               <div key={data._id} className={style.box}>
                 <div className={style.subtitle}>
-                  <h5>{`${data?.role} in ${data?.company}`}</h5>
-                  <Button type={'editInfo'} />
+                  <h5>{`${data.role} in ${data.company}`}</h5>
                 </div>
                 <div className={style.workExperience}>
                   <div>
                     <span>
-                      {`Since ${data?.startDate.split('T')[0]} to ${
-                        data?.finishDate.split('T')[0]
-                      }`}
+                      {`Since ${data.startDate.split('T')[0]} to ${data.finishDate.split('T')[0]}`}
                     </span>
                   </div>
                   <div>
                     <h4>What did you do?:</h4>
-                    <span>{data?.description}</span>
+                    <span>{data.description}</span>
                   </div>
                   <div>
                     <h4>Biggest Accomplishments:</h4>
-                    <span>{data?.accomplishments}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <h3>COURSES</h3>
-        <div className={style.box}>
-          {postulant.courses?.map((data) => {
-            return (
-              <div key={data._id} className={style.box}>
-                <div className={style.subtitle}>
-                  <div></div>
-                  <Button type={'editInfo'} />
-                </div>
-                <div className={style.workExperience}>
-                  <div>
-                    <h4>Name:</h4>
-                    <span>{data?.name}</span>
-                  </div>
-                  <div>
-                    <h4>Organization:</h4>
-                    <span>{data?.organization}</span>
-                  </div>
-                  <div>
-                    <h4>Duration:</h4>
-                    <span>{data?.duration}</span>
-                  </div>
-                  <div>
-                    <h4>Description:</h4>
-                    <span>{data?.description}</span>
+                    <span>{data.accomplishments}</span>
                   </div>
                 </div>
               </div>
@@ -199,7 +169,6 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>OTHER INFORMATION</h3>
-            <Button type={'editInfo'} />
           </div>
           <div className={style.boxinfo}>
             <div>
@@ -225,4 +194,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default PostulantProfile;

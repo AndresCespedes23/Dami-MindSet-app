@@ -16,7 +16,7 @@ function Register() {
   const onSubmit = (formValues) => {
     if (formValues) {
       dispatch(setRegisterInfo(formValues));
-      dispatch(registerNewUser(formValues)).then(() => {
+      dispatch(registerNewUser(formValues, 'CANDIDATE')).then(() => {
         dispatch(login(formValues)).then(() => {
           history.push('/postulants/personal-info');
         });

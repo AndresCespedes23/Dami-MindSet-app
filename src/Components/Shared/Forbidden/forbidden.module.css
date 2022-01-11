@@ -1,0 +1,46 @@
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(9, 31, 64, 0.4);
+}
+.containerDesc {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .title {
+    font: normal normal bold 100px Century Gothic;
+    color: #c70000;
+  }
+  
+  .description {
+    font: normal normal normal 25px Century Gothic;
+    color: #f73737;
+  }
+.containerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.btnJoinUs {
+  font: normal normal normal 25px Century Gothic;
+  padding: 15px 25px;
+  background-color: #002147;
+  border-radius: 15px;
+  border: 3px solid #002147;
+  color: #ffffff;
+}
+
+.btnJoinUs:hover {
+  background-color: #ffffff;
+  border: 3px solid #002147;
+  color: #002147;
+  cursor: pointer;
+}

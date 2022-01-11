@@ -13,7 +13,10 @@ import {
   UPDATE_POSTULANTS_REJETED,
   GET_ONE_POSTULANTS_FETCHING,
   GET_ONE_POSTULANTS_FULFILLED,
-  GET_ONE_POSTULANTS_REJETED
+  GET_ONE_POSTULANTS_REJETED,
+  SEARCH_POSTULANTS_FETCHING,
+  SEARCH_POSTULANTS_FULFILLED,
+  SEARCH_POSTULANTS_REJETED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/candidates`;
@@ -57,7 +60,8 @@ export const addPostulant = (postulant) => (dispatch) => {
     method: 'POST',
     mode: 'cors',
     headers: {
-      'Content-type': 'application/json'
+      'Content-type': 'application/json',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(postulant)
   })
@@ -81,7 +85,15 @@ const deletePostulantsRejected = () => ({ type: DELETE_POSTULANTS_REJETED });
 
 export const deletePostulant = (id) => (dispatch) => {
   dispatch(deletePostulantsFetching());
-  return fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  return fetch(
+    `${BASE_URL}/${id}`,
+    {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    },
+    { method: 'DELETE' }
+  )
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -109,7 +121,8 @@ export const updatePostulant = (postulants, id) => (dispatch) => {
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
     headers: {
-      'Content-type': 'application/json; charset=UTF-8'
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
     },
     body: JSON.stringify(postulants)
   })
@@ -149,6 +162,33 @@ export const getOnePostulant = (id) => {
       })
       .catch(() => {
         dispatch(getOnePostulantsRejected());
+      });
+  };
+};
+
+const searchPostulantsFetching = () => ({ type: SEARCH_POSTULANTS_FETCHING });
+
+const searchPostulantsFulfilled = (payload) => ({ type: SEARCH_POSTULANTS_FULFILLED, payload });
+
+const searchPostulantsRejected = () => ({ type: SEARCH_POSTULANTS_REJETED });
+
+export const searchPostulants = (text) => {
+  return (dispatch) => {
+    dispatch(searchPostulantsFetching());
+    fetch(`${BASE_URL}/search?name=${text}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(searchPostulantsFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(searchPostulantsRejected());
       });
   };
 };

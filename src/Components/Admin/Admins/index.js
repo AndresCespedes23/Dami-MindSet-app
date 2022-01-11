@@ -7,6 +7,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { getLoggedUser, registerNewUser } from 'redux/Auth/thunks';
 
 function Admins() {
   const [idActive, setIdActive] = useState('');
@@ -17,9 +18,12 @@ function Admins() {
   const messageType = useSelector((state) => state.admins.messageType);
   const showModal = useSelector((state) => state.admins.showModal);
   const modalType = useSelector((state) => state.admins.modalType);
+  const isLoadingForm = useSelector((state) => state.admins.isLoadingForm);
   const dispatch = useDispatch();
+  let loggedUser = useSelector((state) => state.auth.loggedUser);
 
   useEffect(() => {
+    dispatch(getLoggedUser(sessionStorage.getItem('id'), sessionStorage.getItem('userType')));
     dispatch(getAdmins());
   }, [dispatch]);
 
@@ -43,9 +47,20 @@ function Admins() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
+  const handleClickAdd = () => {
+    dispatch(setModalType('admins'));
+    setIdActive('');
+    dispatch(setShowModal(true));
+  };
+  const handleAddAdmin = (admin) => {
+    dispatch(registerNewUser(admin, 'ADMIN')).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getAdmins());
+    });
+  };
 
-  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-
+  if (isLoading || isLoadingForm)
+    return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
   return (
     <section className={styles.container}>
       <div className={styles.list}>
@@ -54,7 +69,11 @@ function Admins() {
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
-          <div></div>
+          {!loggedUser.isSuperAdmin ? (
+            <> </>
+          ) : (
+            <Button type="addNew" text={'ADMIN'} onClick={handleClickAdd} />
+          )}
         </div>
         <table className={styles.table}>
           <thead>
@@ -73,7 +92,11 @@ function Admins() {
                   <td>{admin.email}</td>
                   <td>{admin.username}</td>
                   <td>
-                    <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
+                    {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
+                      <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
+                    ) : (
+                      <> </>
+                    )}
                   </td>
                 </tr>
               );
@@ -85,7 +108,7 @@ function Admins() {
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={handleUpdateAdmin}
+          handleSubmit={modalType === 'admins' && !idActive ? handleAddAdmin : handleUpdateAdmin}
           meta={idActive}
         />
       )}
