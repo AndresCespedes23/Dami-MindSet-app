@@ -13,7 +13,21 @@ function Header(props) {
     await dispatch(logout());
     history.push('/');
   };
-
+  const goProfile = () => {
+    switch (sessionStorage.getItem('userType')) {
+      case 'ADMIN':
+        history.push('/admin/profile/administrator');
+        break;
+      case 'CANDIDATE':
+        history.push('/postulants/profile');
+        break;
+      case 'PSYCHOLOGIST':
+        history.push('/psychologist/profile');
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <header>
       <div
@@ -38,28 +52,45 @@ function Header(props) {
           />
         </div>
         <div className={styles.appName}>
-          <Link to="/home">
+          <Link
+            to={
+              sessionStorage.getItem('userType') === 'ADMIN'
+                ? '/admin'
+                : sessionStorage.getItem('userType') === 'CANDIDATE'
+                ? '/postulants/home'
+                : sessionStorage.getItem('userType') === 'PSYCHOLOGIST'
+                ? '/psychologist'
+                : '/home'
+            }
+          >
             <div className={styles.logoContainer}>
               <span>M</span>IND<span>S</span>ET
             </div>
           </Link>
         </div>
-        <div
-          className={
-            styleType === 'admin'
-              ? styles.loginside
-              : styleType === 'psychologist'
-              ? styles.loginsidePsychologist
-              : styles.loginsidePostulant
-          }
-        >
-          <div className={styles.loginuser}>{styleType === 'admin' ? 'user' : 'psychologist'}</div>
-          <img
-            className={styles.loginphoto}
-            src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
-          />
-          <button onClick={handleLogOut}>LOG OUT</button>
-        </div>
+        {sessionStorage.getItem('userType') !== null ? (
+          <div
+            className={
+              styleType === 'admin'
+                ? styles.loginside
+                : styleType === 'psychologist'
+                ? styles.loginsidePsychologist
+                : styles.loginsidePostulant
+            }
+          >
+            {/* <div className={styles.loginuser}>{styleType === 'admin' ? 'user' : 'psychologist'}</div> */}
+            <img
+              onClick={goProfile}
+              className={styles.loginphoto}
+              src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
+            />
+            <button className={styles.btnLogout} onClick={handleLogOut}>
+              LOGOUT
+            </button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       <nav
         className={
