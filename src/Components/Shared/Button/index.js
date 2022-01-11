@@ -8,7 +8,6 @@ import {
   FaAngleRight,
   FaPen
 } from 'react-icons/fa';
-import { BiCheckbox } from 'react-icons/bi';
 
 function Button({ type, onClick, text }) {
   return (
@@ -17,7 +16,6 @@ function Button({ type, onClick, text }) {
       {type === 'update' && <FaEdit />}
       {type === 'delete' && <FaTrashAlt />}
       {type === 'close' && <FaRegWindowClose />}
-      {type === 'check' && <BiCheckbox />}
       {type === 'submit' && 'SUBMIT'}
       {type === 'search' && `Search ${text ? text : ''}`}
       {type === 'addNew' && `ADD NEW ${text ? text : ''}`}

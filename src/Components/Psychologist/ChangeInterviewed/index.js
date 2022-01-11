@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneSession } from 'redux/Sessions/thunks';
@@ -11,13 +11,32 @@ function ChangeInterviewed() {
   const session = useSelector((store) => store.sessions.session);
   const profiles = useSelector((store) => store.profiles.list);
   const isLoading = useSelector((store) => store.sessions.isLoading);
+  const [check, setCheck] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getOneSession(id));
-    dispatch(getProfiles());
+    dispatch(getProfiles().then((res)=>{
+      setCheck([...res.name])
+    }))
   }, [dispatch]);
+
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      setCheck([
+        ...check,
+        {
+          key: e.target.value
+        }
+      ]);
+    } else {
+      setCheck((prevState) => prevState.filter((item) => item.key !== e.target.value));
+    }
+  };
+  const isChecked = (key) => {
+    return check?.some((element) => element.key === key);
+  };
 
   const getAge = (date) => {
     let today = new Date().getFullYear();
@@ -109,7 +128,11 @@ function ChangeInterviewed() {
                   <tr key={profile._id}>
                     <td>{profile.name}</td>
                     <td>
-                      <Button type={'check'} />
+                      <input 
+                      onChange={handleChange}
+                      checked={isChecked(session.idCandidate?.profiles)}
+                      type='checkbox'
+                      >REGULAR</input>
                     </td>
                   </tr>
                 ];
