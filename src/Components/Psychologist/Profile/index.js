@@ -44,6 +44,10 @@ function PsychologistProfile() {
               <span>{psychologist.enrollmentNumber}</span>
             </div>
             <div className={styles.adminInfo}>
+              Status
+              <p className={styles[psychologist.status?.toLowerCase()]}>{psychologist.status}</p>
+            </div>
+            <div className={styles.adminInfo}>
               <Link to="/psychologist/availability">
                 <button>Availability</button>
               </Link>
@@ -52,10 +56,6 @@ function PsychologistProfile() {
           <div className={styles.editBtn}>
             <Button type={'editInfo'} />
           </div>
-        </div>
-        <div className={styles.footer}>
-          <span>Status</span>
-          <p className={styles.statusActive}>ACTIVE</p>
         </div>
       </div>
     </section>

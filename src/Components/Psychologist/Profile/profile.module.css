@@ -65,7 +65,7 @@
     display: flex;
     justify-content: center;
   }
-  .statusActive, .statusInactive, .statusPending {
+  .available, .unavailable {
     width: fit-content;
     margin: 0 auto;
     padding: 10px 20px;
@@ -75,9 +75,6 @@
     font-size: 0.8rem;
     font-weight: 800;
   }
-  .statusInactive {
+  .unavailable {
     background-color: rgb(124, 10, 10);
-  }
-  .statusPending {
-    background-color: rgb(210, 191, 14);
   }
