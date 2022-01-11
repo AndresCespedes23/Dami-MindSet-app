@@ -17,9 +17,11 @@ function ChangeInterviewed() {
 
   useEffect(() => {
     dispatch(getOneSession(id));
-    dispatch(getProfiles().then((res)=>{
-      setCheck([...res.name])
-    }))
+    dispatch(
+      getProfiles().then((res) => {
+        setCheck([...res.name]);
+      })
+    );
   }, [dispatch]);
 
   const handleChange = (e) => {
@@ -128,11 +130,13 @@ function ChangeInterviewed() {
                   <tr key={profile._id}>
                     <td>{profile.name}</td>
                     <td>
-                      <input 
-                      onChange={handleChange}
-                      checked={isChecked(session.idCandidate?.profiles)}
-                      type='checkbox'
-                      >REGULAR</input>
+                      <input
+                        onChange={handleChange}
+                        checked={isChecked(session.idCandidate?.profiles)}
+                        type="checkbox"
+                      >
+                        REGULAR
+                      </input>
                     </td>
                   </tr>
                 ];
