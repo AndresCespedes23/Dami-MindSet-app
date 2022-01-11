@@ -16,7 +16,7 @@ function PsychologistProfile() {
       <div className={styles.profile}>
         <div className={styles.header}>
           <div>
-            <Button type={'backBtnAdmin'} />
+            <Button type={'backBtnPsycho'} />
           </div>
           <div className={styles.headercolumn}>
             <h2 className={styles.profileTitle}>Profile</h2>
