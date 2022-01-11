@@ -15,8 +15,20 @@ function Footer(props) {
     >
       <div className={styles.main}>
         <div className={styles.appName}>
-          <Link to="/home">
-            <span>M</span>IND<span>S</span>ET{' '}
+          <Link
+            to={
+              sessionStorage.getItem('userType') === 'ADMIN'
+                ? '/admin'
+                : sessionStorage.getItem('userType') === 'CANDIDATE'
+                ? '/postulants/home'
+                : sessionStorage.getItem('userType') === 'PSYCHOLOGIST'
+                ? '/psychologist'
+                : '/home'
+            }
+          >
+            <div className={styles.logoContainer}>
+              <span>M</span>IND<span>S</span>ET
+            </div>
           </Link>
         </div>
         <ul
