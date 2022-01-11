@@ -13,6 +13,7 @@ import Courses from 'Components/Postulant/Courses';
 import Education from 'Components/Postulant/Education';
 import HomeLogged from 'Components/Postulant/HomeLogged';
 import PrivateRoutePostulant from './PrivateRoutePostulant';
+import Availability from 'Components/Postulant/Availability';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
@@ -28,6 +29,7 @@ const PostulantRoutes = () => {
         <PrivateRoutePostulant path={`${url}/courses`} component={Courses} />
         <PrivateRoutePostulant path={`${url}/description`} component={Description} />
         <PrivateRoutePostulant path={`${url}/other-info`} component={OtherInfoForm} />
+        <PrivateRoutePostulant path={`${url}/availability`} component={Availability} />
         <PrivateRoutePostulant path={`${url}/summary`} component={Summary} />
         <PrivateRoutePostulant path={`${url}/profile`} component={Profile} />
         <PrivateRoutePostulant path={`${url}/home`} component={HomeLogged} />

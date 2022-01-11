@@ -1,0 +1,72 @@
+.container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .containerPostulants {
+    background-color: #ffffff;
+    height: auto;
+    width: 70%;
+    border-top: 16px solid #065500;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .content {
+    width: 90%;
+  height: auto;
+  margin: 10px auto 10px auto;
+  }
+  .title {
+    font: normal normal normal 30px/39px Century Gothic;
+    color: #091F40;
+  }
+  .subtitle {
+    font: normal normal normal 20px/25px Century Gothic;
+    color: #091F40;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .bottomBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-top: 20px;
+  }
+  .tableSummary {
+    border-spacing: 0;
+    border: 1px solid black;
+    text-align: center;
+    flex: auto;
+  }
+  
+  th,
+  td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+  }
+  tr {
+    line-height: 10px;
+  } 
+
+  .btnSave {
+    font: 1.1rem Century Gothic;
+    padding: 10px 15px;
+    background-color: #065500;
+    border-radius: 20px;
+    border: 2px solid #065500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 9px 10px #68686842;
+  }
+  .btnSave:hover {
+    background-color: #002147;
+    color: #ffffff;
+    cursor: pointer;
+  }

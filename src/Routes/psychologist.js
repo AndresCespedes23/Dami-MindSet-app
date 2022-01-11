@@ -7,6 +7,7 @@ import PrivateRoutePsychologist from './PrivateRoutePsychologist';
 import Interview from 'Components/Psychologist/Interview';
 import PostulantProfile from 'Components/Psychologist/PostulantProfile';
 import Search from 'Components/Psychologist/Search';
+import Availability from 'Components/Psychologist/Availability';
 
 const PsychologistRoutes = () => {
   const { url } = useRouteMatch();
@@ -21,6 +22,7 @@ const PsychologistRoutes = () => {
         />
         <PrivateRoutePsychologist path={`${url}/postulants/search`} component={Search} />
         <PrivateRoutePsychologist path={`${url}/postulant/:id`} component={PostulantProfile} />
+        <PrivateRoutePsychologist path={`${url}/availability`} component={Availability} />
         <PrivateRoutePsychologist path={`${url}/interview/:id`} component={Interview} />
         <Redirect to={`${url}/`} />
       </Switch>
