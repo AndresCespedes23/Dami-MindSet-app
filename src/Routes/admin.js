@@ -16,6 +16,7 @@ import Layout from 'Components/Layout';
 import PrivateRouteAdmin from 'Routes/PrivateRouteAdmin';
 import Home from 'Components/Admin/Home';
 import Statistics from 'Components/Admin/Statistics';
+import Position from 'Components/Admin/Positions/Position';
 
 const adminsRoutes = [
   { name: 'Admins', path: '/admin/admins/' },
@@ -38,6 +39,7 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/applications`} component={Applications} />
         <PrivateRouteAdmin path={`${url}/clients`} component={Clients} />
         <PrivateRouteAdmin path={`${url}/interviews`} component={Interviews} />
+        <PrivateRouteAdmin path={`${url}/position/:id`} component={Position} />
         <PrivateRouteAdmin path={`${url}/positions`} component={Positions} />
         <PrivateRouteAdmin path={`${url}/postulants`} component={Postulants} />
         <PrivateRouteAdmin path={`${url}/profiles`} component={Profiles} />
