@@ -24,6 +24,7 @@ function Position() {
 
   const handleShowModal = () => {
     dispatch(setShowModal(false));
+    dispatch(getOnePosition(id));
   };
   const handleClickUpdate = () => {
     dispatch(setModalType('positions'));
