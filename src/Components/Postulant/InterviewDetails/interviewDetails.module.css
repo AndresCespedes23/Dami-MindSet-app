@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   width: 70%;
+  height: fit-content;
   margin: 40px;
   padding: 20px 40px;
   border-top: 10px solid #002147;
@@ -30,7 +31,6 @@
 .header {
   display: flex;
   flex-direction: row;
-  align-items: center;
   margin-bottom: 20px;
 }
 
@@ -49,49 +49,32 @@
 }
 
 .statusActive, .statusInactive, .statusPending {
-  width: fit-content;
-  margin: 0 auto;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background-color: rgb(23, 124, 10);
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 800;
+  color: rgb(23, 124, 10);
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 .statusInactive {
-  background-color: rgb(124, 10, 10);
+  color: rgb(124, 10, 10);
 }
 
 .statusPending {
-  background-color: rgb(210, 191, 14);
+  color: rgb(210, 191, 14);
 }
 
 .box {
   display: flex;
   flex-direction: column;
+  width: 60%;
 }
 
-.subtitle {
+.box > div {
   display: flex;
-  flex-direction: row;
+  margin-bottom: 20px;
+  
+}
+
+.info {
+  display: flex;
   justify-content: space-between;
-  margin: 10px 0px;
-}
-
-.boxinfo {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.boxinfo > div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 40%;
-  margin: 5px 0px;
-  margin-right: 80px;
-}
-.workExperience {
-  line-height: 25px;
 }
