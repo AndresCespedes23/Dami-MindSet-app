@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import Button from 'Components/Shared/Button';
+import Message from 'Components/Shared/Message';
+import Modal from 'Components/Shared/Modal';
+import Spinner from 'Components/Shared/Spinner';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setModalType, setShowMessage, setShowModal } from 'redux/Postulants/actions';
 import {
-  getPostulants,
-  deletePostulant,
   addPostulant,
+  deletePostulant,
+  getPostulants,
   updatePostulant
 } from 'redux/Postulants/thunks';
-import { setShowModal, setShowMessage, setModalType } from 'redux/Postulants/actions';
 import styles from './postulants.module.css';
-import Button from 'Components/Shared/Button';
-import Modal from 'Components/Shared/Modal';
-import Message from 'Components/Shared/Message';
-import Spinner from 'Components/Shared/Spinner';
 
 function Postulants() {
   const postulants = useSelector((store) => store.postulants.list);
@@ -74,6 +74,14 @@ function Postulants() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
+  function handleChangeView(view) {
+    var i;
+    var x = document.getElementsByClassName(view);
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = 'none';
+    }
+    document.getElementById(view).style.display = 'block';
+  }
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -87,17 +95,41 @@ function Postulants() {
           )}
           <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
         </div>
+        <div>
+          <div>
+            <button
+              className={(styles.topNav, styles.pendingInterview)}
+              onClick={() => handleChangeView('PendingInterview')}
+            >
+              Pending Interview
+            </button>
+          </div>
+          <div>
+            <button
+              className={(styles.topNav, styles.Unavailable)}
+              onClick={() => handleChangeView('Unavaliable')}
+            >
+              Unavailable
+            </button>
+          </div>
+          <div>
+            <button
+              className={(styles.topNav, styles.Active)}
+              onClick={() => handleChangeView('Active')}
+            >
+              Active
+            </button>
+          </div>
+          <div>
+            <button
+              className={(styles.topNav, styles.Disabled)}
+              onClick={() => handleChangeView('Disabled')}
+            >
+              Disabled
+            </button>
+          </div>
+        </div>
         <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone Number</th>
-              <th>Country</th>
-              <th>Status</th>
-              <th>Action</th>
-            </tr>
-          </thead>
           <tbody>
             {postulants.map((postulant) => {
               return (

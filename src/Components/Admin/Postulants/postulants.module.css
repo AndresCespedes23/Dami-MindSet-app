@@ -50,6 +50,42 @@
   line-height: 17px;
 }
 
+.pendingInterview {
+  display: block;
+  background: #610000 0% 0% no-repeat padding-box;
+  border: 1px solid #610000;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+.Unavailable {
+  display: block;
+  background: #610000 0% 0% no-repeat padding-box;
+  border: 1px solid #610000;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+.Active {
+  display: block;
+  background: #610000 0% 0% no-repeat padding-box;
+  border: 1px solid #610000;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
+.Disabled {
+  display: block;
+  background: #610000 0% 0% no-repeat padding-box;
+  border: 1px solid #610000;
+  opacity: 1;
+  text-align: center;
+  letter-spacing: 0px;
+  color: #ffffff;
+}
 
 /* this is for the blue border, it has to be piece by piece*/
 .table th,
