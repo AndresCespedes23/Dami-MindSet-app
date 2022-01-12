@@ -46,12 +46,16 @@
   text-align: center;
 }
 .redBtn {
+  flex: 1;
+  justify-content: center;
+  width: 30%;
   margin-left: 6vw;
-  padding: 5px 40px;
+  padding: 5px 20px;
   border-radius: 15px;
   border: none;
   background: #680404;
   color: #ffffff;
+  text-align: center;
   font-weight: lighter;
 }
 

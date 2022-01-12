@@ -7,6 +7,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { FaEdit } from 'react-icons/fa';
 import { getLoggedUser, registerNewUser } from 'redux/Auth/thunks';
 
 function Admins() {
@@ -45,7 +46,7 @@ function Admins() {
   };
   const handleDissabled = (id, admin) => {
     setIdActive(id);
-    dispatch(updateAdmins(admin, idActive)).then(() => {
+    dispatch(updateAdmins(admin, id)).then(() => {
       dispatch(getAdmins());
     });
   };
@@ -104,7 +105,12 @@ function Admins() {
                     <td>
                       {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
                         <>
-                          <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
+                          <button
+                            className={styles.redBtn}
+                            onClick={() => handleClickUpdate(admin._id)}
+                          >
+                            <FaEdit />
+                          </button>
                           <button
                             className={styles.redBtn}
                             onClick={() =>
