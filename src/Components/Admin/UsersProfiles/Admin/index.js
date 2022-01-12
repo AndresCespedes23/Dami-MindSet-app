@@ -8,7 +8,7 @@ function AdminProfile() {
   const admin = useSelector((store) => store.admins.admin);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOneAdmin('61af7bfaddca344defd8a091'));
+    dispatch(getOneAdmin(sessionStorage.getItem('id')));
   }, [dispatch]);
   return (
     <section className={styles.container}>
@@ -38,10 +38,6 @@ function AdminProfile() {
           <div className={styles.editBtn}>
             <Button type={'editInfo'} />
           </div>
-        </div>
-        <div className={styles.footer}>
-          <span>Status</span>
-          <p className={styles.statusActive}>ACTIVE</p>
         </div>
       </div>
     </section>

@@ -33,6 +33,9 @@ function Home() {
           <li>
             <Link to="/admin/sessions">sessions</Link>
           </li>
+          <li>
+            <Link to="/admin/statistics">statistics</Link>
+          </li>
         </ul>
       </div>
     </section>

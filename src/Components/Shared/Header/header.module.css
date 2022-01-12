@@ -111,7 +111,10 @@
 }
 
 .loginsidePostulant {
-  display: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color:#fff;
 }
 
 .loginuser {
@@ -123,8 +126,11 @@
 
 .loginphoto {
   max-height: 50px;
+  margin-right: 10px;
 }
-
+.loginphoto:hover{
+  cursor: pointer;
+}
 .navbar {
   border-bottom: 4px solid #680404;
 }
@@ -222,4 +228,19 @@
   .navbar {
     padding: 0 20%;
   }
+}
+.btnLogout {
+  padding: 5px 5px;
+  width: 100px;
+  background-color: #680404;
+  border: 2px solid #680404;
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+}
+.btnLogout:hover {
+  background-color: #ffffff;
+  border: 2px solid #680404;
+  color: #680404;
+  cursor: pointer;
 }

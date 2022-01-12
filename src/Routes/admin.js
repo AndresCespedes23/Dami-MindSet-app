@@ -15,6 +15,8 @@ import AdminProfile from 'Components/Admin/UsersProfiles/Admin';
 import Layout from 'Components/Layout';
 import PrivateRouteAdmin from 'Routes/PrivateRouteAdmin';
 import Home from 'Components/Admin/Home';
+import Statistics from 'Components/Admin/Statistics';
+import Position from 'Components/Admin/Positions/Position';
 
 const adminsRoutes = [
   { name: 'Admins', path: '/admin/admins/' },
@@ -25,7 +27,8 @@ const adminsRoutes = [
   { name: 'postulants', path: '/admin/postulants/' },
   { name: 'profiles', path: '/admin/profiles/' },
   { name: 'psychologists', path: '/admin/psychologists/' },
-  { name: 'sessions', path: '/admin/sessions/' }
+  { name: 'sessions', path: '/admin/sessions/' },
+  { name: 'statistics', path: '/admin/statistics/' }
 ];
 
 const AdminRoutes = () => {
@@ -37,6 +40,7 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/applications`} component={Applications} />
         <PrivateRouteAdmin path={`${url}/clients`} component={Clients} />
         <PrivateRouteAdmin path={`${url}/interviews`} component={Interviews} />
+        <PrivateRouteAdmin path={`${url}/position/:id`} component={Position} />
         <PrivateRouteAdmin path={`${url}/positions`} component={Positions} />
         <PrivateRouteAdmin path={`${url}/postulants`} component={Postulants} />
         <PrivateRouteAdmin path={`${url}/profiles`} component={Profiles} />
@@ -46,7 +50,7 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/profile/psychologist`} component={PsychologistsProfile} />
         <PrivateRouteAdmin path={`${url}/psychologists-states`} component={PsychologistsStates} />
         <PrivateRouteAdmin path={`${url}/profile/administrator`} component={AdminProfile} />
-        <PrivateRouteAdmin to={`${url}/`} component={Home} />
+        <PrivateRouteAdmin path={`${url}/statistics`} component={Statistics} />
         <PrivateRouteAdmin to={`${url}/`} component={Home} />
       </Switch>
     </Layout>

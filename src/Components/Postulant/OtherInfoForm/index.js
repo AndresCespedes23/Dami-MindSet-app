@@ -16,7 +16,7 @@ const OtherInfoForm = () => {
   const onSubmit = (formValues) => {
     if (formValues) {
       dispatch(setOtherInfo(formValues));
-      history.push('/postulants/summary');
+      history.push('/postulants/availability');
     }
   };
 

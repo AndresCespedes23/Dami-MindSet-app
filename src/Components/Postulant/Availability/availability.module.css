@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #3a4c66;
+  }
+  
+  .containerForm {
+    background-color: #ffffff;
+    width: 70%;
+    border-top: 8px solid #002147;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+  
+  .title {
+    margin-left: 30px;
+    margin-top: 25px;
+    font: normal normal normal 35px Century Gothic;
+    color: #002147;
+  }
+  .subtitle {
+    margin-left: 30px;
+    font: normal normal normal 20px/25px Century Gothic;
+    color: #091F40;
+  }
+  .containerPersonal {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: auto;
+    margin: 15px;
+  }
+  .tableSummary {
+    border-spacing: 0;
+    border: 1px solid black;
+    text-align: center;
+    flex: auto;
+  }
+  
+  th,
+  td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+  }
+  tr {
+    line-height: 10px;
+  }
+  .containerFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 35px 20px 35px;
+  }
