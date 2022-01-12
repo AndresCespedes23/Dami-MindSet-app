@@ -9,7 +9,8 @@ function EducationForm({ handleSubmit, handleShowModal }) {
   const formData = useSelector((store) => store.postulants.postulant);
   const educations = formData?.education;
 
-  for (var i = 0; i < educations.length; i += 1) {
+  //function that gets de obj id of education
+  for (let i = 0; i < educations.length; i += 1) {
     console.log(educations[i]._id);
   }
 
@@ -17,6 +18,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
     handleSubmit(formValues);
     handleShowModal(false);
   };
+
   return (
     <section>
       <div>
@@ -27,7 +29,6 @@ function EducationForm({ handleSubmit, handleShowModal }) {
           return (
             <Form
               key={data._id}
-              initialValues={formData}
               onSubmit={onSubmit}
               render={(formProps) => (
                 <form onSubmit={formProps.handleSubmit}>
