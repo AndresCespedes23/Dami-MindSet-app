@@ -92,7 +92,8 @@
     align-items: center;
     font: normal normal bold 15px/20px Century Gothic;
     white-space: normal;
-      width: 100px;
+    width: 200px;
+    padding: 5px;
   }
   
   .btnDetails:hover {
@@ -171,4 +172,8 @@
     width: 45%;
     color: #9b0000;
     margin: 20px
+  }
+  .textCenter{
+    text-align: center;
+    margin: auto;
   }
