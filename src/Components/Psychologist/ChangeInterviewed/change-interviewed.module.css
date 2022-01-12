@@ -13,6 +13,7 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-top: 40px;
   margin-bottom: 40px;
+  padding: 15px;
 }
 .header {
   display: flex;
@@ -57,4 +58,23 @@
   margin: 15px 0px 5px 0px;
   font-size: 2rem;
   font-weight: 700;
+}
+td {
+  border-style : hidden!important;
+ }
+ .btnSave {
+  font: 1.1rem Century Gothic;
+  padding: 10px 15px;
+  background-color: #065500;
+  border-radius: 20px;
+  border: 2px solid #065500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.btnSave:hover {
+  background-color: #002147;
+  color: #ffffff;
+  cursor: pointer;
 }

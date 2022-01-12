@@ -31,25 +31,24 @@ const getProfilesRejected = () => ({
   type: GET_PROFILES_REJECTED
 });
 
-export const getProfiles = () => {
-  return (dispatch) => {
-    dispatch(getProfilesFetching());
-    fetch(URL, {
-      headers: {
-        token: sessionStorage.getItem('token')
-      }
+export const getProfiles = () => (dispatch) => {
+  dispatch(getProfilesFetching());
+  return fetch(URL, {
+    headers: {
+      token: sessionStorage.getItem('token')
+    }
+  })
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
     })
-      .then((response) => {
-        if (response.status === 200 || response.status === 201) return response.json();
-        throw new Error(`HTTP ${response.status}`);
-      })
-      .then((response) => {
-        dispatch(getProfilesFulfilled(response.data));
-      })
-      .catch(() => {
-        dispatch(getProfilesRejected());
-      });
-  };
+    .then((response) => {
+      dispatch(getProfilesFulfilled(response.data));
+      return response.data;
+    })
+    .catch(() => {
+      dispatch(getProfilesRejected());
+    });
 };
 
 const addProfilesFetching = () => ({

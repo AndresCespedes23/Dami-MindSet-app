@@ -16,30 +16,27 @@ function ChangeInterviewed() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOneSession(id));
-    dispatch(
-      getProfiles().then((res) => {
-        setCheck([...res.name]);
-      })
-    );
+    dispatch(getOneSession(id)).then((res) => {
+      setCheck([...res.idCandidate.profiles]);
+    });
+    dispatch(getProfiles());
   }, [dispatch]);
 
   const handleChange = (e) => {
     if (e.target.checked) {
-      setCheck([
-        ...check,
-        {
-          key: e.target.value
-        }
-      ]);
+      setCheck([...check, e.target.value]);
     } else {
-      setCheck((prevState) => prevState.filter((item) => item.key !== e.target.value));
+      setCheck((prevState) => prevState.filter((item) => item !== e.target.value));
     }
   };
   const isChecked = (key) => {
-    return check?.some((element) => element.key === key);
+    return check?.some((element) => element === key);
   };
-
+  const onSubmit = () => {
+    // psychologist.availability = array;
+    // dispatch(updatePsychologist(psychologist, sessionStorage.getItem('id')));
+    console.log(check);
+  };
   const getAge = (date) => {
     let today = new Date().getFullYear();
     let year = date.split('-')[0];
@@ -47,7 +44,6 @@ function ChangeInterviewed() {
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-  console.log(session);
   return (
     <section className={styles.container}>
       <div className={styles.containerProfile}>
@@ -119,7 +115,9 @@ function ChangeInterviewed() {
         </div>
         <div>
           <h4>Interview:</h4>
-          <span>{session.result}</span>
+          <span>
+            Interviewed on {session.date} {session.time}
+          </span>
         </div>
         <div>
           <h4>Profiles</h4>
@@ -132,11 +130,10 @@ function ChangeInterviewed() {
                     <td>
                       <input
                         onChange={handleChange}
-                        checked={isChecked(session.idCandidate?.profiles)}
+                        checked={isChecked(profile._id)}
                         type="checkbox"
-                      >
-                        REGULAR
-                      </input>
+                        value={profile._id}
+                      />
                     </td>
                   </tr>
                 ];
@@ -144,6 +141,9 @@ function ChangeInterviewed() {
             </tbody>
           </table>
         </div>
+        <button className={styles.btnSave} onClick={onSubmit}>
+          SAVE
+        </button>
       </div>
     </section>
   );
