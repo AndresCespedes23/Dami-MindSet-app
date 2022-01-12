@@ -101,23 +101,25 @@ function clientsStates() {
           <table>
             <tbody>
               {clients.map((client) => {
-                return [
-                  <tr key={client._id} className={styles.clientsInfo}>
-                    <td className={styles.userName}>{client.name}</td>
-                    <td>
-                      <button
-                        className={styles.redBtn}
-                        onClick={() =>
-                          handleDetails(client._id, {
-                            ...clients
-                          })
-                        }
-                      >
-                        DETAILS
-                      </button>
-                    </td>
-                  </tr>
-                ];
+                if (client.isDeleted === false) {
+                  return [
+                    <tr key={client._id} className={styles.clientsInfo}>
+                      <td className={styles.userName}>{client.name}</td>
+                      <td>
+                        <button
+                          className={styles.redBtn}
+                          onClick={() =>
+                            handleDetails(client._id, {
+                              ...clients
+                            })
+                          }
+                        >
+                          DETAILS
+                        </button>
+                      </td>
+                    </tr>
+                  ];
+                }
               })}
             </tbody>
           </table>
@@ -129,29 +131,31 @@ function clientsStates() {
           <table>
             <tbody>
               {clients.map((client) => {
-                return [
-                  <tr key={client._id} className={styles.clientsInfo}>
-                    <td className={styles.userName}>{client.name}</td>
-                    <td>
-                      <button
-                        className={styles.redBtn}
-                        onClick={() => handleDelete(idActive, client._id)}
-                      >
-                        DELETE
-                      </button>
-                      <button
-                        className={styles.greenBtn}
-                        onClick={() =>
-                          handleEnable(client._id, {
-                            ...client
-                          })
-                        }
-                      >
-                        ENABLE
-                      </button>
-                    </td>
-                  </tr>
-                ];
+                if (client.isDeleted === true) {
+                  return [
+                    <tr key={client._id} className={styles.clientsInfo}>
+                      <td className={styles.userName}>{client.name}</td>
+                      <td>
+                        <button
+                          className={styles.redBtn}
+                          onClick={() => handleDelete(idActive, client._id)}
+                        >
+                          DELETE
+                        </button>
+                        <button
+                          className={styles.greenBtn}
+                          onClick={() =>
+                            handleEnable(client._id, {
+                              ...client
+                            })
+                          }
+                        >
+                          ENABLE
+                        </button>
+                      </td>
+                    </tr>
+                  ];
+                }
               })}
             </tbody>
           </table>
