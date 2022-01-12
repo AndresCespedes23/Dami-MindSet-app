@@ -1,235 +1,45 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getOnePostulant } from 'redux/Postulants/thunks';
+import React, { useState } from 'react';
 import Button from 'Components/Shared/Button';
-import style from './profile.module.css';
-import Spinner from 'Components/Shared/Spinner';
+import styles from './availability.module.css';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { setAvailability } from 'redux/PostulantModule/actions';
+import { useDispatch } from 'react-redux';
 
-function Profile() {
-  const postulant = useSelector((store) => store.postulants.postulant);
-  const isLoading = useSelector((store) => store.postulants.isLoading);
+const Availability = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
+  const [array, setArray] = useState([]);
 
-  useEffect(() => {
-    dispatch(getOnePostulant(sessionStorage.getItem('id')));
-  }, [dispatch]);
-
-  const getAge = (date) => {
-    let today = new Date().getFullYear();
-    let year = date.split('-')[0];
-    return today - year;
+  const onSubmit = () => {
+    dispatch(setAvailability(array));
+    history.push('/postulants/summary');
   };
-  const isChecked = (key) => {
-    return postulant.availability?.some((element) => element.key === key);
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      setArray([
+        ...array,
+        {
+          key: e.target.value,
+          day: e.target.value.split('-')[0],
+          time: `${e.target.value.split('-')[1]}:00`
+        }
+      ]);
+    } else {
+      setArray((prevState) => prevState.filter((item) => item.key !== e.target.value));
+    }
   };
-
-  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
-    <section className={style.container}>
-      <div className={style.profile}>
-        <div className={style.header}>
-          <div>
-            <Button type={'back'} />
-          </div>
-          <div className={style.headercolumn}>
-            <h2>Profile</h2>
-            <img
-              className={style.loginphoto}
-              src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
-            />
-            <h4>{postulant.name}</h4>
-            <span>Status</span>
-            <p
-              className={
-                postulant.status === 'ACTIVE'
-                  ? style.statusActive
-                  : postulant.status === 'INACTIVE'
-                  ? style.statusInactive
-                  : style.statusPending
-              }
-            >
-              {postulant.status}
-            </p>
-          </div>
-          <div></div>
-        </div>
-        <div className={style.box}>
-          <div className={style.subtitle}>
-            <h4>About me</h4>
-            <Button type={'editInfo'} />
-          </div>
-          <div>
-            <span>{postulant.description}</span>
-          </div>
-        </div>
-        <div className={style.box}>
-          <div className={style.subtitle}>
-            <h3>PERSONAL INFORMATION</h3>
-            <Button type={'editInfo'} />
-          </div>
-          <div className={style.boxinfo}>
-            <div>
-              <h4>Name:</h4>
-              <span>{postulant.name}</span>
-            </div>
-            <div>
-              <h4>Username:</h4>
-              <span>{postulant.username}</span>
-            </div>
-            <div>
-              <h4>Email</h4>
-              <span>{postulant.email}</span>
-            </div>
-            <div>
-              <h4>Date of birth:</h4>
-              <span>{postulant.dateOfBirth ? postulant.dateOfBirth.split('T')[0] : ''}</span>
-            </div>
-            <div>
-              <h4>Age:</h4>
-              <span>{postulant.dateOfBirth ? getAge(postulant.dateOfBirth) : ''}</span>
-            </div>
-            <div>
-              <h4>Phone number:</h4>
-              <span>{postulant.phoneNumber}</span>
-            </div>
-            <div>
-              <h4>Address:</h4>
-              <span>{postulant.address}</span>
-            </div>
-            <div>
-              <h4>City:</h4>
-              <span>{postulant.city}</span>
-            </div>
-            <div>
-              <h4>Postal Code:</h4>
-              <span>{postulant.zipCode}</span>
-            </div>
-          </div>
-        </div>
-        <h3>EDUCATION</h3>
-        <div className={style.box}>
-          {postulant.education?.map((data) => {
-            return (
-              <div key={data._id} className={style.box}>
-                <div className={style.subtitle}>
-                  <h5>{`${data.level} Education`}</h5>
-                  <Button type={'editInfo'} />
-                </div>
-                <div className={style.boxinfo}>
-                  <div>
-                    <h4>Name of the institution:</h4>
-                    <span>{data.institution}</span>
-                  </div>
-                  <div>
-                    <h4>Speciality:</h4>
-                    <span>{data.title}</span>
-                  </div>
-                  <div>
-                    <h4>Start year:</h4>
-                    <span>{data.startDate.split('T')[0]}</span>
-                  </div>
-                  <div>
-                    <h4>End year:</h4>
-                    <span>{data.finishDate.split('T')[0]}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <h3>WORK-EXPERIENCE</h3>
-        <div className={style.box}>
-          {postulant.workExperience?.map((data) => {
-            return (
-              <div key={data._id} className={style.box}>
-                <div className={style.subtitle}>
-                  <h5>{`${data?.role} in ${data?.company}`}</h5>
-                  <Button type={'editInfo'} />
-                </div>
-                <div className={style.workExperience}>
-                  <div>
-                    <span>
-                      {`Since ${data?.startDate.split('T')[0]} to ${
-                        data?.finishDate.split('T')[0]
-                      }`}
-                    </span>
-                  </div>
-                  <div>
-                    <h4>What did you do?:</h4>
-                    <span>{data?.description}</span>
-                  </div>
-                  <div>
-                    <h4>Biggest Accomplishments:</h4>
-                    <span>{data?.accomplishments}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <h3>COURSES</h3>
-        <div className={style.box}>
-          {postulant.courses?.map((data) => {
-            return (
-              <div key={data._id} className={style.box}>
-                <div className={style.subtitle}>
-                  <div></div>
-                  <Button type={'editInfo'} />
-                </div>
-                <div className={style.workExperience}>
-                  <div>
-                    <h4>Name:</h4>
-                    <span>{data?.name}</span>
-                  </div>
-                  <div>
-                    <h4>Organization:</h4>
-                    <span>{data?.organization}</span>
-                  </div>
-                  <div>
-                    <h4>Duration:</h4>
-                    <span>{data?.duration}</span>
-                  </div>
-                  <div>
-                    <h4>Description:</h4>
-                    <span>{data?.description}</span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className={style.box}>
-          <div className={style.subtitle}>
-            <h3>OTHER INFORMATION</h3>
-            <Button type={'editInfo'} />
-          </div>
-          <div className={style.boxinfo}>
-            <div>
-              <h4>Nationality:</h4>
-              <span>{postulant.nationality}</span>
-            </div>
-            <div>
-              <h4>ID Number:</h4>
-              <span>{postulant.dni}</span>
-            </div>
-            <div>
-              <h4>Martial Status:</h4>
-              <span>{postulant.maritalStatus}</span>
-            </div>
-            <div>
-              <h4>Drivers license:</h4>
-              <span>{postulant.driversLicense ? 'Yes' : 'No'}</span>
-            </div>
-          </div>
-        </div>
-        <div className={style.box}>
-          <div className={style.subtitle}>
-            <h3>AVAILABILITY</h3>
-            <Button type={'editInfo'} />
-          </div>
-          <div className={style.boxinfo}>
-            <table border="1" className={style.tableSummary}>
+    <section className={styles.container}>
+      <div className={styles.containerForm}>
+        <h2 className={styles.title}>Availability</h2>
+        <span className={styles.subtitle}>
+          Please select the hours in which you are available to be interviewed by companies
+        </span>
+        <div className={styles.containerPersonal}>
+          <div className={styles.containerPersonal}>
+            <table border="1" className={styles.tableSummary}>
               <thead>
                 <tr>
                   <td>Day</td>
@@ -249,8 +59,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-06"
                       value="monday-06"
-                      disabled
-                      checked={isChecked('monday-06')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -259,8 +68,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-06"
                       value="tuesday-06"
-                      disabled
-                      checked={isChecked('tuesday-06')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -269,8 +77,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-06"
                       value="wednesday-06"
-                      disabled
-                      checked={isChecked('wednesday-06')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -279,8 +86,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-06"
                       value="thursday-06"
-                      disabled
-                      checked={isChecked('thursday-06')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -289,8 +95,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-06"
                       value="friday-06"
-                      disabled
-                      checked={isChecked('friday-06')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -302,8 +107,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-07"
                       value="monday-07"
-                      disabled
-                      checked={isChecked('monday-07')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -312,8 +116,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-07"
                       value="tuesday-07"
-                      disabled
-                      checked={isChecked('tuesday-07')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -322,8 +125,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-07"
                       value="wednesday-07"
-                      disabled
-                      checked={isChecked('wednesday-07')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -332,8 +134,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-07"
                       value="thursday-07"
-                      disabled
-                      checked={isChecked('thursday-07')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -342,8 +143,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-07"
                       value="friday-07"
-                      disabled
-                      checked={isChecked('friday-07')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -355,8 +155,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-08"
                       value="monday-08"
-                      disabled
-                      checked={isChecked('monday-08')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -365,8 +164,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-08"
                       value="tuesday-08"
-                      disabled
-                      checked={isChecked('tuesday-08')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -375,8 +173,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-08"
                       value="wednesday-08"
-                      disabled
-                      checked={isChecked('wednesday-08')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -385,8 +182,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-08"
                       value="thursday-08"
-                      disabled
-                      checked={isChecked('thursday-08')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -395,8 +191,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-08"
                       value="friday-08"
-                      disabled
-                      checked={isChecked('friday-08')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -408,8 +203,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-09"
                       value="monday-09"
-                      disabled
-                      checked={isChecked('monday-09')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -418,8 +212,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-09"
                       value="tuesday-09"
-                      disabled
-                      checked={isChecked('tuesday-09')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -428,8 +221,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-09"
                       value="wednesday-09"
-                      disabled
-                      checked={isChecked('wednesday-09')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -438,8 +230,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-09"
                       value="thursday-09"
-                      disabled
-                      checked={isChecked('thursday-09')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -448,8 +239,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-09"
                       value="friday-09"
-                      disabled
-                      checked={isChecked('friday-09')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -461,8 +251,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-10"
                       value="monday-10"
-                      disabled
-                      checked={isChecked('monday-10')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -471,8 +260,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-10"
                       value="tuesday-10"
-                      disabled
-                      checked={isChecked('tuesday-10')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -481,8 +269,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-10"
                       value="wednesday-10"
-                      disabled
-                      checked={isChecked('wednesday-10')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -491,8 +278,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-10"
                       value="thursday-10"
-                      disabled
-                      checked={isChecked('thursday-10')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -501,8 +287,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-10"
                       value="friday-10"
-                      disabled
-                      checked={isChecked('friday-10')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -514,8 +299,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-11"
                       value="monday-11"
-                      disabled
-                      checked={isChecked('monday-11')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -524,8 +308,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-11"
                       value="tuesday-11"
-                      disabled
-                      checked={isChecked('tuesday-11')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -534,8 +317,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-11"
                       value="wednesday-11"
-                      disabled
-                      checked={isChecked('wednesday-11')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -544,8 +326,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-11"
                       value="thursday-11"
-                      disabled
-                      checked={isChecked('thursday-11')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -554,8 +335,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-11"
                       value="friday-11"
-                      disabled
-                      checked={isChecked('friday-11')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -567,8 +347,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-12"
                       value="monday-12"
-                      disabled
-                      checked={isChecked('monday-12')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -577,8 +356,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-12"
                       value="tuesday-12"
-                      disabled
-                      checked={isChecked('tuesday-12')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -587,8 +365,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-12"
                       value="wednesday-12"
-                      disabled
-                      checked={isChecked('wednesday-12')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -597,8 +374,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-12"
                       value="thursday-12"
-                      disabled
-                      checked={isChecked('thursday-12')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -607,8 +383,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-12"
                       value="friday-12"
-                      disabled
-                      checked={isChecked('friday-12')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -620,8 +395,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-13"
                       value="monday-13"
-                      disabled
-                      checked={isChecked('monday-13')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -630,8 +404,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-13"
                       value="tuesday-13"
-                      disabled
-                      checked={isChecked('tuesday-13')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -640,8 +413,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-13"
                       value="wednesday-13"
-                      disabled
-                      checked={isChecked('wednesday-13')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -650,8 +422,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-13"
                       value="thursday-13"
-                      disabled
-                      checked={isChecked('thursday-13')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -660,8 +431,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-13"
                       value="friday-13"
-                      disabled
-                      checked={isChecked('friday-13')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -673,8 +443,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-14"
                       value="monday-14"
-                      disabled
-                      checked={isChecked('monday-14')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -683,8 +452,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-14"
                       value="tuesday-14"
-                      disabled
-                      checked={isChecked('tuesday-14')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -693,8 +461,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-14"
                       value="wednesday-14"
-                      disabled
-                      checked={isChecked('wednesday-14')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -703,8 +470,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-14"
                       value="thursday-14"
-                      disabled
-                      checked={isChecked('thursday-14')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -713,8 +479,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-14"
                       value="friday-14"
-                      disabled
-                      checked={isChecked('friday-14')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -726,8 +491,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-15"
                       value="monday-15"
-                      disabled
-                      checked={isChecked('monday-15')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -736,8 +500,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-15"
                       value="tuesday-15"
-                      disabled
-                      checked={isChecked('tuesday-15')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -746,8 +509,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-15"
                       value="wednesday-15"
-                      disabled
-                      checked={isChecked('wednesday-15')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -756,8 +518,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-15"
                       value="thursday-15"
-                      disabled
-                      checked={isChecked('thursday-15')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -766,8 +527,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-15"
                       value="friday-15"
-                      disabled
-                      checked={isChecked('friday-15')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -779,8 +539,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-16"
                       value="monday-16"
-                      disabled
-                      checked={isChecked('monday-16')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -789,8 +548,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-16"
                       value="tuesday-16"
-                      disabled
-                      checked={isChecked('tuesday-16')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -799,8 +557,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-16"
                       value="wednesday-16"
-                      disabled
-                      checked={isChecked('wednesday-16')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -809,8 +566,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-16"
                       value="thursday-16"
-                      disabled
-                      checked={isChecked('thursday-16')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -819,8 +575,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-16"
                       value="friday-16"
-                      disabled
-                      checked={isChecked('friday-16')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -832,8 +587,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-17"
                       value="monday-17"
-                      disabled
-                      checked={isChecked('monday-17')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -842,8 +596,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-17"
                       value="tuesday-17"
-                      disabled
-                      checked={isChecked('tuesday-17')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -852,8 +605,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-17"
                       value="wednesday-17"
-                      disabled
-                      checked={isChecked('wednesday-17')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -862,8 +614,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-17"
                       value="thursday-17"
-                      disabled
-                      checked={isChecked('thursday-17')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -872,8 +623,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-17"
                       value="friday-17"
-                      disabled
-                      checked={isChecked('friday-17')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -885,8 +635,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-18"
                       value="monday-18"
-                      disabled
-                      checked={isChecked('monday-18')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -895,8 +644,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-18"
                       value="tuesday-18"
-                      disabled
-                      checked={isChecked('tuesday-18')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -905,8 +653,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-18"
                       value="wednesday-18"
-                      disabled
-                      checked={isChecked('wednesday-18')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -915,8 +662,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-18"
                       value="thursday-18"
-                      disabled
-                      checked={isChecked('thursday-18')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -925,8 +671,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-18"
                       value="friday-18"
-                      disabled
-                      checked={isChecked('friday-18')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -938,8 +683,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-19"
                       value="monday-19"
-                      disabled
-                      checked={isChecked('monday-19')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -948,8 +692,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-19"
                       value="tuesday-19"
-                      disabled
-                      checked={isChecked('tuesday-19')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -958,8 +701,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-19"
                       value="wednesday-19"
-                      disabled
-                      checked={isChecked('wednesday-19')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -968,8 +710,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-19"
                       value="thursday-19"
-                      disabled
-                      checked={isChecked('thursday-19')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -978,8 +719,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-19"
                       value="friday-19"
-                      disabled
-                      checked={isChecked('friday-19')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -991,8 +731,7 @@ function Profile() {
                       type="checkbox"
                       id="monday-20"
                       value="monday-20"
-                      disabled
-                      checked={isChecked('monday-20')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -1001,8 +740,7 @@ function Profile() {
                       type="checkbox"
                       id="tuesday-20"
                       value="tuesday-20"
-                      disabled
-                      checked={isChecked('tuesday-20')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -1011,8 +749,7 @@ function Profile() {
                       type="checkbox"
                       id="wednesday-20"
                       value="wednesday-20"
-                      disabled
-                      checked={isChecked('wednesday-20')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -1021,8 +758,7 @@ function Profile() {
                       type="checkbox"
                       id="thursday-20"
                       value="thursday-20"
-                      disabled
-                      checked={isChecked('thursday-20')}
+                      onChange={handleChange}
                     />
                   </td>
                   <td>
@@ -1031,8 +767,7 @@ function Profile() {
                       type="checkbox"
                       id="friday-20"
                       value="friday-20"
-                      disabled
-                      checked={isChecked('friday-20')}
+                      onChange={handleChange}
                     />
                   </td>
                 </tr>
@@ -1040,9 +775,15 @@ function Profile() {
             </table>
           </div>
         </div>
+        <div className={styles.containerFooter}>
+          <Link to="/postulants/other-info">
+            <Button type={'back'} text={'BACK'} />
+          </Link>
+          <Button type={'next'} text={'NEXT'} onClick={onSubmit} />
+        </div>
       </div>
     </section>
   );
-}
+};
 
-export default Profile;
+export default Availability;
