@@ -13,6 +13,7 @@ import Courses from 'Components/Postulant/Courses';
 import Education from 'Components/Postulant/Education';
 import HomeLogged from 'Components/Postulant/HomeLogged';
 import PrivateRoutePostulant from './PrivateRoutePostulant';
+import InterviewDetails from 'Components/Postulant/InterviewDetails';
 import Availability from 'Components/Postulant/Availability';
 import Sessions from 'Components/Postulant/Sessions';
 
@@ -34,6 +35,7 @@ const PostulantRoutes = () => {
         <PrivateRoutePostulant path={`${url}/summary`} component={Summary} />
         <PrivateRoutePostulant path={`${url}/profile`} component={Profile} />
         <PrivateRoutePostulant path={`${url}/sessions`} component={Sessions} />
+        <PrivateRoutePostulant path={`${url}/interview/:id`} component={InterviewDetails} />
         <PrivateRoutePostulant path={`${url}/home`} component={HomeLogged} />
         <Redirect to={`${url}/`} component={Home} />
       </Switch>

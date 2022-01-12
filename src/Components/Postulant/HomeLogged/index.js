@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPendingInterview } from 'redux/Interviews/thunks';
 import { getOnePostulant } from 'redux/Postulants/thunks';
 import styles from './homeLogged.module.css';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function HomeLogged() {
   const postulant = useSelector((store) => store.postulants.postulant);
   const interviews = useSelector((store) => store.interviews.list);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
-  //   const history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOnePostulant(sessionStorage.getItem('id')));
@@ -42,7 +42,12 @@ function HomeLogged() {
                         <span className={styles.subInfo}>{interview.dateTime}</span>
                       </td>
                       <td className={styles.tdDetails}>
-                        <button className={styles.btnDetails}>VIEW DETAILS</button>
+                        <button
+                          onClick={() => history.push(`/postulants/interview/${interview._id}`)}
+                          className={styles.btnDetails}
+                        >
+                          VIEW DETAILS
+                        </button>
                       </td>
                       <td className={styles.tdCancel}>
                         <button className={styles.btnCancel}>CANCEL</button>
