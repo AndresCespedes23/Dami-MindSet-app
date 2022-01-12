@@ -27,7 +27,8 @@ const adminsRoutes = [
   { name: 'postulants', path: '/admin/postulants/' },
   { name: 'profiles', path: '/admin/profiles/' },
   { name: 'psychologists', path: '/admin/psychologists/' },
-  { name: 'sessions', path: '/admin/sessions/' }
+  { name: 'sessions', path: '/admin/sessions/' },
+  { name: 'statistics', path: '/admin/statistics/' }
 ];
 
 const AdminRoutes = () => {
