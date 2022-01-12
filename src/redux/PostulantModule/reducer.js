@@ -8,11 +8,12 @@ import {
   SET_OTHER_INFO,
   REGISTER_NEW_POSTULANT_ACCOUNT_FETCHING,
   REGISTER_NEW_POSTULANT_ACCOUNT_FULFILLED,
-  REGISTER_NEW_POSTULANT_ACCOUNT_REJECTED
+  REGISTER_NEW_POSTULANT_ACCOUNT_REJECTED,
+  SET_AVAILABILITY
 } from 'constants/actionTypes';
 
 const initialState = {
-  postulantData: { education: [], workExperience: [], courses: [] },
+  postulantData: { education: [], workExperience: [], courses: [], availability: [] },
   isLoading: false
 };
 
@@ -61,6 +62,14 @@ const postulantsModuleReducer = (state = initialState, action) => {
       return {
         ...state,
         postulantData: { ...state.postulantData, ...action.payload }
+      };
+    case SET_AVAILABILITY:
+      return {
+        ...state,
+        postulantData: {
+          ...state.postulantData,
+          availability: action.payload
+        }
       };
     case REGISTER_NEW_POSTULANT_ACCOUNT_FETCHING:
       return {
