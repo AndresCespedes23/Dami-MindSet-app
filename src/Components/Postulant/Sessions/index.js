@@ -2,7 +2,7 @@ import Spinner from 'Components/Shared/Spinner';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPsychologists } from 'redux/Psychologists/thunks';
-import { getAvailableSessions } from 'redux/Sessions/thunks';
+import { addSessions, getAvailableSessions } from 'redux/Sessions/thunks';
 import styles from './sessions.module.css';
 
 function Sessions() {
@@ -10,7 +10,14 @@ function Sessions() {
   const isLoading = useSelector((store) => store.psychologists.isLoading);
   //   const isLoadingSessions = useSelector((store) => store.sessions.isLoading);
   const sessions = useSelector((store) => store.sessions.list);
-
+  const [newSession, setNewSession] = useState({
+    date: '',
+    time: '',
+    status: '',
+    result: [],
+    idPsychologist: '',
+    idCandidate: ''
+  });
   const dispatch = useDispatch();
   const [idPsychologist, setIdPsychologist] = useState('');
   useEffect(() => {
@@ -28,9 +35,20 @@ function Sessions() {
   const handleChange = (e) => {
     const { value } = e.target;
     setIdPsychologist(value);
-    if (idPsychologist !== '') {
-      dispatch(getAvailableSessions(idPsychologist));
-    }
+    dispatch(getAvailableSessions(value));
+  };
+
+  const makeAppointment = (date) => {
+    setNewSession(newSession, {
+      date: date.split('T')[0],
+      time: `${date.split('T')[1].split(':')[0]}:${date.split('T')[1].split(':')[1].split(':')[0]}`,
+      status: 'PENDING',
+      result: [],
+      idPsychologist: idPsychologist,
+      idCandidate: sessionStorage.getItem('id')
+    });
+    console.log(newSession);
+    dispatch(addSessions(newSession));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
@@ -66,7 +84,32 @@ function Sessions() {
               Psychologist does not have sessions available
             </h3>
           ) : (
-            <h3 className={styles.subtitle}>Sessions:</h3>
+            <div>
+              <h3 className={styles.subtitle}>Sessions:</h3>
+              <table className={styles.table}>
+                <tbody>
+                  {sessions.map((session) => {
+                    return (
+                      <tr className={styles.trTable} key={session}>
+                        <td className={styles.tableColumn}>
+                          <span className={styles.mainInfo}>{session}</span>
+                        </td>
+                        <td className={styles.tdDetails}>
+                          <button className={styles.btnDetails}>
+                            <span
+                              className={styles.textCenter}
+                              onClick={() => makeAppointment(session)}
+                            >
+                              MAKE APPOINTMENT
+                            </span>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>
