@@ -27,37 +27,37 @@ function InterviewDetails() {
           <Button type={'back'} />
           <h2>Interview Details</h2>
         </div>
-        <div>
-          <div key={interview._id}>
-            <div className={style.box}>
-              <div className={style.info}>
-                <h3>Status:</h3>
-                <span>{interview.status}</span>
-              </div>
-              <div className={style.info}>
-                <h3>Position:</h3>
-                <span>{interview?.idPosition?.name}</span>
-              </div>
-              <div className={style.info}>
-                <h3>Company:</h3>
-                <span>{interview?.idClient?.name}</span>
-              </div>
-              <div className={style.info}>
-                <h3>Location:</h3>
-                <span>{interview?.idPosition?.address},</span>
-                <span>{interview?.idPosition?.city},</span>
-                <span>{interview?.idPosition?.postalCode},</span>
-              </div>
+        <div key={interview._id}>
+          <div className={style.box}>
+            <div className={style.info}>
+              <h3>Status:</h3>
+              <span>{interview.status}</span>
             </div>
-            <div className={style.box}>
-              <h3>About:</h3>
-              <span>{interview?.idPosition?.description}</span>
+            <div className={style.info}>
+              <h3>Position:</h3>
+              <span>{interview?.idPosition?.name}</span>
             </div>
-            <div className={style.box}>
-              <div className={style.info}>
-                <h3>Date:</h3>
-                <span>{interview?.dateTime?.split('T')[0]}</span>
-              </div>
+            <div className={style.info}>
+              <h3>Company:</h3>
+              <span>{interview?.idClient?.name}</span>
+            </div>
+          </div>
+          <div className={style.box}>
+            <div className={style.info}>
+              <h3>Location:</h3>
+              <span>{`ADDRESS: ${interview?.idPosition?.address}.`}</span>
+              <span>{`CITY: ${interview?.idPosition?.city}.`}</span>
+              <span>{`ZP: ${interview?.idPosition?.postalCode}.`}</span>
+            </div>
+          </div>
+          <div className={style.box}>
+            <h3>About:</h3>
+            <span className={style.aboutSpan}>{interview?.idPosition?.description}</span>
+          </div>
+          <div className={style.box}>
+            <div className={style.info}>
+              <h3>Date:</h3>
+              <span>{interview?.dateTime?.split('T')[0]}</span>
             </div>
           </div>
         </div>
