@@ -1,0 +1,80 @@
+* {
+    font-family: Century Gothic;
+  }
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: fit-content;
+  margin: 40px;
+  padding: 20px 40px;
+  border-top: 10px solid #002147;
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px #00000029;
+  background-color: #fff;
+}
+
+.profile h3, .profile span {
+  margin: 5px 0px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.profile span {
+  font-weight: 100;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.header Button {
+  box-shadow: 5px 10px 20px #00000029;
+}
+
+.header Button:hover {
+  cursor: pointer;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin-left: 20px;
+  font-weight: 600;
+}
+
+.statusActive, .statusInactive, .statusPending {
+  color: rgb(23, 124, 10);
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.statusInactive {
+  color: rgb(124, 10, 10);
+}
+
+.statusPending {
+  color: rgb(210, 191, 14);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.box > div {
+  display: flex;
+  margin-bottom: 20px;
+  
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
