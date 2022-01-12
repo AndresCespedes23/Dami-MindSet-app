@@ -5,7 +5,8 @@ import {
   SET_WORK_EXPERIENCE_INFO,
   SET_COURSES_INFO,
   SET_DESCRIPTION_INFO,
-  SET_OTHER_INFO
+  SET_OTHER_INFO,
+  SET_AVAILABILITY
 } from 'constants/actionTypes';
 
 export const setRegisterInfo = (payload) => ({ type: SET_REGISTER_INFO, payload });
@@ -15,3 +16,4 @@ export const setExperienceInfo = (payload) => ({ type: SET_WORK_EXPERIENCE_INFO,
 export const setCoursesInfo = (payload) => ({ type: SET_COURSES_INFO, payload });
 export const setDescriptionInfo = (payload) => ({ type: SET_DESCRIPTION_INFO, payload });
 export const setOtherInfo = (payload) => ({ type: SET_OTHER_INFO, payload });
+export const setAvailability = (payload) => ({ type: SET_AVAILABILITY, payload });
