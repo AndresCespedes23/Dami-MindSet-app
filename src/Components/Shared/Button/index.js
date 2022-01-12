@@ -6,7 +6,8 @@ import {
   FaRegWindowClose,
   FaAngleLeft,
   FaAngleRight,
-  FaPen
+  FaPen,
+  FaEye
 } from 'react-icons/fa';
 
 function Button({ type, onClick, text }) {
@@ -15,6 +16,7 @@ function Button({ type, onClick, text }) {
       {type === 'add' && <FaPlus />}
       {type === 'update' && <FaEdit />}
       {type === 'delete' && <FaTrashAlt />}
+      {type === 'info' && <FaEye />}
       {type === 'close' && <FaRegWindowClose />}
       {type === 'submit' && 'SUBMIT'}
       {type === 'search' && `Search ${text ? text : ''}`}

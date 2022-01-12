@@ -5,7 +5,8 @@
 }
 .add,
 .delete,
-.update {
+.update,
+.info {
   padding: 5px;
   border: 1.5px solid #002147;
   border-radius: 8px;
@@ -19,7 +20,8 @@
 
 .add:hover,
 .delete:hover,
-.update:hover {
+.update:hover,
+.info:hover {
   background-color: #6666666e;
   cursor: pointer;
 }

@@ -14,11 +14,12 @@ import Education from 'Components/Postulant/Education';
 import HomeLogged from 'Components/Postulant/HomeLogged';
 import PrivateRoutePostulant from './PrivateRoutePostulant';
 import Availability from 'Components/Postulant/Availability';
+import Sessions from 'Components/Postulant/Sessions';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
   return (
-    <Layout routes={[{ name: 'Go to admin app', path: '/admin' }]} styleType="postulant">
+    <Layout styleType="postulant">
       <Switch>
         <Route path={`${url}/`} exact component={Home} />
         <Route path={`${url}/sign`} component={Sign} />
@@ -32,6 +33,7 @@ const PostulantRoutes = () => {
         <PrivateRoutePostulant path={`${url}/availability`} component={Availability} />
         <PrivateRoutePostulant path={`${url}/summary`} component={Summary} />
         <PrivateRoutePostulant path={`${url}/profile`} component={Profile} />
+        <PrivateRoutePostulant path={`${url}/sessions`} component={Sessions} />
         <PrivateRoutePostulant path={`${url}/home`} component={HomeLogged} />
         <Redirect to={`${url}/`} component={Home} />
       </Switch>
