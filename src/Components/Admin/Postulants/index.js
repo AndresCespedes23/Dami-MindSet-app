@@ -80,6 +80,12 @@ function Postulants() {
   const handleButtonClick = (type) => {
     setType(type);
   };
+  const handleDissabled = (id, postulant) => {
+    setIdActive(id);
+    dispatch(updatePostulant(postulant, id)).then(() => {
+      dispatch(getPostulants());
+    });
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -126,22 +132,27 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      return (
-                        <tr key={postulant._id}>
-                          <td>{postulant.name}</td>
-                          <td>{postulant.status}</td>
-                          <td>
-                            <Button
-                              type="delete"
-                              onClick={() => handleClickDelete(postulant._id)}
-                            />
-                            <Button
-                              type="update"
-                              onClick={() => handleClickUpdate(postulant._id)}
-                            />
-                          </td>
-                        </tr>
-                      );
+                      if (postulant.status === 'PENDING INTERVIEW') {
+                        return (
+                          <tr key={postulant._id}>
+                            <td>{postulant.name}</td>
+                            <td>{postulant.status}</td>
+                            <td>
+                              <button
+                                className={styles.redBtn}
+                                onClick={() =>
+                                  handleDissabled(postulant._id, {
+                                    ...postulant,
+                                    status: 'ACTIVE'
+                                  })
+                                }
+                              >
+                                CANCEL INTERVIEW
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      }
                     })}
                   </tbody>
                 );
@@ -149,25 +160,27 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      return (
-                        <tr key={postulant._id}>
-                          <td>{postulant.name}</td>
-                          <td>{postulant.email}</td>
-                          <td>{postulant.phoneNumber}</td>
-                          <td>{postulant.country}</td>
-                          <td>{postulant.status}</td>
-                          <td>
-                            <Button
-                              type="delete"
-                              onClick={() => handleClickDelete(postulant._id)}
-                            />
-                            <Button
-                              type="update"
-                              onClick={() => handleClickUpdate(postulant._id)}
-                            />
-                          </td>
-                        </tr>
-                      );
+                      if (postulant.status === 'ACTIVE') {
+                        return (
+                          <tr key={postulant._id}>
+                            <td>{postulant.name}</td>
+                            <td>{postulant.status}</td>
+                            <td>
+                              <button
+                                className={styles.redBtn}
+                                onClick={() =>
+                                  handleDissabled(postulant._id, {
+                                    ...postulant,
+                                    status: 'INACTIVE'
+                                  })
+                                }
+                              >
+                                DEACTIVATE
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      }
                     })}
                   </tbody>
                 );
@@ -175,25 +188,26 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      return (
-                        <tr key={postulant._id}>
-                          <td>{postulant.name}</td>
-                          <td>{postulant.email}</td>
-                          <td>{postulant.phoneNumber}</td>
-                          <td>{postulant.country}</td>
-                          <td>{postulant.status}</td>
-                          <td>
-                            <Button
-                              type="delete"
-                              onClick={() => handleClickDelete(postulant._id)}
-                            />
-                            <Button
-                              type="update"
-                              onClick={() => handleClickUpdate(postulant._id)}
-                            />
-                          </td>
-                        </tr>
-                      );
+                      if (postulants.status === 'INACTIVE') {
+                        return (
+                          <tr key={postulant._id}>
+                            <td>{postulant.name}</td>
+                            <td>
+                              <button
+                                className={styles.redBtn}
+                                onClick={() =>
+                                  handleDissabled(postulant._id, {
+                                    ...postulant,
+                                    status: 'ACTIVE'
+                                  })
+                                }
+                              >
+                                ACTIVATE
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      }
                     })}
                   </tbody>
                 );
@@ -201,7 +215,7 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      if (postulants.isDeleted === true) {
+                      if (postulants.status === 'DISABLED') {
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
@@ -221,7 +235,7 @@ function Postulants() {
                             </td>
                           </tr>
                         );
-                      } else return;
+                      }
                     })}
                   </tbody>
                 );
