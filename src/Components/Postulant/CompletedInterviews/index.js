@@ -24,7 +24,7 @@ function HomeLogged() {
       <div className={styles.containerSummary}>
         <div className={styles.header}>
           <div>
-            <Button type={'back'} />
+            <Button type={'back'} onClick={() => history.push(`/postulants/home`)} />
           </div>
         </div>
         <div className={styles.containerBody}>
