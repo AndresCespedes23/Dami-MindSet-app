@@ -4,18 +4,15 @@ import { useSelector } from 'react-redux';
 import Input from 'Components/Shared/Input';
 import Select from 'Components/Shared/Select';
 import Button from 'Components/Shared/Button';
+import { useState } from 'react';
 
 function EducationForm({ handleSubmit, handleShowModal }) {
   const formData = useSelector((store) => store.postulants.postulant);
   const educations = formData?.education;
-
-  //function that gets de obj id of education
-  for (let i = 0; i < educations.length; i += 1) {
-    console.log(educations[i]._id);
-  }
+  const [idEducation, setIdEducation] = useState('');
 
   const onSubmit = (formValues) => {
-    handleSubmit(formValues);
+    handleSubmit(formValues, idEducation);
     handleShowModal(false);
   };
 
@@ -86,7 +83,7 @@ function EducationForm({ handleSubmit, handleShowModal }) {
                     </div>
                   </div>
                   <div className={styles.containerFooter}>
-                    <Button type="submit" />
+                    <Button type="submit" onClick={() => setIdEducation(data._id)} />
                   </div>
                 </form>
               )}

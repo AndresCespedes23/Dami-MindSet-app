@@ -3,12 +3,14 @@ import { Form, Field } from 'react-final-form';
 import { useSelector } from 'react-redux';
 import Input from 'Components/Shared/Input';
 import Button from 'Components/Shared/Button';
+import { useState } from 'react';
 
 function CoursesForm({ handleSubmit, handleShowModal }) {
   const formData = useSelector((store) => store.postulants.postulant);
+  const [idCourse, setIdCourse] = useState('');
 
   const onSubmit = (formValues) => {
-    handleSubmit(formValues);
+    handleSubmit(formValues, idCourse);
     handleShowModal(false);
   };
 
@@ -77,7 +79,7 @@ function CoursesForm({ handleSubmit, handleShowModal }) {
                     </div>
                   </div>
                   <div className={styles.containerFooter}>
-                    <Button type="submit" />
+                    <Button type="submit" onClick={() => setIdCourse(data._id)} />
                   </div>
                 </form>
               )}

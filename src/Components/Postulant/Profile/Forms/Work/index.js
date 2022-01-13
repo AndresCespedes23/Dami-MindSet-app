@@ -3,12 +3,14 @@ import { Form, Field } from 'react-final-form';
 import { useSelector } from 'react-redux';
 import Button from 'Components/Shared/Button';
 import Input from 'Components/Shared/Input';
+import { useState } from 'react';
 
 function WorkForm({ handleSubmit, handleShowModal }) {
   const formData = useSelector((store) => store.postulants.postulant);
+  const [idWork, setIdWork] = useState('');
 
   const onSubmit = (formValues) => {
-    handleSubmit(formValues);
+    handleSubmit(formValues, idWork);
     handleShowModal(false);
   };
 
@@ -23,7 +25,6 @@ function WorkForm({ handleSubmit, handleShowModal }) {
             <Form
               key={data._id}
               onSubmit={onSubmit}
-              initialValues={formData}
               render={(formProps) => (
                 <form onSubmit={formProps.handleSubmit} className={styles.form}>
                   <div className={styles.formContent}>
@@ -81,7 +82,7 @@ function WorkForm({ handleSubmit, handleShowModal }) {
                     />
                   </div>
                   <div className={styles.containerFooter}>
-                    <Button type="submit" />
+                    <Button type="submit" onClick={() => setIdWork(data._id)} />
                   </div>
                 </form>
               )}

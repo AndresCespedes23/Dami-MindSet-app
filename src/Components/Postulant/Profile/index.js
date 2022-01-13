@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant, updatePostulant } from 'redux/Postulants/thunks';
-import { updateEducation } from 'redux/PostulantModule/Education/thunks';
 import { setShowModal, setModalType } from 'redux/Postulants/actions';
 import Button from 'Components/Shared/Button';
 import style from './profile.module.css';
@@ -16,9 +15,8 @@ function Profile() {
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
 
-  //'61c331fdb1a4e56772c1fdd0'
   useEffect(() => {
-    dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
+    dispatch(getOnePostulant(sessionStorage.getItem('id')));
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -30,60 +28,89 @@ function Profile() {
     return postulant.availability?.some((element) => element.key === key);
   };
 
-  const handleUpdatePostulants = (postulant) => {
-    dispatch(updatePostulant(postulant, idActive)).then(() => {
-      dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
-    });
-  };
-
-  const handleUpdateEducation = (education) => {
-    dispatch(updateEducation(education, idActive)).then(() => {
-      dispatch(getOnePostulant('61c331fdb1a4e56772c1fdd0' /*sessionStorage.getItem('id')*/));
-    });
-  };
-
   const handleClickUpdateAboutMe = (id) => {
     dispatch(setModalType('about'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
-
+  const handleUpdateAboutMe = (newPostulant) => {
+    dispatch(updatePostulant(newPostulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
   const handleClickUpdatePersonalInfo = (id) => {
-    dispatch(setModalType('personal info'));
+    dispatch(setModalType('personalInfo'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
-
+  const handleUpdatePostulants = (postulant) => {
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
   const handleClickUpdateEducation = (id) => {
     dispatch(setModalType('education'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
-
+  const handleUpdateEducation = (education, idEducation) => {
+    const index = postulant.education.findIndex((x) => x._id == idEducation);
+    postulant.education[index] = education;
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
   const handleClickUpdateWork = (id) => {
     dispatch(setModalType('work'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
-
+  const handleUpdateWork = (work, idWork) => {
+    const index = postulant.workExperience.findIndex((x) => x._id == idWork);
+    postulant.workExperience[index] = work;
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
   const handleClickUpdateCourses = (id) => {
     dispatch(setModalType('courses'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
-
+  const handleUpdateCourse = (course, idCourse) => {
+    const index = postulant.courses.findIndex((x) => x._id == idCourse);
+    index !== -1 ? (postulant.courses[index] = course) : postulant.courses.push(course);
+    console.log(postulant.courses);
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
   const handleClickUpdateOtherInfo = (id) => {
-    dispatch(setModalType('other info'));
+    dispatch(setModalType('otherInfo'));
     setIdActive(id);
     dispatch(setShowModal(true));
   };
-
+  const handleUpdateOtherInfo = (postulant) => {
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
+  const handleClickUpdateAvailability = (id) => {
+    dispatch(setModalType('availability'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+  const handleUpdateAvailability = (postulant) => {
+    dispatch(updatePostulant(postulant, idActive)).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
   const handleShowModal = () => {
     dispatch(setShowModal(false));
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-
+  console.log(postulant);
   return (
     <section className={style.container}>
       <div className={style.profile}>
@@ -215,8 +242,8 @@ function Profile() {
                 <div className={style.workExperience}>
                   <div>
                     <span>
-                      {`Since ${data?.startDate.split('T')[0]} to ${
-                        data?.finishDate.split('T')[0]
+                      {`Since ${data.startDate?.split('T')[0]} to ${
+                        data.finishDate?.split('T')[0]
                       }`}
                     </span>
                   </div>
@@ -294,7 +321,10 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>AVAILABILITY</h3>
-            <Button type={'editInfo'} />
+            <Button
+              type={'editInfo'}
+              onClick={() => handleClickUpdateAvailability(postulant._id)}
+            />
           </div>
           <div className={style.boxinfo}>
             <table border="1" className={style.tableSummary}>
@@ -1113,7 +1143,21 @@ function Profile() {
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={modalType === 'education' ? handleUpdateEducation : handleUpdatePostulants}
+          handleSubmit={
+            modalType === 'education'
+              ? handleUpdateEducation
+              : modalType === 'about'
+              ? handleUpdateAboutMe
+              : modalType === 'work'
+              ? handleUpdateWork
+              : modalType === 'courses'
+              ? handleUpdateCourse
+              : modalType === 'otherInfo'
+              ? handleUpdateOtherInfo
+              : modalType === 'availability'
+              ? handleUpdateAvailability
+              : handleUpdatePostulants
+          }
           meta={idActive}
         />
       )}

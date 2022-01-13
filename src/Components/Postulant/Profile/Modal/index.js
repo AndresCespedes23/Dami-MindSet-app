@@ -6,6 +6,7 @@ import EducationForm from 'Components/Postulant/Profile/Forms/Education';
 import WorkForm from 'Components/Postulant/Profile/Forms/Work';
 import CoursesForm from 'Components/Postulant/Profile/Forms/Courses';
 import OtherInfoForm from 'Components/Postulant/Profile/Forms/OtherInfo';
+import AvailabilityForm from '../Forms/Availability';
 
 function ProfileModal({ id, handleShowModal, modalType, handleSubmit }) {
   let modalComponent;
@@ -16,7 +17,7 @@ function ProfileModal({ id, handleShowModal, modalType, handleSubmit }) {
       );
       break;
 
-    case 'personal info':
+    case 'personalInfo':
       modalComponent = (
         <PersonalInfoForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
@@ -40,9 +41,14 @@ function ProfileModal({ id, handleShowModal, modalType, handleSubmit }) {
       );
       break;
 
-    case 'other info':
+    case 'otherInfo':
       modalComponent = (
         <OtherInfoForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
+      break;
+    case 'availability':
+      modalComponent = (
+        <AvailabilityForm meta={id} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
       );
       break;
   }
