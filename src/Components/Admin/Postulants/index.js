@@ -24,6 +24,8 @@ function Postulants() {
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
 
+  const [type, setType] = useState('PENDING-INTERVIEW');
+
   useEffect(() => {
     dispatch(getPostulants());
   }, [dispatch]);
@@ -74,14 +76,10 @@ function Postulants() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
-  function handleChangeView(view) {
-    var i;
-    var x = document.getElementsByClassName(view);
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = 'none';
-    }
-    document.getElementById(view).style.display = 'block';
-  }
+
+  const handleButtonClick = (type) => {
+    setType(type);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -95,39 +93,31 @@ function Postulants() {
           )}
           <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
         </div>
-        <div>
-          <div>
-            <button
-              className={(styles.topNav, styles.pendingInterview)}
-              onClick={() => handleChangeView('PendingInterview')}
-            >
-              Pending Interview
-            </button>
-          </div>
-          <div>
-            <button
-              className={(styles.topNav, styles.Unavailable)}
-              onClick={() => handleChangeView('Unavaliable')}
-            >
-              Unavailable
-            </button>
-          </div>
-          <div>
-            <button
-              className={(styles.topNav, styles.Active)}
-              onClick={() => handleChangeView('Active')}
-            >
-              Active
-            </button>
-          </div>
-          <div>
-            <button
-              className={(styles.topNav, styles.Disabled)}
-              onClick={() => handleChangeView('Disabled')}
-            >
-              Disabled
-            </button>
-          </div>
+        <div className={styles.containerButtons}>
+          <button
+            className={type === 'PENDING-INTERVIEW' ? styles.btnSectionActive : styles.btnSection}
+            onClick={() => handleButtonClick('PENDING-INTERVIEW')}
+          >
+            Pending interview
+          </button>
+          <button
+            className={type === 'ACTIVE' ? styles.btnSectionActive : styles.btnSection}
+            onClick={() => handleButtonClick('ACTIVE')}
+          >
+            Active
+          </button>
+          <button
+            className={type === 'UNAVAILABLE' ? styles.btnSectionActive : styles.btnSection}
+            onClick={() => handleButtonClick('UNAVAILABLE')}
+          >
+            Unavailable
+          </button>
+          <button
+            className={type === 'INACTIVE' ? styles.btnSectionActive : styles.btnSection}
+            onClick={() => handleButtonClick('INACTIVE')}
+          >
+            Inactive
+          </button>
         </div>
         <table className={styles.table}>
           <tbody>

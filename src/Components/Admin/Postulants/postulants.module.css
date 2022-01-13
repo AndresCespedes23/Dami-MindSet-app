@@ -35,7 +35,7 @@
 .table th {
   padding: 10px;
   box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
-  background-color: #002147;
+  background-color: #610000;
   text-align: center;
   color: #ffffff;
   border: 1px solid #ffffff;
@@ -50,41 +50,35 @@
   line-height: 17px;
 }
 
-.pendingInterview {
-  display: block;
-  background: #610000 0% 0% no-repeat padding-box;
-  border: 1px solid #610000;
-  opacity: 1;
-  text-align: center;
-  letter-spacing: 0px;
-  color: #ffffff;
+.containerButtons {
+  display: flex;
+  width: 100%;
 }
-.Unavailable {
-  display: block;
-  background: #610000 0% 0% no-repeat padding-box;
+
+.btnSection {
+  flex: auto;
   border: 1px solid #610000;
-  opacity: 1;
+  color: #610000;
+  padding: 7px;
   text-align: center;
-  letter-spacing: 0px;
-  color: #ffffff;
+  font: normal normal normal 20px/25px Century Gothic;
+  margin: 0;
 }
-.Active {
-  display: block;
-  background: #610000 0% 0% no-repeat padding-box;
+.btnSection:hover {
   border: 1px solid #610000;
-  opacity: 1;
-  text-align: center;
-  letter-spacing: 0px;
   color: #ffffff;
+  background-color: #610000;
+  margin: 0;
 }
-.Disabled {
-  display: block;
-  background: #610000 0% 0% no-repeat padding-box;
+.btnSectionActive {
+  flex: auto;
   border: 1px solid #610000;
-  opacity: 1;
-  text-align: center;
-  letter-spacing: 0px;
   color: #ffffff;
+  background-color: #610000;
+  padding: 7px;
+  text-align: center;
+  font: normal normal normal 20px/25px Century Gothic;
+  margin: 0;
 }
 
 /* this is for the blue border, it has to be piece by piece*/
