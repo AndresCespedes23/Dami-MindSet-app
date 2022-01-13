@@ -39,6 +39,12 @@ table {
   border-style: double;
   border-radius: 11px;
 }
+.notFoundMessage{
+  font: normal normal bold 20px Century Gothic;
+  width: 45%;
+  color: #9b0000;
+  margin: 20px
+}
 .contentClients {
   margin-left: 2vw;
   margin-bottom: 10vh;

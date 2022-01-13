@@ -16,7 +16,10 @@ import {
   GET_ONE_CLIENTS_REJECTED,
   GET_DISABLED_CLIENTS_FETCHING,
   GET_DISABLED_CLIENTS_FULFILLED,
-  GET_DISABLED_CLIENTS_REJECTED
+  GET_DISABLED_CLIENTS_REJECTED,
+  SEARCH_CLIENT_FETCHING,
+  SEARCH_CLIENT_FULFILLED,
+  SEARCH_CLIENT_REJETED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/clients`;
@@ -225,6 +228,33 @@ export const getDisabledClients = () => {
       })
       .catch(() => {
         dispatch(getDisabledClientsRejected());
+      });
+  };
+};
+
+const searchClientFetching = () => ({ type: SEARCH_CLIENT_FETCHING });
+
+const searchClientFulfilled = (payload) => ({ type: SEARCH_CLIENT_FULFILLED, payload });
+
+const searchClientRejected = () => ({ type: SEARCH_CLIENT_REJETED });
+
+export const searchClient = (text) => {
+  return (dispatch) => {
+    dispatch(searchClientFetching());
+    fetch(`${BASE_URL}/clients-states?name=${text}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(searchClientFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(searchClientRejected());
       });
   };
 };

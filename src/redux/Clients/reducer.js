@@ -17,6 +17,9 @@ import {
   GET_DISABLED_CLIENTS_FETCHING,
   GET_DISABLED_CLIENTS_FULFILLED,
   GET_DISABLED_CLIENTS_REJECTED,
+  SEARCH_CLIENT_FETCHING,
+  SEARCH_CLIENT_FULFILLED,
+  SEARCH_CLIENT_REJETED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -174,6 +177,18 @@ const clientsReducer = (state = initialState, action) => {
         client: initialState.client
       };
     }
+    case SEARCH_CLIENT_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case SEARCH_CLIENT_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case SEARCH_CLIENT_REJETED:
     case GET_DISABLED_CLIENTS_FETCHING:
       return {
         ...state,

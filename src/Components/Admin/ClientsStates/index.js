@@ -5,13 +5,15 @@ import {
   addClient,
   updateClient,
   deleteClient,
-  getDisabledClients
+  getDisabledClients,
+  searchClient
 } from 'redux/Clients/thunks';
 import { setShowModal, setShowMessage, setModalType } from 'redux/Clients/actions';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import styles from './clients-state.module.css';
 import Button from 'Components/Shared/Button';
+import Spinner from 'Components/Shared/Spinner';
 
 function clientsStates() {
   const showModal = useSelector((store) => store.clients.showModal);
@@ -21,7 +23,10 @@ function clientsStates() {
   const message = useSelector((store) => store.clients.messageText);
   const clients = useSelector((state) => state.clients.list);
   const disabledClients = useSelector((state) => state.clients.listDisabled);
+  const isLoading = useSelector((state) => state.clients.isLoading);
   const dispatch = useDispatch();
+  const [inputSearch, setInputSearch] = useState('');
+  const [isSearch, setIsSearch] = useState(false);
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -29,13 +34,27 @@ function clientsStates() {
     dispatch(getDisabledClients());
   }, [dispatch]);
 
+  const handleChange = (e) => {
+    setInputSearch(e.target.value);
+  };
+  const handleEnter = (e) => {
+    if (e.code === 'Enter') {
+      dispatch(searchClient(inputSearch));
+      setIsSearch(true);
+    }
+  };
+  const handleSubmit = () => {
+    dispatch(searchClient(inputSearch));
+    setIsSearch(true);
+  };
+
   /*const handleDetails = (id, client) => {
     setIdActive(id);
     dispatch(updateClient(client, idActive)).then(() => {
       dispatch(getClients());
     });
   };*/
-  console.log(disabledClients);
+
   const handleEnable = (id, client) => {
     setIdActive(id);
     dispatch(updateClient(client, idActive)).then(() => {
@@ -95,17 +114,56 @@ function clientsStates() {
         </div>
         <div className={styles.activeClients}>
           <div>
-            <h3 className={styles.title}>
-              <span className={styles.bold}>Active Clients</span>
-            </h3>
-          </div>
-          <div>
-            <input className={styles.searchInput} placeholder="Clients"></input>
-            <Button type={'search'} />
+            <input
+              className={styles.searchInput}
+              placeholder="Clients"
+              value={inputSearch}
+              onChange={handleChange}
+              onKeyPress={handleEnter}
+            ></input>
+            <Button type={'search'} onClick={handleSubmit} />
           </div>
         </div>
+        <div>
+          {!isSearch ? (
+            <></>
+          ) : isLoading ? (
+            <Spinner type="ThreeDots" color="#002147" height={80} width={80} />
+          ) : clients.length ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Cuit</th>
+                  <th>Address</th>
+                  <th>Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clients.map((client) => {
+                  return (
+                    <tr key={client._id}>
+                      <td>{client.name}</td>
+                      <td>{client.email}</td>
+                      <td>{client.phoneNumber}</td>
+                      <td>{client.cuit}</td>
+                      <td>{client.address}</td>
+                      <td>{client.activity}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <h3 className={styles.notFoundMessage}>Postulants not found</h3>
+          )}
+        </div>
         <div className={styles.contentClients}>
-          <div className={styles.contentClients}></div>
+          <h3 className={styles.title}>
+            <span className={styles.bold}>Active Clients</span>
+          </h3>
           <table>
             <tbody>
               {clients.map((client) => {
@@ -114,6 +172,7 @@ function clientsStates() {
                     <tr key={client._id} className={styles.clientsInfo}>
                       <td className={styles.userName}>{client.name}</td>
                       <td>
+                        <button className={styles.redBtn}>UNENABLE</button>
                         <button className={styles.redBtn}>DETAILS</button>
                       </td>
                     </tr>
