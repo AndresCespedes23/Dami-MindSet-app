@@ -14,6 +14,9 @@ import {
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
   GET_ONE_CLIENTS_REJECTED,
+  GET_DISABLED_CLIENTS_FETCHING,
+  GET_DISABLED_CLIENTS_FULFILLED,
+  GET_DISABLED_CLIENTS_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -24,6 +27,7 @@ const initialState = {
   isLoading: false,
   isLoadingForm: false,
   list: [],
+  listDisabled: [],
   error: false,
   messageType: '',
   messageText: '',
@@ -170,6 +174,25 @@ const clientsReducer = (state = initialState, action) => {
         client: initialState.client
       };
     }
+    case GET_DISABLED_CLIENTS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_DISABLED_CLIENTS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        listDisabled: action.payload
+      };
+    case GET_DISABLED_CLIENTS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get Disabled Clients'
+      };
     default:
       return state;
   }

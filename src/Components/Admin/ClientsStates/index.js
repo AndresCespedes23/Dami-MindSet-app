@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getClients, addClient, updateClient, deleteClient } from 'redux/Clients/thunks';
+import {
+  getClients,
+  addClient,
+  updateClient,
+  deleteClient,
+  getDisabledClients
+} from 'redux/Clients/thunks';
 import { setShowModal, setShowMessage, setModalType } from 'redux/Clients/actions';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
@@ -14,20 +20,22 @@ function clientsStates() {
   const messageType = useSelector((store) => store.clients.messageType);
   const message = useSelector((store) => store.clients.messageText);
   const clients = useSelector((state) => state.clients.list);
+  const disabledClients = useSelector((state) => state.clients.listDisabled);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
     dispatch(getClients());
+    dispatch(getDisabledClients());
   }, [dispatch]);
 
-  const handleDetails = (id, client) => {
+  /*const handleDetails = (id, client) => {
     setIdActive(id);
     dispatch(updateClient(client, idActive)).then(() => {
       dispatch(getClients());
     });
-  };
-
+  };*/
+  console.log(disabledClients);
   const handleEnable = (id, client) => {
     setIdActive(id);
     dispatch(updateClient(client, idActive)).then(() => {
@@ -106,16 +114,7 @@ function clientsStates() {
                     <tr key={client._id} className={styles.clientsInfo}>
                       <td className={styles.userName}>{client.name}</td>
                       <td>
-                        <button
-                          className={styles.redBtn}
-                          onClick={() =>
-                            handleDetails(client._id, {
-                              ...clients
-                            })
-                          }
-                        >
-                          DETAILS
-                        </button>
+                        <button className={styles.redBtn}>DETAILS</button>
                       </td>
                     </tr>
                   ];
@@ -130,7 +129,7 @@ function clientsStates() {
           </h3>
           <table>
             <tbody>
-              {clients.map((client) => {
+              {disabledClients.map((client) => {
                 if (client.isDeleted === true) {
                   return [
                     <tr key={client._id} className={styles.clientsInfo}>
@@ -146,7 +145,8 @@ function clientsStates() {
                           className={styles.greenBtn}
                           onClick={() =>
                             handleEnable(client._id, {
-                              ...client
+                              ...client,
+                              isDeleted: true
                             })
                           }
                         >

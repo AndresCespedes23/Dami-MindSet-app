@@ -13,7 +13,10 @@ import {
   UPDATE_CLIENTS_REJECTED,
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
-  GET_ONE_CLIENTS_REJECTED
+  GET_ONE_CLIENTS_REJECTED,
+  GET_DISABLED_CLIENTS_FETCHING,
+  GET_DISABLED_CLIENTS_FULFILLED,
+  GET_DISABLED_CLIENTS_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/clients`;
@@ -190,4 +193,38 @@ export const getOneClients = (id) => (dispatch) => {
     .catch(() => {
       dispatch(getOneClientsRejected());
     });
+};
+
+const getDisabledClientsFetching = () => ({
+  type: GET_DISABLED_CLIENTS_FETCHING
+});
+
+const getDisabledClientsFulfilled = (payload) => ({
+  type: GET_DISABLED_CLIENTS_FULFILLED,
+  payload
+});
+
+const getDisabledClientsRejected = () => ({
+  type: GET_DISABLED_CLIENTS_REJECTED
+});
+
+export const getDisabledClients = () => {
+  return (dispatch) => {
+    dispatch(getDisabledClientsFetching());
+    fetch(`${BASE_URL}/disabled`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getDisabledClientsFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(getDisabledClientsRejected());
+      });
+  };
 };
