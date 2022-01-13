@@ -120,23 +120,113 @@ function Postulants() {
           </button>
         </div>
         <table className={styles.table}>
-          <tbody>
-            {postulants.map((postulant) => {
-              return (
-                <tr key={postulant._id}>
-                  <td>{postulant.name}</td>
-                  <td>{postulant.email}</td>
-                  <td>{postulant.phoneNumber}</td>
-                  <td>{postulant.country}</td>
-                  <td>{postulant.status}</td>
-                  <td>
-                    <Button type="delete" onClick={() => handleClickDelete(postulant._id)} />
-                    <Button type="update" onClick={() => handleClickUpdate(postulant._id)} />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
+          {(() => {
+            switch (type) {
+              case 'PENDING-INTERVIEW':
+                return (
+                  <tbody>
+                    {postulants.map((postulant) => {
+                      return (
+                        <tr key={postulant._id}>
+                          <td>{postulant.name}</td>
+                          <td>{postulant.status}</td>
+                          <td>
+                            <Button
+                              type="delete"
+                              onClick={() => handleClickDelete(postulant._id)}
+                            />
+                            <Button
+                              type="update"
+                              onClick={() => handleClickUpdate(postulant._id)}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                );
+              case 'ACTIVE':
+                return (
+                  <tbody>
+                    {postulants.map((postulant) => {
+                      return (
+                        <tr key={postulant._id}>
+                          <td>{postulant.name}</td>
+                          <td>{postulant.email}</td>
+                          <td>{postulant.phoneNumber}</td>
+                          <td>{postulant.country}</td>
+                          <td>{postulant.status}</td>
+                          <td>
+                            <Button
+                              type="delete"
+                              onClick={() => handleClickDelete(postulant._id)}
+                            />
+                            <Button
+                              type="update"
+                              onClick={() => handleClickUpdate(postulant._id)}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                );
+              case 'UNAVAILABLE':
+                return (
+                  <tbody>
+                    {postulants.map((postulant) => {
+                      return (
+                        <tr key={postulant._id}>
+                          <td>{postulant.name}</td>
+                          <td>{postulant.email}</td>
+                          <td>{postulant.phoneNumber}</td>
+                          <td>{postulant.country}</td>
+                          <td>{postulant.status}</td>
+                          <td>
+                            <Button
+                              type="delete"
+                              onClick={() => handleClickDelete(postulant._id)}
+                            />
+                            <Button
+                              type="update"
+                              onClick={() => handleClickUpdate(postulant._id)}
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                );
+              case 'INACTIVE':
+                return (
+                  <tbody>
+                    {postulants.map((postulant) => {
+                      if (postulants.isDeleted === true) {
+                        return (
+                          <tr key={postulant._id}>
+                            <td>{postulant.name}</td>
+                            <td>{postulant.email}</td>
+                            <td>{postulant.phoneNumber}</td>
+                            <td>{postulant.country}</td>
+                            <td>{postulant.status}</td>
+                            <td>
+                              <Button
+                                type="delete"
+                                onClick={() => handleClickDelete(postulant._id)}
+                              />
+                              <Button
+                                type="update"
+                                onClick={() => handleClickUpdate(postulant._id)}
+                              />
+                            </td>
+                          </tr>
+                        );
+                      } else return;
+                    })}
+                  </tbody>
+                );
+            }
+          })()}
         </table>
       </div>
       {showModal && (
