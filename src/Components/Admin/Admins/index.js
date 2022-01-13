@@ -7,6 +7,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { FaEdit } from 'react-icons/fa';
 import { getLoggedUser, registerNewUser } from 'redux/Auth/thunks';
 
 function Admins() {
@@ -42,6 +43,12 @@ function Admins() {
 
   const handleShowModal = () => {
     dispatch(setShowModal(false));
+  };
+  const handleDissabled = (id, admin) => {
+    setIdActive(id);
+    dispatch(updateAdmins(admin, id)).then(() => {
+      dispatch(getAdmins());
+    });
   };
 
   const handleShowMessage = () => {
@@ -84,22 +91,78 @@ function Admins() {
               <th>Action</th>
             </tr>
           </thead>
+          <h3 className={styles.title}>
+            <span className={styles.bold}>Active Admins</span>
+          </h3>
           <tbody>
             {admins.map((admin) => {
-              return (
-                <tr key={admin._id}>
-                  <td>{admin.name}</td>
-                  <td>{admin.email}</td>
-                  <td>{admin.username}</td>
-                  <td>
-                    {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
-                      <Button type="update" onClick={() => handleClickUpdate(admin._id)} />
-                    ) : (
-                      <> </>
-                    )}
-                  </td>
-                </tr>
-              );
+              if (admin.isDeleted === false) {
+                return (
+                  <tr key={admin._id}>
+                    <td>{admin.name}</td>
+                    <td>{admin.email}</td>
+                    <td>{admin.username}</td>
+                    <td>
+                      {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
+                        <>
+                          <button
+                            className={styles.redBtn}
+                            onClick={() => handleClickUpdate(admin._id)}
+                          >
+                            <FaEdit />
+                          </button>
+                          <button
+                            className={styles.redBtn}
+                            onClick={() =>
+                              handleDissabled(admin._id, {
+                                ...admin,
+                                isDeleted: true
+                              })
+                            }
+                          >
+                            DISSABLE
+                          </button>
+                        </>
+                      ) : (
+                        <> </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              }
+            })}
+          </tbody>
+          <h3 className={styles.title}>
+            <span className={styles.bold}>Disabled Admins</span>
+          </h3>
+          <tbody>
+            {admins.map((admin) => {
+              if (admin.isDeleted === true) {
+                return (
+                  <tr key={admin._id}>
+                    <td>{admin.name}</td>
+                    <td>{admin.email}</td>
+                    <td>{admin.username}</td>
+                    <td>
+                      {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
+                        <button
+                          className={styles.redBtn}
+                          onClick={() =>
+                            handleDissabled(admin._id, {
+                              ...admin,
+                              isDeleted: false
+                            })
+                          }
+                        >
+                          ENABLE
+                        </button>
+                      ) : (
+                        <> </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              }
             })}
           </tbody>
         </table>
