@@ -14,6 +14,9 @@ import {
   GET_ONE_SESSION_FETCHING,
   GET_ONE_SESSION_FULFILLED,
   GET_ONE_SESSION_REJECTED,
+  GET_AVAILABLE_SESSIONS_FETCHING,
+  GET_AVAILABLE_SESSIONS_FULFILLED,
+  GET_AVAILABLE_SESSIONS_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -171,6 +174,25 @@ const sessionsReducer = (state = initialState, action) => {
         session: initialState.session
       };
     }
+    case GET_AVAILABLE_SESSIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_AVAILABLE_SESSIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_AVAILABLE_SESSIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get sessions'
+      };
     default:
       return state;
   }

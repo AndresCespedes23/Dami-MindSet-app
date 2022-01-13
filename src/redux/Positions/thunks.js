@@ -13,7 +13,10 @@ import {
   UPDATE_POSITIONS_REJECTED,
   GET_ONE_POSITION_FETCHING,
   GET_ONE_POSITION_FULFILLED,
-  GET_ONE_POSITION_REJECTED
+  GET_ONE_POSITION_REJECTED,
+  GET_CLIENT_POSITIONS_FETCHING,
+  GET_CLIENT_POSITIONS_FULFILLED,
+  GET_CLIENT_POSITIONS_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/positions`;
@@ -184,6 +187,40 @@ export const getOnePosition = (id) => {
       })
       .catch(() => {
         dispatch(getOnePositionRejected());
+      });
+  };
+};
+
+const getClientPositionsFetching = () => ({
+  type: GET_CLIENT_POSITIONS_FETCHING
+});
+
+const getClientPositionsFulfilled = (payload) => ({
+  type: GET_CLIENT_POSITIONS_FULFILLED,
+  payload
+});
+
+const getClientPositionsRejected = () => ({
+  type: GET_CLIENT_POSITIONS_REJECTED
+});
+
+export const getClientPositions = (id) => {
+  return (dispatch) => {
+    dispatch(getClientPositionsFetching());
+    fetch(`${BASE_URL}/client/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getClientPositionsFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(getClientPositionsRejected());
       });
   };
 };

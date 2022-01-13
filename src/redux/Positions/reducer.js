@@ -14,6 +14,9 @@ import {
   GET_ONE_POSITION_FETCHING,
   GET_ONE_POSITION_FULFILLED,
   GET_ONE_POSITION_REJECTED,
+  GET_CLIENT_POSITIONS_FETCHING,
+  GET_CLIENT_POSITIONS_FULFILLED,
+  GET_CLIENT_POSITIONS_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -170,6 +173,25 @@ const positionsReducer = (state = initialState, action) => {
         position: initialState.position
       };
     }
+    case GET_CLIENT_POSITIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_CLIENT_POSITIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_CLIENT_POSITIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get Client Positions'
+      };
     default:
       return state;
   }

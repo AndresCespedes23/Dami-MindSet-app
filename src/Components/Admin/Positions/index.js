@@ -12,6 +12,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { useHistory } from 'react-router-dom';
 
 function Positions() {
   const showModal = useSelector((state) => state.positions.showModal);
@@ -23,6 +24,7 @@ function Positions() {
   const positions = useSelector((state) => state.positions.list);
   const isLoading = useSelector((state) => state.positions.isLoading);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getPositions());
@@ -74,6 +76,9 @@ function Positions() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
+  const handleClickInfo = (id) => {
+    history.push(`/admin/position/${id}`);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -116,6 +121,7 @@ function Positions() {
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(position._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(position._id)} />
+                    <Button type="info" onClick={() => handleClickInfo(position._id)} />
                   </td>
                 </tr>
               );

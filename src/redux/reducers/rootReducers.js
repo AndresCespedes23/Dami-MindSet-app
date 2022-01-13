@@ -11,6 +11,7 @@ import postulantsReducer from 'redux/Postulants/reducer';
 import postulantsModuleReducer from 'redux/PostulantModule/reducer';
 import educationModuleReducer from 'redux/PostulantModule/Education/reducer';
 import authReducer from 'redux/Auth/reducer';
+import statisticsReducer from 'redux/Statistics/reducer';
 
 const rootReducer = combineReducers({
   admins: adminsReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   psychologists: psychologistReducer,
   postulantModule: postulantsModuleReducer,
   education: educationModuleReducer,
-  auth: authReducer
+  auth: authReducer,
+  statistics: statisticsReducer
 });
 
 export default rootReducer;
