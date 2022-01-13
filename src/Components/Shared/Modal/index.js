@@ -11,7 +11,7 @@ import PostulantsForm from 'Components/Admin/Postulants/Form';
 import ProfilesForm from 'Components/Admin/Profiles/Form';
 import ApplicationsForm from 'Components/Admin/Applications/Form';
 import ClientsForm from 'Components/Admin/Clients/Form';
-function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
+function Modal({ handleShowModal, modalType, meta, handleSubmit, fixData }) {
   let modalComponent;
   switch (modalType) {
     case 'clients':
@@ -26,7 +26,12 @@ function Modal({ handleShowModal, modalType, meta, handleSubmit }) {
       break;
     case 'positions':
       modalComponent = (
-        <PositionsForm id={meta} handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+        <PositionsForm
+          id={meta}
+          handleSubmit={handleSubmit}
+          handleShowModal={handleShowModal}
+          fixData={fixData}
+        />
       );
       break;
     case 'interviews':
