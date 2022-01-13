@@ -21,7 +21,10 @@ import {
   CLEAN_SELECTED_INTERVIEW,
   GET_PENDING_INTERVIEW_FETCHING,
   GET_PENDING_INTERVIEW_FULFILLED,
-  GET_PENDING_INTERVIEW_REJECTED
+  GET_PENDING_INTERVIEW_REJECTED,
+  GET_COMPLETED_INTERVIEW_FETCHING,
+  GET_COMPLETED_INTERVIEW_FULFILLED,
+  GET_COMPLETED_INTERVIEW_REJECTED
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -192,6 +195,25 @@ const interviewsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot get pending interviews'
+      };
+    case GET_COMPLETED_INTERVIEW_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_COMPLETED_INTERVIEW_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_COMPLETED_INTERVIEW_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get completed interviews'
       };
     default:
       return state;
