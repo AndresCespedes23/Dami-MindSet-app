@@ -16,7 +16,10 @@ import {
   GET_ONE_INTERVIEW_REJECTED,
   GET_PENDING_INTERVIEW_FETCHING,
   GET_PENDING_INTERVIEW_FULFILLED,
-  GET_PENDING_INTERVIEW_REJECTED
+  GET_PENDING_INTERVIEW_REJECTED,
+  GET_COMPLETED_INTERVIEW_FETCHING,
+  GET_COMPLETED_INTERVIEW_FULFILLED,
+  GET_COMPLETED_INTERVIEW_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/interviews`;
@@ -226,6 +229,41 @@ export const getPendingInterview = (id) => {
       })
       .catch(() => {
         dispatch(getPendingInterviewRejected());
+      });
+  };
+};
+
+const getCompletedInterviewFetching = () => ({
+  type: GET_COMPLETED_INTERVIEW_FETCHING
+});
+
+const getCompletedInterviewFulfilled = (payload) => ({
+  type: GET_COMPLETED_INTERVIEW_FULFILLED,
+  payload
+});
+
+const getCompletedInterviewRejected = () => ({
+  type: GET_COMPLETED_INTERVIEW_REJECTED
+});
+
+export const getCompletedInterviews = (id) => {
+  return (dispatch) => {
+    dispatch(getCompletedInterviewFetching());
+    return fetch(`${BASE_URL}/completed/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getCompletedInterviewFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getCompletedInterviewRejected());
       });
   };
 };
