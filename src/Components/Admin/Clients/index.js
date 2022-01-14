@@ -7,6 +7,7 @@ import Modal from 'Components/Shared/Modal';
 import Button from 'Components/Shared/Button';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { useHistory } from 'react-router-dom';
 
 function Clients() {
   const clients = useSelector((store) => store.clients.list);
@@ -18,6 +19,7 @@ function Clients() {
   const modalType = useSelector((store) => store.clients.modalType);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getClients());
@@ -69,7 +71,9 @@ function Clients() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
-
+  const handleClickInfo = (id) => {
+    history.push(`/admin/client/${id}`);
+  };
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
@@ -107,6 +111,7 @@ function Clients() {
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(client._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(client._id)} />
+                    <Button type="info" onClick={() => handleClickInfo(client._id)} />
                   </td>
                 </tr>
               );

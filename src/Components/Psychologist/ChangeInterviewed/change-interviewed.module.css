@@ -1,0 +1,80 @@
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.containerProfile {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 16px solid #065500;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 15px;
+}
+.header {
+  display: flex;
+}
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.profile {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.title {
+  font: normal normal bold 25px/30px Century Gothic;
+  color: #091f40;
+}
+.box1 {
+  width: 40%;
+}
+.box2 {
+  width: 30%;
+  padding-right: 20px;
+}
+.box3 {
+  width: 30%;
+  padding-right: 20px;
+}
+.postulantPhoto {
+  margin: 15px 0px;
+  height: 100px;
+}
+.profile h3 {
+  margin: 15px 0px 5px 0px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.containerProfile h4 {
+  margin: 15px 0px 5px 0px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+td {
+  border-style : hidden!important;
+ }
+ .btnSave {
+  font: 1.1rem Century Gothic;
+  padding: 10px 15px;
+  background-color: #065500;
+  border-radius: 20px;
+  border: 2px solid #065500;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.btnSave:hover {
+  background-color: #002147;
+  color: #ffffff;
+  cursor: pointer;
+}

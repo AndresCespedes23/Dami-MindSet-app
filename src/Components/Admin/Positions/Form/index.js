@@ -13,7 +13,7 @@ import { cleanSelectedPositions } from 'redux/Positions/actions';
 import { cleanSelectedClients } from 'redux/Clients/actions';
 import { cleanSelectedProfiles } from 'redux/Profiles/actions';
 
-function PositionsForm({ id, handleSubmit, handleShowModal }) {
+function PositionsForm({ id, handleSubmit, handleShowModal, fixData }) {
   const dispatch = useDispatch();
   const isLoadingForm = useSelector((store) => store.positions.isLoadingForm);
   const clients = useSelector((store) => store.clients.list);
@@ -81,11 +81,14 @@ function PositionsForm({ id, handleSubmit, handleShowModal }) {
                 component={Select}
                 label="Client"
                 name="idClient"
-                disabled={formProps.submitting || isLoadingForm}
-                validate={required}
+                disabled={formProps.submitting || isLoadingForm || fixData !== undefined}
                 options={getCombo('client')}
                 selectedValue={
-                  formProps.values.idClient ? formProps.values.idClient._id : formData.idClient?._id
+                  fixData !== undefined
+                    ? fixData
+                    : formProps.values.idClient
+                    ? formProps.values.idClient._id
+                    : formData.idClient?._id
                 }
               />
               <Field

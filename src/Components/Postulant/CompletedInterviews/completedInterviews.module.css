@@ -18,6 +18,11 @@
     font: normal normal normal 35px/40px Century Gothic;
     color: #002147;
   }
+  .header{
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+  }
   .containerNav {
     display: flex;
     align-items: center;
@@ -28,6 +33,8 @@
     flex-direction: column;
     width: 90%;
     margin: auto;
+    margin-top: 20px;
+    margin-bottom: 40px;
   }
   .subtitle {
     color: #091f40;
@@ -47,22 +54,23 @@
   }
   
   /* this is for the blue border, it has to be piece by piece*/
-  .table th,
-  .table tbody td {
-    background-color: #091f40cc;
-    border: none;
-    vertical-align: middle;
-  }
-  
-  .table td:first-child,
-  .table th:first-child {
-    border-radius: 20px 0 0 20px;
-  }
-  
-  .table td:last-child,
-  .table th:last-child {
-    border-radius: 0 20px 20px 0;
-  }
+.table th,
+.table tbody td {
+  border-top: 2px solid #002147;
+  border-bottom: 2px solid #002147;
+}
+
+.table td:first-child,
+.table th:first-child {
+  border-radius: 20px 0 0 20px;
+  border-left: 2px solid #002147;
+}
+
+.table td:last-child,
+.table th:last-child {
+  border-radius: 0 20px 20px 0;
+  border-right: 2px solid #002147;
+}
   
   .tableColumn {
     display: flex;
@@ -71,34 +79,33 @@
   }
   .mainInfo {
     font: normal normal normal 25px/30px Century Gothic;
-    color: #ffffff;
+    color: #091F40;
     margin: 10px;
     margin-bottom: 0;
   }
   .subInfo {
     font: normal normal normal 17px/20px Century Gothic;
-    color: #ffffff;
+    color: #091F40;
     margin: 10px;
     margin-top: 0;
   }
   .btnDetails {
     font: 1.1rem Century Gothic;
     margin: 0;
-    background-color: #ffffff;
+    background-color: #002147;
     border-radius: 20px;
-    border: 2px solid #ffffff;
-    color: #002147;
+    border: 2px solid #002147;
+    color: #ffffff;
     display: flex;
     align-items: center;
     font: normal normal bold 15px/20px Century Gothic;
     white-space: normal;
-    width: 200px;
-    padding: 5px;
+      width: 100px;
   }
   
   .btnDetails:hover {
-    background-color: #002147;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #002147;
     cursor: pointer;
   
   }
@@ -172,8 +179,4 @@
     width: 45%;
     color: #9b0000;
     margin: 20px
-  }
-  .textCenter{
-    text-align: center;
-    margin: auto;
   }
