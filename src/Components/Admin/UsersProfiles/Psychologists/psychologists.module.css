@@ -1,110 +1,112 @@
 * {
-    font-family: Century Gothic;
-  }
+  font-family: Century Gothic;
+}
 .container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  .profile {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin: 40px;
-    padding: 20px 40px;
-    border-top: 10px solid #680404;
-    border-radius: 10px;
-    box-shadow: 5px 10px 20px #00000029;
-    background-color: #fff;
-  }
-  .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    width: 58%;
-  }
-  .headercolumn {
-    display: block;
-    text-align: center;
-  }
-  .profileTitle {
-    font-size: 3rem;
-    font-weight: 100;
-  }
-  .statusBox span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .info {
-    margin-top: 10vh;
-    display: flex;
-    justify-content: center;
-  }
-  .infoColumn {
-    display: flex;
-    flex-direction: column;
-  }
-  .infoType {
-    margin-right: 6vw;
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-  .interviewsContent {
-    margin-bottom: 40px;
-  }
-  .interviewsInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 50px 30px 10px 30px;
-    padding: 10px;
-    border: 3px solid #002147;
-    border-radius: 30px;
-    box-shadow: 5px 9px 10px #68686842;
-  }
-  .dates {
-    padding-left: 15vw;
-  }
-  .userName {
-    padding-left: 1vw;
-    font: bold 20px Century Gothic;
-  }
-  .time {
-    padding-left: 1vw;
-  }
-  .bold {
-    font-size: 1.3rem;
-    font-weight: 900;
-  }
-  .detailsBtn {
-    margin-left: 12vw;
-    padding: 5px 40px;
-    border-radius: 15px; 
-    border: none;
-    background: #002147;
-    color: #ffffff;
-    font-weight:lighter;
-  }
-  .detailsBtn:hover {
-    background-color:#680404;
-    color: #ffffff;
-  }
-.statusActive, .statusInactive, .statusPending {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 10px 20px;
-    border-radius: 10px;
-    background-color: rgb(23, 124, 10);
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 800;
-  }
-  .statusInactive {
-    background-color: rgb(124, 10, 10);
-  }
-  .statusPending {
-    background-color: rgb(210, 191, 14);
-  }
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 40px;
+  padding: 20px 40px;
+  border-top: 10px solid #680404;
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px #00000029;
+  background-color: #fff;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 58%;
+}
+.headercolumn {
+  display: block;
+  text-align: center;
+}
+.profileTitle {
+  font-size: 3rem;
+  font-weight: 100;
+}
+.statusBox span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+.infoColumn {
+  display: flex;
+  flex-direction: column;
+}
+.infoType {
+  margin-right: 6vw;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.interviewsContent {
+  margin-bottom: 40px;
+}
+.interviewsInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 50px 30px 10px 30px;
+  padding: 10px;
+  border: 3px solid #002147;
+  border-radius: 30px;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.dates {
+  padding-left: 15vw;
+}
+.userName {
+  padding-left: 1vw;
+  font: bold 20px Century Gothic;
+}
+.time {
+  padding-left: 1vw;
+}
+.bold {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+.detailsBtn {
+  margin-left: 12vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #002147;
+  color: #ffffff;
+  font-weight: lighter;
+}
+.detailsBtn:hover {
+  background-color: #680404;
+  color: #ffffff;
+}
+.statusActive,
+.statusInactive,
+.statusPending {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: rgb(23, 124, 10);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.statusInactive {
+  background-color: rgb(124, 10, 10);
+}
+.statusPending {
+  background-color: rgb(210, 191, 14);
+}

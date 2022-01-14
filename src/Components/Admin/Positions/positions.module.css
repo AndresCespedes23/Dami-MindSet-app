@@ -23,18 +23,16 @@
   font-size: 20px;
 }
 
-.list div {
+.boxTitle {
   display: flex;
   justify-content: space-between;
-}
-
-.box {
   width: 98%;
 }
 
 .table {
   border-collapse: separate;
   border-spacing: 0 5px;
+  width: 98%;
 }
 
 .table th {
