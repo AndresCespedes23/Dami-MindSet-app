@@ -175,6 +175,7 @@ function Postulants() {
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
+                            <td>{postulant.email}</td>
                             <td>{postulant.status}</td>
                             <td>
                               <button
@@ -203,6 +204,7 @@ function Postulants() {
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
+                            <td>{postulant.email}</td>
                             <td>{postulant.status}</td>
                             <td>
                               <button
@@ -231,7 +233,7 @@ function Postulants() {
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
-
+                            <td>{postulant.email}</td>
                             <td>
                               <button
                                 className={styles.redBtn}
