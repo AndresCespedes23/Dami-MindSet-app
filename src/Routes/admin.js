@@ -2,6 +2,7 @@ import { Switch, useRouteMatch } from 'react-router-dom';
 import Admins from 'Components/Admin/Admins';
 import Applications from 'Components/Admin/Applications';
 import Clients from 'Components/Admin/Clients';
+import ClientsStates from 'Components/Admin/ClientsStates';
 import Interviews from 'Components/Admin/Interviews';
 import Positions from 'Components/Admin/Positions';
 import Postulants from 'Components/Admin/Postulants';
@@ -40,6 +41,7 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/admins`} component={Admins} />
         <PrivateRouteAdmin path={`${url}/applications`} component={Applications} />
         <PrivateRouteAdmin path={`${url}/clients`} component={Clients} />
+        <PrivateRouteAdmin path={`${url}/clients-states`} component={ClientsStates} />
         <PrivateRouteAdmin path={`${url}/client/:id`} component={Client} />
         <PrivateRouteAdmin path={`${url}/interviews`} component={Interviews} />
         <PrivateRouteAdmin path={`${url}/position/:id`} component={Position} />
