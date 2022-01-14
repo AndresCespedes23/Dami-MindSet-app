@@ -95,14 +95,9 @@ function Positions() {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Client</th>
-              <th>Profile</th>
               <th>Full Name</th>
-              <th>Description</th>
+              <th>Profile</th>
               <th>Status</th>
-              <th>Address</th>
-              <th>City</th>
-              <th>ZIP Code</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -110,14 +105,9 @@ function Positions() {
             {positions.map((position) => {
               return (
                 <tr key={position._id}>
-                  <td>{position.idClient ? position.idClient.name : position.idClient._id}</td>
-                  <td>{position.idProfile.length ? position.idProfile[0].name : ''}</td>
                   <td>{position.name}</td>
-                  <td>{position.description}</td>
+                  <td>{position.idProfile.length ? position.idProfile[0].name : ''}</td>
                   <td>{position.status}</td>
-                  <td>{position.address}</td>
-                  <td>{position.city}</td>
-                  <td>{position.postalCode}</td>
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(position._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(position._id)} />
