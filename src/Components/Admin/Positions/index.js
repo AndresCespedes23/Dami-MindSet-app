@@ -85,39 +85,47 @@ function Positions() {
   return (
     <section className={styles.container}>
       <div className={styles.list}>
-        <div>
+        <div className={styles.box}>
           <h2>Positions</h2>
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
           <Button type="addNew" text={'POSITION'} onClick={handleClickAdd} />
         </div>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Full Name</th>
-              <th>Profile</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {positions.map((position) => {
-              return (
-                <tr key={position._id}>
-                  <td>{position.name}</td>
-                  <td>{position.idProfile.length ? position.idProfile[0].name : ''}</td>
-                  <td>{position.status}</td>
-                  <td>
-                    <Button type="delete" onClick={() => handleClickDelete(position._id)} />
-                    <Button type="update" onClick={() => handleClickUpdate(position._id)} />
-                    <Button type="info" onClick={() => handleClickInfo(position._id)} />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className={styles.box}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Position Name</th>
+                <th>Profile Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {positions.map((position) => {
+                return (
+                  <tr key={position._id}>
+                    <td>{position.name}</td>
+                    <td>{position.idProfile.length ? position.idProfile[0].name : ''}</td>
+                    <td
+                      className={
+                        position.status === 'DONE' ? styles.statusDone : styles.statusPending
+                      }
+                    >
+                      {position.status}
+                    </td>
+                    <td>
+                      <Button type="delete" onClick={() => handleClickDelete(position._id)} />
+                      <Button type="update" onClick={() => handleClickUpdate(position._id)} />
+                      <Button type="info" onClick={() => handleClickInfo(position._id)} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       {showModal && (
         <Modal
