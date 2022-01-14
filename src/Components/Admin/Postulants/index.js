@@ -80,6 +80,7 @@ function Postulants() {
   const handleButtonClick = (type) => {
     setType(type);
   };
+
   const handleDissabled = (id, postulant) => {
     setIdActive(id);
     dispatch(updatePostulant(postulant, id)).then(() => {
@@ -188,10 +189,12 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      if (postulants.status === 'INACTIVE') {
+                      console.log(postulant);
+                      if (postulant.status === 'DISABLED') {
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
+
                             <td>
                               <button
                                 className={styles.redBtn}
@@ -204,6 +207,14 @@ function Postulants() {
                               >
                                 ACTIVATE
                               </button>
+                              <Button
+                                type="delete"
+                                onClick={() => handleClickDelete(postulant._id)}
+                              />
+                              <Button
+                                type="update"
+                                onClick={() => handleClickUpdate(postulant._id)}
+                              />
                             </td>
                           </tr>
                         );
@@ -215,23 +226,25 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      if (postulants.status === 'DISABLED') {
+                      if (postulant.status === 'INACTIVE') {
+                        console.log(postulant);
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
                             <td>{postulant.email}</td>
-                            <td>{postulant.phoneNumber}</td>
-                            <td>{postulant.country}</td>
                             <td>{postulant.status}</td>
                             <td>
-                              <Button
-                                type="delete"
-                                onClick={() => handleClickDelete(postulant._id)}
-                              />
-                              <Button
-                                type="update"
-                                onClick={() => handleClickUpdate(postulant._id)}
-                              />
+                              <button
+                                className={styles.redBtn}
+                                onClick={() =>
+                                  handleDissabled(postulant._id, {
+                                    ...postulant,
+                                    status: 'DISABLED'
+                                  })
+                                }
+                              >
+                                Make Unavailable
+                              </button>
                             </td>
                           </tr>
                         );
