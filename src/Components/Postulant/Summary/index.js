@@ -300,7 +300,7 @@ function Summary() {
                   <div className={styles.containerPersonal}>
                     <Button
                       type={'editInfo'}
-                      onClick={() => handleClickUpdateAvailability(availability._id)}
+                      onClick={() => handleClickUpdateAvailability(postulantData._id)}
                     />
                     <table border="1" className={styles.tableSummary}>
                       <thead>

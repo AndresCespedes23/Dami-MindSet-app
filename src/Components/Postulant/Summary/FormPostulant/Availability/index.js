@@ -2,10 +2,12 @@ import Button from 'Components/Shared/Button';
 import Spinner from 'Components/Shared/Spinner';
 import { useSelector } from 'react-redux';
 import styles from './availability.module.css';
+import { useState } from 'react';
 
 function AvailabilityForm({ handleSubmit, handleShowModal }) {
   const postulant = useSelector((store) => store.postulantModule.postulantData);
   const isLoadingForm = useSelector((store) => store.postulants.isLoadingForm);
+  const [array, setArray] = useState([]);
 
   const onSubmit = () => {
     postulant.availability = array;

@@ -26,7 +26,9 @@ function ProfileModal({ handleShowModal, modalType, handleSubmit }) {
       modalComponent = <OtherForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />;
       break;
     case 'availability':
-      modalComponent = <AvailabilityForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />;
+      modalComponent = (
+        <AvailabilityForm handleSubmit={handleSubmit} handleShowModal={handleShowModal} />
+      );
       break;
   }
   return (
