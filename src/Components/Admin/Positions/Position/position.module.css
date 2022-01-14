@@ -17,7 +17,7 @@
   border-radius: 10px;
   box-shadow: 5px 10px 20px #00000029;
   background-color: #fff;
-  height: auto;
+  height: fit-content;
 }
 
 .profile h2 {
@@ -138,7 +138,7 @@
   align-items: center;
 }
 .info {
-  margin-top: 10vh;
+  margin-top: 10px;
   display: flex;
   justify-content: left;
   flex-direction: column;
