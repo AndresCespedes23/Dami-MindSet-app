@@ -5,6 +5,7 @@ import Spinner from 'Components/Shared/Spinner';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setModalType, setShowMessage, setShowModal } from 'redux/Postulants/actions';
+import { searchPostulants } from 'redux/Postulants/thunks';
 import {
   addPostulant,
   deletePostulant,
@@ -23,6 +24,8 @@ function Postulants() {
   const modalType = useSelector((store) => store.postulants.modalType);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
+  const [isSearch, setIsSearch] = useState(false);
+  const [inputSearch, setInputSearch] = useState('');
 
   const [type, setType] = useState('PENDING-INTERVIEW');
 
@@ -30,23 +33,11 @@ function Postulants() {
     dispatch(getPostulants());
   }, [dispatch]);
 
-  const handleClickDelete = (id) => {
-    dispatch(setShowModal(true));
-    setIdActive(id);
-    dispatch(setModalType('delete'));
-  };
-
   const handleDelete = (id) => {
     dispatch(deletePostulant(id)).then(() => {
       dispatch(setShowMessage(true));
       dispatch(getPostulants());
     });
-  };
-
-  const handleClickUpdate = (id) => {
-    dispatch(setModalType('postulants'));
-    setIdActive(id);
-    dispatch(setShowModal(true));
   };
 
   const handleUpdatePostulant = (postulant) => {
@@ -87,6 +78,19 @@ function Postulants() {
       dispatch(getPostulants());
     });
   };
+  const handleChange = (e) => {
+    setInputSearch(e.target.value);
+  };
+  const handleEnter = (e) => {
+    if (e.code === 'Enter') {
+      dispatch(searchPostulants(inputSearch));
+      setIsSearch(true);
+    }
+  };
+  const handleSubmit = () => {
+    dispatch(searchPostulants(inputSearch));
+    setIsSearch(true);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -100,6 +104,40 @@ function Postulants() {
           )}
           <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
         </div>
+        <section className={styles.container}>
+          <div className={styles.containerInterviews}>
+            <div className={styles.containerNav}>
+              <div className={styles.searchContainer}>
+                <div className={styles.itemPersonalColumn}>
+                  <h2 className={styles.searchTitle}>Search Postulant</h2>
+                  <input
+                    className={styles.searchInput}
+                    placeholder="Postulant"
+                    value={inputSearch}
+                    onChange={handleChange}
+                    onKeyPress={handleEnter}
+                  />
+                </div>
+                <div>
+                  <button type="submit" className={styles.searchBtn} onClick={handleSubmit}>
+                    SEARCH
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className={styles.postulantContent}>
+              {!isSearch ? (
+                <></>
+              ) : isLoading ? (
+                <Spinner type="ThreeDots" color="#002147" height={80} width={80} />
+              ) : postulants.length ? (
+                <></>
+              ) : (
+                <h3 className={styles.notFoundMessage}>Postulants not found</h3>
+              )}
+            </div>
+          </div>
+        </section>
         <div className={styles.containerButtons}>
           <button
             className={type === 'PENDING-INTERVIEW' ? styles.btnSectionActive : styles.btnSection}
@@ -207,14 +245,6 @@ function Postulants() {
                               >
                                 ACTIVATE
                               </button>
-                              <Button
-                                type="delete"
-                                onClick={() => handleClickDelete(postulant._id)}
-                              />
-                              <Button
-                                type="update"
-                                onClick={() => handleClickUpdate(postulant._id)}
-                              />
                             </td>
                           </tr>
                         );
