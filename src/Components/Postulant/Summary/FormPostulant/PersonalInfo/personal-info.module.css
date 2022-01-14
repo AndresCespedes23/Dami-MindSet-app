@@ -1,0 +1,52 @@
+.title {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font: normal normal normal 25px/30px Century Gothic;
+    color: #002147;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .flexRow{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .form div {
+    flex: 1 1 0px;
+    padding: 3px;
+    text-align: left;
+    color: #002147;
+  }
+
+  .form label {
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: 900;
+  }
+
+  .form input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #002147;
+    border-radius: 20px;
+    background-color: #f0f4f9;
+    font-size: 14px;
+  }
+
+  .form button {
+    display: flex;
+    justify-content: center;
+  }
+
+  .form button { 
+    cursor: pointer;
+  }
+  .containerFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 35px 20px 35px;
+  }
