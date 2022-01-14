@@ -1,6 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks.js';
+import { setShowModal, setModalType } from 'redux/Postulants/actions';
+import {
+  setPersonalInfo,
+  setEducationInfo,
+  setExperienceInfo,
+  setOtherInfo,
+  setAvailability
+} from 'redux/PostulantModule/actions';
+import Modal from 'Components/Postulant/Summary/Modal';
 import styles from './summary.module.css';
 import Button from 'Components/Shared/Button';
 import { Link } from 'react-router-dom';
@@ -8,12 +17,56 @@ import { registerPostulant } from 'redux/PostulantModule/thunks.js';
 
 function Summary() {
   const postulantData = useSelector((state) => state.postulantModule.postulantData);
+  const showModal = useSelector((state) => state.postulants.showModal);
+  const modalType = useSelector((state) => state.postulants.modalType);
+  const [idActive, setIdActive] = useState('');
   const dispatch = useDispatch();
   const [type, setType] = useState('PERSONAL-INFORMATION');
 
   useEffect(() => {
     dispatch(getOnePostulant(sessionStorage.getItem('id')));
   }, [dispatch]);
+
+  const handleClickUpdatePersonalInfo = (id) => {
+    dispatch(setModalType('personal-info'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+  const handleClickUpdateEducation = (id) => {
+    dispatch(setModalType('education'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+  const handleClickUpdateWork = (id) => {
+    dispatch(setModalType('work'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleClickUpdateOtherInfo = (id) => {
+    dispatch(setModalType('other'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+  const handleUpdatePersonalInfo = (postulantData) => {
+    dispatch(setPersonalInfo(postulantData));
+  };
+  const handleUpdateEducation = (postulantData) => {
+    dispatch(setEducationInfo(postulantData.education));
+  };
+  const handleUpdateWork = (postulantData) => {
+    dispatch(setExperienceInfo(postulantData.workExperience));
+  };
+  const handleUpdateOtherInfo = (postulantData) => {
+    dispatch(setOtherInfo(postulantData));
+  };
+  const handleUpdateAvailability = (postulantData) => {
+    dispatch(setAvailability(postulantData.availability));
+  };
+
+  const handleShowModal = () => {
+    dispatch(setShowModal(false));
+  };
 
   const handleButtonClick = (type) => {
     setType(type);
@@ -70,7 +123,6 @@ function Summary() {
         </div>
         <div className={styles.containerNav}>
           <h2 className={styles.titleNav}>Summary</h2>
-          <Button type={'editInfo'} />
         </div>
         <div className={styles.containerInfo}>
           {(() => {
@@ -118,6 +170,10 @@ function Summary() {
                       <h3 className={styles.titlePersonal}>Postal Code:</h3>
                       <span className={styles.infoPersonal}>{postulantData.zipCode}</span>
                     </div>
+                    <Button
+                      type={'editInfo'}
+                      onClick={() => handleClickUpdatePersonalInfo(postulantData._id)}
+                    />
                   </div>
                 );
               case 'EDUCATION':
@@ -127,6 +183,10 @@ function Summary() {
                       return (
                         <div className={styles.containerPersonal} key={education._id}>
                           <h2 className={styles.titleEducation}>{education.level}</h2>
+                          <Button
+                            type={'editInfo'}
+                            onClick={() => handleClickUpdateEducation(education._id)}
+                          />
                           <div className={styles.itemPersonalLong}>
                             <h3 className={styles.titlePersonal}>Name of the institution:</h3>
                             <span className={styles.infoPersonal}>{education.institution}</span>
@@ -158,6 +218,10 @@ function Summary() {
                     {postulantData.workExperience?.map((experience) => {
                       return (
                         <div className={styles.containerPersonal} key={experience._id}>
+                          <Button
+                            type={'editInfo'}
+                            onClick={() => handleClickUpdateWork(experience._id)}
+                          />
                           <div className={styles.itemPersonalLong}>
                             <h3 className={styles.titlePersonal}>Company:</h3>
                             <span className={styles.infoPersonal}>{experience.company}</span>
@@ -196,6 +260,10 @@ function Summary() {
               case 'OTHER-INFORMATION':
                 return (
                   <div className={styles.containerPersonal}>
+                    <Button
+                      type={'editInfo'}
+                      onClick={() => handleClickUpdateOtherInfo(postulantData._id)}
+                    />
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Nationality:</h3>
                       <span className={styles.infoPersonal}>{postulantData.nationality}</span>
@@ -1050,6 +1118,24 @@ function Summary() {
           </Link>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={
+            modalType === 'personal-info'
+              ? handleUpdatePersonalInfo
+              : modalType === 'education'
+              ? handleUpdateEducation
+              : modalType === 'work'
+              ? handleUpdateWork
+              : modalType === 'other'
+              ? handleUpdateOtherInfo
+              : handleUpdateAvailability
+          }
+          meta={idActive}
+        />
+      )}
     </section>
   );
 }
