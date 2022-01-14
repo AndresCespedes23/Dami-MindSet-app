@@ -112,7 +112,7 @@ function Admins() {
                             <FaEdit />
                           </button>
                           <button
-                            className={styles.redBtn}
+                            className={styles.disBtn}
                             onClick={() =>
                               handleDissabled(admin._id, {
                                 ...admin,
@@ -146,7 +146,7 @@ function Admins() {
                     <td>
                       {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
                         <button
-                          className={styles.redBtn}
+                          className={styles.greenBtn}
                           onClick={() =>
                             handleDissabled(admin._id, {
                               ...admin,
