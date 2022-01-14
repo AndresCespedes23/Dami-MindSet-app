@@ -17,6 +17,9 @@ import {
   GET_AVAILABLE_SESSIONS_FETCHING,
   GET_AVAILABLE_SESSIONS_FULFILLED,
   GET_AVAILABLE_SESSIONS_REJECTED,
+  GET_POSTULANT_SESSIONS_FETCHING,
+  GET_POSTULANT_SESSIONS_FULFILLED,
+  GET_POSTULANT_SESSIONS_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -192,6 +195,25 @@ const sessionsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot get sessions'
+      };
+    case GET_POSTULANT_SESSIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_POSTULANT_SESSIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_POSTULANT_SESSIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get postulant sessions'
       };
     default:
       return state;

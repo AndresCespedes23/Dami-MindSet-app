@@ -16,7 +16,10 @@ import {
   GET_ONE_SESSION_REJECTED,
   GET_AVAILABLE_SESSIONS_FETCHING,
   GET_AVAILABLE_SESSIONS_FULFILLED,
-  GET_AVAILABLE_SESSIONS_REJECTED
+  GET_AVAILABLE_SESSIONS_REJECTED,
+  GET_POSTULANT_SESSIONS_FETCHING,
+  GET_POSTULANT_SESSIONS_FULFILLED,
+  GET_POSTULANT_SESSIONS_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/sessions`;
@@ -226,6 +229,41 @@ export const getAvailableSessions = (id) => {
       })
       .catch(() => {
         dispatch(getAvailableSessionsRejected());
+      });
+  };
+};
+
+const getPostulantSessionsFetching = () => ({
+  type: GET_POSTULANT_SESSIONS_FETCHING
+});
+
+const getPostulantSessionsFulfilled = (payload) => ({
+  type: GET_POSTULANT_SESSIONS_FULFILLED,
+  payload
+});
+
+const getPostulantSessionsRejected = () => ({
+  type: GET_POSTULANT_SESSIONS_REJECTED
+});
+
+export const getPostulantSessions = (id) => {
+  return (dispatch) => {
+    dispatch(getPostulantSessionsFetching());
+    return fetch(`${BASE_URL}/postulant/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getPostulantSessionsFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getPostulantSessionsRejected());
       });
   };
 };

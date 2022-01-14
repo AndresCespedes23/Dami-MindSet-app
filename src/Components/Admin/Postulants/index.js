@@ -12,6 +12,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { useHistory } from 'react-router-dom';
 
 function Postulants() {
   const postulants = useSelector((store) => store.postulants.list);
@@ -23,6 +24,7 @@ function Postulants() {
   const modalType = useSelector((store) => store.postulants.modalType);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getPostulants());
@@ -74,6 +76,9 @@ function Postulants() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
+  const handleClickInfo = (id) => {
+    history.push(`/admin/postulant/${id}`);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -110,6 +115,7 @@ function Postulants() {
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(postulant._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(postulant._id)} />
+                    <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                   </td>
                 </tr>
               );

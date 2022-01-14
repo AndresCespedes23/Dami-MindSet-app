@@ -123,3 +123,6 @@
 .workExperience {
   line-height: 25px;
 }
+td {
+  border-style : hidden!important;
+ }
