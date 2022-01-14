@@ -19,7 +19,7 @@ function Button({ type, onClick, text }) {
       {type === 'info' && <FaEye />}
       {type === 'close' && <FaRegWindowClose />}
       {type === 'submit' && 'SUBMIT'}
-      {type === 'search' && `Search ${text ? text : ''}`}
+      {type === 'search' && `SEARCH ${text ? text : ''}`}
       {type === 'addNew' && `ADD NEW ${text ? text : ''}`}
       {type === 'confirm' && 'YES'}
       {type === 'cancel' && 'NO'}

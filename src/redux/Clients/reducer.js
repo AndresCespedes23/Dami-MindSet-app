@@ -20,6 +20,9 @@ import {
   SEARCH_CLIENT_FETCHING,
   SEARCH_CLIENT_FULFILLED,
   SEARCH_CLIENT_REJETED,
+  ACTIVATE_CLIENTS_FETCHING,
+  ACTIVATE_CLIENTS_FULFILLED,
+  ACTIVATE_CLIENTS_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -189,6 +192,13 @@ const clientsReducer = (state = initialState, action) => {
         list: action.payload
       };
     case SEARCH_CLIENT_REJETED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get searching Clients'
+      };
     case GET_DISABLED_CLIENTS_FETCHING:
       return {
         ...state,
@@ -207,6 +217,27 @@ const clientsReducer = (state = initialState, action) => {
         error: true,
         messageType: 'error',
         messageText: 'Cannot get Disabled Clients'
+      };
+    case ACTIVATE_CLIENTS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case ACTIVATE_CLIENTS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        messageType: 'success',
+        messageText: 'Activated Client',
+        list: state.list.filter((client) => client.id !== action.payload)
+      };
+    case ACTIVATE_CLIENTS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot delete Clients'
       };
     default:
       return state;
