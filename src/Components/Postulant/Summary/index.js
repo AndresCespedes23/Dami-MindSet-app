@@ -48,6 +48,11 @@ function Summary() {
     setIdActive(id);
     dispatch(setShowModal(true));
   };
+  const handleClickUpdateAvailability = (id) => {
+    dispatch(setModalType('availability'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
   const handleUpdatePersonalInfo = (postulantData) => {
     dispatch(setPersonalInfo(postulantData));
   };
@@ -293,6 +298,10 @@ function Summary() {
               case 'AVAILABILITY':
                 return (
                   <div className={styles.containerPersonal}>
+                    <Button
+                      type={'editInfo'}
+                      onClick={() => handleClickUpdateAvailability(availability._id)}
+                    />
                     <table border="1" className={styles.tableSummary}>
                       <thead>
                         <tr>
