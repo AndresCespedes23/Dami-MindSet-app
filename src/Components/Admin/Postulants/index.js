@@ -227,7 +227,6 @@ function Postulants() {
                 return (
                   <tbody>
                     {postulants.map((postulant) => {
-                      console.log(postulant);
                       if (postulant.status === 'DISABLED') {
                         return (
                           <tr key={postulant._id}>
@@ -257,7 +256,6 @@ function Postulants() {
                   <tbody>
                     {postulants.map((postulant) => {
                       if (postulant.status === 'INACTIVE') {
-                        console.log(postulant);
                         return (
                           <tr key={postulant._id}>
                             <td>{postulant.name}</td>
