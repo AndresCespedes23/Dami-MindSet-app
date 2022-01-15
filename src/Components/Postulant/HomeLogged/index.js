@@ -66,6 +66,12 @@ function HomeLogged() {
             >
               SEE COMPLETED INTERVIEWS
             </button>
+            <button
+              className={styles.btnInterviews}
+              onClick={() => history.push(`/postulants/sessions`)}
+            >
+              Make an appointment to see one of our psychologist!
+            </button>
           </div>
         </div>
       </div>
