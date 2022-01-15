@@ -3,17 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getOnePsychologist } from 'redux/Psychologists/thunks';
 import Button from 'Components/Shared/Button';
 import styles from './psychologists.module.css';
-import { getSessions } from 'redux/Sessions/thunks';
+import { getPsychologistSessions } from 'redux/Sessions/thunks';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 
 function PsychologistsProfile() {
   const psychologist = useSelector((state) => state.psychologists.psychologist);
   const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getOnePsychologist('61af8e2ffc13ae5ecc000514'));
-    dispatch(getSessions());
+    dispatch(getOnePsychologist(id));
+    dispatch(getPsychologistSessions(id));
   }, [dispatch]);
 
   return (
@@ -21,7 +25,7 @@ function PsychologistsProfile() {
       <div className={styles.profile}>
         <div className={styles.header}>
           <div>
-            <Button type={'back'} />
+            <Button type={'back'} onClick={() => history.push('/admin/psychologists')} />
           </div>
           <div className={styles.headercolumn}>
             <h2 className={styles.profileTitle}>Profile</h2>
@@ -86,7 +90,12 @@ function PsychologistsProfile() {
                           {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
                         </td>
                         <td>
-                          <button className={styles.detailsBtn}>DETAILS</button>
+                          <button
+                            className={styles.detailsBtn}
+                            onClick={() => history.push(`/admin/interview/${session._id}`)}
+                          >
+                            DETAILS
+                          </button>
                         </td>
                       </tr>
                     ];

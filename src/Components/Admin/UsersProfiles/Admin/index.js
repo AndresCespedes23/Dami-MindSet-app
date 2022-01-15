@@ -1,15 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOneAdmin } from 'redux/Admins/thunks';
+import { getOneAdmin, updateAdmins } from 'redux/Admins/thunks';
 import styles from './admin.module.css';
 import Button from 'Components/Shared/Button';
+import Modal from 'Components/Shared/Modal';
+import { setModalType, setShowModal } from 'redux/Positions/actions';
 
 function AdminProfile() {
   const admin = useSelector((store) => store.admins.admin);
+  const showModal = useSelector((state) => state.admins.showModal);
+  const modalType = useSelector((state) => state.admins.modalType);
+  const [idActive, setIdActive] = useState('');
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getOneAdmin(sessionStorage.getItem('id')));
   }, [dispatch]);
+
+  const handleClickUpdate = () => {
+    dispatch(setModalType('admins'));
+    setIdActive(sessionStorage.getItem('id'));
+    dispatch(setShowModal(true));
+  };
+  const handleUpdateAdmin = (admin) => {
+    dispatch(updateAdmins(admin, idActive)).then(() => {
+      dispatch(getOneAdmin(sessionStorage.getItem('id')));
+    });
+  };
+  const handleShowModal = () => {
+    dispatch(setShowModal(false));
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.profile}>
@@ -36,10 +58,18 @@ function AdminProfile() {
             </div>
           </div>
           <div className={styles.editBtn}>
-            <Button type={'editInfo'} />
+            <Button type={'editInfo'} onClick={handleClickUpdate} />
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={handleUpdateAdmin}
+          meta={idActive}
+        />
+      )}
     </section>
   );
 }

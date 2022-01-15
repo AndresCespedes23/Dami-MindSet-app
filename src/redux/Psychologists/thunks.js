@@ -13,7 +13,10 @@ import {
   UPDATE_PSYCHOLOGIST_REJECTED,
   ADD_PSYCHOLOGIST_FETCHING,
   ADD_PSYCHOLOGIST_FULFILLED,
-  ADD_PSYCHOLOGIST_REJECTED
+  ADD_PSYCHOLOGIST_REJECTED,
+  GET_PSYCHOLOGISTS_ADMIN_FETCHING,
+  GET_PSYCHOLOGISTS_ADMIN_REJECTED,
+  GET_PSYCHOLOGISTS_ADMIN_FULFILLED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/psychologists`;
@@ -168,6 +171,7 @@ export const addPsychologist = (psychologist) => (dispatch) => {
 };
 
 export const updatePsychologist = (psychologist, id) => (dispatch) => {
+  console.log(id);
   dispatch(updatePsychologistFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
@@ -187,4 +191,37 @@ export const updatePsychologist = (psychologist, id) => (dispatch) => {
     .catch(() => {
       dispatch(updatePsychologistRejected());
     });
+};
+
+const getPsychologistsAdminFecth = () => ({
+  type: GET_PSYCHOLOGISTS_ADMIN_FETCHING
+});
+
+const getPsychologistsAdminFulfiliied = (payload) => ({
+  type: GET_PSYCHOLOGISTS_ADMIN_FULFILLED,
+  payload
+});
+
+const getPsychologistsAdminRejected = () => ({
+  type: GET_PSYCHOLOGISTS_ADMIN_REJECTED
+});
+export const getPsychologistsAdmin = () => {
+  return (dispatch) => {
+    dispatch(getPsychologistsAdminFecth());
+    fetch(`${BASE_URL}/admin`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getPsychologistsAdminFulfiliied(response.data));
+      })
+      .catch(() => {
+        dispatch(getPsychologistsAdminRejected());
+      });
+  };
 };

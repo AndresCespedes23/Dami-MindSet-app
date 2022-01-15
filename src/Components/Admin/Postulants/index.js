@@ -13,6 +13,7 @@ import {
   updatePostulant
 } from 'redux/Postulants/thunks';
 import styles from './postulants.module.css';
+import { useHistory } from 'react-router-dom';
 
 function Postulants() {
   const postulants = useSelector((store) => store.postulants.list);
@@ -24,6 +25,7 @@ function Postulants() {
   const modalType = useSelector((store) => store.postulants.modalType);
   const dispatch = useDispatch();
   const [idActive, setIdActive] = useState('');
+  const history = useHistory();
   const [isSearch, setIsSearch] = useState(false);
   const [inputSearch, setInputSearch] = useState('');
 
@@ -66,6 +68,9 @@ function Postulants() {
 
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
+  };
+  const handleClickInfo = (id) => {
+    history.push(`/admin/postulant/${id}`);
   };
 
   const handleButtonClick = (type) => {
@@ -189,6 +194,7 @@ function Postulants() {
                               >
                                 CANCEL INTERVIEW
                               </button>
+                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );
@@ -218,6 +224,7 @@ function Postulants() {
                               >
                                 DEACTIVATE
                               </button>
+                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );
@@ -246,6 +253,7 @@ function Postulants() {
                               >
                                 ACTIVATE
                               </button>
+                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );
@@ -275,6 +283,7 @@ function Postulants() {
                               >
                                 Make Unavailable
                               </button>
+                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );
