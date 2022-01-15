@@ -15,7 +15,7 @@ function CompletedInterviews() {
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
-        <Button type={'backBtnPsycho'} onClick={() => history.back()}/>
+        <Button type={'backBtnPsycho'} onClick={() => history.back()} />
         <div className={styles.interviewsContent}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Unassigned users:</span>

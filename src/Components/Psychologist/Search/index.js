@@ -32,7 +32,7 @@ function Search() {
       <div className={styles.containerInterviews}>
         <div className={styles.containerNav}>
           <div className={styles.backContainer}>
-            <Button type={'backBtnPsycho'} onClick={() => history.back()}/>
+            <Button type={'backBtnPsycho'} onClick={() => history.back()} />
           </div>
           <div className={styles.searchContainer}>
             <div className={styles.itemPersonalColumn}>

@@ -17,7 +17,7 @@ function FirstView() {
   return (
     <section className={styles.container}>
       <div className={styles.containerPostulants}>
-        <Button type={'backBtnPsycho'} onClick={() => history.back()}/>
+        <Button type={'backBtnPsycho'} onClick={() => history.back()} />
         <div className={styles.content}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Unassigned users:</span>
@@ -66,8 +66,8 @@ function FirstView() {
         </div>
         <div className={styles.bottomBtns}>
           <button className={styles.availabilityBtn}>CHANGE AVAILABILITY</button>
-          <button 
-            className={styles.searchBtn} 
+          <button
+            className={styles.searchBtn}
             onClick={() => history.push(`/postulants/completed-interviews`)}
           >
             SEARCH USER
@@ -78,6 +78,5 @@ function FirstView() {
     </section>
   );
 }
-
 
 export default FirstView;
