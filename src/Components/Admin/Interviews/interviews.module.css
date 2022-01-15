@@ -1,4 +1,4 @@
-table {
+.table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 95%;
@@ -123,6 +123,6 @@ table {
   background-color: #680404;
   cursor: pointer;
 }
-th{
+.tableHead{
   font-weight: bold
 }

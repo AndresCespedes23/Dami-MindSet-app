@@ -90,15 +90,15 @@ function Sessions() {
           </div>
         </div>
         <div className={styles.contentClients}>
-          <table>
+          <table className={styles.table}>
             <thead>
               <tr className={styles.clientsInfo}>
-                <th>Psychologist</th>
-                <th>Postulant</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th className={styles.tableHead}>Psychologist</th>
+                <th className={styles.tableHead}>Postulant</th>
+                <th className={styles.tableHead}>Date</th>
+                <th className={styles.tableHead}>Time</th>
+                <th className={styles.tableHead}>Status</th>
+                <th className={styles.tableHead}>Actions</th>
               </tr>
             </thead>
             <tbody>

@@ -98,13 +98,13 @@ function Interviews() {
           </div>
         </div>
         <div className={styles.contentClients}>
-          <table>
+          <table className={styles.table}>
             <thead>
               <tr className={styles.clientsInfo}>
-                <th>Candidate</th>
-                <th>Client</th>
-                <th>Date</th>
-                <th>Action</th>
+                <th className={styles.tableHead}>Candidate</th>
+                <th className={styles.tableHead}>Client</th>
+                <th className={styles.tableHead}>Date</th>
+                <th className={styles.tableHead}>Action</th>
               </tr>
             </thead>
             <tbody>
