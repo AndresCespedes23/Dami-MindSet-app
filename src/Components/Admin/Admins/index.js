@@ -7,7 +7,6 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
-import { FaEdit } from 'react-icons/fa';
 import { getLoggedUser, registerNewUser } from 'redux/Auth/thunks';
 
 function Admins() {
@@ -27,19 +26,6 @@ function Admins() {
     dispatch(getLoggedUser(sessionStorage.getItem('id'), sessionStorage.getItem('userType')));
     dispatch(getAdmins());
   }, [dispatch]);
-
-  const handleClickUpdate = (id) => {
-    dispatch(setModalType('admins'));
-    setIdActive(id);
-    dispatch(setShowModal(true));
-  };
-
-  const handleUpdateAdmin = (admin) => {
-    dispatch(updateAdmins(admin, idActive)).then(() => {
-      dispatch(setShowMessage(true));
-      dispatch(getAdmins());
-    });
-  };
 
   const handleShowModal = () => {
     dispatch(setShowModal(false));
@@ -106,12 +92,6 @@ function Admins() {
                       {loggedUser.isSuperAdmin || loggedUser._id === admin._id ? (
                         <>
                           <button
-                            className={styles.redBtn}
-                            onClick={() => handleClickUpdate(admin._id)}
-                          >
-                            <FaEdit />
-                          </button>
-                          <button
                             className={styles.disBtn}
                             onClick={() =>
                               handleDissabled(admin._id, {
@@ -171,7 +151,7 @@ function Admins() {
         <Modal
           handleShowModal={handleShowModal}
           modalType={modalType}
-          handleSubmit={modalType === 'admins' && !idActive ? handleAddAdmin : handleUpdateAdmin}
+          handleSubmit={handleAddAdmin}
           meta={idActive}
         />
       )}
