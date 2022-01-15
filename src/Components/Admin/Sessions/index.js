@@ -7,6 +7,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
+import { useHistory } from 'react-router-dom';
 
 function Sessions() {
   const [idActive, setIdActive] = useState('');
@@ -18,6 +19,7 @@ function Sessions() {
   const showModal = useSelector((state) => state.sessions.showModal);
   const modalType = useSelector((state) => state.sessions.modalType);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getSessions());
@@ -74,45 +76,58 @@ function Sessions() {
 
   return (
     <section className={styles.container}>
-      <div className={styles.list}>
-        <div>
-          <h2>Sessions</h2>
-          {showMessage && (
-            <Message type={messageType} message={message} showMessage={handleShowMessage} />
-          )}
-          <Button type="addNew" text={'SESSION'} onClick={handleClickAdd} />
+      <div className={styles.containerClients}>
+        <div className={styles.header}>
+          <div className={styles.headerContent}>
+            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/home')} />
+            <h2>Sessions</h2>
+            {showMessage && (
+              <Message type={messageType} message={message} showMessage={handleShowMessage} />
+            )}
+          </div>
+          <div className={styles.headerContent}>
+            <Button type={'addNew'} onClick={handleClickAdd} />
+          </div>
         </div>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Psychologist</th>
-              <th>Postulant</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Status</th>
-              <th>Result</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sessions.map((session) => {
-              return (
-                <tr key={session._id}>
-                  <td>{session.idPsychologist ? session.idPsychologist.name : ''}</td>
-                  <td>{session.idCandidate ? session.idCandidate.name : ''}</td>
-                  <td>{session.date}</td>
-                  <td>{session.time}</td>
-                  <td>{session.status}</td>
-                  <td>{session.result}</td>
-                  <td>
-                    <Button type="delete" onClick={() => handleClickDelete(session._id)} />
-                    <Button type="update" onClick={() => handleClickUpdate(session._id)} />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className={styles.contentClients}>
+          <table>
+            <thead>
+              <tr className={styles.clientsInfo}>
+                <th>Psychologist</th>
+                <th>Postulant</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sessions.map((session) => {
+                return [
+                  <tr key={session._id} className={styles.clientsInfo}>
+                    <td className={styles.userName}>
+                      {session.idPsychologist ? session.idPsychologist.name : ''}
+                    </td>
+                    <td className={styles.userName}>
+                      {session.idCandidate ? session.idCandidate.name : ''}
+                    </td>
+                    <td className={styles.userName}>{session.date}</td>
+                    <td className={styles.userName}>{session.time}</td>
+                    <td className={styles.userName}>{session.status}</td>
+                    <td>
+                      <Button type="delete" onClick={() => handleClickDelete(session._id)} />
+                      <Button type="update" onClick={() => handleClickUpdate(session._id)} />
+                      <Button
+                        type="info"
+                        onClick={() => history.push(`/admin/session/${session._id}`)}
+                      />
+                    </td>
+                  </tr>
+                ];
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
       {showModal && (
         <Modal
