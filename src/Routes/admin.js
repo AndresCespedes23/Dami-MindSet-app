@@ -51,10 +51,11 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/postulants`} component={Postulants} />
         <PrivateRouteAdmin path={`${url}/postulant/:id`} component={PostulantProfile} />
         <PrivateRouteAdmin path={`${url}/profiles`} component={Profiles} />
-        <PrivateRouteAdmin path={`${url}/psychologists-old`} component={Psychologists} />
+        {/* PANTALLA DESCONECTADA psychologist-old*/}
+        <PrivateRouteAdmin path={`${url}/psychologists-old`} component={Psychologists} />{' '}
+        <PrivateRouteAdmin path={`${url}/psychologists`} component={PsychologistsStates} />
         <PrivateRouteAdmin path={`${url}/psychologist/:id`} component={PsychologistsProfile} />
         <PrivateRouteAdmin path={`${url}/sessions`} component={Sessions} />
-        <PrivateRouteAdmin path={`${url}/psychologists`} component={PsychologistsStates} />
         <PrivateRouteAdmin path={`${url}/profile/administrator`} component={AdminProfile} />
         <PrivateRouteAdmin path={`${url}/statistics`} component={Statistics} />
         <PrivateRouteAdmin to={`${url}/`} component={Home} />

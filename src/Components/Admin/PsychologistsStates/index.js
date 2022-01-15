@@ -1,22 +1,46 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getPsychologistsAdmin,
   updatePsychologist
   // deletePsychologist
 } from 'redux/Psychologists/thunks';
+import { setShowModal, setShowMessage, setModalType } from 'redux/Psychologists/actions';
 import styles from './psychologists-states.module.css';
 import Button from 'Components/Shared/Button';
+import Modal from 'Components/Shared/Modal';
 import { useHistory } from 'react-router-dom';
+import Spinner from 'Components/Shared/Spinner';
+import { registerNewUser } from 'redux/Auth/thunks';
 
 function PsychologistsStates() {
-  const psychologists = useSelector((state) => state.psychologists.list);
+  const psychologists = useSelector((store) => store.psychologists.list);
   const dispatch = useDispatch();
   const history = useHistory();
+  const isLoading = useSelector((store) => store.psychologists.isLoading);
+  const showModal = useSelector((store) => store.psychologists.showModal);
+  const modalType = useSelector((store) => store.psychologists.modalType);
+  const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
     dispatch(getPsychologistsAdmin());
   }, [dispatch]);
+
+  const handleClickAdd = () => {
+    dispatch(setModalType('psychologists'));
+    setIdActive('');
+    dispatch(setShowModal(true));
+  };
+
+  const handleAddPsychologist = (psychologist) => {
+    dispatch(registerNewUser(psychologist, 'PSYCHOLOGIST')).then(() => {
+      dispatch(setShowMessage(true));
+      dispatch(getPsychologistsAdmin());
+    });
+  };
+  const handleShowModal = () => {
+    dispatch(setShowModal(false));
+  };
 
   const handleDissabled = (id, psychologist) => {
     dispatch(updatePsychologist(psychologist, id)).then(() => {
@@ -37,12 +61,20 @@ function PsychologistsStates() {
   //     dispatch(getPsychologistsAdmin());
   //   });
   // };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
   return (
     <section className={styles.container}>
       <div className={styles.containerPsychologists}>
         <div className={styles.header}>
-          <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/home')} />
-          <h2>Psychologists</h2>
+          <div className={styles.headerTitle}>
+            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/home')} />
+            <h2>Psychologists</h2>
+          </div>
+          <div>
+            <Button type="addNew" text={'PSYCHOLOGIST'} onClick={handleClickAdd} />
+          </div>
         </div>
         <div className={styles.contentPsychologists}>
           <h3 className={styles.title}>
@@ -160,6 +192,16 @@ function PsychologistsStates() {
           </table>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={
+            modalType === 'psychologists' && !idActive ? handleAddPsychologist : 'is already in use'
+          }
+          meta={idActive}
+        />
+      )}
     </section>
   );
 }

@@ -7,11 +7,12 @@
 .delete,
 .update,
 .info {
-  padding: 5px;
-  border: 1.5px solid #002147;
-  border-radius: 8px;
-  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
-  color: #002147;
+  padding: 3px 6px 3px 6px;
+  border: 2px solid #002147;
+  border-radius: 12px;
+  box-shadow: 5px 9px 10px #68686842;
+  background-color: #002147;;
+  color: #fff;
 }
 
 .add {
@@ -22,7 +23,8 @@
 .delete:hover,
 .update:hover,
 .info:hover {
-  background-color: #6666666e;
+  background-color: #fff;
+  color: #002147;
   cursor: pointer;
 }
 
@@ -34,7 +36,7 @@
   background-color: #680404;
   border: none;
   border-radius: 20px;
-  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+  box-shadow: 5px 9px 10px #68686842;
   color: #fff;
   font-size: 13px;
   font-weight: 900;
@@ -57,7 +59,7 @@
   background-color: #fff;
   border: 2px solid #002147;
   border-radius: 15px;
-  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
+  box-shadow: 5px 9px 10px #68686842;
 }
 .confirm:hover,
 .cancel:hover {
@@ -102,8 +104,8 @@
   size: 5;
 }
 
-.editInfo:hover {  
-cursor: pointer;
+.editInfo:hover {
+  cursor: pointer;
 }
 
 .editInfo {
@@ -122,7 +124,7 @@ cursor: pointer;
 .editInfo:hover {
   cursor: pointer;
 }
-.backBtnPsycho{
+.backBtnPsycho {
   font: 1.1rem Century Gothic;
   margin: 30px;
   padding: 5px 15px;
@@ -135,6 +137,12 @@ cursor: pointer;
   box-shadow: 5px 9px 10px #68686842;
   cursor: pointer;
 }
+
+.backBtnPsycho:hover,
+.backBtnAdmin:hover {
+  background-color: #002147;
+}
+
 .backBtnAdmin {
   font: 1.1rem Century Gothic;
   margin: 30px;
@@ -152,36 +160,7 @@ cursor: pointer;
 .backBtnAdmin:hover {
   background-color: #002147;
 }
-.backBtnAdmin {
-  font: 1.1rem Century Gothic;
-  margin: 30px;
-  padding: 5px 15px;
-  background-color: #680404;
-  border-radius: 20px;
-  border: none;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  box-shadow: 5px 9px 10px #68686842;
-  cursor: pointer;
-}
-.backBtnPsycho:hover,
-.backBtnAdmin:hover {
-  background-color: #002147;
-}
-.backBtnAdmin {
-  background-color:#002147;	  font: 1.1rem Century Gothic;
-  margin: 30px;
-  padding: 5px 15px;
-  background-color: #680404;
-  border-radius: 20px;
-  border: none;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  box-shadow: 5px 9px 10px #68686842;
-  cursor: pointer;
-}
+
 .backBtnPsycho:hover,
 .backBtnAdmin:hover {
   background-color: #002147;
