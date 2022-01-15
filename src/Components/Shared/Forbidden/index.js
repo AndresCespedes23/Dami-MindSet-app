@@ -1,7 +1,25 @@
+import { useHistory } from 'react-router-dom';
 import styles from './forbidden.module.css';
-import { Link } from 'react-router-dom';
 
 function Forbidden() {
+  const history = useHistory();
+
+  const goProfile = () => {
+    switch (sessionStorage.getItem('userType')) {
+      case 'ADMIN':
+        history.push('/admin/home');
+        break;
+      case 'CANDIDATE':
+        history.push('/postulants/home');
+        break;
+      case 'PSYCHOLOGIST':
+        history.push('/psychologist/home');
+        break;
+      default:
+        history.push('/postulants');
+        break;
+    }
+  };
   return (
     <section className={styles.container}>
       <div className={styles.containerDesc}>
@@ -12,9 +30,9 @@ function Forbidden() {
         </p>
       </div>
       <div className={styles.containerButton}>
-        <Link to="/postulants" className={styles.button}>
-          <button className={styles.btnJoinUs}>Go Home!</button>
-        </Link>
+        <button className={styles.btnJoinUs} onClick={goProfile}>
+          Go Home!
+        </button>
       </div>
     </section>
   );
