@@ -1,9 +1,9 @@
-import Button from 'Components/Shared/Button';
 import Spinner from 'Components/Shared/Spinner';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchPostulants } from 'redux/Postulants/thunks';
 import styles from './search.module.css';
+import Button from 'Components/Shared/Button';
 
 function Search() {
   const postulants = useSelector((state) => state.postulants.list);
@@ -32,7 +32,7 @@ function Search() {
       <div className={styles.containerInterviews}>
         <div className={styles.containerNav}>
           <div className={styles.backContainer}>
-            <Button type={'backBtnPsycho'} />
+            <Button type={'backBtnPsycho'} onClick={() => history.back()} />
           </div>
           <div className={styles.searchContainer}>
             <div className={styles.itemPersonalColumn}>

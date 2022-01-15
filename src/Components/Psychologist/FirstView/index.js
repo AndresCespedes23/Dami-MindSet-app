@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSessions } from 'redux/Sessions/thunks';
 import { getPostulants } from 'redux/Postulants/thunks';
 import styles from './first-view.module.css';
+import { useHistory } from 'react-router-dom';
+import Button from 'Components/Shared/Button';
 
 function FirstView() {
   const postulants = useSelector((state) => state.postulants.list);
   const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getSessions());
@@ -16,7 +19,7 @@ function FirstView() {
   return (
     <section className={styles.container}>
       <div className={styles.containerPostulants}>
-        <button className={styles.backBtn}>BACK</button>
+        <Button type={'backBtnPsycho'} onClick={() => history.push('/psychologist')} />
         <div className={styles.content}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Unassigned users:</span>
@@ -64,9 +67,24 @@ function FirstView() {
           </table>
         </div>
         <div className={styles.bottomBtns}>
-          <button className={styles.availabilityBtn}>CHANGE AVAILABILITY</button>
-          <button className={styles.searchBtn}>SEARCH USER</button>
-          <button className={styles.backBtn}>SEE COMPLETED INTERVIEWS</button>
+          <button
+            onClick={() => history.push('/psychologist/availability')}
+            className={styles.availabilityBtn}
+          >
+            CHANGE AVAILABILITY
+          </button>
+          <button
+            onClick={() => history.push('/psychologist/postulants/search')}
+            className={styles.searchBtn}
+          >
+            SEARCH USER
+          </button>
+          <button
+            onClick={() => history.push('/psychologist/completed-interviews')}
+            className={styles.backBtn}
+          >
+            SEE COMPLETED INTERVIEWS
+          </button>
         </div>
       </div>
     </section>
