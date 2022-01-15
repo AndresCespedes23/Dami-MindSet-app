@@ -7,6 +7,7 @@ import { setRegisterInfo } from 'redux/PostulantModule/actions';
 import { registerNewUser } from 'redux/Auth/thunks';
 import { login } from 'redux/Auth/thunks';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Register() {
   const error = useSelector((store) => store.postulants.error);
@@ -120,7 +121,10 @@ function Register() {
               <div className={styles.containerFooter}>
                 <button className={styles.btnRegister}>REGISTER</button>
                 <span className={styles.messageSign}>
-                  Already have an account? <a>Sign In!</a>
+                  Already have an account?
+                  <Link to="/auth/login">
+                    <button className={styles.btnLogin}>SIGN IN</button>
+                  </Link>
                 </span>
               </div>
             </form>
