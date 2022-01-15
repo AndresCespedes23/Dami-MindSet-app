@@ -77,9 +77,7 @@ function PsychologistsStates() {
           </div>
         </div>
         <div className={styles.contentPsychologists}>
-          <h3 className={styles.title}>
-            <span className={styles.bold}>Pending Approval</span>
-          </h3>
+          <h3 className={styles.title}>Pending Approval</h3>
           <table>
             <tbody>
               {psychologists.map((psychologist) => {
@@ -120,9 +118,7 @@ function PsychologistsStates() {
             </tbody>
           </table>
           <div className={styles.contentPsychologists}></div>
-          <h3 className={styles.title}>
-            <span className={styles.bold}>Active Psychologists</span>
-          </h3>
+          <h3 className={styles.title}>Active Psychologists</h3>
           <table>
             <tbody>
               {psychologists.map((psychologist) => {
@@ -153,9 +149,7 @@ function PsychologistsStates() {
           </table>
         </div>
         <div className={styles.contentPsychologists}>
-          <h3 className={styles.title}>
-            <span className={styles.bold}>Disabled Psychologists</span>
-          </h3>
+          <h3 className={styles.title}>Disabled Psychologists</h3>
           <table>
             <tbody>
               {psychologists.map((psychologist) => {

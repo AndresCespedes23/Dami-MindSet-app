@@ -53,7 +53,7 @@
 
 /* this is for the blue border, it has to be piece by piece*/
 .table th,
-.table tbody td {
+.table tbody .table td {
   border-top: 2px solid #002147;
   border-bottom: 2px solid #002147;
 }

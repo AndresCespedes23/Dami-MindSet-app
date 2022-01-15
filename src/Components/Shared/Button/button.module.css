@@ -7,6 +7,7 @@
 .delete,
 .update,
 .info {
+  margin: 5px;
   padding: 3px 6px 3px 6px;
   border: 2px solid #002147;
   border-radius: 12px;

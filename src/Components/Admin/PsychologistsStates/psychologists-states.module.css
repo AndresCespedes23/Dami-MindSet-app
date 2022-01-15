@@ -4,12 +4,14 @@
   align-items: center;
   flex-direction: column;
 }
+
 .containerPsychologists {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-self: center;
   height: fit-content;
+  min-width: 70%;
   margin: 30px;
   padding: 20px 30px;
   border-top: 10px solid #680404;
@@ -17,10 +19,12 @@
   background-color: #fff;
   font-weight: 600;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 20px 0px;
 }
 
 .headerTitle {
@@ -40,50 +44,47 @@
 }
 
 .contentPsychologists {
-  margin-left: 2vw;
-  margin-bottom: 10vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5vh;
 }
+
 .title {
-  margin-left: 30px;
   margin-bottom: 10px;
   font: normal normal normal 25px/30px Century Gothic;
-  color: #002147;
+  font-weight: 900;
 }
-.bold {
-  font-weight: bold;
-}
+
 .psychologistsInfo {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin: 0px 30px 10px 30px;
-  padding: 10px;
-  border: 3px solid #002147;
+  margin: 10px 0px;
+  padding: 5px;
+  border: 2px solid #002147;
   border-radius: 30px;
   box-shadow: 5px 9px 10px #68686842;
 }
+
+.psychologistsInfo td {
+  padding: 0px;
+}
+
 .userName {
   padding-left: 1vw;
   font: bold 20px Century Gothic;
 }
-.redBtn {
-  margin-left: 6vw;
+.redBtn, .greenBtn {
+  margin: 5px;
   padding: 5px 40px;
   border-radius: 15px;
   border: none;
   background: #680404;
   color: #ffffff;
-  font-weight: lighter;
+  font-weight: 600;
 }
 .greenBtn {
-  margin-left: 2vw;
-  padding: 5px 40px;
-  border-radius: 15px;
-  border: none;
   background: #065500;
-  color: #ffffff;
-  font-weight: lighter;
 }
 .redBtn:hover,
 .greenBtn:hover {
