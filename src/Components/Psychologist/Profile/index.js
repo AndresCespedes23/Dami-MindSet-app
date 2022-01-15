@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './profile.module.css';
 import Button from 'Components/Shared/Button';
 import { getOnePsychologist } from 'redux/Psychologists/thunks';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function PsychologistProfile() {
   const psychologist = useSelector((store) => store.psychologists.psychologist);
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(getOnePsychologist(sessionStorage.getItem('id')));
   }, [dispatch]);
@@ -16,7 +17,7 @@ function PsychologistProfile() {
       <div className={styles.profile}>
         <div className={styles.header}>
           <div>
-            <Button type={'backBtnPsycho'} onClick={() => history.back()} />
+            <Button type={'backBtnPsycho'} onClick={() => history.push('/psychologist')} />
           </div>
           <div className={styles.headercolumn}>
             <h2 className={styles.profileTitle}>Profile</h2>
@@ -43,14 +44,17 @@ function PsychologistProfile() {
               Enrollment Number:
               <span>{psychologist.enrollmentNumber}</span>
             </div>
-            <div className={styles.adminInfo}>
+            <div className={styles.adminInfoStatus}>
               Status
               <p className={styles[psychologist.status?.toLowerCase()]}>{psychologist.status}</p>
             </div>
             <div className={styles.adminInfo}>
-              <Link to="/psychologist/availability">
-                <button>Availability</button>
-              </Link>
+              <button
+                onClick={() => history.push('/psychologist/availability')}
+                className={styles.availabilityBtn}
+              >
+                Change Availability
+              </button>
             </div>
           </div>
           <div className={styles.editBtn}>
