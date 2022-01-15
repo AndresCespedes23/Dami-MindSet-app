@@ -137,6 +137,7 @@ input {
   background: #680404;
   color: #ffffff;
   font-weight: lighter;
+  width: 55%;
 }
 /* this is for the blue border, it has to be piece by piece*/
 .table th,
