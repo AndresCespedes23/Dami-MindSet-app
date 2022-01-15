@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSessions } from 'redux/Sessions/thunks';
 import { getPostulants } from 'redux/Postulants/thunks';
 import styles from './first-view.module.css';
+import Button from 'Components/Shared/Button';
 
 function FirstView() {
   const postulants = useSelector((state) => state.postulants.list);
@@ -16,7 +17,7 @@ function FirstView() {
   return (
     <section className={styles.container}>
       <div className={styles.containerPostulants}>
-        <button className={styles.backBtn}>BACK</button>
+        <Button type={'backBtnPsycho'} onClick={() => history.back()}/>
         <div className={styles.content}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Unassigned users:</span>
@@ -65,12 +66,18 @@ function FirstView() {
         </div>
         <div className={styles.bottomBtns}>
           <button className={styles.availabilityBtn}>CHANGE AVAILABILITY</button>
-          <button className={styles.searchBtn}>SEARCH USER</button>
+          <button 
+            className={styles.searchBtn} 
+            onClick={() => history.push(`/postulants/completed-interviews`)}
+          >
+            SEARCH USER
+          </button>
           <button className={styles.backBtn}>SEE COMPLETED INTERVIEWS</button>
         </div>
       </div>
     </section>
   );
 }
+
 
 export default FirstView;
