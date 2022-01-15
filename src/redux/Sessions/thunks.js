@@ -19,7 +19,10 @@ import {
   GET_AVAILABLE_SESSIONS_REJECTED,
   GET_POSTULANT_SESSIONS_FETCHING,
   GET_POSTULANT_SESSIONS_FULFILLED,
-  GET_POSTULANT_SESSIONS_REJECTED
+  GET_POSTULANT_SESSIONS_REJECTED,
+  GET_PSYCHOLOGIST_SESSIONS_FETCHING,
+  GET_PSYCHOLOGIST_SESSIONS_FULFILLED,
+  GET_PSYCHOLOGIST_SESSIONS_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/sessions`;
@@ -264,6 +267,41 @@ export const getPostulantSessions = (id) => {
       })
       .catch(() => {
         dispatch(getPostulantSessionsRejected());
+      });
+  };
+};
+
+const getPsychologistSessionsFetching = () => ({
+  type: GET_PSYCHOLOGIST_SESSIONS_FETCHING
+});
+
+const getPsychologistSessionsFulfilled = (payload) => ({
+  type: GET_PSYCHOLOGIST_SESSIONS_FULFILLED,
+  payload
+});
+
+const getPsychologistSessionsRejected = () => ({
+  type: GET_PSYCHOLOGIST_SESSIONS_REJECTED
+});
+
+export const getPsychologistSessions = (id) => {
+  return (dispatch) => {
+    dispatch(getPsychologistSessionsFetching());
+    return fetch(`${BASE_URL}/psychologist/${id}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getPsychologistSessionsFulfilled(response.data));
+        return response.data;
+      })
+      .catch(() => {
+        dispatch(getPsychologistSessionsRejected());
       });
   };
 };

@@ -19,6 +19,7 @@ function PsychologistsStates() {
 
   const handleDissabled = (id, psychologist) => {
     setIdActive(id);
+    console.log(id);
     dispatch(updatePsychologist(psychologist, idActive)).then(() => {
       dispatch(getPsychologists());
     });
@@ -49,12 +50,24 @@ function PsychologistsStates() {
           <h3 className={styles.title}>
             <span className={styles.bold}>Pending Approval</span>
           </h3>
-          <div className={styles.psychologistsInfo}>
-            <p className={styles.userName}>Juan Fernandez</p>
-            <p>E.N°: 12343</p>
-            <button className={styles.redBtn}>REJECT</button>
-            <button className={styles.greenBtn}>APPROVE</button>
-          </div>
+          <table>
+            <tbody>
+              {psychologists.map((psychologist) => {
+                if (psychologist.status === 'UNAVAILABLE') {
+                  return [
+                    <tr key={psychologist._id} className={styles.psychologistsInfo}>
+                      <td className={styles.userName}>{psychologist.name}</td>
+                      <td>E.N°: {psychologist.enrollmentNumber}</td>
+                      <td>
+                        <button className={styles.redBtn}>REJECT</button>
+                        <button className={styles.greenBtn}>APPROVE</button>
+                      </td>
+                    </tr>
+                  ];
+                }
+              })}
+            </tbody>
+          </table>
           <div className={styles.contentPsychologists}></div>
           <h3 className={styles.title}>
             <span className={styles.bold}>Active Psychologists</span>

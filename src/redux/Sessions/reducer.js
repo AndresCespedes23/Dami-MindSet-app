@@ -20,6 +20,9 @@ import {
   GET_POSTULANT_SESSIONS_FETCHING,
   GET_POSTULANT_SESSIONS_FULFILLED,
   GET_POSTULANT_SESSIONS_REJECTED,
+  GET_PSYCHOLOGIST_SESSIONS_FETCHING,
+  GET_PSYCHOLOGIST_SESSIONS_FULFILLED,
+  GET_PSYCHOLOGIST_SESSIONS_REJECTED,
   SHOW_MODAL,
   SHOW_MESSAGE,
   MODAL_TYPE,
@@ -208,6 +211,25 @@ const sessionsReducer = (state = initialState, action) => {
         list: action.payload
       };
     case GET_POSTULANT_SESSIONS_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get postulant sessions'
+      };
+    case GET_PSYCHOLOGIST_SESSIONS_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_PSYCHOLOGIST_SESSIONS_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_PSYCHOLOGIST_SESSIONS_REJECTED:
       return {
         ...state,
         isLoading: false,
