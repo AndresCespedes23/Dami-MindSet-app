@@ -139,10 +139,12 @@ tr {
     font: normal normal bold 27px/32px Century Gothic;
 }
 .infoPersonalDescription {
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
   overflow-wrap: break-word;
   margin-right: 40px;
   font: normal normal 20px Century Gothic;
+}
+.editBtn{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }

@@ -2,13 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks.js';
 import { setShowModal, setModalType } from 'redux/Postulants/actions';
-import {
-  setPersonalInfo,
-  setEducationInfo,
-  setExperienceInfo,
-  setOtherInfo,
-  setAvailability
-} from 'redux/PostulantModule/actions';
+import { setPersonalInfo, setOtherInfo, setAvailability } from 'redux/PostulantModule/actions';
 import Modal from 'Components/Postulant/Summary/Modal';
 import styles from './summary.module.css';
 import Button from 'Components/Shared/Button';
@@ -56,11 +50,11 @@ function Summary() {
   const handleUpdatePersonalInfo = (postulantData) => {
     dispatch(setPersonalInfo(postulantData));
   };
-  const handleUpdateEducation = (postulantData) => {
-    dispatch(setEducationInfo(postulantData.education));
+  const handleUpdateEducation = () => {
+    dispatch(setShowModal(false));
   };
-  const handleUpdateWork = (postulantData) => {
-    dispatch(setExperienceInfo(postulantData.workExperience));
+  const handleUpdateWork = () => {
+    dispatch(setShowModal(false));
   };
   const handleUpdateOtherInfo = (postulantData) => {
     dispatch(setOtherInfo(postulantData));
@@ -175,10 +169,12 @@ function Summary() {
                       <h3 className={styles.titlePersonal}>Postal Code:</h3>
                       <span className={styles.infoPersonal}>{postulantData.zipCode}</span>
                     </div>
-                    <Button
-                      type={'editInfo'}
-                      onClick={() => handleClickUpdatePersonalInfo(postulantData._id)}
-                    />
+                    <div className={styles.editBtn}>
+                      <Button
+                        type={'editInfo'}
+                        onClick={() => handleClickUpdatePersonalInfo(postulantData._id)}
+                      />
+                    </div>
                   </div>
                 );
               case 'EDUCATION':
@@ -188,10 +184,6 @@ function Summary() {
                       return (
                         <div className={styles.containerPersonal} key={education._id}>
                           <h2 className={styles.titleEducation}>{education.level}</h2>
-                          <Button
-                            type={'editInfo'}
-                            onClick={() => handleClickUpdateEducation(education._id)}
-                          />
                           <div className={styles.itemPersonalLong}>
                             <h3 className={styles.titlePersonal}>Name of the institution:</h3>
                             <span className={styles.infoPersonal}>{education.institution}</span>
@@ -212,6 +204,12 @@ function Summary() {
                               {education.finishDate ? education.finishDate.split('T')[0] : ''}
                             </span>
                           </div>
+                          <div className={styles.editBtn}>
+                            <Button
+                              type={'editInfo'}
+                              onClick={() => handleClickUpdateEducation()}
+                            />
+                          </div>
                         </div>
                       );
                     })}
@@ -223,10 +221,6 @@ function Summary() {
                     {postulantData.workExperience?.map((experience) => {
                       return (
                         <div className={styles.containerPersonal} key={experience._id}>
-                          <Button
-                            type={'editInfo'}
-                            onClick={() => handleClickUpdateWork(experience._id)}
-                          />
                           <div className={styles.itemPersonalLong}>
                             <h3 className={styles.titlePersonal}>Company:</h3>
                             <span className={styles.infoPersonal}>{experience.company}</span>
@@ -257,6 +251,9 @@ function Summary() {
                               {experience.accomplishments}
                             </span>
                           </div>
+                          <div className={styles.editBtn}>
+                            <Button type={'editInfo'} onClick={() => handleClickUpdateWork()} />
+                          </div>
                         </div>
                       );
                     })}
@@ -265,10 +262,6 @@ function Summary() {
               case 'OTHER-INFORMATION':
                 return (
                   <div className={styles.containerPersonal}>
-                    <Button
-                      type={'editInfo'}
-                      onClick={() => handleClickUpdateOtherInfo(postulantData._id)}
-                    />
                     <div className={styles.itemPersonal}>
                       <h3 className={styles.titlePersonal}>Nationality:</h3>
                       <span className={styles.infoPersonal}>{postulantData.nationality}</span>
@@ -293,15 +286,17 @@ function Summary() {
                         {postulantData.description}
                       </span>
                     </div>
+                    <div className={styles.editBtn}>
+                      <Button
+                        type={'editInfo'}
+                        onClick={() => handleClickUpdateOtherInfo(postulantData._id)}
+                      />
+                    </div>
                   </div>
                 );
               case 'AVAILABILITY':
                 return (
                   <div className={styles.containerPersonal}>
-                    <Button
-                      type={'editInfo'}
-                      onClick={() => handleClickUpdateAvailability(postulantData._id)}
-                    />
                     <table border="1" className={styles.tableSummary}>
                       <thead>
                         <tr>
@@ -1111,6 +1106,12 @@ function Summary() {
                         </tr>
                       </tbody>
                     </table>
+                    <div className={styles.editBtn}>
+                      <Button
+                        type={'editInfo'}
+                        onClick={() => handleClickUpdateAvailability(postulantData._id)}
+                      />
+                    </div>
                   </div>
                 );
               default:
