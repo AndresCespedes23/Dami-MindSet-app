@@ -18,7 +18,10 @@ import {
   SHOW_MESSAGE,
   MODAL_TYPE,
   CLEAN_ERROR,
-  CLEAN_SELECTED_PSYCHOLOGIST
+  CLEAN_SELECTED_PSYCHOLOGIST,
+  GET_PSYCHOLOGISTS_ADMIN_FETCHING,
+  GET_PSYCHOLOGISTS_ADMIN_REJECTED,
+  GET_PSYCHOLOGISTS_ADMIN_FULFILLED
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -163,6 +166,25 @@ const psychologistReducer = (state = initialState, action) => {
         psychologist: initialState.psychologist
       };
     }
+    case GET_PSYCHOLOGISTS_ADMIN_FETCHING:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case GET_PSYCHOLOGISTS_ADMIN_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload
+      };
+    case GET_PSYCHOLOGISTS_ADMIN_REJECTED:
+      return {
+        ...state,
+        isLoading: false,
+        error: true,
+        messageType: 'error',
+        messageText: 'Cannot get Psychologists'
+      };
     default:
       return state;
   }
