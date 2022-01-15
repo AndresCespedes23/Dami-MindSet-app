@@ -88,7 +88,7 @@ function clientsStates() {
       <div className={styles.containerClients}>
         <div className={styles.header}>
           <div className={styles.headerContent}>
-            <Button type={'backBtnAdmin'} />
+            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/home')} />
             <h2>Clients</h2>
             {showMessage && (
               <Message type={messageType} message={message} showMessage={handleShowMessage} />

@@ -41,8 +41,8 @@ const AdminRoutes = () => {
       <Switch>
         <PrivateRouteAdmin path={`${url}/admins`} component={Admins} />
         <PrivateRouteAdmin path={`${url}/applications`} component={Applications} />
-        <PrivateRouteAdmin path={`${url}/clients`} component={Clients} />
-        <PrivateRouteAdmin path={`${url}/clients-states`} component={ClientsStates} />
+        <PrivateRouteAdmin path={`${url}/clients-old`} component={Clients} />
+        <PrivateRouteAdmin path={`${url}/clients`} component={ClientsStates} />
         <PrivateRouteAdmin path={`${url}/client/:id`} component={Client} />
         <PrivateRouteAdmin path={`${url}/interview/:id`} component={Interview} />
         <PrivateRouteAdmin path={`${url}/interviews`} component={Interviews} />
