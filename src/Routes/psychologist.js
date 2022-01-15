@@ -1,6 +1,6 @@
 import { Redirect, Switch, useRouteMatch } from 'react-router-dom';
+import FirstPage from 'Components/Psychologist/FirstPage';
 import Home from 'Components/Psychologist/Home';
-import FirstView from 'Components/Psychologist/FirstView';
 import CompletedInterviews from 'Components/Psychologist/CompletedInterviews';
 import ChangeInterviewed from 'Components/Psychologist/ChangeInterviewed';
 import Layout from 'Components/Layout';
@@ -20,8 +20,8 @@ const PsychologistRoutes = () => {
           path={`${url}/change-interviewed/:id`}
           component={ChangeInterviewed}
         />
-        <PrivateRoutePsychologist path={`${url}/`} exact component={Home} />
-        <PrivateRoutePsychologist path={`${url}/first-view`} component={FirstView} />
+        <PrivateRoutePsychologist path={`${url}/`} exact component={FirstPage} />
+        <PrivateRoutePsychologist path={`${url}/home`} component={Home} />
         <PrivateRoutePsychologist
           path={`${url}/completed-interviews`}
           component={CompletedInterviews}
