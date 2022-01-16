@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOneSession } from 'redux/Sessions/thunks';
 import styles from './interview.module.css';
+import { useHistory } from 'react-router-dom';
 
 function Interview() {
   const { id } = useParams();
   const session = useSelector((state) => state.sessions.session);
   const isLoadingForm = useSelector((state) => state.sessions.isLoadingForm);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOneSession(id));
@@ -23,7 +25,7 @@ function Interview() {
       <section className={styles.container}>
         <div className={styles.containerInterviews}>
           <div className={styles.containerNav}>
-            <Button type={'backBtnPsycho'} />
+            <Button type={'backBtnPsycho'} onClick={() => history.goBack()} />
             <h2 className={styles.title}>Interview details</h2>
           </div>
           <div className={styles.interviewsContent}>

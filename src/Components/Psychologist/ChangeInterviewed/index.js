@@ -6,6 +6,7 @@ import { getProfiles } from 'redux/Profiles/thunks';
 import styles from './change-interviewed.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Button from 'Components/Shared/Button';
+import { useHistory } from 'react-router-dom';
 
 function ChangeInterviewed() {
   const session = useSelector((store) => store.sessions.session);
@@ -14,6 +15,7 @@ function ChangeInterviewed() {
   const [check, setCheck] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOneSession(id)).then((res) => {
@@ -49,7 +51,7 @@ function ChangeInterviewed() {
       <div className={styles.containerProfile}>
         <div className={styles.header}>
           <div>
-            <Button type={'backBtnPsycho'} />
+            <Button type={'backBtnPsycho'} onClick={() => history.goBack()} />
           </div>
           <div className={styles.titleContainer}>
             <h2 className={styles.title}>Profile</h2>
