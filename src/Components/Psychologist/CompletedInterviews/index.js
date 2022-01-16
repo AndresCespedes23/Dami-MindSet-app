@@ -4,10 +4,12 @@ import { getSessions } from 'redux/Sessions/thunks';
 import styles from './completed-interviews.module.css';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Button from 'Components/Shared/Button';
+import { useHistory } from 'react-router-dom';
 
 function CompletedInterviews() {
   const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getSessions());
@@ -35,7 +37,14 @@ function CompletedInterviews() {
                         </td>
                       </div>
                       <td>
-                        <button className={styles.assignBtn}>ASSIGN PROFILE</button>
+                        <button
+                          className={styles.assignBtn}
+                          onClick={() =>
+                            history.push(`/psychologist/change-interviewed/${session._id}`)
+                          }
+                        >
+                          ASSIGN PROFILE
+                        </button>
                       </td>
                     </tr>
                   ];
@@ -63,7 +72,12 @@ function CompletedInterviews() {
                         </td>
                       </div>
                       <td>
-                        <button className={styles.detailsBtn}>DETAILS</button>
+                        <button
+                          className={styles.detailsBtn}
+                          onClick={() => history.push(`/psychologist/interview/${session._id}`)}
+                        >
+                          DETAILS
+                        </button>
                       </td>
                     </tr>
                   ];

@@ -32,7 +32,12 @@ function Home() {
                     <tr key={postulant._id} className={styles.Info}>
                       <td className={styles.userName}>{postulant.name}</td>
                       <td>
-                        <button className={styles.assignBtn}>ASSIGN PROFILE</button>
+                        <button
+                          onClick={() => history.push(`/psychologist/postulant/${postulant._id}`)}
+                          className={styles.assignBtn}
+                        >
+                          SEE PROFILE
+                        </button>
                       </td>
                     </tr>
                   );
