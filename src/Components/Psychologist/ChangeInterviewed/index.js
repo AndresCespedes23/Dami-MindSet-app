@@ -19,7 +19,6 @@ function ChangeInterviewed() {
 
   useEffect(() => {
     dispatch(getOneSession(id)).then((res) => {
-      console.log(res);
       setCheck([...res.result]);
     });
     dispatch(getProfiles());
