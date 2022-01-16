@@ -27,6 +27,15 @@
   color: #091f40;
   font-weight: bold;
 }
+
+.successMessage {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
 .subtitle {
   font: normal normal normal 20px/25px Century Gothic;
   color: #091f40;
