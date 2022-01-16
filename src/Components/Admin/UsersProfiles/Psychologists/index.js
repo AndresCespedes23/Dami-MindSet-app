@@ -92,7 +92,7 @@ function PsychologistsProfile() {
                         <td>
                           <button
                             className={styles.detailsBtn}
-                            onClick={() => history.push(`/admin/interview/${session._id}`)}
+                            onClick={() => history.push(`/admin/session/${session._id}`)}
                           >
                             DETAILS
                           </button>
