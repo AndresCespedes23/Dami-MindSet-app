@@ -31,14 +31,15 @@ function Search() {
   const handleClickInfo = (id) => {
     history.push(`/Psychologist/Postulant/${id}`);
   };
-  // if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
         <div className={styles.containerNav}>
           <div className={styles.backContainer}>
-            <Button type={'backBtnPsycho'} onClick={() => history.back()} />
+            <Button type={'backBtnPsycho'} onClick={history.goBack} />
           </div>
           <div className={styles.searchContainer}>
             <div className={styles.itemPersonalColumn}>

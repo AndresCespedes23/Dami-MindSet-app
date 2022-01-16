@@ -13,9 +13,6 @@ function FirstPage() {
             <Link to="/psychologist/completed-interviews">Completed interviews</Link>
           </li>
           <li>
-            <Link to="/psychologist/profile">Postulants profiles</Link>
-          </li>
-          <li>
             <Link to="/psychologist/postulants/search">Search postulant</Link>
           </li>
         </ul>
