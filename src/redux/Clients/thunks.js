@@ -13,7 +13,16 @@ import {
   UPDATE_CLIENTS_REJECTED,
   GET_ONE_CLIENTS_FETCHING,
   GET_ONE_CLIENTS_FULFILLED,
-  GET_ONE_CLIENTS_REJECTED
+  GET_ONE_CLIENTS_REJECTED,
+  GET_DISABLED_CLIENTS_FETCHING,
+  GET_DISABLED_CLIENTS_FULFILLED,
+  GET_DISABLED_CLIENTS_REJECTED,
+  SEARCH_CLIENT_FETCHING,
+  SEARCH_CLIENT_FULFILLED,
+  SEARCH_CLIENT_REJETED,
+  ACTIVATE_CLIENTS_FETCHING,
+  ACTIVATE_CLIENTS_FULFILLED,
+  ACTIVATE_CLIENTS_REJECTED
 } from 'constants/actionTypes';
 
 const BASE_URL = `${process.env.REACT_APP_API}/clients`;
@@ -103,15 +112,13 @@ const deleteClientsRejected = () => ({
 
 export const deleteClient = (id) => (dispatch) => {
   dispatch(deleteClientsFetching());
-  return fetch(
-    `${BASE_URL}/${id}`,
-    {
-      headers: {
-        token: sessionStorage.getItem('token')
-      }
-    },
-    { method: 'DELETE' }
-  )
+  return fetch(`${BASE_URL}/remove/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
+    }
+  })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
@@ -189,5 +196,100 @@ export const getOneClients = (id) => (dispatch) => {
     })
     .catch(() => {
       dispatch(getOneClientsRejected());
+    });
+};
+
+const getDisabledClientsFetching = () => ({
+  type: GET_DISABLED_CLIENTS_FETCHING
+});
+
+const getDisabledClientsFulfilled = (payload) => ({
+  type: GET_DISABLED_CLIENTS_FULFILLED,
+  payload
+});
+
+const getDisabledClientsRejected = () => ({
+  type: GET_DISABLED_CLIENTS_REJECTED
+});
+
+export const getDisabledClients = () => {
+  return (dispatch) => {
+    dispatch(getDisabledClientsFetching());
+    fetch(`${BASE_URL}/disabled`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(getDisabledClientsFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(getDisabledClientsRejected());
+      });
+  };
+};
+
+const searchClientFetching = () => ({ type: SEARCH_CLIENT_FETCHING });
+
+const searchClientFulfilled = (payload) => ({ type: SEARCH_CLIENT_FULFILLED, payload });
+
+const searchClientRejected = () => ({ type: SEARCH_CLIENT_REJETED });
+
+export const searchClient = (text) => {
+  return (dispatch) => {
+    dispatch(searchClientFetching());
+    fetch(`${BASE_URL}/search?name=${text}`, {
+      headers: {
+        token: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) return response.json();
+        throw new Error(`HTTP ${response.status}`);
+      })
+      .then((response) => {
+        dispatch(searchClientFulfilled(response.data));
+      })
+      .catch(() => {
+        dispatch(searchClientRejected());
+      });
+  };
+};
+
+const activateClientFetching = () => ({
+  type: ACTIVATE_CLIENTS_FETCHING
+});
+
+const activateClientFulfilled = (payload) => ({
+  type: ACTIVATE_CLIENTS_FULFILLED,
+  payload
+});
+
+const activateClientRejected = () => ({
+  type: ACTIVATE_CLIENTS_REJECTED
+});
+
+export const activateClient = (id) => (dispatch) => {
+  dispatch(activateClientFetching());
+  return fetch(`${BASE_URL}/activate/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
+    }
+  })
+    .then((response) => {
+      if (response.status === 200 || response.status === 201) return response.json();
+      throw new Error(`HTTP ${response.status}`);
+    })
+    .then((response) => {
+      dispatch(activateClientFulfilled(response.data));
+    })
+    .catch(() => {
+      dispatch(activateClientRejected());
     });
 };

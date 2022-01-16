@@ -3,7 +3,8 @@ import {
   SHOW_MODAL,
   SHOW_MESSAGE,
   CLEAN_ERROR,
-  CLEAN_SELECTED_SESSION
+  CLEAN_SELECTED_SESSION,
+  CLEAN_AVAILABLE_SESSIONS
 } from 'constants/actionTypes';
 
 export const setShowModal = (showModal) => {
@@ -36,5 +37,10 @@ export const cleanError = () => {
 export const cleanSelectedSession = () => {
   return {
     type: CLEAN_SELECTED_SESSION
+  };
+};
+export const cleanAvailableSessions = () => {
+  return {
+    type: CLEAN_AVAILABLE_SESSIONS
   };
 };

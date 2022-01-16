@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchPostulants } from 'redux/Postulants/thunks';
 import styles from './search.module.css';
 import Button from 'Components/Shared/Button';
+import { useHistory } from 'react-router-dom';
 
 function Search() {
   const postulants = useSelector((state) => state.postulants.list);
@@ -11,6 +12,7 @@ function Search() {
   const dispatch = useDispatch();
   const [inputSearch, setInputSearch] = useState('');
   const [isSearch, setIsSearch] = useState(false);
+  const history = useHistory();
 
   const handleChange = (e) => {
     setInputSearch(e.target.value);
@@ -25,14 +27,19 @@ function Search() {
     dispatch(searchPostulants(inputSearch));
     setIsSearch(true);
   };
-  // if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+
+  const handleClickInfo = (id) => {
+    history.push(`/Psychologist/Postulant/${id}`);
+  };
+
+  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
         <div className={styles.containerNav}>
           <div className={styles.backContainer}>
-            <Button type={'backBtnPsycho'} onClick={() => history.back()} />
+            <Button type={'backBtnPsycho'} onClick={history.goBack} />
           </div>
           <div className={styles.searchContainer}>
             <div className={styles.itemPersonalColumn}>
@@ -66,6 +73,7 @@ function Search() {
                   <th>Phone Number</th>
                   <th>Country</th>
                   <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,6 +85,9 @@ function Search() {
                       <td>{postulant.phoneNumber}</td>
                       <td>{postulant.country}</td>
                       <td>{postulant.status}</td>
+                      <td>
+                        <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
+                      </td>
                     </tr>
                   );
                 })}

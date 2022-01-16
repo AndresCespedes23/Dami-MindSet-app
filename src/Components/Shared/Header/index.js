@@ -79,11 +79,19 @@ function Header(props) {
             }
           >
             {/* <div className={styles.loginuser}>{styleType === 'admin' ? 'user' : 'psychologist'}</div> */}
-            <img
-              onClick={goProfile}
-              className={styles.loginphoto}
-              src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
-            />
+            {sessionStorage.getItem('userType') !== 'POSTULANT' ? (
+              <img
+                onClick={goProfile}
+                className={styles.loginphoto}
+                src={`${process.env.PUBLIC_URL}/assets/images/nophotouserwhite.jpg`}
+              />
+            ) : (
+              <img
+                onClick={goProfile}
+                className={styles.loginphoto}
+                src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
+              />
+            )}
             <button className={styles.btnLogout} onClick={handleLogOut}>
               LOGOUT
             </button>

@@ -14,7 +14,9 @@ function Work() {
 
   const onSubmit = (formValues) => {
     if (formValues) {
-      dispatch(setExperienceInfo(formValues));
+      if (Object.keys(formValues).length !== 0) {
+        dispatch(setExperienceInfo(formValues));
+      }
       history.push('/postulants/courses');
     }
   };

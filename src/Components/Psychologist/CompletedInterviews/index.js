@@ -20,7 +20,7 @@ function CompletedInterviews() {
         <Button type={'backBtnPsycho'} onClick={() => history.push('/psychologist')} />
         <div className={styles.interviewsContent}>
           <h3 className={styles.title}>
-            <span className={styles.bold}>Unassigned users:</span>
+            <span className={styles.bold}>Pending interviews:</span>
           </h3>
           <table>
             <tbody>

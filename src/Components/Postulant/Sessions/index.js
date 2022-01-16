@@ -1,7 +1,9 @@
 import Spinner from 'Components/Shared/Spinner';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { getPsychologists } from 'redux/Psychologists/thunks';
+import { cleanAvailableSessions } from 'redux/Sessions/actions';
 import { addSessions, getAvailableSessions } from 'redux/Sessions/thunks';
 import styles from './sessions.module.css';
 
@@ -11,10 +13,12 @@ function Sessions() {
   //   const isLoadingSessions = useSelector((store) => store.sessions.isLoading);
   const sessions = useSelector((store) => store.sessions.list);
   const dispatch = useDispatch();
+  const history = useHistory();
   const [idPsychologist, setIdPsychologist] = useState('');
 
   useEffect(() => {
     dispatch(getPsychologists());
+    dispatch(cleanAvailableSessions());
   }, [dispatch]);
 
   const getCombo = () => {
@@ -44,6 +48,7 @@ function Sessions() {
         idCandidate: sessionStorage.getItem('id')
       })
     );
+    history.push('/postulants/home');
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
@@ -87,8 +92,8 @@ function Sessions() {
                       <tr className={styles.trTable} key={session}>
                         <td className={styles.tableColumn}>
                           <span className={styles.mainInfo}>
-                            {session.split('T')[0]} {session.split('T')[1].split(':')[0]}:
-                            {session.split('T')[1].split(':')[1].split(':')[0]}hs.
+                            {session?.split('T')[0]} {session?.split('T')[1].split(':')[0]}:
+                            {session?.split('T')[1].split(':')[1].split(':')[0]}hs.
                           </span>
                         </td>
                         <td className={styles.tdDetails}>
