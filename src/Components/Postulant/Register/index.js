@@ -123,7 +123,7 @@ function Register() {
                 <span className={styles.messageSign}>
                   Already have an account?
                   <Link to="/auth/login">
-                    <button className={styles.btnLogin}>SIGN IN</button>
+                    <a>SIGN IN</a>
                   </Link>
                 </span>
               </div>
