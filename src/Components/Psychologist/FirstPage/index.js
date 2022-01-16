@@ -10,7 +10,7 @@ function FirstPage() {
             <Link to="/psychologist/home">Home</Link>
           </li>
           <li>
-            <Link to="/psychologist/completed-interviews">Completed interviews</Link>
+            <Link to="/psychologist/completed-interviews">Interviews</Link>
           </li>
           <li>
             <Link to="/psychologist/postulants/search">Search postulant</Link>

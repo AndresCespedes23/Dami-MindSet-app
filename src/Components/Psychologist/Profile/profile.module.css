@@ -1,80 +1,112 @@
 * {
-    font-family: Century Gothic;
-  }
+  font-family: Century Gothic;
+}
 .container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  .profile {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-    margin: 40px;
-    padding: 20px 40px;
-    border-top: 16px solid #065500;
-    border-radius: 10px;
-    box-shadow: 5px 10px 20px #00000029;
-    background-color: #fff;
-  }
-  .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    width: 58%;
-  }
-  .headercolumn {
-    display: block;
-    text-align: center;
-  }
-  .profileTitle {
-    font-size: 3rem;
-    font-weight: 100;
-  }
-  .adminTitle {
-    font-size: 2rem;
-  }
-  .info {
-    margin-top: 17vh;
-    font-size: 1.3rem;
-  }
-  .columnInfo {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  .adminInfo {
-    margin-bottom: 4vh;
-    font-weight: 900;
-  }
-  .adminInfo span {
-    margin-left: 2vw;
-    font-weight: 100;
-  }
-  .editBtn {
-    margin-right: 5vw;
-    display: flex;
-    justify-content: flex-end; 
-  }
-  .footer {
-    margin-top: 10vh;
-  }
-  .footer span, p {
-    display: flex;
-    justify-content: center;
-  }
-  .available, .unavailable {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 10px 20px;
-    border-radius: 10px;
-    background-color: rgb(23, 124, 10);
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 800;
-  }
-  .unavailable {
-    background-color: rgb(124, 10, 10);
-  }
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.profile {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 40px;
+  padding: 20px 40px;
+  border-top: 16px solid #065500;
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px #00000029;
+  background-color: #fff;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  width: 58%;
+}
+.headercolumn {
+  display: block;
+  text-align: center;
+}
+.profileTitle {
+  font-size: 3rem;
+  font-weight: 100;
+}
+.adminTitle {
+  font-size: 2rem;
+}
+.info {
+  margin-top: 8vh;
+  font-size: 1.3rem;
+}
+.columnInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.adminInfo {
+  margin-bottom: 4vh;
+  font-weight: 900;
+}
+
+.adminInfo span {
+  margin-left: 2vw;
+  font-weight: 100;
+}
+
+.adminInfoStatus {
+  margin-bottom: 4vh;
+  font-weight: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editBtn {
+  margin-right: 5vw;
+  display: flex;
+  justify-content: flex-end;
+}
+.footer {
+  margin-top: 10vh;
+}
+.footer span,
+p {
+  display: flex;
+  justify-content: center;
+}
+.available,
+.unavailable {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: rgb(23, 124, 10);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+.unavailable {
+  background-color: rgb(124, 10, 10);
+}
+
+.availabilityBtn:hover {
+  background-color: #2b4274;
+  cursor: pointer;
+}
+
+.availabilityBtn {
+  font: 1.1rem Century Gothic;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 15px;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  background-color: #af8e0b;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
+  text-decoration: none;
+}

@@ -15,7 +15,7 @@ function CompletedInterviews() {
   return (
     <section className={styles.container}>
       <div className={styles.containerInterviews}>
-        <Button type={'backBtnPsycho'} onClick={() => history.back()} />
+        <Button type={'backBtnPsycho'} onClick={() => history.push('/psychologist')} />
         <div className={styles.interviewsContent}>
           <h3 className={styles.title}>
             <span className={styles.bold}>Pending interviews:</span>
@@ -27,11 +27,13 @@ function CompletedInterviews() {
                   return [
                     <tr key={session._id} className={styles.interviewsInfo}>
                       <td className={styles.userName}>{session.idCandidate.name}</td>
-                      <td className={styles.dates}>{session.date}</td>
-                      <td className={styles.time}>
-                        {session.time}
-                        {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                      </td>
+                      <div>
+                        <td className={styles.date}>{session.date}</td>
+                        <td className={styles.time}>
+                          {session.time}
+                          {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                        </td>
+                      </div>
                       <td>
                         <button className={styles.assignBtn}>ASSIGN PROFILE</button>
                       </td>
@@ -53,11 +55,13 @@ function CompletedInterviews() {
                   return [
                     <tr key={session._id} className={styles.interviewsInfo}>
                       <td className={styles.userName}>{session.idCandidate.name}</td>
-                      <td className={styles.dates}>{session.date}</td>
-                      <td className={styles.time}>
-                        {session.time}
-                        {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                      </td>
+                      <div>
+                        <td className={styles.date}>{session.date}</td>
+                        <td className={styles.time}>
+                          {session.time}
+                          {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
+                        </td>
+                      </div>
                       <td>
                         <button className={styles.detailsBtn}>DETAILS</button>
                       </td>
