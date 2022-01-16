@@ -4,10 +4,12 @@ import { getSessions } from 'redux/Sessions/thunks';
 import styles from './completed-interviews.module.css';
 import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Button from 'Components/Shared/Button';
+import { useHistory } from 'react-router-dom';
 
 function CompletedInterviews() {
   const sessions = useSelector((state) => state.sessions.list);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getSessions());
