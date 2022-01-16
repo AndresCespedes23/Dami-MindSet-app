@@ -129,9 +129,10 @@ export const getOnePsychologist = (id) => (dispatch) => {
 
 export const deletePsychologist = (id) => (dispatch) => {
   dispatch(deletePsychologistFetching());
-  return fetch(`${BASE_URL}/${id}`, {
-    method: 'DELETE',
+  return fetch(`${BASE_URL}/remove/${id}`, {
+    method: 'PUT',
     headers: {
+      'Content-type': 'application/json; charset=UTF-8',
       token: sessionStorage.getItem('token')
     }
   })

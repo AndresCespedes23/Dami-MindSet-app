@@ -85,15 +85,13 @@ const deletePostulantsRejected = () => ({ type: DELETE_POSTULANTS_REJETED });
 
 export const deletePostulant = (id) => (dispatch) => {
   dispatch(deletePostulantsFetching());
-  return fetch(
-    `${BASE_URL}/${id}`,
-    {
-      headers: {
-        token: sessionStorage.getItem('token')
-      }
-    },
-    { method: 'DELETE' }
-  )
+  return fetch(`${BASE_URL}/remove/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
+    }
+  })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);

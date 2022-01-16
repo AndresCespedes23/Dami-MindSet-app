@@ -112,15 +112,13 @@ const deleteSessionsRejected = () => ({
 
 export const deleteSessions = (id) => (dispatch) => {
   dispatch(deleteSessionsFetching());
-  return fetch(
-    `${BASE_URL}/${id}`,
-    {
-      headers: {
-        token: sessionStorage.getItem('token')
-      }
-    },
-    { method: 'DELETE' }
-  )
+  return fetch(`${BASE_URL}/remove/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
+    }
+  })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);
