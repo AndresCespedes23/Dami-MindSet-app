@@ -30,9 +30,9 @@ function Availability() {
 
   const onSubmit = () => {
     psychologist.availability = array;
-    console.log(psychologist);
-    dispatch(updatePsychologist(psychologist, sessionStorage.getItem('id')));
-    /* alert('Changes saved'); */
+    dispatch(updatePsychologist(psychologist, sessionStorage.getItem('id'))).then(() => {
+      dispatch(getOnePsychologist(sessionStorage.getItem('id')));
+    });
     dispatch(setShowMessage(true));
   };
 
