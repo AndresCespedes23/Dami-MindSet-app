@@ -8,7 +8,12 @@ import {
   deleteClient,
   activateClient
 } from 'redux/Clients/thunks';
-import { setShowModal, setShowMessage, setModalType } from 'redux/Clients/actions';
+import {
+  setShowModal,
+  setShowMessage,
+  setModalType,
+  cleanSelectedClients
+} from 'redux/Clients/actions';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import styles from './clients-state.module.css';
@@ -64,6 +69,7 @@ function clientsStates() {
   };
   const handleClickAdd = () => {
     dispatch(setModalType('clients'));
+    dispatch(cleanSelectedClients());
     setIdActive('');
     dispatch(setShowModal(true));
   };
