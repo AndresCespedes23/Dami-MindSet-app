@@ -82,7 +82,7 @@ function Header(props) {
             <img
               onClick={goProfile}
               className={styles.loginphoto}
-              src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
+              src={`${process.env.PUBLIC_URL}/assets/images/user-icon.png`}
             />
             <button className={styles.btnLogout} onClick={handleLogOut}>
               LOGOUT
