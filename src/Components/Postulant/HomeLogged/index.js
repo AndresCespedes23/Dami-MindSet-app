@@ -2,14 +2,18 @@ import Spinner from 'Components/Shared/Spinner';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPendingInterview } from 'redux/Interviews/thunks';
-import { getOnePostulant } from 'redux/Postulants/thunks';
+import { getOnePostulant, updatePostulant } from 'redux/Postulants/thunks';
 import styles from './homeLogged.module.css';
 import { useHistory } from 'react-router-dom';
+import Modal from 'Components/Postulant/Profile/Modal';
+import { setModalType, setShowModal } from 'redux/Positions/actions';
 
 function HomeLogged() {
   const postulant = useSelector((store) => store.postulants.postulant);
   const interviews = useSelector((store) => store.interviews.list);
   const isLoading = useSelector((store) => store.postulants.isLoading);
+  const showModal = useSelector((state) => state.postulants.showModal);
+  const modalType = useSelector((state) => state.postulants.modalType);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,6 +21,19 @@ function HomeLogged() {
     dispatch(getOnePostulant(sessionStorage.getItem('id')));
     dispatch(getPendingInterview(sessionStorage.getItem('id')));
   }, [dispatch]);
+
+  const handleClickUpdateAvailability = () => {
+    dispatch(setModalType('availability'));
+    dispatch(setShowModal(true));
+  };
+  const handleUpdateAvailability = (postulant) => {
+    dispatch(updatePostulant(postulant, sessionStorage.getItem('id'))).then(() => {
+      dispatch(getOnePostulant(sessionStorage.getItem('id')));
+    });
+  };
+  const handleShowModal = () => {
+    dispatch(setShowModal(false));
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
   return (
@@ -59,7 +76,12 @@ function HomeLogged() {
             </table>
           )}
           <div className={styles.containerFooter}>
-            <button className={styles.btnAvailability}>CHANGE AVAILABILITY</button>
+            <button
+              className={styles.btnAvailability}
+              onClick={() => handleClickUpdateAvailability(postulant._id)}
+            >
+              CHANGE AVAILABILITY
+            </button>
             <button
               className={styles.btnInterviews}
               onClick={() => history.push(`/postulants/completed-interviews`)}
@@ -69,6 +91,14 @@ function HomeLogged() {
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={handleUpdateAvailability}
+          meta={sessionStorage.getItem('id')}
+        />
+      )}
     </section>
   );
 }
