@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .flexRow{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+  }
+  
+  .form div {
+    flex: 1 1 0px;
+    padding: 10px;
+    text-align: left;
+    color: #002147;
+  }
+  
+  .form label {
+    padding-left: 15px;
+    font-size: 15px;
+    font-weight: 900;
+  }
+  
+  .form input,
+  .form select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #002147;
+    border-radius: 20px;
+    background-color: #f0f4f9;
+    font-size: 14px;
+  }
+  
+  .form button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .form select,
+  .form button { 
+    cursor: pointer;
+  }
+  

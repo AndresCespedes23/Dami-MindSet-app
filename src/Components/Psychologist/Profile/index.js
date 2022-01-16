@@ -1,16 +1,37 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './profile.module.css';
 import Button from 'Components/Shared/Button';
-import { getOnePsychologist } from 'redux/Psychologists/thunks';
+import Modal from 'Components/Psychologist/Profile/Modal';
+import { setShowModal, setModalType } from 'redux/Psychologists/actions';
+import { getOnePsychologist, updatePsychologist } from 'redux/Psychologists/thunks';
 import { Link } from 'react-router-dom';
 
 function PsychologistProfile() {
   const psychologist = useSelector((store) => store.psychologists.psychologist);
+  const showModal = useSelector((state) => state.psychologists.showModal);
+  const modalType = useSelector((state) => state.psychologists.modalType);
+  const [idActive, setIdActive] = useState('');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOnePsychologist(sessionStorage.getItem('id')));
   }, [dispatch]);
+
+  const handleClickUpdateInfo = (id) => {
+    dispatch(setModalType('edit profile psycho'));
+    setIdActive(id);
+    dispatch(setShowModal(true));
+  };
+
+  const handleUpdatePsychologist = (psychologist) => {
+    dispatch(updatePsychologist(psychologist, idActive)).then(() => {
+      dispatch(getOnePsychologist(sessionStorage.getItem('id')));
+    });
+  };
+
+  const handleShowModal = () => {
+    dispatch(setShowModal(false));
+  };
   return (
     <section className={styles.container}>
       <div className={styles.profile}>
@@ -54,10 +75,18 @@ function PsychologistProfile() {
             </div>
           </div>
           <div className={styles.editBtn}>
-            <Button type={'editInfo'} />
+            <Button type={'editInfo'} onClick={() => handleClickUpdateInfo(psychologist._id)} />
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal
+          handleShowModal={handleShowModal}
+          modalType={modalType}
+          handleSubmit={handleUpdatePsychologist}
+          meta={idActive}
+        />
+      )}
     </section>
   );
 }
