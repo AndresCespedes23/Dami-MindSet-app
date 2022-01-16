@@ -37,7 +37,14 @@ function CompletedInterviews() {
                         </td>
                       </div>
                       <td>
-                        <button className={styles.assignBtn}>ASSIGN PROFILE</button>
+                        <button
+                          className={styles.assignBtn}
+                          onClick={() =>
+                            history.push(`/psychologist/change-interviewed/${session._id}`)
+                          }
+                        >
+                          ASSIGN PROFILE
+                        </button>
                       </td>
                     </tr>
                   ];
@@ -65,7 +72,12 @@ function CompletedInterviews() {
                         </td>
                       </div>
                       <td>
-                        <button className={styles.detailsBtn}>DETAILS</button>
+                        <button
+                          className={styles.detailsBtn}
+                          onClick={() => history.push(`/psychologist/interview/${session._id}`)}
+                        >
+                          DETAILS
+                        </button>
                       </td>
                     </tr>
                   ];
