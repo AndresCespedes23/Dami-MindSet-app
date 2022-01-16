@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnePsychologist, updatePsychologist } from 'redux/Psychologists/thunks';
 import styles from './availability.module.css';
+import Button from 'Components/Shared/Button';
+import { useHistory } from 'react-router-dom';
 
 function Availability() {
   const psychologist = useSelector((store) => store.psychologists.psychologist);
   const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
   const [array, setArray] = useState([]);
-
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,10 +47,11 @@ function Availability() {
   return (
     <section className={styles.container}>
       <div className={styles.containerPostulants}>
+        <div className={styles.header}>
+          <Button type={'backBtnPsycho'} onClick={() => history.goBack()} />
+        </div>
         <div className={styles.content}>
-          <h3 className={styles.title}>
-            <span className={styles.bold}>Availability</span>
-          </h3>
+          <h3 className={styles.title}>Availability</h3>
           <span className={styles.subtitle}>
             Please select the hours in which you are available to interview users
           </span>
@@ -872,6 +875,12 @@ function Availability() {
       </div>
     </section>
   );
+}
+
+{
+  /* <button type="submit" className={styles.searchBtn} onClick={handleSubmit}>
+                SEARCH
+              </button> */
 }
 
 export default Availability;
