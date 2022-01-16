@@ -1,0 +1,57 @@
+.title {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font: normal normal normal 25px/30px Century Gothic;
+    color: #002147;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .form div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form div div {
+    padding: 10px;
+    width: 80%;
+    color: #002147;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form label {
+    align-self: start;
+    font-size: 15px;
+    margin-left: 5px;
+    padding-bottom: 10px;
+    font-weight: 900;
+  }
+
+  .form input,
+  .form select {
+    width: 100%;
+    padding: 6px 16px;
+    border: 2px solid #002147;
+    border-radius: 18px;
+    background-color: #f0f4f9;
+    font-size: 14px;
+  }
+
+  .form button {
+    display: flex;
+    justify-content: center;
+  }
+
+  .form select,
+  .form button {
+    cursor: pointer;
+  }
+  .containerFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 35px 20px 35px;
+  }

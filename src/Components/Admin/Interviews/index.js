@@ -75,6 +75,9 @@ function Interviews() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
+  const handleClickInfo = (id) => {
+    history.push(`/admin/interview/${id}`);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -115,6 +118,7 @@ function Interviews() {
                       <td>
                         <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
                         <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
+                        <Button type="info" onClick={() => handleClickInfo(interview._id)} />
                       </td>
                     </tr>
                   ];

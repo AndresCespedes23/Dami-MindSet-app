@@ -34,7 +34,10 @@ function PostulantProfile() {
       <div className={style.profile}>
         <div className={style.header}>
           <div>
-            <Button type={'backBtnPsycho'} />
+            <Button
+              type={'backBtnPsycho'}
+              onClick={() => history.push('/psychologist/postulants/search')}
+            />
           </div>
           <div className={style.headercolumn}>
             <h2>Profile</h2>

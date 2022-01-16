@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-self: center;
   height: fit-content;
+  min-width: 65%;
   margin: 30px;
   padding: 20px 30px;
   border-top: 10px solid #680404;
@@ -22,21 +23,23 @@
   font-size: 20px;
 }
 
-.list div {
+.boxTitle {
   display: flex;
   justify-content: space-between;
+  width: 98%;
 }
 
 .table {
   border-collapse: separate;
   border-spacing: 0 5px;
+  width: 98%;
 }
 
 .table th {
   padding: 10px;
   box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
   background-color: #002147;
-  text-align: center;
+  text-align: left;
   color: #ffffff;
   border: 1px solid #ffffff;
   line-height: 17px;
@@ -46,16 +49,17 @@
   padding: 10px;
   box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
   background-color: #fff;
-  text-align: center;
+  text-align: left;
   line-height: 17px;
 }
 
-
 /* this is for the blue border, it has to be piece by piece*/
 .table th,
-.table tbody td {
+.table td {
   border-top: 2px solid #002147;
   border-bottom: 2px solid #002147;
+  border-left: none;
+  border-right: none;
 }
 
 .table td:first-child,
@@ -68,4 +72,12 @@
 .table th:last-child {
   border-radius: 0 20px 20px 0;
   border-right: 2px solid #002147;
+}
+
+/* status*/
+.statusDone {
+  color: rgb(18, 97, 18);
+}
+.statusPending {
+  color: rgb(218, 11, 11);
 }

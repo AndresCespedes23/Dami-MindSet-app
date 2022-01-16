@@ -13,7 +13,9 @@ function Courses() {
 
   const onSubmit = (formValues) => {
     if (formValues) {
-      dispatch(setCoursesInfo(formValues));
+      if (Object.keys(formValues).length !== 0) {
+        dispatch(setCoursesInfo(formValues));
+      }
       history.push('/postulants/description');
     }
   };

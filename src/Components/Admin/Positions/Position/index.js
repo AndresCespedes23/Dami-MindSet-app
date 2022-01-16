@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from 'Components/Shared/Button';
-import style from './position.module.css';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOnePosition, updatePositions } from 'redux/Positions/thunks';
-import Modal from 'Components/Shared/Modal';
 import { setShowModal, setShowMessage, setModalType } from 'redux/Positions/actions';
 import { Link } from 'react-router-dom';
+import Button from 'Components/Shared/Button';
+import Modal from 'Components/Shared/Modal';
 import Spinner from 'Components/Shared/Spinner';
+import style from './position.module.css';
 
 function Position() {
   const position = useSelector((store) => store.positions.position);

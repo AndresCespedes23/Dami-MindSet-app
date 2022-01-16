@@ -1,18 +1,22 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOnePostulant } from 'redux/Postulants/thunks';
-import { getOneSession } from 'redux/Sessions/thunks';
+import { getPostulantSessions } from 'redux/Sessions/thunks';
 import Button from 'Components/Shared/Button';
 import style from './postulants.module.css';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 
 function Profile() {
   const postulant = useSelector((store) => store.postulants.postulant);
-  const sessions = useSelector((store) => store.sessions.session);
+  const sessions = useSelector((store) => store.sessions.list);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getOnePostulant('61afbc5bfc13ae06eb0005dd'));
-    dispatch(getOneSession('61c27fcfc10d309ebaeb9efc'));
+    dispatch(getOnePostulant(id));
+    dispatch(getPostulantSessions(id));
   }, [dispatch]);
 
   const getAge = (date) => {
@@ -20,16 +24,19 @@ function Profile() {
     let year = date.split('-')[0];
     return today - year;
   };
+  const isChecked = (key) => {
+    return postulant.profiles.some((element) => element.key === key);
+  };
 
   return (
     <section className={style.container}>
       <div className={style.profile}>
         <div className={style.header}>
           <div>
-            <Button type={'backBtnAdmin'} />
+            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/postulants')} />
           </div>
           <div className={style.headercolumn}>
-            <h2>Profile</h2>
+            <h2>Postulant Profile</h2>
             <img
               className={style.loginphoto}
               src={`${process.env.PUBLIC_URL}/assets/images/nophotouser.png`}
@@ -53,7 +60,6 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h4>About me</h4>
-            <Button type={'editInfo'} />
           </div>
           <div>
             <span>{postulant.description}</span>
@@ -62,7 +68,6 @@ function Profile() {
         <div className={style.box}>
           <div className={style.subtitle}>
             <h3>PERSONAL INFORMATION</h3>
-            <Button type={'editInfo'} />
           </div>
           <div className={style.boxinfo}>
             <div>
@@ -106,17 +111,38 @@ function Profile() {
         <h3>Interview</h3>
         <div className={style.box}>
           <div className={style.box}>
-            <div className={style.subtitle}>
-              <Button type={'editInfo'} />
-            </div>
-            <div className={style.boxinfo}>
-              <div>
-                <span>
-                  Interviewed on {sessions.date} {sessions.time}
-                </span>
-              </div>
-            </div>
+            {sessions?.map((session) => {
+              return (
+                <div className={style.boxinfo} key={session._id}>
+                  <span>
+                    Interviewed on {session.date} {session.time}
+                  </span>
+                </div>
+              );
+            })}
           </div>
+        </div>
+        <div>
+          <h3>Profiles</h3>
+          <table>
+            <tbody>
+              {postulant.profiles?.map((profile) => {
+                return [
+                  <tr key={profile._id}>
+                    <td>{profile.name}</td>
+                    <td>
+                      <input
+                        checked={isChecked(profile._id)}
+                        type="checkbox"
+                        value={profile._id}
+                        disabled={true}
+                      />
+                    </td>
+                  </tr>
+                ];
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

@@ -12,6 +12,7 @@ import Message from 'Components/Shared/Message';
 import styles from './psychologists.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import { registerNewUser } from 'redux/Auth/thunks';
+import { useHistory } from 'react-router-dom';
 
 function Psychologists() {
   const psychologists = useSelector((store) => store.psychologists.list);
@@ -22,6 +23,7 @@ function Psychologists() {
   const message = useSelector((state) => state.psychologists.messageText);
   const isLoading = useSelector((store) => store.psychologists.isLoading);
   const dispatch = useDispatch();
+  const history = useHistory();
   const [idActive, setIdActive] = useState('');
 
   useEffect(() => {
@@ -73,6 +75,9 @@ function Psychologists() {
   const handleShowMessage = () => {
     dispatch(setShowMessage(false));
   };
+  const handleClickInfo = (id) => {
+    history.push(`/admin/psychologist/${id}`);
+  };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
 
@@ -115,6 +120,7 @@ function Psychologists() {
                   <td>
                     <Button type="delete" onClick={() => handleClickDelete(psychologist._id)} />
                     <Button type="update" onClick={() => handleClickUpdate(psychologist._id)} />
+                    <Button type="info" onClick={() => handleClickInfo(psychologist._id)} />
                   </td>
                 </tr>
               ];

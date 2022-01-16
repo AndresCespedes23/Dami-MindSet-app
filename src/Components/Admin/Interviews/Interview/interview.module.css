@@ -1,0 +1,106 @@
+.container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .containerInterviews {
+    background-color: #ffffff;
+    height: auto;
+    width: 70%;
+    border-top: 16px solid #610000;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .containerNav {
+    display: flex;
+    align-items: center;
+  }
+  .backBtn {
+    font: 1.1rem Century Gothic;
+    margin: 30px;
+    padding: 5px 15px;
+    background-color: #065500;
+    border-radius: 20px;
+    border: 2px solid #065500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 9px 10px #68686842;
+  }
+  .backBtn:hover {
+    background-color: #002147;
+    color: #ffffff;
+  }
+  .title {
+    font: normal normal bold 25px/30px Century Gothic;
+    color: #091f40;
+  }
+  .interviewsContent {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: auto;
+    width: 90%;
+    margin: auto;
+  }
+  .itemPersonalLong {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .itemPersonalColumn {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .titlePersonal {
+    font: normal normal bold 20px Century Gothic;
+    width: 45%;
+  }
+  .infoPersonal {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 40px;
+    font: normal normal 20px Century Gothic;
+  }
+  .done {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 40px;
+    font: normal bold 20px Century Gothic;
+    color: #095400;
+  }
+  .pending {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 40px;
+    font: normal bold 20px Century Gothic;
+    color: #9b0000;
+  }
+  .profileName {
+    font: normal normal normal 20px/27px Century Gothic;
+    color: #091f40;
+    width: 50%;
+  }
+  tr > td {
+    padding-bottom: 1em;
+  }
+  .notFoundMessage{
+    font: normal normal bold 20px Century Gothic;
+    width: 45%;
+    color: #9b0000;
+    margin: 20px
+  }
+  .flexColumn{
+      display: flex;
+      flex-direction: column;
+  }
