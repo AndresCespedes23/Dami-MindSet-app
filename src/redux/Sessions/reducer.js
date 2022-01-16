@@ -27,7 +27,8 @@ import {
   SHOW_MESSAGE,
   MODAL_TYPE,
   CLEAN_ERROR,
-  CLEAN_SELECTED_SESSION
+  CLEAN_SELECTED_SESSION,
+  CLEAN_AVAILABLE_SESSIONS
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -178,6 +179,12 @@ const sessionsReducer = (state = initialState, action) => {
       return {
         ...state,
         session: initialState.session
+      };
+    }
+    case CLEAN_AVAILABLE_SESSIONS: {
+      return {
+        ...state,
+        list: initialState.list
       };
     }
     case GET_AVAILABLE_SESSIONS_FETCHING:

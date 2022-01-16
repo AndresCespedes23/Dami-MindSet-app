@@ -1123,7 +1123,7 @@ function Summary() {
           <Link to="/postulants/availability">
             <Button type={'back'} text={'BACK'} />
           </Link>
-          <Link to="/postulants/profile">
+          <Link to="/postulants/sessions">
             <Button type={'next'} text={'FINISH'} onClick={handleRegister} />
           </Link>
         </div>

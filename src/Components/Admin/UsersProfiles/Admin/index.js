@@ -5,6 +5,7 @@ import styles from './admin.module.css';
 import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import { setModalType, setShowModal } from 'redux/Positions/actions';
+import { useHistory } from 'react-router-dom';
 
 function AdminProfile() {
   const admin = useSelector((store) => store.admins.admin);
@@ -13,6 +14,7 @@ function AdminProfile() {
   const [idActive, setIdActive] = useState('');
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOneAdmin(sessionStorage.getItem('id')));
@@ -37,7 +39,7 @@ function AdminProfile() {
       <div className={styles.profile}>
         <div className={styles.header}>
           <div>
-            <Button type={'backBtnAdmin'} />
+            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/')} />
           </div>
           <div className={styles.headercolumn}>
             <h2 className={styles.profileTitle}>Profile</h2>
