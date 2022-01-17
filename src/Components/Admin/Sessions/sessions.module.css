@@ -1,71 +1,128 @@
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 95%;
+}
 .container {
   flex: 1;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.list {
+.containerClients {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 16px solid #680404;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: 900;
+  width: 95%;
+  margin-right: auto;
+}
+.headerContent{
+  display: flex;
+  align-items: center;
+}
+.activeClients{
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 90%;
+  margin: auto;
+}
+.searchContainer{
+  width: 50%;
+}
+.searchInput{
+  border-style: double;
+  border-radius: 11px;
+  width: 70%;
+}
+.notFoundMessage{
+  font: normal normal bold 20px Century Gothic;
+  width: 45%;
+  color: #9b0000;
+  margin: 20px
+}
+.contentClients {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-self: center;
-  height: fit-content;
-  margin: 30px;
-  padding: 20px 30px;
-  border-top: 10px solid #680404;
-  border-radius: 10px;
-  background-color: #fff;
-  font-weight: 600;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 10vh;
 }
-
-.list h2 {
-  padding: 10px;
-  font-size: 20px;
+.title {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  font: normal normal normal 25px/30px Century Gothic;
+  color: #002147;
 }
-
-.list div {
+.bold {
+  font-weight: bold;
+}
+.clientsInfo {
   display: flex;
   justify-content: space-between;
-}
-
-.table {
-  border-collapse: separate;
-  border-spacing: 0 5px;
-}
-
-.table th {
+  align-items: center;
+  width: 100%;
+  margin: 0px 30px 10px 30px;
   padding: 10px;
-  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
-  background-color: #002147;
-  text-align: center;
+  border: 3px solid #002147;
+  border-radius: 30px;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.userName {
+  padding-left: 1vw;
+  font: bold 20px Century Gothic;
+}
+.redBtn {
+  margin-left: 1vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #680404;
   color: #ffffff;
-  border: 1px solid #ffffff;
-  line-height: 17px;
+  font: normal normal bold 15px/18px Century Gothic;
+  font-weight: lighter;
 }
-
-.table td {
-  padding: 10px;
-  box-shadow: 5px 5px rgba(6, 8, 104, 0.05);
-  background-color: #fff;
-  text-align: center;
-  line-height: 17px;
+.greenBtn {
+  margin-left: 1vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #065500;
+  color: #ffffff;
+  font: normal normal bold 15px/18px Century Gothic;
+  font-weight: lighter;
 }
-
-
-/* this is for the blue border, it has to be piece by piece*/
-.table th,
-.table tbody td {
-  border-top: 2px solid #002147;
-  border-bottom: 2px solid #002147;
+.redBtn:hover,
+.greenBtn:hover {
+  background-color: #002147;
+  cursor: pointer;
 }
-
-.table td:first-child,
-.table th:first-child {
-  border-radius: 20px 0 0 20px;
-  border-left: 2px solid #002147;
+.blueBtn{
+  margin-left: 1vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #002147;
+  color: #ffffff;
+  font: normal normal bold 15px/18px Century Gothic;
+  font-weight: lighter;
 }
-
-.table td:last-child,
-.table th:last-child {
-  border-radius: 0 20px 20px 0;
-  border-right: 2px solid #002147;
+.blueBtn:hover {
+  background-color: #680404;
+  cursor: pointer;
+}
+.tableHead{
+  font-weight: bold
 }

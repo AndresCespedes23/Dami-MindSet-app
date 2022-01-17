@@ -103,15 +103,13 @@ const deleteApplicationRejected = () => ({
 
 export const deleteApplication = (id) => (dispatch) => {
   dispatch(deleteApplicationFetching());
-  return fetch(
-    `${URL}/${id}`,
-    {
-      headers: {
-        token: sessionStorage.getItem('token')
-      }
-    },
-    { method: 'DELETE' }
-  )
+  return fetch(`${URL}/remove/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+      token: sessionStorage.getItem('token')
+    }
+  })
     .then((response) => {
       if (response.status === 200 || response.status === 201) return response.json();
       throw new Error(`HTTP ${response.status}`);

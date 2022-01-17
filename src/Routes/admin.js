@@ -20,6 +20,7 @@ import Statistics from 'Components/Admin/Statistics';
 import Position from 'Components/Admin/Positions/Position';
 import Client from 'Components/Admin/Clients/Client';
 import Interview from 'Components/Admin/Interviews/Interview';
+import Session from 'Components/Admin/Sessions/Session';
 
 const adminsRoutes = [
   { name: 'Admins', path: '/admin/admins/' },
@@ -56,6 +57,8 @@ const AdminRoutes = () => {
         <PrivateRouteAdmin path={`${url}/psychologists`} component={PsychologistsStates} />
         <PrivateRouteAdmin path={`${url}/psychologist/:id`} component={PsychologistsProfile} />
         <PrivateRouteAdmin path={`${url}/sessions`} component={Sessions} />
+        <PrivateRouteAdmin path={`${url}/session/:id`} component={Session} />
+        <PrivateRouteAdmin path={`${url}/psychologists`} component={PsychologistsStates} />
         <PrivateRouteAdmin path={`${url}/profile/administrator`} component={AdminProfile} />
         <PrivateRouteAdmin path={`${url}/statistics`} component={Statistics} />
         <PrivateRouteAdmin to={`${url}/`} component={Home} />

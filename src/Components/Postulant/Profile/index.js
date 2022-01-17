@@ -6,6 +6,7 @@ import Button from 'Components/Shared/Button';
 import style from './profile.module.css';
 import Spinner from 'Components/Shared/Spinner';
 import Modal from 'Components/Postulant/Profile/Modal';
+import { useHistory } from 'react-router-dom';
 
 function Profile() {
   const [idActive, setIdActive] = useState('');
@@ -14,6 +15,7 @@ function Profile() {
   const modalType = useSelector((state) => state.postulants.modalType);
   const isLoading = useSelector((store) => store.postulants.isLoading);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOnePostulant(sessionStorage.getItem('id')));
@@ -80,7 +82,6 @@ function Profile() {
   const handleUpdateCourse = (course, idCourse) => {
     const index = postulant.courses.findIndex((x) => x._id == idCourse);
     index !== -1 ? (postulant.courses[index] = course) : postulant.courses.push(course);
-    console.log(postulant.courses);
     dispatch(updatePostulant(postulant, idActive)).then(() => {
       dispatch(getOnePostulant(sessionStorage.getItem('id')));
     });
@@ -110,13 +111,12 @@ function Profile() {
   };
 
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
-  console.log(postulant);
   return (
     <section className={style.container}>
       <div className={style.profile}>
         <div className={style.header}>
           <div>
-            <Button type={'back'} />
+            <Button type={'back'} onClick={() => history.push('/postulants/home')} />
           </div>
           <div className={style.headercolumn}>
             <h2>Profile</h2>

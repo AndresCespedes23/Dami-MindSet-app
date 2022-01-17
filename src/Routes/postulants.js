@@ -17,6 +17,7 @@ import InterviewDetails from 'Components/Postulant/InterviewDetails';
 import Availability from 'Components/Postulant/Availability';
 import Sessions from 'Components/Postulant/Sessions';
 import CompletedInterviews from 'Components/Postulant/CompletedInterviews';
+import Session from 'Components/Postulant/Sessions/Session';
 
 const PostulantRoutes = () => {
   const { url } = useRouteMatch();
@@ -40,6 +41,7 @@ const PostulantRoutes = () => {
         <PrivateRoutePostulant path={`${url}/summary`} component={Summary} />
         <PrivateRoutePostulant path={`${url}/profile`} component={Profile} />
         <PrivateRoutePostulant path={`${url}/sessions`} component={Sessions} />
+        <PrivateRoutePostulant path={`${url}/session/:id`} component={Session} />
         <PrivateRoutePostulant path={`${url}/interview/:id`} component={InterviewDetails} />
         <PrivateRoutePostulant path={`${url}/home`} component={HomeLogged} />
         <Redirect to={`${url}/`} component={Home} />

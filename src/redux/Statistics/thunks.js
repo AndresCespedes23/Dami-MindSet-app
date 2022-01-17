@@ -32,7 +32,6 @@ export const getQuantityStatistics = () => {
         throw new Error(`HTTP ${response.status}`);
       })
       .then((response) => {
-        console.log(response.data);
         dispatch(getQuantityStatisticsFulfilled(response.data));
       })
       .catch(() => {

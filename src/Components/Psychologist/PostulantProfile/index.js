@@ -34,7 +34,7 @@ function PostulantProfile() {
       <div className={style.profile}>
         <div className={style.header}>
           <div>
-            <Button type={'backBtnPsycho'} />
+            <Button type={'backBtnPsycho'} onClick={() => history.goBack()} />
           </div>
           <div className={style.headercolumn}>
             <h2>Profile</h2>

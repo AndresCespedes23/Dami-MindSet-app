@@ -1,10 +1,9 @@
-import Button from 'Components/Shared/Button';
 import Message from 'Components/Shared/Message';
 import Modal from 'Components/Shared/Modal';
 import Spinner from 'Components/Shared/Spinner';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setModalType, setShowMessage, setShowModal } from 'redux/Postulants/actions';
+import { setShowMessage, setShowModal } from 'redux/Postulants/actions';
 import { searchPostulants } from 'redux/Postulants/thunks';
 import {
   addPostulant,
@@ -47,12 +46,6 @@ function Postulants() {
       dispatch(setShowMessage(true));
       dispatch(getPostulants());
     });
-  };
-
-  const handleClickAdd = () => {
-    dispatch(setModalType('postulants'));
-    setIdActive('');
-    dispatch(setShowModal(true));
   };
 
   const handleAddPostulant = (postulant) => {
@@ -107,7 +100,6 @@ function Postulants() {
           {showMessage && (
             <Message type={messageType} message={message} showMessage={handleShowMessage} />
           )}
-          <Button type="addNew" text={'POSTULANT'} onClick={handleClickAdd} />
         </div>
         <section className={styles.container}>
           <div className={styles.containerInterviews}>
@@ -194,7 +186,12 @@ function Postulants() {
                               >
                                 CANCEL INTERVIEW
                               </button>
-                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
+                              <button
+                                className={styles.redBtn}
+                                onClick={() => handleClickInfo(postulant._id)}
+                              >
+                                DETAILS
+                              </button>
                             </td>
                           </tr>
                         );
@@ -223,8 +220,13 @@ function Postulants() {
                                 }
                               >
                                 DEACTIVATE
+                              </button>{' '}
+                              <button
+                                className={styles.redBtn}
+                                onClick={() => handleClickInfo(postulant._id)}
+                              >
+                                DETAILS
                               </button>
-                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );
@@ -252,8 +254,13 @@ function Postulants() {
                                 }
                               >
                                 ACTIVATE
+                              </button>{' '}
+                              <button
+                                className={styles.redBtn}
+                                onClick={() => handleClickInfo(postulant._id)}
+                              >
+                                DETAILS
                               </button>
-                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );
@@ -282,8 +289,13 @@ function Postulants() {
                                 }
                               >
                                 Make Unavailable
+                              </button>{' '}
+                              <button
+                                className={styles.redBtn}
+                                onClick={() => handleClickInfo(postulant._id)}
+                              >
+                                DETAILS
                               </button>
-                              <Button type="info" onClick={() => handleClickInfo(postulant._id)} />
                             </td>
                           </tr>
                         );

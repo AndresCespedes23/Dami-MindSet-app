@@ -1,48 +1,131 @@
-  .container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .containerrutes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 40%;
-    max-height: 20%;
-  }
-  
-  .rutes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px 40px;
-    border-top: 10px solid #065500;
-    border-radius: 10px;
-    background-color: #fff;
-  }
-  
-  .rutes a {
-    display: block;
-    max-width: 200px;
-    min-width: 200px;
-    margin: 10px;
-    padding: 20px;
-    border: 2px solid #065500;
-    border-radius: 5px;
-    box-shadow: 5px 5px rgba(0, 0, 0, 0.05);
-    background-color: #fff;
-    color: #065500;
-    font-weight: bold;
-    font-size: 1rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  
-  .rutes a:hover {
-    color: #fff;
-    background-color: #065500;
-  }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 95%;
+}
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.containerPostulants {
+  background-color: #ffffff;
+  height: auto;
+  width: 70%;
+  border-top: 16px solid #065500;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.backBtn,
+.availabilityBtn,
+.searchBtn,
+.completedInterviewsBtn {
+  font: 1.1rem Century Gothic;
+  margin: 30px;
+  padding: 5px 15px;
+  background-color: #065500;
+  border-radius: 20px;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.backBtn:hover {
+  background-color: #002147;
+  color: #ffffff;
+  cursor: pointer;
+}
+.content {
+  margin-bottom: 40px;
+}
+.unassigned {
+  margin: 30px;
+  font: normal normal normal 45px/50px Century Gothic;
+  color: #002147;
+}
+.title {
+  margin-left: 30px;
+  margin-bottom: 10px;
+  font: normal normal normal 25px/30px Century Gothic;
+  color: #002147;
+}
+.bold {
+  font-weight: bold;
+}
+.Info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0px 30px 10px 30px;
+  padding: 10px;
+  border: 3px solid #002147;
+  border-radius: 30px;
+  box-shadow: 5px 9px 10px #68686842;
+}
+.dates {
+  padding-left: 1vw;
+}
+.userName {
+  padding-left: 1vw;
+  font: bold 20px Century Gothic;
+  width: 15vw;
+}
+.assignBtn {
+  margin-left: 5vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #091f40;
+  color: #ffffff;
+  font-weight: lighter;
+}
+.rescheduleBtn {
+  margin-left: 9vw;
+  padding: 5px 40px;
+  border-radius: 15px;
+  border: none;
+  background: #940303f3;
+  color: #ffffff;
+  font-weight: lighter;
+}
+.assignBtn:hover,
+.rescheduleBtn:hover {
+  background-color: #550000;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.bottomBtns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bottomBtns > .availabilityBtn {
+  background-color: #af8e0b;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
+}
+.bottomBtns > .searchBtn {
+  background-color: #091f40;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
+}
+
+.bottomBtns > .completedInterviewsBtn {
+  background-color: #0c7700;
+  box-shadow: 5px 10px 20px #00000029;
+  border-radius: 10px;
+}
+
+.availabilityBtn:hover,
+.searchBtn:hover,
+.completedInterviewsBtn:hover {
+  background-color: #2b4274;
+  cursor: pointer;
+}

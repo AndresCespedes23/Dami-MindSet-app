@@ -3,13 +3,20 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnePsychologist, updatePsychologist } from 'redux/Psychologists/thunks';
 import styles from './availability.module.css';
+import Button from 'Components/Shared/Button';
+import { useHistory } from 'react-router-dom';
+import Message from 'Components/Shared/Message';
+import { setShowMessage } from 'redux/Psychologists/actions';
 
 function Availability() {
   const psychologist = useSelector((store) => store.psychologists.psychologist);
   const isLoadingForm = useSelector((store) => store.psychologists.isLoadingForm);
   const [array, setArray] = useState([]);
-
+  const history = useHistory();
   const dispatch = useDispatch();
+  const showMessage = useSelector((state) => state.psychologists.showMessage);
+  const message = useSelector((state) => state.psychologists.messageText);
+  const messageType = useSelector((state) => state.psychologists.messageType);
 
   useEffect(() => {
     dispatch(getOnePsychologist(sessionStorage.getItem('id'))).then((resp) => {
@@ -17,11 +24,18 @@ function Availability() {
     });
   }, [dispatch]);
 
+  const handleShowMessage = () => {
+    dispatch(setShowMessage(false));
+  };
+
   const onSubmit = () => {
     psychologist.availability = array;
-    console.log(psychologist);
-    dispatch(updatePsychologist(psychologist, sessionStorage.getItem('id')));
+    dispatch(updatePsychologist(psychologist, sessionStorage.getItem('id'))).then(() => {
+      dispatch(getOnePsychologist(sessionStorage.getItem('id')));
+    });
+    dispatch(setShowMessage(true));
   };
+
   const handleChange = (e) => {
     if (e.target.checked) {
       setArray([
@@ -45,10 +59,16 @@ function Availability() {
   return (
     <section className={styles.container}>
       <div className={styles.containerPostulants}>
+        <div className={styles.header}>
+          <Button type={'backBtnPsycho'} onClick={() => history.goBack()} />
+        </div>
         <div className={styles.content}>
-          <h3 className={styles.title}>
-            <span className={styles.bold}>Availability</span>
-          </h3>
+          <div className={styles.successMessage}>
+            <h3 className={styles.title}>Availability</h3>
+            {showMessage && (
+              <Message type={messageType} message={message} showMessage={handleShowMessage} />
+            )}
+          </div>
           <span className={styles.subtitle}>
             Please select the hours in which you are available to interview users
           </span>

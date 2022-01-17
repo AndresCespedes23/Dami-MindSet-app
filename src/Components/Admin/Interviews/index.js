@@ -12,7 +12,7 @@ import Button from 'Components/Shared/Button';
 import Modal from 'Components/Shared/Modal';
 import Message from 'Components/Shared/Message';
 import Spinner from 'Components/Shared/Spinner';
-import { FaCheckCircle, FaClock } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 function Interviews() {
   const [idActive, setIdActive] = useState('');
@@ -24,6 +24,7 @@ function Interviews() {
   const showModal = useSelector((state) => state.interviews.showModal);
   const modalType = useSelector((state) => state.interviews.modalType);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getInterviews());
@@ -83,46 +84,43 @@ function Interviews() {
 
   return (
     <section className={styles.container}>
-      <div className={styles.list}>
-        <div>
-          <h2>Interviews</h2>
-          {showMessage && (
-            <Message type={messageType} message={message} showMessage={handleShowMessage} />
-          )}
-          <Button type="addNew" text={'INTERVIEW'} onClick={handleClickAdd} />
+      <div className={styles.containerClients}>
+        <div className={styles.header}>
+          <div className={styles.headerContent}>
+            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/home')} />
+            <h2>Interviews</h2>
+            {showMessage && (
+              <Message type={messageType} message={message} showMessage={handleShowMessage} />
+            )}
+          </div>
+          <div className={styles.headerContent}>
+            <Button type="addNew" text={'INTERVIEW'} onClick={handleClickAdd} />
+          </div>
         </div>
-        <div>
+        <div className={styles.contentClients}>
           <table className={styles.table}>
             <thead>
-              <tr>
-                <th>Candidate</th>
-                <th>Client</th>
-                <th>Position</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Action</th>
+              <tr className={styles.clientsInfo}>
+                <th className={styles.tableHead}>Candidate</th>
+                <th className={styles.tableHead}>Client</th>
+                <th className={styles.tableHead}>Date</th>
+                <th className={styles.tableHead}>Action</th>
               </tr>
             </thead>
             <tbody>
               {interviews.map((interview) => {
-                if (interview.idCandidate && interview.idClient && interview.idPosition) {
-                  return [
-                    <tr key={interview._id}>
-                      <td>{interview.idCandidate.name}</td>
-                      <td>{interview.idClient.name}</td>
-                      <td>{interview.idPosition.name}</td>
-                      <td>{interview.dateTime.split('T')[0]}</td>
-                      <td className={styles[interview.status.toLowerCase()]}>
-                        {interview.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                      </td>
-                      <td>
-                        <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
-                        <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
-                        <Button type="info" onClick={() => handleClickInfo(interview._id)} />
-                      </td>
-                    </tr>
-                  ];
-                }
+                return [
+                  <tr key={interview._id} className={styles.clientsInfo}>
+                    <td className={styles.userName}>{interview.idCandidate.name}</td>
+                    <td className={styles.userName}>{interview.idClient.name}</td>
+                    <td className={styles.userName}>{interview.dateTime.split('T')[0]}</td>
+                    <td>
+                      <Button type="delete" onClick={() => handleDeleteClick(interview._id)} />
+                      <Button type="update" onClick={() => handleUpdateClick(interview._id)} />
+                      <Button type="info" onClick={() => handleClickInfo(interview._id)} />
+                    </td>
+                  </tr>
+                ];
               })}
             </tbody>
           </table>
