@@ -47,7 +47,6 @@ function ChangeInterviewed() {
     let year = date.split('-')[0];
     return today - year;
   };
-  console.log(session);
   if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
   return (
     <section className={styles.container}>
