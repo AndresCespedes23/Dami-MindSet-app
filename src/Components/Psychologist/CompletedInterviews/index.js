@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSessions } from 'redux/Sessions/thunks';
 import styles from './completed-interviews.module.css';
-import { FaCheckCircle, FaClock } from 'react-icons/fa';
 import Button from 'Components/Shared/Button';
 import { useHistory } from 'react-router-dom';
 
@@ -31,10 +30,7 @@ function CompletedInterviews() {
                       <td className={styles.userName}>{session.idCandidate?.name}</td>
                       <div>
                         <td className={styles.date}>{session.date}</td>
-                        <td className={styles.time}>
-                          {session.time}
-                          {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                        </td>
+                        <td className={styles.time}>{session.time}</td>
                       </div>
                       <td>
                         <button
@@ -66,15 +62,14 @@ function CompletedInterviews() {
                       <td className={styles.userName}>{session?.idCandidate?.name}</td>
                       <div>
                         <td className={styles.date}>{session.date}</td>
-                        <td className={styles.time}>
-                          {session.time}
-                          {session.status === 'DONE' ? <FaCheckCircle /> : <FaClock />}
-                        </td>
+                        <td className={styles.time}>{session.time}</td>
                       </div>
                       <td>
                         <button
                           className={styles.detailsBtn}
-                          onClick={() => history.push(`/psychologist/interview/${session._id}`)}
+                          onClick={() =>
+                            history.push(`/psychologist/change-interviewed/${session._id}`)
+                          }
                         >
                           DETAILS
                         </button>
