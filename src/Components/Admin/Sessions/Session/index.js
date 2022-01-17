@@ -32,7 +32,7 @@ function Session() {
       <section className={styles.container}>
         <div className={styles.containerInterviews}>
           <div className={styles.containerNav}>
-            <Button type={'backBtnAdmin'} onClick={() => history.push('/admin/sessions')} />
+            <Button type={'backBtnAdmin'} onClick={() => history.goBack()} />
             <h2 className={styles.title}>Session details</h2>
           </div>
           <div className={styles.interviewsContent}>

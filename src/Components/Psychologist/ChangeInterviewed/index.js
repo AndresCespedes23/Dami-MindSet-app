@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getOneSession } from 'redux/Sessions/thunks';
+import { getOneSession, updateSessions } from 'redux/Sessions/thunks';
 import { getProfiles } from 'redux/Profiles/thunks';
 import styles from './change-interviewed.module.css';
 import Spinner from 'Components/Shared/Spinner';
@@ -31,14 +31,16 @@ function ChangeInterviewed() {
       setCheck((prevState) => prevState.filter((item) => item !== e.target.value));
     }
   };
+
   const isChecked = (key) => {
     return check?.some((element) => element === key);
   };
+
   const onSubmit = () => {
-    // psychologist.availability = array;
-    // dispatch(updatePsychologist(psychologist, sessionStorage.getItem('id')));
-    console.log(check);
+    session.result = check;
+    dispatch(updateSessions(session, id));
   };
+
   const getAge = (date) => {
     let today = new Date().getFullYear();
     let year = date.split('-')[0];

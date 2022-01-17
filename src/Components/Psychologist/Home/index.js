@@ -26,11 +26,11 @@ function Home() {
           </h3>
           <table>
             <tbody>
-              {postulants.map((postulant) => {
+              {postulants?.map((postulant) => {
                 if (postulant.status === 'PENDING INTERVIEW') {
                   return (
                     <tr key={postulant._id} className={styles.Info}>
-                      <td className={styles.userName}>{postulant.name}</td>
+                      <td className={styles.userName}>{postulant?.name}</td>
                       <td>
                         <button
                           onClick={() => history.push(`/psychologist/postulant/${postulant._id}`)}
@@ -52,11 +52,11 @@ function Home() {
           </h3>
           <table>
             <tbody>
-              {sessions.map((session) => {
+              {sessions?.map((session) => {
                 if (session.status === 'PENDING') {
                   return (
                     <tr key={session._id} className={styles.Info}>
-                      <td className={styles.userName}>{session.idCandidate.name}</td>
+                      <td className={styles.userName}>{session.idCandidate?.name}</td>
                       <span>
                         <td className={styles.dates}>{session.date.split('T')[0]}</td>
                         <td className={styles.dates}>{session.time}</td>

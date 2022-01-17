@@ -24,11 +24,11 @@ function CompletedInterviews() {
           </h3>
           <table>
             <tbody>
-              {sessions.map((session) => {
+              {sessions?.map((session) => {
                 if (session.status === 'PENDING') {
                   return [
                     <tr key={session._id} className={styles.interviewsInfo}>
-                      <td className={styles.userName}>{session.idCandidate.name}</td>
+                      <td className={styles.userName}>{session.idCandidate?.name}</td>
                       <div>
                         <td className={styles.date}>{session.date}</td>
                         <td className={styles.time}>
@@ -59,11 +59,11 @@ function CompletedInterviews() {
           </h3>
           <table>
             <tbody>
-              {sessions.map((session) => {
+              {sessions?.map((session) => {
                 if (session.status === 'DONE') {
                   return [
                     <tr key={session._id} className={styles.interviewsInfo}>
-                      <td className={styles.userName}>{session.idCandidate.name}</td>
+                      <td className={styles.userName}>{session?.idCandidate?.name}</td>
                       <div>
                         <td className={styles.date}>{session.date}</td>
                         <td className={styles.time}>
