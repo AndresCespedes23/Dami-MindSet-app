@@ -38,6 +38,7 @@ function PsychologistsStates() {
       dispatch(getPsychologistsAdmin());
     });
   };
+
   const handleShowModal = () => {
     dispatch(setShowModal(false));
   };
@@ -56,6 +57,7 @@ function PsychologistsStates() {
   const handleClickInfo = (id) => {
     history.push(`/admin/psychologist/${id}`);
   };
+
   // const handleDelete = (id, psychologist) => {
   //   dispatch(deletePsychologist(psychologist, id)).then(() => {
   //     dispatch(getPsychologistsAdmin());
@@ -79,13 +81,13 @@ function PsychologistsStates() {
         <div className={styles.contentPsychologists}>
           <h3 className={styles.title}>Pending Approval</h3>
           <table>
-            <tbody>
+            <tbody className={styles.table}>
               {psychologists.map((psychologist) => {
                 if (psychologist.status === 'UNAVAILABLE' && psychologist.isDeleted === false) {
                   return [
                     <tr key={psychologist._id} className={styles.psychologistsInfo}>
                       <td className={styles.userName}>{psychologist.name}</td>
-                      <td>E.N°: {psychologist.enrollmentNumber}</td>
+                      <td className={styles.enroll}>E.N°: {psychologist.enrollmentNumber}</td>
                       <td>
                         <button
                           className={styles.redBtn}
@@ -120,13 +122,13 @@ function PsychologistsStates() {
           <div className={styles.contentPsychologists}></div>
           <h3 className={styles.title}>Active Psychologists</h3>
           <table>
-            <tbody>
+            <tbody className={styles.table}>
               {psychologists.map((psychologist) => {
                 if (psychologist.status === 'AVAILABLE' && psychologist.isDeleted === false) {
                   return [
                     <tr key={psychologist._id} className={styles.psychologistsInfo}>
                       <td className={styles.userName}>{psychologist.name}</td>
-                      <td>E.N°: {psychologist.enrollmentNumber}</td>
+                      <td className={styles.enroll}>E.N°: {psychologist.enrollmentNumber}</td>
                       <td>
                         <button
                           className={styles.redBtn}
@@ -151,13 +153,13 @@ function PsychologistsStates() {
         <div className={styles.contentPsychologists}>
           <h3 className={styles.title}>Disabled Psychologists</h3>
           <table>
-            <tbody>
+            <tbody className={styles.table}>
               {psychologists.map((psychologist) => {
                 if (psychologist.isDeleted === true) {
                   return [
                     <tr key={psychologist._id} className={styles.psychologistsInfo}>
                       <td className={styles.userName}>{psychologist.name}</td>
-                      <td>E.N°: {psychologist.enrollmentNumber}</td>
+                      <td className={styles.enroll}>E.N°: {psychologist.enrollmentNumber}</td>
                       <td>
                         {/* <button
                           className={styles.redBtn}
