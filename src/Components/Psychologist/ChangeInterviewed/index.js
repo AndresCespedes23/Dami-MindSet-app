@@ -19,7 +19,7 @@ function ChangeInterviewed() {
 
   useEffect(() => {
     dispatch(getOneSession(id)).then((res) => {
-      setCheck([...res.idCandidate.profiles]);
+      setCheck([...res.result]);
     });
     dispatch(getProfiles());
   }, [dispatch]);
