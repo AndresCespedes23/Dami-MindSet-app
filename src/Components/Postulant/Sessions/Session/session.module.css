@@ -8,12 +8,11 @@
   background-color: #ffffff;
   height: auto;
   width: 70%;
-  border-top: 16px solid #065500;
+  border-top: 10px solid #002147;
   border-radius: 15px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 15px;
+  margin: 40px;
+  padding: 20px 40px;
 }
 .header {
   display: flex;
@@ -59,8 +58,9 @@
   font-size: 2rem;
   font-weight: 700;
 }
-td {
+.td {
   border-style : hidden!important;
+  width: 200px;
  }
  .btnSave {
   font: 1.1rem Century Gothic;
@@ -91,4 +91,23 @@ td {
 }
 .pending {
   background-color: rgb(124, 10, 10);
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.header Button {
+  box-shadow: 5px 10px 20px #00000029;
+}
+
+.header Button:hover {
+  cursor: pointer;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin-left: 20px;
+  font-weight: 600;
 }

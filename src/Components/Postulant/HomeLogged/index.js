@@ -7,11 +7,14 @@ import styles from './homeLogged.module.css';
 import { useHistory } from 'react-router-dom';
 import Modal from 'Components/Postulant/Profile/Modal';
 import { setModalType, setShowModal } from 'redux/Positions/actions';
+import { getPostulantSessions } from 'redux/Sessions/thunks';
 
 function HomeLogged() {
   const postulant = useSelector((store) => store.postulants.postulant);
   const interviews = useSelector((store) => store.interviews.list);
-  const isLoading = useSelector((store) => store.postulants.isLoading);
+  const isLoading = useSelector((store) => store.interviews.isLoading);
+  const isLoadingSession = useSelector((store) => store.sessions.isLoading);
+  const sessions = useSelector((store) => store.sessions.list);
   const showModal = useSelector((state) => state.postulants.showModal);
   const modalType = useSelector((state) => state.postulants.modalType);
   const dispatch = useDispatch();
@@ -20,6 +23,7 @@ function HomeLogged() {
   useEffect(() => {
     dispatch(getOnePostulant(sessionStorage.getItem('id')));
     dispatch(getPendingInterview(sessionStorage.getItem('id')));
+    dispatch(getPostulantSessions(sessionStorage.getItem('id')));
   }, [dispatch]);
 
   const handleClickUpdateAvailability = () => {
@@ -34,8 +38,8 @@ function HomeLogged() {
   const handleShowModal = () => {
     dispatch(setShowModal(false));
   };
-
-  if (isLoading) return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
+  if (isLoading || isLoadingSession)
+    return <Spinner type="ThreeDots" color="#002147" height={80} width={80} />;
   return (
     <section className={styles.container}>
       <div className={styles.containerSummary}>
@@ -72,6 +76,40 @@ function HomeLogged() {
                     </tr>
                   );
                 })}
+              </tbody>
+            </table>
+          )}
+          <h3 className={styles.subtitle}>Psychologist Session:</h3>
+          {interviews.length === 0 ? (
+            <h3 className={styles.notFoundMessage}>Session not found</h3>
+          ) : (
+            <table className={styles.table}>
+              <tbody>
+                <tr className={styles.trTable}>
+                  <td className={styles.tableColumn}>
+                    <span className={styles.mainInfo}>
+                      {sessions[0].idPsychologist.name} - {sessions[0].idPsychologist.email}
+                    </span>
+                    <span className={styles.subInfo}>
+                      {sessions[0].date} - {sessions[0].time}
+                    </span>
+                  </td>
+                  <td className={styles.tdDetails}>
+                    <button
+                      onClick={() => history.push(`/postulants/session/${sessions[0]._id}`)}
+                      className={styles.btnDetails}
+                    >
+                      VIEW DETAILS
+                    </button>
+                  </td>
+                  <td className={styles.tdCancel}>
+                    {sessions[0].status === 'PENDING' ? (
+                      <button className={styles.btnCancel}>CANCEL</button>
+                    ) : (
+                      <></>
+                    )}
+                  </td>
+                </tr>
               </tbody>
             </table>
           )}
