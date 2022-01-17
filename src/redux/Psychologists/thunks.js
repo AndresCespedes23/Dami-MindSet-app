@@ -172,7 +172,6 @@ export const addPsychologist = (psychologist) => (dispatch) => {
 };
 
 export const updatePsychologist = (psychologist, id) => (dispatch) => {
-  console.log(id);
   dispatch(updatePsychologistFetching());
   return fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',

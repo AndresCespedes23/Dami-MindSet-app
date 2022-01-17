@@ -25,7 +25,6 @@ function ProfilesForm({ id, handleSubmit, handleShowModal }) {
   const onSubmit = (formValues) => {
     handleSubmit(formValues);
     handleShowModal(false);
-    console.log(formValues);
   };
 
   const validate = (formValues) => {
