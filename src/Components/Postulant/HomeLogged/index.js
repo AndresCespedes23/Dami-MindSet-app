@@ -25,7 +25,6 @@ function HomeLogged() {
     dispatch(getPendingInterview(sessionStorage.getItem('id')));
     dispatch(getPostulantSessions(sessionStorage.getItem('id')));
   }, [dispatch]);
-
   const handleClickUpdateAvailability = () => {
     dispatch(setModalType('availability'));
     dispatch(setShowModal(true));
@@ -48,7 +47,7 @@ function HomeLogged() {
         </div>
         <div className={styles.containerBody}>
           <h3 className={styles.subtitle}>Upcoming interviews:</h3>
-          {interviews.length === 0 ? (
+          {interviews?.length === 0 ? (
             <h3 className={styles.notFoundMessage}>Interviews not found</h3>
           ) : (
             <table className={styles.table}>
@@ -80,7 +79,7 @@ function HomeLogged() {
             </table>
           )}
           <h3 className={styles.subtitle}>Psychologist Session:</h3>
-          {interviews.length === 0 ? (
+          {sessions?.length === 0 ? (
             <h3 className={styles.notFoundMessage}>Session not found</h3>
           ) : (
             <table className={styles.table}>
@@ -88,7 +87,7 @@ function HomeLogged() {
                 <tr className={styles.trTable}>
                   <td className={styles.tableColumn}>
                     <span className={styles.mainInfo}>
-                      {sessions[0].idPsychologist.name} - {sessions[0].idPsychologist.email}
+                      {sessions[0].idPsychologist?.name} - {sessions[0].idPsychologist?.email}
                     </span>
                     <span className={styles.subInfo}>
                       {sessions[0].date} - {sessions[0].time}
